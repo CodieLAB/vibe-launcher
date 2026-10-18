@@ -9,7 +9,7 @@ questions about which apps you use, and it does the rest on the real TV.
 
 | Stock home screen | After |
 |---|---|
-| ![Stock Google TV home with a sponsored ad](docs/stock-home.jpg) | ![tvOS-style launcher](docs/new-home.jpg) |
+| ![Stock Google TV home with a sponsored ad](docs/stock-home.jpg) | ![Vibe Launcher home with a backdrop still](docs/new-home.jpg) |
 
 Everything is reversible: packages are disabled, never uninstalled, and a restore script puts the
 stock launcher back.
@@ -43,6 +43,8 @@ step with screenshots from the TV. If you'd rather do it by hand, the pieces are
 **Vibe Launcher** (`com.maydings.vibelauncher`) is a small native Android TV home screen built for sets
 with 1 GB of RAM. It runs on Android 8.0+ and targets API 34, so Play Protect lets you install it on
 Android 11+ devices such as the Shield.
+
+![App grid with the glass highlight, Sony XBR-940E](docs/launcher-grid.jpg)
 
 **Home screen**
 
