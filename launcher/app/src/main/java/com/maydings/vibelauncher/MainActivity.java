@@ -20,6 +20,7 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -483,6 +484,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         LinearLayout rows = panel.findViewById(R.id.rows);
         PopupWindow popup = newMenu(panel);
 
+        // Which device this is (Settings > About), to tell the TVs and the Shield apart.
+        String name = Settings.Global.getString(getContentResolver(), Settings.Global.DEVICE_NAME);
+        name = name == null || name.trim().isEmpty() ? Build.MODEL : name.trim();
+        addInfoRow(rows, R.drawable.ic_livetv, name, name.equalsIgnoreCase(Build.MODEL) ? null : Build.MODEL);
+        addSeparator(rows);
+        int firstNetworkRow = rows.getChildCount();
+
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm != null) {
             for (Network net : cm.getAllNetworks()) {
@@ -514,7 +522,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 addInfoRow(rows, icon, iface != null ? type + " (" + iface + ")" : type, ip);
             }
         }
-        if (rows.getChildCount() == 0) {
+        if (rows.getChildCount() == firstNetworkRow) {
             addInfoRow(rows, R.drawable.ic_wifi, getString(R.string.offline), null);
         }
         addSeparator(rows);
