@@ -362,6 +362,10 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
         return items.size();
     }
 
+    String packageAt(int position) {
+        return isApp(position) ? items.get(position).pkg : null;
+    }
+
     String labelAt(int position) {
         return position >= 0 && position < items.size() ? items.get(position).label : "";
     }

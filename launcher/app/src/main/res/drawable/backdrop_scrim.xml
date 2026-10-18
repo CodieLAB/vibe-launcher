@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Darkens a backdrop still so the clock (top), title and dock (bottom) stay legible. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient
+        android:angle="270"
+        android:startColor="#B3000000"
+        android:centerColor="#40000000"
+        android:centerY="0.38"
+        android:endColor="#F2000000" />
+</shape>

@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
@@ -67,6 +68,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private GradientDrawable ambientGlow;
     private int ambientColor;
     private boolean heroShown;
+    private View backdrop;
+    private ImageView backdropImage;
+    private Backdrops backdrops;
+    /** The dock app whose backdrop is showing or loading, or null. */
+    private String backdropPkg;
     private TextView btnWifi;
     private SpringAnimation springX, springY;
     private float glassTargetX, glassTargetY;
@@ -98,6 +104,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         glass = findViewById(R.id.glass);
         ambient = findViewById(R.id.ambient);
         heroName = findViewById(R.id.heroName);
+        backdrop = findViewById(R.id.backdrop);
+        backdropImage = findViewById(R.id.backdropImage);
+        backdrops = new Backdrops(this);
         ambientGlow = new GradientDrawable();
         ambientGlow.setGradientType(GradientDrawable.RADIAL_GRADIENT);
         ambientGlow.setGradientCenter(0.32f, 0.42f);
@@ -179,6 +188,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         heroName.setAlpha(0f);
         ambient.setAlpha(0f);
         adapter.reload();
+        backdropPkg = null;
+        backdrop.setAlpha(0f);
+        backdrops.reshuffle();
+        for (int i = 0; i < COLUMNS; i++) {
+            String pkg = adapter.packageAt(i);
+            if (pkg != null) backdrops.prefetch(pkg);
+        }
         grid.scheduleLayoutAnimation();
         grid.requestLayout();   // reload() only touches changed tiles, so ask for the pass that plays the entrance
         updateWifiLabel();
@@ -284,6 +300,37 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         } else {
             heroName.setY(y);
         }
+        showBackdrop(adapter.packageAt(position));
+    }
+
+    /** The app's still behind the dock when it has one; otherwise its colour glow (set above). */
+    private void showBackdrop(String pkg) {
+        if (pkg == null || pkg.equals(backdropPkg)) return;
+        backdropPkg = pkg;
+        if (!Backdrops.supports(pkg)) {
+            fadeBackdrop(null);
+            return;
+        }
+        backdrops.load(pkg, (loaded, bitmap) -> {
+            if (!heroShown || !loaded.equals(backdropPkg)) return;   // moved on while it loaded
+            fadeBackdrop(bitmap);
+        });
+    }
+
+    /** Cross-fades to a still (or to nothing), and the glow the other way. */
+    private void fadeBackdrop(Bitmap bitmap) {
+        if (bitmap == null) {
+            backdrop.animate().alpha(0f).setDuration(300).start();
+            ambient.animate().alpha(1f).setDuration(500).start();
+            return;
+        }
+        Runnable in = () -> {
+            backdropImage.setImageBitmap(bitmap);
+            backdrop.animate().alpha(1f).setDuration(450).start();
+            ambient.animate().alpha(0f).setDuration(450).start();
+        };
+        if (backdrop.getAlpha() > 0f) backdrop.animate().alpha(0f).setDuration(180).withEndAction(in).start();
+        else in.run();
     }
 
     private void setAmbient(int color) {
@@ -297,6 +344,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         heroShown = false;
         heroName.animate().alpha(0f).setDuration(160).start();
         ambient.animate().alpha(0f).setDuration(300).start();
+        backdrop.animate().alpha(0f).setDuration(300).start();
+        backdropPkg = null;
     }
 
     private void hideGlass() {
