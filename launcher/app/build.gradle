@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.gathin.tvhome'
+    namespace 'com.maydings.vibelauncher'
     compileSdk 34
 
     defaultConfig {
-        applicationId 'com.gathin.tvhome'
+        applicationId 'com.maydings.vibelauncher'
         minSdk 26
         targetSdk 29
         versionCode 2

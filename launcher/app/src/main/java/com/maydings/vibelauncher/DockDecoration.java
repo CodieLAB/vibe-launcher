@@ -1,4 +1,4 @@
-package com.gathin.tvhome;
+package com.maydings.vibelauncher;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;

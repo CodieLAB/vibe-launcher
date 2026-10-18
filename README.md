@@ -37,7 +37,7 @@ step with screenshots from the TV. If you'd rather do it by hand, the pieces are
 
 ## The launcher
 
-A small native Android TV home screen (`com.gathin.tvhome`), built for sets with 1 GB of RAM:
+A small native Android TV home screen (`com.maydings.vibelauncher`), built for sets with 1 GB of RAM:
 
 - Pitch-black background, like Apple TV 4K.
 - A dock at the bottom in a lighter rounded band with the four apps you choose. The shelf above

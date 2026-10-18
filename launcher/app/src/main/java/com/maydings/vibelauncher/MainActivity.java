@@ -1,4 +1,4 @@
-package com.gathin.tvhome;
+package com.maydings.vibelauncher;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;

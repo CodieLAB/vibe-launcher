@@ -73,7 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.gathin.tvhome.FrostView
+        <com.maydings.vibelauncher.FrostView
             android:id="@+id/frost"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -189,7 +189,7 @@
     </FrameLayout>
 
     <!-- The single floating glass highlight that springs between tiles. -->
-    <com.gathin.tvhome.GlassView
+    <com.maydings.vibelauncher.GlassView
         android:id="@+id/glass"
         android:layout_width="10dp"
         android:layout_height="10dp"
