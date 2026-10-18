@@ -68,6 +68,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private SpringAnimation springX, springY;
     private float glassTargetX, glassTargetY;
     private boolean glassShown;
+    /** The dropdown currently on screen (Inputs or a tile menu), if any. */
+    private PopupWindow openMenu;
     private int lastFocused = 0;
     private float density;
 
@@ -454,6 +456,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         panel.setScaleY(0.92f);
         panel.setTranslationY((above ? 8 : -8) * density);
         popup.showAsDropDown(anchor, 0, yOff, gravity);
+        openMenu = popup;
         panel.animate().alpha(1f).scaleY(1f).translationY(0f).setDuration(220)
                 .setInterpolator(new android.view.animation.DecelerateInterpolator(1.6f)).start();
         rows.getChildAt(0).requestFocus();
@@ -463,6 +466,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     @Override
     public void onTileLongPress(int position, View card) {
+        // Holding OK on a remote triggers both the long-press timer and the long-press key repeat;
+        // only the first may open the menu, or a second copy stays behind holding focus.
+        if (openMenu != null && openMenu.isShowing()) return;
         View panel = getLayoutInflater().inflate(R.layout.popup_inputs, root, false);
         LinearLayout rows = panel.findViewById(R.id.rows);
         PopupWindow popup = newMenu(panel);
