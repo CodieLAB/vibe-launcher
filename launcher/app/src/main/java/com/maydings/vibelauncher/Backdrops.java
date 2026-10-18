@@ -29,11 +29,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Backdrop stills for dock apps, scraped from public web pages (no accounts or API keys). The big
- * streaming apps have a recipe naming a page with good artwork; any other app falls back to the TV
- * screenshots on its public Play Store listing (its interface or the developer's promo shots).
- * Candidates are downloaded and kept only if they are big and wide, then cached on disk and refreshed
- * once a day. Apps where nothing qualifies keep the colour glow.
+ * Backdrop stills for the big streaming apps, scraped from their public web pages (no accounts or
+ * API keys). Each has a recipe naming a page with good artwork; candidates are downloaded and kept
+ * only if they are big and wide, then cached on disk and refreshed once a day. Every other app, and
+ * any recipe that stops finding images (sites change), keeps the colour glow.
  */
 final class Backdrops {
 
@@ -87,16 +86,9 @@ final class Backdrops {
         // Disney+, Hulu and Max were tried: their artwork loads with JavaScript or is too small.
     }
 
-    /** Every app gets a try: its recipe, or else its Play Store screenshots. */
+    /** Whether this app has a backdrop recipe at all (others keep the colour glow). */
     static boolean supports(String pkg) {
-        return pkg != null;
-    }
-
-    /** Fallback for apps without a recipe: the listing's screenshots, requested at up to 1920x1080. */
-    private static Recipe playScreenshots(String pkg) {
-        return new Recipe("https://play.google.com/store/apps/details?id=" + pkg + "&hl=en_US",
-                "<img[^>]+src=\"(https://play-lh\\.googleusercontent\\.com/[^\"=]+)[^\"]*\"[^>]*alt=\"Screenshot image\"",
-                "%s=w1920-h1080");
+        return RECIPES.containsKey(pkg);
     }
 
     private static final Pattern MZ_SIZE = Pattern.compile("/(\\d{3,4})x(\\d{3,4})");
@@ -131,7 +123,7 @@ final class Backdrops {
         worker.execute(() -> {
             if (cached(pkg).isEmpty()) refresh(pkg);
             File file = pick(pkg);
-            Bitmap bitmap = file != null ? decode(file, !RECIPES.containsKey(pkg)) : null;
+            Bitmap bitmap = file != null ? decode(file) : null;
             main.post(() -> callback.onBackdrop(pkg, bitmap));
             if (stale(pkg)) refresh(pkg);
         });
@@ -199,11 +191,11 @@ final class Backdrops {
         }
     }
 
-    /** Image URLs worth downloading for this app, from its recipe's page or its Play Store listing. */
+    /** Image URLs worth downloading for this app, from its recipe's page. */
     private List<String> candidates(String pkg) {
         Set<String> urls = new LinkedHashSet<>();
-        Recipe recipe = RECIPES.containsKey(pkg) ? RECIPES.get(pkg) : playScreenshots(pkg);
-        String page = fetchText(recipe.page);
+        Recipe recipe = RECIPES.get(pkg);
+        String page = recipe != null ? fetchText(recipe.page) : null;
         if (page == null) return new ArrayList<>();
         if (recipe.image != null) {
             Matcher m = recipe.image.matcher(page);
@@ -248,38 +240,16 @@ final class Backdrops {
         return aspect >= MIN_ASPECT && aspect <= MAX_ASPECT;
     }
 
-    /**
-     * Decoded no larger than the screen, in 16-bit colour to keep memory low on 2 GB TVs. Play Store
-     * screenshots (soft) are app interfaces full of text, so they are decoded tiny and blurred: the
-     * view stretches them back up into a soft wash of the app's colours.
-     */
-    private Bitmap decode(File file, boolean soft) {
+    /** Decoded no larger than the screen, in 16-bit colour to keep memory low on 2 GB TVs. */
+    private Bitmap decode(File file) {
         BitmapFactory.Options o = new BitmapFactory.Options();
         o.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(file.getPath(), o);
-        int target = soft ? targetWidth / 8 : targetWidth;
         o.inJustDecodeBounds = false;
         o.inSampleSize = 1;
-        while (o.outWidth / (o.inSampleSize * 2) >= target) o.inSampleSize *= 2;
-        o.inPreferredConfig = soft ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565;
-        Bitmap bitmap = BitmapFactory.decodeFile(file.getPath(), o);
-        if (!soft || bitmap == null) return bitmap;
-        if (bitmap.getWidth() > target) {
-            Bitmap scaled = Bitmap.createScaledBitmap(bitmap, target,
-                    Math.max(1, bitmap.getHeight() * target / bitmap.getWidth()), true);
-            bitmap.recycle();
-            bitmap = scaled;
-        }
-        if (!bitmap.isMutable()) bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
-        int w = bitmap.getWidth(), h = bitmap.getHeight();
-        int[] pixels = new int[w * h], scratch = new int[w * h];
-        bitmap.getPixels(pixels, 0, w, 0, 0, w, h);
-        for (int pass = 0; pass < 3; pass++) {
-            FrostView.boxBlur(pixels, scratch, w, h, 3, true);
-            FrostView.boxBlur(scratch, pixels, w, h, 3, false);
-        }
-        bitmap.setPixels(pixels, 0, w, 0, 0, w, h);
-        return bitmap;
+        while (o.outWidth / (o.inSampleSize * 2) >= targetWidth) o.inSampleSize *= 2;
+        o.inPreferredConfig = Bitmap.Config.RGB_565;
+        return BitmapFactory.decodeFile(file.getPath(), o);
     }
 
     private static String fetchText(String url) {
