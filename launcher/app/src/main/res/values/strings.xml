@@ -13,6 +13,9 @@
     <string name="ethernet">Ethernet</string>
     <string name="offline">Offline</string>
     <string name="all_apps">All apps</string>
+    <string name="network_settings">Network settings</string>
+    <string name="network">Network</string>
+    <string name="vpn">VPN</string>
     <string name="move">Move</string>
     <string name="move_hint">Use the arrows to move it, then press OK</string>
     <string name="remove">Remove</string>

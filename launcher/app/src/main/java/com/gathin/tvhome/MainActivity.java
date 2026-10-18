@@ -13,6 +13,8 @@ import android.media.tv.TvContract;
 import android.media.tv.TvInputInfo;
 import android.media.tv.TvInputManager;
 import android.net.ConnectivityManager;
+import android.net.LinkAddress;
+import android.net.LinkProperties;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.wifi.WifiInfo;
@@ -41,6 +43,7 @@ import androidx.dynamicanimation.animation.SpringForce;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.net.Inet4Address;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -144,7 +147,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         View btnInputs = findViewById(R.id.btnInputs);
         View btnSettings = findViewById(R.id.btnSettings);
         btnInputs.setOnClickListener(v -> showInputs());
-        btnWifi.setOnClickListener(v -> open(new Intent(Settings.ACTION_WIFI_SETTINGS)));
+        btnWifi.setOnClickListener(v -> showNetwork());
         btnSettings.setOnClickListener(v -> open(new Intent(Settings.ACTION_SETTINGS)));
 
         // Keep focus on the top bar at its ends and at the top: Android's focus finder would otherwise
@@ -346,6 +349,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     /** Shows the Wi-Fi network name on the button when we can read it, otherwise the connection type. */
     private void updateWifiLabel() {
         String text = getString(R.string.wifi);
+        int icon = R.drawable.ic_wifi;
         try {
             ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             Network net = cm != null ? cm.getActiveNetwork() : null;
@@ -354,18 +358,72 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 text = getString(R.string.offline);
             } else if (caps.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
                 text = getString(R.string.ethernet);
+                icon = R.drawable.ic_ethernet;
             } else if (caps.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                WifiManager wm = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                WifiInfo info = wm != null ? wm.getConnectionInfo() : null;
-                String ssid = info != null ? info.getSSID() : null;
-                if (ssid != null) {
-                    ssid = ssid.replace("\"", "").trim();
-                    if (!ssid.isEmpty() && !ssid.contains("unknown") && !ssid.equals("0x")) text = ssid;
-                }
+                String ssid = wifiName();
+                if (ssid != null) text = ssid;
             }
         } catch (Exception ignored) {
         }
         btnWifi.setText(text);
+        // The style's drawableTint also applies to an icon swapped in here.
+        btnWifi.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, 0, 0, 0);
+    }
+
+    /** The connected Wi-Fi network's name, or null when it can't be read. */
+    private String wifiName() {
+        WifiManager wm = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        WifiInfo info = wm != null ? wm.getConnectionInfo() : null;
+        String ssid = info != null ? info.getSSID() : null;
+        if (ssid == null) return null;
+        ssid = ssid.replace("\"", "").trim();
+        return ssid.isEmpty() || ssid.contains("unknown") || ssid.equals("0x") ? null : ssid;
+    }
+
+    /** Dropdown under the network pill: each connected interface with its IPv4 address, then settings. */
+    private void showNetwork() {
+        View panel = getLayoutInflater().inflate(R.layout.popup_inputs, root, false);
+        LinearLayout rows = panel.findViewById(R.id.rows);
+        PopupWindow popup = newMenu(panel);
+
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cm != null) {
+            for (Network net : cm.getAllNetworks()) {
+                NetworkCapabilities caps = cm.getNetworkCapabilities(net);
+                LinkProperties lp = cm.getLinkProperties(net);
+                if (caps == null || lp == null) continue;
+                String ip = null;
+                for (LinkAddress a : lp.getLinkAddresses()) {
+                    if (a.getAddress() instanceof Inet4Address) {
+                        ip = a.getAddress().getHostAddress();
+                        break;
+                    }
+                }
+                if (ip == null) continue;
+                String type;
+                int icon = R.drawable.ic_wifi;
+                if (caps.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                    type = getString(R.string.ethernet);
+                    icon = R.drawable.ic_ethernet;
+                } else if (caps.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                    String ssid = wifiName();
+                    type = ssid != null ? getString(R.string.wifi) + " \u00B7 " + ssid : getString(R.string.wifi);
+                } else if (caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) {
+                    type = getString(R.string.vpn);
+                } else {
+                    type = getString(R.string.network);
+                }
+                String iface = lp.getInterfaceName();
+                addInfoRow(rows, icon, iface != null ? type + " (" + iface + ")" : type, ip);
+            }
+        }
+        if (rows.getChildCount() == 0) {
+            addInfoRow(rows, R.drawable.ic_wifi, getString(R.string.offline), null);
+        }
+        addSeparator(rows);
+        addInputRow(rows, popup, R.drawable.ic_settings, getString(R.string.network_settings), -1,
+                () -> open(new Intent(Settings.ACTION_WIFI_SETTINGS)));
+        showMenu(popup, panel, rows, btnWifi, Gravity.END);
     }
 
     private void open(Intent i) {
@@ -460,7 +518,12 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         openMenu = popup;
         panel.animate().alpha(1f).scaleY(1f).translationY(0f).setDuration(220)
                 .setInterpolator(new android.view.animation.DecelerateInterpolator(1.6f)).start();
-        rows.getChildAt(0).requestFocus();
+        for (int i = 0; i < rows.getChildCount(); i++) {
+            if (rows.getChildAt(i).isFocusable()) {
+                rows.getChildAt(i).requestFocus();
+                break;
+            }
+        }
     }
 
     // ---- tile menu: move, hide, app info ---------------------------------------------------------
@@ -551,6 +614,24 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         int m = (int) (6 * density), h = (int) (12 * density);
         lp.setMargins(h, m, h, m);
         rows.addView(line, lp);
+    }
+
+    /** A read-only row (focus skips it): icon, title and, when given, a green dot with a status. */
+    private void addInfoRow(LinearLayout rows, int iconRes, String title, String status) {
+        View row = getLayoutInflater().inflate(R.layout.item_input, rows, false);
+        ((ImageView) row.findViewById(R.id.icon)).setImageResource(iconRes);
+        ((TextView) row.findViewById(R.id.title)).setText(title);
+        TextView statusView = row.findViewById(R.id.status);
+        View dot = row.findViewById(R.id.dot);
+        if (status != null) {
+            statusView.setText(status);
+        } else {
+            statusView.setVisibility(View.GONE);
+            dot.setVisibility(View.GONE);
+        }
+        row.setFocusable(false);
+        row.setClickable(false);
+        rows.addView(row);
     }
 
     private void addInputRow(LinearLayout rows, PopupWindow popup, int iconRes, String title, int state, Runnable action) {
