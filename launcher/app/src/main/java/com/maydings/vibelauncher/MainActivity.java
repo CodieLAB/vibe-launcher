@@ -26,6 +26,7 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
@@ -76,6 +77,12 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private TextView btnWifi;
     private SpringAnimation springX, springY;
     private float glassTargetX, glassTargetY;
+    /** Scroll the glass target already accounts for, so it heads (mostly) to where the row will settle. */
+    private int plannedScroll;
+    /** The focused tile, so the glass can re-measure it once a scroll settles. */
+    private View focusedCard;
+    /** Share of a vertical scroll the glass runs ahead into before settling back: a gentle bounce. */
+    private static final float GLASS_LEAD = 0.12f;
     private boolean glassShown;
     /** The dropdown currently on screen (Inputs or a tile menu), if any. */
     private PopupWindow openMenu;
@@ -141,9 +148,30 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             @Override
             public void onScrolled(@NonNull RecyclerView rv, int dx, int dy) {
                 if (!glassShown) return;
+                if (plannedScroll != 0 && (dy > 0) == (plannedScroll > 0)) {
+                    int take = Math.abs(dy) >= Math.abs(plannedScroll) ? plannedScroll : dy;
+                    plannedScroll -= take;
+                    dy -= take;
+                }
+                if (dy == 0) return;
                 glassTargetY -= dy;
                 if (springY.isRunning()) springY.animateToFinalPosition(glassTargetY);
                 else glass.setTranslationY(glassTargetY);
+            }
+
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView rv, int newState) {
+                // Settle exactly on the tile: the plan can be off by the few pixels the grid scrolled on
+                // its own before onTileFocused ran, or the scroll stopped short at the end of the list.
+                if (newState != RecyclerView.SCROLL_STATE_IDLE || !glassShown || focusedCard == null
+                        || !focusedCard.isAttachedToWindow()) return;
+                plannedScroll = 0;
+                Rect r = new Rect(0, 0, focusedCard.getWidth(), focusedCard.getHeight());
+                root.offsetDescendantRectToMyCoords(focusedCard, r);
+                float y = r.exactCenterY() - glass.getLayoutParams().height / 2f;
+                if (Math.abs(y - glassTargetY) < 0.5f) return;
+                glassTargetY = y;
+                springY.animateToFinalPosition(y);
             }
         });
 
@@ -165,7 +193,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         View.OnKeyListener pillKeys = (v, keyCode, event) -> {
             if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
             if (keyCode == KeyEvent.KEYCODE_DPAD_UP) return true;
-            if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT && v.getId() == R.id.btnInputs) return true;
+            if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT && (v.getId() == R.id.btnInputs
+                    || (v.getId() == R.id.btnWifi && btnInputs.getVisibility() != View.VISIBLE))) return true;
             return keyCode == KeyEvent.KEYCODE_DPAD_RIGHT && v.getId() == R.id.btnSettings;
         };
         btnInputs.setOnKeyListener(pillKeys);
@@ -182,6 +211,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     @Override
     protected void onResume() {
         super.onResume();
+        updateInputsButton();
         glassShown = false;
         glass.setAlpha(0f);
         heroShown = false;
@@ -224,6 +254,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     @Override
     public void onTileFocused(int position, View card) {
         lastFocused = position;
+        focusedCard = card;
         // Tile rect in root coordinates, using layout positions (ignores the scale animation).
         Rect r = new Rect(0, 0, card.getWidth(), card.getHeight());
         root.offsetDescendantRectToMyCoords(card, r);
@@ -240,6 +271,29 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             glass.setLayoutParams(lp);
             glass.setRadius(16f * density * AppAdapter.FOCUS_SCALE);   // same corners as the tile
         }
+        // Work out the scroll first so the glass goes straight to the row's final spot. Aiming at the
+        // row's current spot and then following the scroll sent it too far up/down and back.
+        View item = (View) card.getParent();
+        boolean dock = position < COLUMNS;
+        int dy;
+        if (dock) {
+            // Dock: park it at the bottom of the screen and show the top shelf for this app.
+            int decoratedTop = item.getTop() - (int) (6 * density);
+            dy = decoratedTop - grid.getPaddingTop();
+        } else {
+            // Scroll just enough so the whole glass (not only the tile) is visible.
+            int top = item.getTop() - (int) pad * 2, bottom = item.getBottom() + (int) pad;
+            int parentTop = grid.getPaddingTop(), parentBottom = grid.getHeight() - grid.getPaddingBottom();
+            dy = top < parentTop ? top - parentTop : (bottom > parentBottom ? bottom - parentBottom : 0);
+        }
+        // The grid can't scroll past its ends (the bottom row), so only plan what is actually left.
+        if (dy > 0) dy = Math.min(dy, grid.computeVerticalScrollRange()
+                - grid.computeVerticalScrollExtent() - grid.computeVerticalScrollOffset());
+        else if (dy < 0) dy = Math.max(dy, -grid.computeVerticalScrollOffset());
+        if (Math.abs(dy) <= 1) dy = 0;
+        plannedScroll = Math.round(dy * (1f - GLASS_LEAD));
+        y -= plannedScroll;
+
         glassTargetX = x;
         glassTargetY = y;
         if (!glassShown) {
@@ -253,19 +307,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             springX.animateToFinalPosition(x);
             springY.animateToFinalPosition(y);
         }
-        View item = (View) card.getParent();
-        if (position < COLUMNS) {
-            // Dock: park it at the bottom of the screen and show the top shelf for this app.
-            int decoratedTop = item.getTop() - (int) (6 * density);
-            int dy = decoratedTop - grid.getPaddingTop();
-            if (Math.abs(dy) > 1) grid.smoothScrollBy(0, dy);
-            showHero(position, r.top - dy);
-        } else {
-            hideHero();
-            // Scroll just enough so the whole glass (not only the tile) is visible.
-            Rect want = new Rect(0, -(int) pad * 2, item.getWidth(), item.getHeight() + (int) pad);
-            grid.requestChildRectangleOnScreen(item, want, false);
-        }
+        if (dy != 0) grid.smoothScrollBy(0, dy);
+        if (dock) showHero(position, r.top - dy);
+        else hideHero();
     }
 
     // ---- top shelf -------------------------------------------------------------------------------
@@ -369,6 +413,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             target = Math.min(position + COLUMNS, count - 1);
         }
         focusTile(target);
+        // Handled here rather than by Android's focus search, which is what plays the click for left/right.
+        grid.playSoundEffect(keyCode == KeyEvent.KEYCODE_DPAD_UP
+                ? SoundEffectConstants.NAVIGATION_UP : SoundEffectConstants.NAVIGATION_DOWN);
         return true;
     }
 
@@ -485,6 +532,25 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         }
     }
 
+    /** Hides the Inputs pill on devices with nothing to switch to (e.g. a Shield: no HDMI-in, no tuner). */
+    private void updateInputsButton() {
+        boolean any = getLiveTvIntent() != null;
+        TvInputManager tim = (TvInputManager) getSystemService(TV_INPUT_SERVICE);
+        if (!any && tim != null) {
+            for (TvInputInfo info : tim.getTvInputList()) {
+                if (info.isPassthroughInput()) {
+                    any = true;
+                    break;
+                }
+            }
+        }
+        findViewById(R.id.btnInputs).setVisibility(any ? View.VISIBLE : View.GONE);
+    }
+
+    private Intent getLiveTvIntent() {
+        return liveTvPkg.isEmpty() ? null : getPackageManager().getLeanbackLaunchIntentForPackage(liveTvPkg);
+    }
+
     /** Dropdown menu under the Inputs pill: HDMI ports (with connection state), AV and Live TV. */
     private void showInputs() {
         View anchor = findViewById(R.id.btnInputs);
@@ -517,7 +583,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                                 TvContract.buildChannelUriForPassthroughInput(id), "vnd.android.cursor.item/channel")));
             }
         }
-        Intent liveTv = liveTvPkg.isEmpty() ? null : getPackageManager().getLeanbackLaunchIntentForPackage(liveTvPkg);
+        Intent liveTv = getLiveTvIntent();
         if (liveTv != null) {
             if (rows.getChildCount() > 0) addSeparator(rows);
             addInputRow(rows, popup, R.drawable.ic_livetv, getString(R.string.live_tv), -1, () -> open(liveTv));
