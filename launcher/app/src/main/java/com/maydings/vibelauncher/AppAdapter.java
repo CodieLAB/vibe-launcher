@@ -470,8 +470,15 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
                     }
                     return adapter.moveKey(keyCode);   // other keys (volume etc.) pass through
                 }
-                if (keyCode != KeyEvent.KEYCODE_DPAD_UP && keyCode != KeyEvent.KEYCODE_DPAD_DOWN) return false;
                 int pos = getBindingAdapterPosition();
+                if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                    // Stay put at a row's ends: Android's focus search would otherwise jump up to the top bar.
+                    if (pos == RecyclerView.NO_POSITION) return false;
+                    int col = pos % adapter.dockSize;
+                    return keyCode == KeyEvent.KEYCODE_DPAD_LEFT ? col == 0
+                            : col == adapter.dockSize - 1 || pos == adapter.getItemCount() - 1;
+                }
+                if (keyCode != KeyEvent.KEYCODE_DPAD_UP && keyCode != KeyEvent.KEYCODE_DPAD_DOWN) return false;
                 return listener != null && pos != RecyclerView.NO_POSITION && listener.onTileVerticalKey(pos, keyCode);
             });
 
