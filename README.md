@@ -1,4 +1,7 @@
-# tv-vibehack
+# Vibe Launcher
+
+A fork of [Gathin23/tv-vibehack](https://github.com/Gathin23/tv-vibehack), developed further into a
+daily-driver home screen (**Vibe Launcher**) and tested on Sony Bravia TVs and the NVIDIA Shield.
 
 **Your TV, minus the ads.** Debloat any Android TV / Google TV over ADB and give it a clean,
 tvOS-inspired launcher. Hand the prompt to Claude Code or any coding assistant, answer a few
@@ -37,19 +40,53 @@ step with screenshots from the TV. If you'd rather do it by hand, the pieces are
 
 ## The launcher
 
-A small native Android TV home screen (`com.maydings.vibelauncher`), built for sets with 1 GB of RAM:
+**Vibe Launcher** (`com.maydings.vibelauncher`) is a small native Android TV home screen built for sets
+with 1 GB of RAM. It runs on Android 8.0+ and targets API 34, so Play Protect lets you install it on
+Android 11+ devices such as the Shield.
+
+**Home screen**
 
 - Pitch-black background, like Apple TV 4K.
 - A dock at the bottom in a lighter rounded band with the four apps you choose. The shelf above
-  shows the focused dock app's name in large type with an ambient glow sampled from its banner.
-  Press Down and the dock slides up to reveal the rest of your apps in a grid.
+  shows the focused dock app's name in large type.
+- **Backdrops.** Big streaming apps (YouTube, Netflix, Apple TV, Plex, Paramount+, Prime Video,
+  Peacock) get a sharp still from their public pages behind the dock, darkened as if behind tinted
+  glass so text stays legible. No accounts or API keys are needed. Stills are cached on disk,
+  refreshed daily and change each visit. Other apps get an ambient glow sampled from their icon.
+- Press Down and the dock slides up to reveal the rest of your apps in a grid.
+- **Frosted top bar.** Tiles that scroll under the bar are shown blurred and tinted. It is drawn in
+  software because Android 9 has no live blur, and is flicker-free on Android 9 through 11+.
+- Clock and full date (weekday, day, month, year) top left, set in
+  [Outfit](https://fonts.google.com/specimen/Outfit).
+
+**Navigation**
+
 - One translucent glass highlight springs from tile to tile. The focused tile lifts and shows its
   name.
-- Frosted pills top right: **Inputs** (a dropdown of HDMI ports, AV and Live TV), **Wi-Fi**
-  (shows the network name) and **Settings**. Greeting, a large thin clock and the date top left,
-  set in [Outfit](https://fonts.google.com/specimen/Outfit).
-- Deterministic D-pad navigation, last focused tile remembered, staggered entrance animation.
-  No blur, no video, no network, no background services.
+- Vertical moves plan the scroll first so the highlight glides straight to its target without
+  overshooting. Up/down plays the same click as left/right.
+- Deterministic D-pad navigation. Left and right stop at the ends of a row instead of escaping to
+  the top bar. The last focused tile is remembered, and tiles enter with a staggered animation.
+
+**Managing apps**
+
+- Long-press OK on a tile for **Move** (rearrange with the D-pad, into and out of the dock),
+  **Remove** (hide from Home or uninstall), **App info** and **Show hidden apps**. Order and hidden
+  apps are saved.
+- An **All apps** tile at the end of the grid opens Settings › Apps.
+
+**Top bar pills**
+
+- **Inputs:** a dropdown of HDMI ports, AV and Live TV. It is hidden automatically on devices with
+  no inputs, such as the Shield.
+- **Network:** shows the network name. The dropdown lists the device name and model (handy with
+  several TVs), then each interface with its IPv4 address.
+- **Settings.**
+
+**Safety net**
+
+- If the launcher crashes twice within two minutes, it opens App info for Google's stock TV launcher
+  so one press of Enable restores a working home screen.
 
 Configure it in [`launcher/app/src/main/res/values/config.xml`](launcher/app/src/main/res/values/config.xml):
 dock order, hidden apps, Live TV package and columns. Build and install with
@@ -94,7 +131,16 @@ tools/restore.sh examples/xiaomi-mi-tv-4a/debloat.txt        # undo it, restore 
 
 Anything running Android TV or Google TV: Xiaomi/Redmi, TCL, Hisense, Sony, OnePlus, Realme,
 Nvidia Shield and most others. Not Samsung Tizen, LG webOS or Amazon Fire TV (different OS, no ADB
-launcher replacement). Tested so far on the models in [`examples/`](examples/).
+launcher replacement).
+
+Tested so far:
+
+| Device | Android |
+|---|---|
+| Sony Bravia XBR-940E | 9 |
+| Sony Bravia 900F | 9 |
+| NVIDIA Shield TV (2017) | 11 |
+| Xiaomi Mi TV 4A (see [`examples/`](examples/)) | 10 |
 
 ## Contributing
 
