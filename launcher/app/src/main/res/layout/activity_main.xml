@@ -19,6 +19,12 @@
             android:scaleType="centerCrop"
             android:contentDescription="@null" />
 
+        <!-- Tinted glass over the still: darkens it evenly so baked-in text recedes behind the dock. -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#8C05080C" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
