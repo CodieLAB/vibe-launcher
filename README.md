@@ -9,7 +9,7 @@ questions about which apps you use, and it does the rest on the real TV.
 
 | Stock home screen | After |
 |---|---|
-| ![Stock Google TV home with a sponsored ad](docs/stock-home.jpg) | ![Vibe Launcher home with a backdrop still](docs/new-home.jpg) |
+| ![Stock Google TV home on a Sony XBR-940E, with a sponsored carousel and Shop tab](docs/stock-home-sony.jpg) | ![Vibe Launcher home with a backdrop still](docs/new-home.jpg) |
 
 Everything is reversible: packages are disabled, never uninstalled, and a restore script puts the
 stock launcher back.
