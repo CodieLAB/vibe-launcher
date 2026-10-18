@@ -139,8 +139,8 @@ public class FrostView extends View {
         return Math.min(1f, reach / fadeDistance);
     }
 
-    /** One horizontal or vertical box-blur pass over opaque ARGB pixels. */
-    private static void boxBlur(int[] in, int[] out, int w, int h, int r, boolean horizontal) {
+    /** One horizontal or vertical box-blur pass over opaque ARGB pixels (also used by Backdrops). */
+    static void boxBlur(int[] in, int[] out, int w, int h, int r, boolean horizontal) {
         int len = horizontal ? w : h, lines = horizontal ? h : w;
         int step = horizontal ? 1 : w, lineStep = horizontal ? w : 1;
         int div = 2 * r + 1;
