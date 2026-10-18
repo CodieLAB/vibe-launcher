@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
@@ -41,7 +42,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -64,7 +64,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private GradientDrawable ambientGlow;
     private int ambientColor;
     private boolean heroShown;
-    private TextView greeting;
     private TextView btnWifi;
     private SpringAnimation springX, springY;
     private float glassTargetX, glassTargetY;
@@ -76,7 +75,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private final Runnable minuteTick = new Runnable() {
         @Override
         public void run() {
-            updateGreeting();
             updateWifiLabel();
             handler.postDelayed(this, MINUTE_MS);
         }
@@ -100,13 +98,12 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         ambient.setBackground(ambientGlow);
         ambient.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) ->
                 ambientGlow.setGradientRadius((r - l) * 0.62f));
-        greeting = findViewById(R.id.greeting);
         btnWifi = findViewById(R.id.btnWifi);
 
         grid = findViewById(R.id.grid);
         grid.setLayoutManager(new GridLayoutManager(this, COLUMNS));
         grid.setHasFixedSize(true);
-        grid.setItemAnimator(null);
+        grid.setItemAnimator(new TileAnimator());
         grid.addItemDecoration(new DockDecoration(COLUMNS, density));
         grid.setLayoutAnimation(new LayoutAnimationController(
                 AnimationUtils.loadAnimation(this, R.anim.tile_enter), 0.06f));
@@ -138,7 +135,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         springX = new SpringAnimation(glass, DynamicAnimation.TRANSLATION_X);
         springY = new SpringAnimation(glass, DynamicAnimation.TRANSLATION_Y);
         for (SpringAnimation s : new SpringAnimation[]{springX, springY}) {
-            s.setSpring(new SpringForce().setStiffness(260f).setDampingRatio(0.58f));
+            s.setSpring(new SpringForce().setStiffness(TileAnimator.STIFFNESS).setDampingRatio(TileAnimator.DAMPING));
         }
 
         View btnInputs = findViewById(R.id.btnInputs);
@@ -176,7 +173,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         ambient.setAlpha(0f);
         adapter.reload();
         grid.scheduleLayoutAnimation();
-        updateGreeting();
+        grid.requestLayout();   // reload() only touches changed tiles, so ask for the pass that plays the entrance
         updateWifiLabel();
         handler.postDelayed(minuteTick, MINUTE_MS);
 
@@ -218,7 +215,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             lp.width = (int) w;
             lp.height = (int) h;
             glass.setLayoutParams(lp);
-            glass.setRadius(16f * density * AppAdapter.FOCUS_SCALE + pad);
+            glass.setRadius(16f * density * AppAdapter.FOCUS_SCALE);   // same corners as the tile
         }
         glassTargetX = x;
         glassTargetY = y;
@@ -343,17 +340,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     // ---- top bar ---------------------------------------------------------------------------------
 
-    private void updateGreeting() {
-        int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        int res;
-        if (hour < 5) res = R.string.good_night;
-        else if (hour < 12) res = R.string.good_morning;
-        else if (hour < 17) res = R.string.good_afternoon;
-        else if (hour < 22) res = R.string.good_evening;
-        else res = R.string.good_night;
-        greeting.setText(res);
-    }
-
     /** Shows the Wi-Fi network name on the button when we can read it, otherwise the connection type. */
     private void updateWifiLabel() {
         String text = getString(R.string.wifi);
@@ -393,14 +379,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         View anchor = findViewById(R.id.btnInputs);
         View panel = getLayoutInflater().inflate(R.layout.popup_inputs, root, false);
         LinearLayout rows = panel.findViewById(R.id.rows);
-
-        // Compact: as wide as the Inputs pill (a touch wider so "HDMI 1" fits), hanging right below it.
-        int width = Math.max(anchor.getWidth(), (int) (150 * density));
-        final PopupWindow popup = new PopupWindow(panel, width, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-        popup.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));   // needed for Back to dismiss
-        popup.setOutsideTouchable(true);
-        popup.setAnimationStyle(0);
-        popup.setElevation(0f);
+        final PopupWindow popup = newMenu(panel);
 
         TvInputManager tim = (TvInputManager) getSystemService(TV_INPUT_SERVICE);
         boolean sawNonHdmi = false;
@@ -437,15 +416,125 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             return;
         }
 
-        // Drop in: fade and unfold from the top edge.
+        // Right-aligned to the pill so a wider menu grows leftwards instead of off the screen edge.
+        showMenu(popup, panel, rows, anchor, Gravity.END);
+    }
+
+    /** A glass dropdown (the Inputs look). Rows go in R.id.rows; show it with {@link #showMenu}. */
+    private PopupWindow newMenu(View panel) {
+        PopupWindow popup = new PopupWindow(panel, ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        popup.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));   // needed for Back to dismiss
+        popup.setOutsideTouchable(true);
+        popup.setAnimationStyle(0);
+        popup.setElevation(0f);
+        return popup;
+    }
+
+    private void showMenu(PopupWindow popup, View panel, LinearLayout rows, View anchor, int gravity) {
+        // Fit the widest row (TVs label inputs with long names like "HDMI 4/ARC" or the connected
+        // device), at least as wide as the anchor and capped so the menu stays compact.
+        int minWidth = Math.max(anchor.getWidth(), (int) (150 * density));
+        int maxWidth = (int) (getResources().getDisplayMetrics().widthPixels * 0.4f);
+        panel.measure(View.MeasureSpec.makeMeasureSpec(maxWidth, View.MeasureSpec.AT_MOST),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        popup.setWidth(Math.min(maxWidth, Math.max(minWidth, panel.getMeasuredWidth())));
+
+        // Below the anchor, or above it when it's too close to the bottom of the screen (dock tiles).
+        int gap = (int) (10 * density);
+        int[] loc = new int[2];
+        anchor.getLocationOnScreen(loc);
+        int spaceBelow = getResources().getDisplayMetrics().heightPixels - loc[1] - anchor.getHeight();
+        boolean above = panel.getMeasuredHeight() + gap > spaceBelow;
+        int yOff = above ? -(anchor.getHeight() + panel.getMeasuredHeight() + gap) : gap;
+
+        // Drop in: fade and unfold from the edge nearest the anchor.
         panel.setAlpha(0f);
-        panel.setPivotY(0f);
+        panel.setPivotY(above ? panel.getMeasuredHeight() : 0f);
         panel.setScaleY(0.92f);
-        panel.setTranslationY(-8 * density);
-        popup.showAsDropDown(anchor, 0, (int) (10 * density), Gravity.START);
+        panel.setTranslationY((above ? 8 : -8) * density);
+        popup.showAsDropDown(anchor, 0, yOff, gravity);
         panel.animate().alpha(1f).scaleY(1f).translationY(0f).setDuration(220)
                 .setInterpolator(new android.view.animation.DecelerateInterpolator(1.6f)).start();
         rows.getChildAt(0).requestFocus();
+    }
+
+    // ---- tile menu: move, hide, app info ---------------------------------------------------------
+
+    @Override
+    public void onTileLongPress(int position, View card) {
+        View panel = getLayoutInflater().inflate(R.layout.popup_inputs, root, false);
+        LinearLayout rows = panel.findViewById(R.id.rows);
+        PopupWindow popup = newMenu(panel);
+        if (adapter.isApp(position)) {
+            addInputRow(rows, popup, R.drawable.ic_move, getString(R.string.move), -1, () -> {
+                adapter.startMove(position);
+                Toast.makeText(this, R.string.move_hint, Toast.LENGTH_LONG).show();
+            });
+            addInputRow(rows, popup, R.drawable.ic_delete, getString(R.string.remove), -1,
+                    () -> showRemove(card, position));
+            addInputRow(rows, popup, R.drawable.ic_settings, getString(R.string.app_info), -1,
+                    () -> adapter.openAppInfo(position));
+        }
+        if (!adapter.userHidden().isEmpty()) {
+            if (rows.getChildCount() > 0) addSeparator(rows);
+            addInputRow(rows, popup, R.drawable.ic_all_apps, getString(R.string.show_hidden), -1,
+                    () -> showHidden(card));
+        }
+        if (rows.getChildCount() == 0) return;
+        showMenu(popup, panel, rows, card, Gravity.START);
+    }
+
+    /** Remove: hide the tile from Home, or uninstall the app (when it isn't built in). */
+    private void showRemove(View anchor, int position) {
+        View panel = getLayoutInflater().inflate(R.layout.popup_inputs, root, false);
+        LinearLayout rows = panel.findViewById(R.id.rows);
+        PopupWindow popup = newMenu(panel);
+        addInputRow(rows, popup, R.drawable.ic_hide, getString(R.string.hide_from_home), -1, () -> {
+            adapter.hide(position);
+            grid.postOnAnimation(() -> focusTile(position));   // the tile sliding into its place
+        });
+        if (adapter.canUninstall(position)) {
+            addInputRow(rows, popup, R.drawable.ic_delete, getString(R.string.uninstall), -1,
+                    () -> adapter.uninstall(position));
+        }
+        showMenu(popup, panel, rows, anchor, Gravity.START);
+    }
+
+    /** Lists hidden apps; picking one puts it back at the end of the grid. */
+    private void showHidden(View anchor) {
+        View panel = getLayoutInflater().inflate(R.layout.popup_inputs, root, false);
+        LinearLayout rows = panel.findViewById(R.id.rows);
+        PopupWindow popup = newMenu(panel);
+        PackageManager pm = getPackageManager();
+        List<String> pkgs = new ArrayList<>(adapter.userHidden());
+        Collections.sort(pkgs, (a, b) -> appLabel(pm, a).compareToIgnoreCase(appLabel(pm, b)));
+        for (String pkg : pkgs) {
+            addInputRow(rows, popup, R.drawable.ic_hide, appLabel(pm, pkg), -1, () -> adapter.unhide(pkg));
+        }
+        if (rows.getChildCount() == 0) return;
+        showMenu(popup, panel, rows, anchor, Gravity.START);
+    }
+
+    private static String appLabel(PackageManager pm, String pkg) {
+        try {
+            return String.valueOf(pm.getApplicationLabel(pm.getApplicationInfo(pkg, 0)));
+        } catch (PackageManager.NameNotFoundException e) {
+            return pkg;
+        }
+    }
+
+    @Override
+    public void onTileMoved(int position) {
+        // The grid has fixed size, so it applies the move on the next animation frame without a layout
+        // pass. Queue behind it on that frame, then bring the highlight (and dock title) to the new spot.
+        grid.postOnAnimation(() -> {
+            RecyclerView.ViewHolder vh = grid.findViewHolderForAdapterPosition(position);
+            if (vh == null) return;
+            View card = vh.itemView.findViewById(R.id.card);
+            if (!card.hasFocus()) card.requestFocus();
+            onTileFocused(position, card);
+        });
     }
 
     private void addSeparator(LinearLayout rows) {

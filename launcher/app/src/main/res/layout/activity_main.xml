@@ -46,18 +46,6 @@
                 android:layout_alignParentStart="true"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/greeting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:textColor="#8CFFFFFF"
-                    android:textSize="12sp"
-                    android:fontFamily="@font/outfit"
-                    android:fontVariationSettings="'wght' 500"
-                    android:letterSpacing="0.22"
-                    android:textAllCaps="true" />
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -11,7 +11,9 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
- * A translucent glass slab: soft sheen fill, bright top specular, crisp rim and a faint outer glow.
+ * A translucent glass slab: soft sheen fill, bright top specular, crisp rim and a soft outer glow.
+ * The slab is exactly the focused tile's (scaled) shape, with the same corner radius, so the rim
+ * follows the tile edge evenly; the view is 6dp larger on each side to leave room for the glow.
  * One instance floats over the grid and is moved with spring animations between tiles.
  */
 public class GlassView extends View {
@@ -32,9 +34,13 @@ public class GlassView extends View {
         rim.setStyle(Paint.Style.STROKE);
         rim.setStrokeWidth(1.5f * density);
         rim.setColor(0xCCFFFFFF);
-        glow.setStyle(Paint.Style.STROKE);
+        // One soft shadow-blur glow instead of stacked strokes, which banded. Hardware-drawn on
+        // Android 9+, unlike BlurMaskFilter (which needs a software layer).
+        glow.setColor(0xFFFFFFFF);
+        glow.setShadowLayer(5f * density, 0f, 0f, 0x55FFFFFF);
     }
 
+    /** Corner radius of the slab: the focused tile's radius at its focused scale. */
     void setRadius(float px) {
         radius = px;
         invalidate();
@@ -52,23 +58,25 @@ public class GlassView extends View {
         float inset = 6f * density;   // room for the glow
         rect.set(inset, inset, getWidth() - inset, getHeight() - inset);
 
-        // Outer glow: three widening, fading strokes.
-        for (int i = 1; i <= 3; i++) {
-            glow.setStrokeWidth(i * 2f * density);
-            glow.setColor((0x30 / i) << 24 | 0xFFFFFF);
-            float o = i * density;
-            canvas.drawRoundRect(rect.left - o, rect.top - o, rect.right + o, rect.bottom + o, radius + o, radius + o, glow);
-        }
+        clip.reset();
+        clip.addRoundRect(rect, radius, radius, Path.Direction.CW);
+
+        // Glow: only the blur outside the slab shows; the solid shape itself is clipped away.
+        canvas.save();
+        canvas.clipOutPath(clip);
+        canvas.drawRoundRect(rect, radius, radius, glow);
+        canvas.restore();
 
         canvas.drawRoundRect(rect, radius, radius, fill);
 
-        clip.reset();
-        clip.addRoundRect(rect, radius, radius, Path.Direction.CW);
         canvas.save();
         canvas.clipPath(clip);
         canvas.drawRect(rect.left, rect.top, rect.right, rect.top + rect.height() * 0.45f, specular);
         canvas.restore();
 
-        canvas.drawRoundRect(rect, radius, radius, rim);
+        // Rim: keep the stroke inside the edge, concentric with the tile's corners.
+        float half = rim.getStrokeWidth() / 2f;
+        rect.inset(half, half);
+        canvas.drawRoundRect(rect, radius - half, radius - half, rim);
     }
 }
