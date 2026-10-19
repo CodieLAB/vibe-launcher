@@ -78,6 +78,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private boolean heroShown;
     private View backdrop;
     private ImageView backdropImage;
+    private View backdropTitleBox;
+    private ImageView backdropLogo;
+    private TextView backdropTitle;
     private Backdrops backdrops;
     /** The dock app whose backdrop is showing or loading, or null. */
     private String backdropPkg;
@@ -132,6 +135,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         heroName = findViewById(R.id.heroName);
         backdrop = findViewById(R.id.backdrop);
         backdropImage = findViewById(R.id.backdropImage);
+        backdropTitleBox = findViewById(R.id.backdropTitleBox);
+        backdropLogo = findViewById(R.id.backdropLogo);
+        backdropTitle = findViewById(R.id.backdropTitle);
         backdrops = new Backdrops(this);
         askPermissionsOnce();
         ConnectivityManager cm = getSystemService(ConnectivityManager.class);
@@ -396,14 +402,14 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private void showBackdrop(String pkg) {
         if (pkg == null || pkg.equals(backdropPkg)) return;
         backdropPkg = pkg;
-        backdrops.load(pkg, (loaded, bitmap) -> {
+        backdrops.load(pkg, (loaded, bitmap, logo, title) -> {
             if (!heroShown || !loaded.equals(backdropPkg)) return;   // moved on while it loaded
-            fadeBackdrop(bitmap);
+            fadeBackdrop(bitmap, logo, title);
         });
     }
 
     /** Cross-fades to a still (or to nothing), and the glow the other way. */
-    private void fadeBackdrop(Bitmap bitmap) {
+    private void fadeBackdrop(Bitmap bitmap, Bitmap logo, String title) {
         if (bitmap == null) {
             backdrop.animate().alpha(0f).setDuration(300).start();
             ambient.animate().alpha(1f).setDuration(500).start();
@@ -411,11 +417,22 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         }
         Runnable in = () -> {
             backdropImage.setImageBitmap(bitmap);
+            showBackdropTitle(logo, title);
             backdrop.animate().alpha(1f).setDuration(450).start();
             ambient.animate().alpha(0f).setDuration(450).start();
         };
         if (backdrop.getAlpha() > 0f) backdrop.animate().alpha(0f).setDuration(180).withEndAction(in).start();
         else in.run();
+    }
+
+    /** The film or show's logo, else its name, at the right, level with the app name; nothing otherwise. */
+    private void showBackdropTitle(Bitmap logo, String title) {
+        backdropLogo.setImageBitmap(logo);
+        backdropLogo.setVisibility(logo != null ? View.VISIBLE : View.GONE);
+        backdropTitle.setText(title);
+        backdropTitle.setVisibility(logo == null && title != null ? View.VISIBLE : View.GONE);
+        backdropTitleBox.post(() -> backdropTitleBox.setY(
+                heroName.getY() + heroName.getHeight() - backdropTitleBox.getHeight()));
     }
 
     private void setAmbient(int color) {
