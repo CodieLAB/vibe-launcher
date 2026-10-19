@@ -1,0 +1,31 @@
+# NVIDIA Shield TV (2017, "darcy"), Android TV 11, firmware RQ1A.210105.003 (Shield Experience 9.x)
+# The Shield ships with little bloat; this mostly swaps the launcher and stops NVIDIA's telemetry.
+#
+# Apply:   TV_HOST=<shield ip> tools/disable.sh examples/nvidia-shield-2017/debloat.txt
+# Undo:    TV_HOST=<shield ip> tools/restore.sh examples/nvidia-shield-2017/debloat.txt
+# Everything is DISABLED, not uninstalled. Comment out any line you want to keep.
+#
+# Kept on purpose (not listed): voice search, GeForce NOW and NVIDIA Games, SMB/network storage,
+# Chromecast and system updates.
+# No Inputs pill on the Shield: it has no HDMI inputs or tuner, and Vibe Launcher hides the button.
+
+# Stock Google TV launcher and its recommendations; replaced by Vibe Launcher.
+# Install Vibe Launcher and set it as home BEFORE applying this list.
+com.google.android.tvlauncher
+com.google.android.tvrecommendations
+
+# Promotions and auto-installed apps
+android.autoinstalls.config.nvidia        # installs promoted apps after setup and updates
+
+# Telemetry, feedback and the beta programme
+com.nvidia.stats
+com.nvidia.feedback
+com.google.android.feedback
+com.nvidia.shield.beta
+com.nvidia.shieldbeta
+
+# Extra preinstalled keyboards (Hindi, Zhuyin, Pinyin, Japanese); keep any you type in
+com.google.android.apps.inputmethod.hindi
+com.google.android.apps.inputmethod.zhuyin
+com.google.android.inputmethod.pinyin
+com.google.android.inputmethod.japanese
