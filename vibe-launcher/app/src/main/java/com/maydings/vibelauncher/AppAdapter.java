@@ -282,7 +282,50 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_app, parent, false);
+        // Sized to the column width: 4 per row keeps the design size, 5 and 6 shrink to fit.
+        float density = parent.getResources().getDisplayMetrics().density;
+        int width = parent.getWidth() > 0 ? parent.getWidth() : parent.getMeasuredWidth();
+        int w = tileWidthPx(width - parent.getPaddingLeft() - parent.getPaddingRight(), dockSize, density);
+        int h = tileHeightPx(w);
+        View card = v.findViewById(R.id.card);
+        ViewGroup.LayoutParams cardLp = card.getLayoutParams();
+        cardLp.width = w;
+        cardLp.height = h;
+        card.setLayoutParams(cardLp);
+        View name = v.findViewById(R.id.name);
+        ViewGroup.MarginLayoutParams nameLp = (ViewGroup.MarginLayoutParams) name.getLayoutParams();
+        nameLp.width = w;
+        nameLp.topMargin = h + Math.round(7 * density);
+        name.setLayoutParams(nameLp);
         return new Holder(v, this, listener);
+    }
+
+    /** Design size of a tile (dp); tiles shrink from here when the columns don't fit. */
+    static final float DESIGN_W_DP = 180f, DESIGN_H_DP = 101f;
+
+    /**
+     * Tile width for a grid of this inner width: the cell minus room for the focus zoom and the glass,
+     * capped at the design size (so 4 columns on a 1080p TV are exactly as before).
+     */
+    static int tileWidthPx(int innerWidthPx, int columns, float density) {
+        int design = Math.round(DESIGN_W_DP * density);
+        if (innerWidthPx <= 0 || columns <= 0) return design;
+        int fit = (int) ((innerWidthPx / columns - 12 * density) / FOCUS_SCALE);
+        return Math.max(Math.round(80 * density), Math.min(design, fit));
+    }
+
+    static int tileHeightPx(int tileWidthPx) {
+        return Math.round(tileWidthPx * DESIGN_H_DP / DESIGN_W_DP);
+    }
+
+    /** Height of one grid item: the tile, the name under it and the item's padding. */
+    static int itemHeightPx(int tileHeightPx, float density) {
+        return tileHeightPx + Math.round(44 * density);
+    }
+
+    /** Tile corner radius: 16dp at the design width, proportionally less on smaller tiles. */
+    static float cornerRadius(int tileWidthPx, float density) {
+        return 16f * density * Math.min(1f, tileWidthPx / (DESIGN_W_DP * density));
     }
 
     @Override
@@ -438,11 +481,11 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
             name = v.findViewById(R.id.name);
 
             final float density = v.getResources().getDisplayMetrics().density;
-            final float radius = density * 16f;
             card.setOutlineProvider(new ViewOutlineProvider() {
                 @Override
                 public void getOutline(View view, Outline outline) {
-                    outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), radius);
+                    outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(),
+                            cornerRadius(view.getWidth(), density));
                 }
             });
             card.setClipToOutline(true);

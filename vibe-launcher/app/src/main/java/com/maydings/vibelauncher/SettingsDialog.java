@@ -20,8 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Vibe Launcher settings: the TMDB, YouTube and Plex keys, each with an (i) explaining it, a QR code
- * for pasting them from a phone (PhoneLink), and the app version.
+ * Vibe Launcher settings: the TMDB, YouTube and Plex keys, each with an (i) explaining it, tiles per
+ * row, a QR code for pasting the keys from a phone (PhoneLink), and the app version.
  */
 final class SettingsDialog {
 
@@ -60,19 +60,44 @@ final class SettingsDialog {
         tmdbInfo.setOnClickListener(v -> showInfo(activity, v, R.string.tmdb_info));
         youtubeInfo.setOnClickListener(v -> showInfo(activity, v, R.string.youtube_info));
         plexInfo.setOnClickListener(v -> showInfo(activity, v, R.string.plex_info));
-        // Text fields keep Up/Down to themselves on this TV, so steer the remote by hand: each key's (i)
-        // then its field, down to Save; the keyboard's Next/Done buttons step from field to field.
-        View[] order = {tmdbInfo, tmdb, youtubeInfo, youtube, plexInfo, plex, save};
-        for (int i = 0; i < order.length; i++) {
-            View up = i > 0 ? order[i - 1] : null, down = i < order.length - 1 ? order[i + 1] : null;
-            order[i].setOnKeyListener((v, keyCode, event) -> {
-                if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
-                View to = keyCode == KeyEvent.KEYCODE_DPAD_UP ? up : keyCode == KeyEvent.KEYCODE_DPAD_DOWN ? down : null;
-                return to != null && to.requestFocus();
+        // Tiles per row: one of three pills, the current choice marked; applied on Save.
+        int current = MainActivity.COLUMNS;
+        int[] chosen = {current};
+        View[] columnPills = {panel.findViewById(R.id.columns4), panel.findViewById(R.id.columns5),
+                panel.findViewById(R.id.columns6)};
+        for (int i = 0; i < columnPills.length; i++) {
+            int value = 4 + i;
+            columnPills[i].setSelected(value == current);
+            columnPills[i].setOnClickListener(v -> {
+                chosen[0] = value;
+                for (View p : columnPills) p.setSelected(p == v);
             });
         }
-        cancel.setOnKeyListener((v, keyCode, event) -> event.getAction() == KeyEvent.ACTION_DOWN
-                && keyCode == KeyEvent.KEYCODE_DPAD_UP && plex.requestFocus());
+        View columnsEntry = columnPills[Math.max(0, Math.min(2, current - 4))];
+        // Text fields keep Up/Down to themselves on this TV, so steer the remote by hand: the
+        // tiles-per-row choice, then each key's (i) and its field. Right from any of them jumps to Save
+        // (and Cancel under it), and Left comes back to where it left.
+        View[] order = {tmdbInfo, tmdb, youtubeInfo, youtube, plexInfo, plex};
+        View[] cameFrom = {columnsEntry};
+        for (int i = 0; i < order.length; i++) {
+            steer(order[i], i > 0 ? order[i - 1] : columnsEntry, i < order.length - 1 ? order[i + 1] : null, save, cameFrom);
+        }
+        for (View pill : columnPills) {
+            pill.setOnKeyListener((v, keyCode, event) -> {
+                if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
+                if (keyCode == KeyEvent.KEYCODE_DPAD_UP) return true;   // nothing above
+                if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) return tmdbInfo.requestFocus();
+                if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT && v == columnPills[2]) {
+                    cameFrom[0] = v;
+                    return save.requestFocus();
+                }
+                return false;   // Left/Right move between the pills
+            });
+        }
+        View.OnKeyListener back = (v, keyCode, event) -> event.getAction() == KeyEvent.ACTION_DOWN
+                && keyCode == KeyEvent.KEYCODE_DPAD_LEFT && cameFrom[0].requestFocus();
+        save.setOnKeyListener(back);
+        cancel.setOnKeyListener(back);
         tmdb.setOnEditorActionListener((v, actionId, event) -> youtube.requestFocus());
         youtube.setOnEditorActionListener((v, actionId, event) -> plex.requestFocus());
         plex.setOnEditorActionListener((v, actionId, event) -> {
@@ -101,9 +126,26 @@ final class SettingsDialog {
             settings.save(tmdb.getText().toString(), youtube.getText().toString(), plex.getText().toString());
             dialog.dismiss();
             Toast.makeText(activity, R.string.saved, Toast.LENGTH_SHORT).show();
+            if (chosen[0] != current) {
+                settings.setColumns(chosen[0]);
+                activity.recreate();   // rebuild Home with the new grid
+            }
         });
         dialog.show();
-        tmdb.requestFocus();
+        columnsEntry.requestFocus();
+    }
+
+    /** Up and Down move to these views; Right goes to Save, remembering where it came from. */
+    private static void steer(View view, View up, View down, View save, View[] cameFrom) {
+        view.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
+            if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                cameFrom[0] = v;
+                return save.requestFocus();
+            }
+            View to = keyCode == KeyEvent.KEYCODE_DPAD_UP ? up : keyCode == KeyEvent.KEYCODE_DPAD_DOWN ? down : null;
+            return to != null && to.requestFocus();
+        });
     }
 
     /** A glass bubble under the (i) explaining a key; Back or OK closes it. */

@@ -6,6 +6,14 @@
             <corners android:radius="21dp" />
         </shape>
     </item>
+    <!-- The chosen option in a row of choices (e.g. tiles per row in Vibe Launcher settings). -->
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#4DFFFFFF" />
+            <stroke android:width="2dp" android:color="#E6FFFFFF" />
+            <corners android:radius="21dp" />
+        </shape>
+    </item>
     <item>
         <shape android:shape="rectangle">
             <gradient android:angle="270" android:startColor="#2EFFFFFF" android:endColor="#14FFFFFF" />

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Vibe Launcher settings: keys for the backdrop sources. -->
+<!-- Vibe Launcher settings: tiles per row and the keys for the backdrop sources. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="760dp"
     android:layout_height="wrap_content"
@@ -26,6 +26,42 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
+
+            <!-- Label and choices on one line, so the dialog still fits a 1080p screen. -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/SettingsLabel"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="6dp"
+                    android:text="@string/tiles_per_row" />
+
+                <TextView
+                    android:id="@+id/columns4"
+                    style="@style/TopButton"
+                    android:paddingStart="22dp"
+                    android:paddingEnd="22dp"
+                    android:text="4" />
+
+                <TextView
+                    android:id="@+id/columns5"
+                    style="@style/TopButton"
+                    android:paddingStart="22dp"
+                    android:paddingEnd="22dp"
+                    android:text="5" />
+
+                <TextView
+                    android:id="@+id/columns6"
+                    style="@style/TopButton"
+                    android:paddingStart="22dp"
+                    android:paddingEnd="22dp"
+                    android:text="6" />
+            </LinearLayout>
 
             <LinearLayout style="@style/SettingsLabelRow">
 
@@ -87,73 +123,79 @@
                 android:fontFamily="@font/outfit" />
         </LinearLayout>
 
-        <!-- Scan to type the keys on a phone instead (PhoneLink). -->
+        <!-- Right of everything on the left, so Right from any row reaches Save and Cancel. -->
         <LinearLayout
-            android:id="@+id/phone"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="20dp"
             android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:visibility="gone">
+            android:gravity="center_horizontal">
 
-            <ImageView
-                android:id="@+id/qr"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:padding="8dp"
-                android:background="#FFFFFFFF"
-                android:contentDescription="@null" />
+            <!-- Scan to type the keys on a phone instead (PhoneLink). -->
+            <LinearLayout
+                android:id="@+id/phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/qr"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:padding="8dp"
+                    android:background="#FFFFFFFF"
+                    android:contentDescription="@null" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center"
+                    android:text="@string/scan_to_paste"
+                    android:textColor="#B3FFFFFF"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/outfit" />
+
+                <TextView
+                    android:id="@+id/phoneUrl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:textColor="#80FFFFFF"
+                    android:textSize="11sp"
+                    android:fontFamily="@font/outfit" />
+            </LinearLayout>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/save"
+                style="@style/TopButton"
+                android:layout_width="match_parent"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="24dp"
+                android:paddingStart="20dp"
+                android:text="@string/save" />
+
+            <TextView
+                android:id="@+id/cancel"
+                style="@style/TopButton"
+                android:layout_width="match_parent"
+                android:layout_marginStart="0dp"
                 android:layout_marginTop="12dp"
-                android:gravity="center"
-                android:text="@string/scan_to_paste"
-                android:textColor="#B3FFFFFF"
-                android:textSize="13sp"
-                android:fontFamily="@font/outfit" />
-
-            <TextView
-                android:id="@+id/phoneUrl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:gravity="center"
-                android:textColor="#80FFFFFF"
-                android:textSize="11sp"
-                android:fontFamily="@font/outfit" />
+                android:paddingStart="20dp"
+                android:text="@android:string/cancel" />
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/version"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/version"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="#66FFFFFF"
-            android:textSize="13sp"
-            android:fontFamily="@font/outfit" />
-
-        <TextView
-            android:id="@+id/cancel"
-            style="@style/TopButton"
-            android:paddingStart="20dp"
-            android:text="@android:string/cancel" />
-
-        <TextView
-            android:id="@+id/save"
-            style="@style/TopButton"
-            android:paddingStart="20dp"
-            android:text="@string/save" />
-    </LinearLayout>
+        android:layout_marginTop="16dp"
+        android:textColor="#66FFFFFF"
+        android:textSize="13sp"
+        android:fontFamily="@font/outfit" />
 </LinearLayout>

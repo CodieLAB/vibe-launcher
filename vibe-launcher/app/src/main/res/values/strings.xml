@@ -25,6 +25,7 @@
     <string name="android_settings">Android settings</string>
     <string name="tmdb_key">TMDB API key</string>
     <string name="youtube_key">YouTube API key</string>
+    <string name="tiles_per_row">Tiles per row</string>
     <string name="plex_token">Plex token</string>
     <string name="not_set">Not set</string>
     <string name="save">Save</string>

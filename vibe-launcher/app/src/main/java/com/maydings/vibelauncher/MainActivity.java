@@ -146,7 +146,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         CrashGuard.install(this);
         setContentView(R.layout.activity_main);
         density = getResources().getDisplayMetrics().density;
-        COLUMNS = Math.max(1, getResources().getInteger(R.integer.columns));
+        // Tiles per row: chosen in Vibe Launcher settings (4, 5 or 6), else config.xml.
+        COLUMNS = new VibeSettings(this).columns(Math.max(1, getResources().getInteger(R.integer.columns)));
         liveTvPkg = getString(R.string.live_tv_package).trim();
 
         root = findViewById(R.id.root);
@@ -184,7 +185,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         // tvOS layout: push the dock row to the bottom of the screen; the grid hides below until you press Down.
         grid.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> {
             int h = b - t;
-            int dockRow = (int) ((145 + 6 + 12) * density);   // item height plus DockDecoration offsets
+            int tileH = AppAdapter.tileHeightPx(AppAdapter.tileWidthPx(
+                    (r - l) - grid.getPaddingLeft() - grid.getPaddingRight(), COLUMNS, density));
+            int dockRow = AppAdapter.itemHeightPx(tileH, density) + (int) ((6 + 12) * density);   // plus DockDecoration offsets
             int want = Math.max(0, h - dockRow - (int) (30 * density));
             if (grid.getPaddingTop() != want) {
                 grid.setPadding(grid.getPaddingLeft(), want, grid.getPaddingRight(), grid.getPaddingBottom());
@@ -348,7 +351,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             lp.width = (int) w;
             lp.height = (int) h;
             glass.setLayoutParams(lp);
-            glass.setRadius(16f * density * AppAdapter.FOCUS_SCALE);   // same corners as the tile
+            glass.setRadius(AppAdapter.cornerRadius(card.getWidth(), density) * AppAdapter.FOCUS_SCALE);   // same corners as the tile
         }
         // Work out the scroll first so the glass goes straight to the row's final spot. Aiming at the
         // row's current spot and then following the scroll sent it too far up/down and back.

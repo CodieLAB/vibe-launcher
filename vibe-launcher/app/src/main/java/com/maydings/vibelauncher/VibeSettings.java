@@ -10,6 +10,7 @@ final class VibeSettings {
     private static final String TMDB_KEY = "tmdbKey";
     private static final String YOUTUBE_KEY = "youtubeKey";
     private static final String PLEX_TOKEN = "plexToken";
+    private static final String COLUMNS = "columns";
 
     private final SharedPreferences prefs;
 
@@ -30,6 +31,16 @@ final class VibeSettings {
     /** Plex account token (X-Plex-Token), or "" when not set. */
     String plexToken() {
         return prefs.getString(PLEX_TOKEN, "");
+    }
+
+    /** Tiles per row on Home (4, 5 or 6), or the given default when not chosen. */
+    int columns(int fallback) {
+        int c = prefs.getInt(COLUMNS, fallback);
+        return c >= 4 && c <= 6 ? c : fallback;
+    }
+
+    void setColumns(int columns) {
+        prefs.edit().putInt(COLUMNS, columns).apply();
     }
 
     void save(String tmdbKey, String youtubeKey, String plexToken) {
