@@ -291,7 +291,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             // Scroll just enough so the whole glass (not only the tile) is visible.
             int top = item.getTop() - (int) pad * 2, bottom = item.getBottom() + (int) pad;
             int parentTop = grid.getPaddingTop(), parentBottom = grid.getHeight() - grid.getPaddingBottom();
-            dy = top < parentTop ? top - parentTop : (bottom > parentBottom ? bottom - parentBottom : 0);
+            // When the glass is taller than the space (the 940E: 328 px of glass, 318 of room), favour the
+            // top: fitting the bottom pushed the top out, so each sideways press scrolled 10 px back and forth.
+            dy = top < parentTop ? top - parentTop
+                    : (bottom > parentBottom ? Math.min(bottom - parentBottom, top - parentTop) : 0);
         }
         // The grid can't scroll past its ends (the bottom row), so only plan what is actually left.
         if (dy > 0) dy = Math.min(dy, grid.computeVerticalScrollRange()
