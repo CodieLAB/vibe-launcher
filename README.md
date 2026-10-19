@@ -89,6 +89,10 @@ Every Android TV ships with sponsored rows, store apps, telemetry and demo modes
 [`debloat/`](debloat/) folder removes them over ADB, reversibly: packages are disabled, never
 uninstalled, and a restore script puts everything back.
 
+**Debloating requires an AI coding assistant** such as Claude Code: every brand and firmware ships
+different bloat, so the assistant inspects your TV, works out what is safe to disable and asks you
+about the rest. (Vibe Launcher itself needs no AI; just install the APK.)
+
 - **[`PROMPT.md`](debloat/PROMPT.md)**: paste it into Claude Code (or any coding assistant with a
   shell) on a computer on the same Wi-Fi as the TV, fill in your model, and it backs up the TV,
   finds the bloat, asks which apps you use, disables the rest and installs Vibe Launcher, checking

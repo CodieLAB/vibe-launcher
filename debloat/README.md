@@ -4,9 +4,14 @@ Take the ads, sponsored rows, store apps, telemetry and demo modes off an Androi
 put [Vibe Launcher](../vibe-launcher/) on it. Everything is reversible: packages are disabled for the
 user, never uninstalled, and `tools/restore.sh` puts them and the stock launcher back.
 
+**This requires an AI coding assistant** (Claude Code or similar, with a shell on a computer on the
+same network as the TV). Bloat differs by brand, model and firmware, so the assistant probes your TV,
+decides what is safe to disable, asks about the apps you use and checks its work on screen. Without
+one you are limited to the tested lists below, applied by hand.
+
 ![The stock Sony home screen this replaces: a sponsored carousel, a Shop tab and app promotions](docs/stock-home-sony.jpg)
 
-## With a coding assistant (easiest)
+## With an AI coding assistant
 
 1. On the TV: Settings → Device Preferences → About → press OK on **Build** seven times → back →
    Developer options → turn on **USB debugging** (and Network/ADB debugging if your TV shows it).
@@ -20,9 +25,10 @@ user, never uninstalled, and `tools/restore.sh` puts them and the stock launcher
 The assistant backs up the TV's package list and settings, finds the bloat for your brand, disables
 it, installs the launcher, and checks every step with screenshots taken from the TV.
 
-## By hand
+## By hand (tested lists only)
 
-Run these from this folder. `tools/tv.py` is a pure-Python ADB client, for when the stock `adb` is
+Only for the TVs in [`examples/`](examples/), or if you already know your list. Run these from this
+folder. `tools/tv.py` is a pure-Python ADB client, for when the stock `adb` is
 blocked (see the gotchas); with a working `adb` you can use that instead.
 
 ```bash
