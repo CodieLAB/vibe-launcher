@@ -60,25 +60,40 @@ source: every feature is in the APK, nothing is behind a purchase.
 
 ### Install
 
-Vibe Launcher is just an APK: download it and install it. No AI, no account, no build tools.
+Vibe Launcher is just an APK: download it and install it. No AI, no account, no build tools. The
+latest version is always at
+
+**https://github.com/maydings/vibe-launcher/releases/latest/download/vibe-launcher.apk**
+
+**On the TV, no computer needed**
+
+1. From the Play Store, install a downloader or file manager, e.g. **Downloader** (by AFTVnews) or
+   **X-plore**.
+2. Open the link above in it, then open the downloaded APK. Android asks once to allow that app to
+   install unknown apps; allow it.
+3. Open Vibe Launcher from your apps and allow the two permissions it asks for: TV listings (the
+   apps' home screen cards, for backdrops) and location (Android only reveals the Wi-Fi network's
+   name with it).
+4. Make it your home screen. Some TVs offer this under Settings → Apps → Default apps → Home app.
+   Many Android TVs, and Google TV, have no such setting: there the Home button stays with the stock
+   launcher until you run the `set-home-activity` command below once from a computer. Until then you
+   can still open Vibe Launcher from your apps.
+
+**With a computer (adb)**
 
 1. Turn on developer options and USB/network debugging on the TV (Settings → Device Preferences →
    About → press OK on **Build** seven times → back → Developer options).
-2. Download `vibe-launcher-v1.0.0.apk` from [Releases](https://github.com/maydings/vibe-launcher/releases/latest)
-   and install it from a computer on the same network:
+2. Download the APK and install it from a computer on the same network:
 
    ```bash
    adb connect <tv-ip>:5555
-   adb install -g vibe-launcher-v1.0.0.apk      # -g grants the home-screen-cards and Wi-Fi permissions
+   adb install -g vibe-launcher.apk      # -g grants both permissions up front
    adb shell cmd package set-home-activity com.maydings.vibelauncher/.MainActivity
    ```
 
 3. Press Home. To keep the stock launcher from coming back, disable it:
    `adb shell pm disable-user --user 0 com.google.android.tvlauncher` (on Google TV devices,
    `com.google.android.apps.tv.launcherx`). Undo with `pm enable`.
-
-Installed without `-g`, the launcher asks for access to TV listings on its first start; that is what
-lets it read the apps' home screen cards.
 
 Build it yourself, configure the dock and hidden apps, and the details of each backdrop source:
 [`vibe-launcher/README.md`](vibe-launcher/README.md).
