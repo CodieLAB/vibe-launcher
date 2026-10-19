@@ -81,6 +81,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private boolean heroShown;
     private View backdrop;
     private ImageView backdropImage;
+    /** The still being faded out under backdropImage while the next one fades in. */
+    private ImageView backdropPrevious;
     private View backdropTitleBox;
     private ImageView backdropLogo;
     private TextView backdropTitle;
@@ -157,6 +159,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         heroName = findViewById(R.id.heroName);
         backdrop = findViewById(R.id.backdrop);
         backdropImage = findViewById(R.id.backdropImage);
+        backdropPrevious = findViewById(R.id.backdropPrevious);
         backdropTitleBox = findViewById(R.id.backdropTitleBox);
         backdropLogo = findViewById(R.id.backdropLogo);
         backdropTitle = findViewById(R.id.backdropTitle);
@@ -413,8 +416,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             heroName.setY(y);
             heroName.setTranslationX(0f);
             heroName.animate().alpha(1f).setDuration(260).start();
-            setAmbient(color);
-            ambient.animate().alpha(1f).setDuration(600).start();
             heroShown = true;
         } else if (changed) {
             heroName.animate().alpha(0f).translationX(-12 * density).setDuration(120).withEndAction(() -> {
@@ -423,43 +424,73 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 heroName.setTranslationX(12 * density);
                 heroName.animate().alpha(1f).translationX(0f).setDuration(200).start();
             }).start();
-            if (color != ambientColor) {
+        } else {
+            heroName.setY(y);
+        }
+        showBackdrop(adapter.packageAt(position), color);
+    }
+
+    /**
+     * The app's still behind the dock when it has one, otherwise its colour glow. Nothing changes until
+     * the still has loaded, so the screen goes straight from one app's look to the next: the glow is
+     * drawn above the stills and would otherwise flash over a picture while the next one loads.
+     */
+    private void showBackdrop(String pkg, int color) {
+        if (pkg == null) {   // e.g. the All apps tile in the dock
+            backdropPkg = null;
+            fadeBackdrop(null, null, null, color);
+            return;
+        }
+        if (pkg.equals(backdropPkg)) return;
+        backdropPkg = pkg;
+        backdrops.load(pkg, (loaded, bitmap, logo, title) -> {
+            if (!heroShown || !loaded.equals(backdropPkg)) return;   // moved on while it loaded
+            fadeBackdrop(bitmap, logo, title, color);
+        });
+    }
+
+    /** Shows a still (cross-fading from the one before, if any), or the glow in this colour. */
+    private void fadeBackdrop(Bitmap bitmap, Bitmap logo, String title, int color) {
+        if (bitmap == null) {
+            backdrop.animate().alpha(0f).setDuration(300).start();
+            if (ambient.getAlpha() > 0f && color != ambientColor) {
+                // Glow to glow: dip, change colour, come back.
                 ambient.animate().alpha(0.35f).setDuration(200).withEndAction(() -> {
                     setAmbient(color);
                     ambient.animate().alpha(1f).setDuration(500).start();
                 }).start();
+            } else {
+                setAmbient(color);
+                ambient.animate().alpha(1f).setDuration(500).start();
             }
-        } else {
-            heroName.setY(y);
-        }
-        showBackdrop(adapter.packageAt(position));
-    }
-
-    /** The app's still behind the dock when it has one; otherwise its colour glow (set above). */
-    private void showBackdrop(String pkg) {
-        if (pkg == null || pkg.equals(backdropPkg)) return;
-        backdropPkg = pkg;
-        backdrops.load(pkg, (loaded, bitmap, logo, title) -> {
-            if (!heroShown || !loaded.equals(backdropPkg)) return;   // moved on while it loaded
-            fadeBackdrop(bitmap, logo, title);
-        });
-    }
-
-    /** Cross-fades to a still (or to nothing), and the glow the other way. */
-    private void fadeBackdrop(Bitmap bitmap, Bitmap logo, String title) {
-        if (bitmap == null) {
-            backdrop.animate().alpha(0f).setDuration(300).start();
-            ambient.animate().alpha(1f).setDuration(500).start();
             return;
         }
-        Runnable in = () -> {
+        ambient.animate().alpha(0f).setDuration(300).start();
+        if (backdrop.getAlpha() > 0f && backdropImage.getDrawable() != null) {
+            // Picture to picture: the old one stays underneath while the new one fades in over it.
+            backdropPrevious.setImageDrawable(backdropImage.getDrawable());
+            backdropPrevious.setVisibility(View.VISIBLE);
+            backdropImage.animate().cancel();
+            backdropImage.setAlpha(0f);
             backdropImage.setImageBitmap(bitmap);
-            showBackdropTitle(logo, title);
-            backdrop.animate().alpha(1f).setDuration(450).start();
-            ambient.animate().alpha(0f).setDuration(450).start();
-        };
-        if (backdrop.getAlpha() > 0f) backdrop.animate().alpha(0f).setDuration(180).withEndAction(in).start();
-        else in.run();
+            backdropImage.animate().alpha(1f).setDuration(450).withEndAction(() -> {
+                backdropPrevious.setImageDrawable(null);   // let the old picture go
+                backdropPrevious.setVisibility(View.GONE);
+            }).start();
+            backdropTitleBox.animate().alpha(0f).setDuration(150).withEndAction(() -> {
+                showBackdropTitle(logo, title);
+                backdropTitleBox.animate().alpha(1f).setDuration(300).start();
+            }).start();
+            backdrop.animate().alpha(1f).setDuration(200).start();   // in case it was fading out
+            return;
+        }
+        backdropImage.animate().cancel();
+        backdropImage.setAlpha(1f);
+        backdropImage.setImageBitmap(bitmap);
+        backdropTitleBox.animate().cancel();
+        backdropTitleBox.setAlpha(1f);
+        showBackdropTitle(logo, title);
+        backdrop.animate().alpha(1f).setDuration(450).start();
     }
 
     /** The film or show's logo, else its name, at the right, level with the app name; nothing otherwise. */
