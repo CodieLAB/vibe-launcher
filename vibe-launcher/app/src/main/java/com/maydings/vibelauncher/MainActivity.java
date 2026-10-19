@@ -4,8 +4,10 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
@@ -110,6 +112,24 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         @Override
         public void onLost(@NonNull Network network) {
             handler.post(MainActivity.this::updateWifiLabel);
+        }
+    };
+    /**
+     * Apps installed, updated or removed while Home is on screen show up (or go) straight away, instead
+     * of at the next return to Home. An update sends "removed" then "added": keep its tile meanwhile.
+     */
+    private final BroadcastReceiver packageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (Intent.ACTION_PACKAGE_REMOVED.equals(intent.getAction())
+                    && intent.getBooleanExtra(Intent.EXTRA_REPLACING, false)) return;
+            adapter.reload();
+            // Tiles may have moved: once they settle, bring the glass to wherever focus went.
+            grid.postOnAnimation(() -> {
+                RecyclerView.ItemAnimator animator = grid.getItemAnimator();
+                if (animator != null) animator.isRunning(MainActivity.this::refreshFocusedTile);
+                else refreshFocusedTile();
+            });
         }
     };
     private final Runnable minuteTick = new Runnable() {
@@ -246,6 +266,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         heroName.setAlpha(0f);
         ambient.setAlpha(0f);
         adapter.reload();
+        IntentFilter packages = new IntentFilter();
+        packages.addAction(Intent.ACTION_PACKAGE_ADDED);
+        packages.addAction(Intent.ACTION_PACKAGE_REMOVED);
+        packages.addAction(Intent.ACTION_PACKAGE_CHANGED);   // enabled or disabled
+        packages.addDataScheme("package");
+        if (Build.VERSION.SDK_INT >= 33) registerReceiver(packageReceiver, packages, Context.RECEIVER_NOT_EXPORTED);
+        else registerReceiver(packageReceiver, packages);
         backdropPkg = null;
         backdrop.setAlpha(0f);
         backdrops.reshuffle();
@@ -262,14 +289,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         // (the usual case), no focus change follows, so bring back its glass, name and backdrop here:
         // the reset above cleared them.
         grid.post(() -> {
-            View focused = getCurrentFocus();
-            RecyclerView.ViewHolder holder = focused != null ? grid.findContainingViewHolder(focused) : null;
-            int position = holder != null ? holder.getBindingAdapterPosition() : RecyclerView.NO_POSITION;
-            if (position != RecyclerView.NO_POSITION && focused.getId() == R.id.card) {
-                onTileFocused(position, focused);
-                return;
-            }
-            focusTile(lastFocused);
+            if (!refreshFocusedTile()) focusTile(lastFocused);
         });
     }
 
@@ -277,6 +297,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     protected void onPause() {
         super.onPause();
         handler.removeCallbacks(minuteTick);
+        unregisterReceiver(packageReceiver);
     }
 
     @Override
@@ -298,6 +319,16 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     }
 
     // ---- glass highlight -------------------------------------------------------------------------
+
+    /** Puts the glass, name and backdrop on the tile that has focus; false when no tile has it. */
+    private boolean refreshFocusedTile() {
+        View focused = getCurrentFocus();
+        RecyclerView.ViewHolder holder = focused != null ? grid.findContainingViewHolder(focused) : null;
+        int position = holder != null ? holder.getBindingAdapterPosition() : RecyclerView.NO_POSITION;
+        if (position == RecyclerView.NO_POSITION || focused.getId() != R.id.card) return false;
+        onTileFocused(position, focused);
+        return true;
+    }
 
     @Override
     public void onTileFocused(int position, View card) {
