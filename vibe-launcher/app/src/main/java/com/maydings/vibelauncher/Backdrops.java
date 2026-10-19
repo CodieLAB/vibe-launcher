@@ -366,7 +366,10 @@ final class Backdrops {
         return aspect >= MIN_ASPECT && aspect <= MAX_ASPECT;
     }
 
-    /** Decoded no larger than the screen, in 16-bit colour to keep memory low on 2 GB TVs. */
+    /**
+     * Decoded no larger than the screen, in full colour: 16-bit colour (half the memory) turned dark,
+     * smooth areas into visible bands.
+     */
     private Bitmap decode(File file) {
         BitmapFactory.Options o = new BitmapFactory.Options();
         o.inJustDecodeBounds = true;
@@ -374,19 +377,17 @@ final class Backdrops {
         o.inJustDecodeBounds = false;
         o.inSampleSize = 1;
         while (o.outWidth / (o.inSampleSize * 2) >= targetWidth) o.inSampleSize *= 2;
-        o.inPreferredConfig = Bitmap.Config.RGB_565;
         o.inMutable = true;   // darkened in place
         return BitmapFactory.decodeFile(file.getPath(), o);
     }
 
     /**
-     * Darkens a still for legibility: an even tinted-glass layer so text in the art recedes, then a
-     * gradient that is darkest behind the dock and the clock. Baked into the image once, here on the
-     * worker thread, instead of two full-screen layers the GPU would paint on every frame.
+     * Darkens a still behind the clock and the dock for legibility, with a gradient that leaves the
+     * middle of the picture nearly untouched. Baked into the image once, here on the worker thread,
+     * instead of a full-screen layer the GPU would paint on every frame.
      */
     private static void darken(Bitmap bitmap) {
         Canvas canvas = new Canvas(bitmap);
-        canvas.drawColor(0x8C05080C);   // over the image (SRC_OVER), as the old tint layer did
         Paint scrim = new Paint();
         scrim.setShader(new LinearGradient(0, 0, 0, bitmap.getHeight(),
                 new int[]{0xB3000000, 0x40000000, 0xF2000000}, new float[]{0f, 0.38f, 1f}, Shader.TileMode.CLAMP));
@@ -413,7 +414,7 @@ final class Backdrops {
 
     /** Four cards in a 2x2 grid filling the screen, each centre-cropped into its cell. */
     private Bitmap wall(List<File> files) {
-        Bitmap out = Bitmap.createBitmap(targetWidth, targetHeight, Bitmap.Config.RGB_565);
+        Bitmap out = Bitmap.createBitmap(targetWidth, targetHeight, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(out);
         canvas.drawColor(Color.BLACK);
         Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG);

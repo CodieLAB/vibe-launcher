@@ -19,7 +19,8 @@ import java.util.List;
  * Frosted backdrop for the top bar: a blurred copy of whatever part of the grid has scrolled under it.
  * Android 9 has no live blur, so on each frame the covered strip of the grid is drawn into a bitmap at
  * 1/8 size, box-blurred and stretched back up. The real grid is clipped off under the bar, and the
- * dark tint fades in only while tiles are actually underneath, so the backdrop behind stays untouched.
+ * dark tint fades in while tiles are underneath, and also while a backdrop is showing, so the clock
+ * and buttons stay legible over bright artwork.
  */
 public class FrostView extends View {
 
@@ -36,6 +37,10 @@ public class FrostView extends View {
     private final float fadeDistance;
 
     private ViewGroup source;
+    /** The backdrop picture; the bar darkens it as far as it is faded in. */
+    private View backdrop;
+    /** How much of a backdrop is under the bar right now (its alpha), 0..1. */
+    private float under;
     private Bitmap small;   // work bitmap the tiles are drawn into
     private Bitmap frost;   // finished, blurred result that onDraw shows
     private Canvas smallCanvas;
@@ -68,6 +73,11 @@ public class FrostView extends View {
         source = grid;
     }
 
+    /** The backdrop behind everything: tinted under the bar the same way tiles are. */
+    void setBackdrop(View view) {
+        backdrop = view;
+    }
+
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
@@ -88,6 +98,11 @@ public class FrostView extends View {
     private void update() {
         if (source == null || getWidth() == 0 || getHeight() == 0) return;
         clipGridUnderBar();
+        float b = backdrop != null && backdrop.getVisibility() == VISIBLE ? backdrop.getAlpha() : 0f;
+        if (b != under) {
+            under = b;
+            invalidate();
+        }
         float a = coverage();
         if (a <= 0f) {
             if (amount != 0f || frost != null) {
@@ -256,16 +271,17 @@ public class FrostView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (amount <= 0f || frost == null) return;
+        float tint = Math.max(amount, under);
+        if (tint <= 0f) return;
+        dst.set(0, 0, getWidth(), getHeight());
         // Full strength: the frost is transparent where nothing is underneath, and it stands in for
         // the clipped-away tiles, so it must not fade (that let the sharp tiles show through).
-        dst.set(0, 0, getWidth(), getHeight());
-        canvas.drawBitmap(frost, null, dst, bitmapPaint);
+        if (amount > 0f && frost != null) canvas.drawBitmap(frost, null, dst, bitmapPaint);
 
-        fillPaint.setColor(scaleAlpha(TINT, amount));
+        fillPaint.setColor(scaleAlpha(TINT, tint));
         canvas.drawRect(dst, fillPaint);
         float line = getResources().getDisplayMetrics().density;
-        fillPaint.setColor(scaleAlpha(HAIRLINE, amount));
+        fillPaint.setColor(scaleAlpha(HAIRLINE, tint));
         canvas.drawRect(0, getHeight() - line, getWidth(), getHeight(), fillPaint);
     }
 

@@ -181,7 +181,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 AnimationUtils.loadAnimation(this, R.anim.tile_enter), 0.06f));
         adapter = new AppAdapter(this, this, COLUMNS);
         grid.setAdapter(adapter);
-        ((FrostView) findViewById(R.id.frost)).setSource(grid);
+        FrostView frost = findViewById(R.id.frost);
+        frost.setSource(grid);
+        frost.setBackdrop(backdrop);
 
         // tvOS layout: push the dock row to the bottom of the screen; the grid hides below until you press Down.
         grid.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> {
