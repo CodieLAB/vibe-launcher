@@ -38,6 +38,11 @@ public class GlassView extends View {
         // Android 9+, unlike BlurMaskFilter (which needs a software layer).
         glow.setColor(0xFFFFFFFF);
         glow.setShadowLayer(5f * density, 0f, 0f, 0x55FFFFFF);
+        // Drawn once into a cached GPU image and only moved and faded after that: the glow and the
+        // curved clips were otherwise redrawn on every frame while the glass springs between tiles,
+        // the biggest single GPU cost on TV chips (on the XBR-940E, frames on time went from about
+        // 80% to 100% while moving along the dock). Redrawn only when its size or corners change.
+        setLayerType(LAYER_TYPE_HARDWARE, null);
     }
 
     /** Corner radius of the slab: the focused tile's radius at its focused scale. */
