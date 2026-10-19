@@ -9,14 +9,15 @@ export ANDROID_HOME="${ANDROID_HOME:-/opt/homebrew/share/android-commandlinetool
 export PATH="$JAVA_HOME/bin:$PATH"
 [ -f local.properties ] || echo "sdk.dir=$ANDROID_HOME" > local.properties
 ./gradlew assembleDebug -q --console=plain
-PY=../tools/venv/bin/python
+PY=../debloat/tools/venv/bin/python   # the ADB client from debloat/tools
 APK=app/build/outputs/apk/debug/app-debug.apk
-"$PY" -I ../tools/b64push.py "$APK" /data/local/tmp/vibelauncher.apk
+"$PY" -I ../debloat/tools/b64push.py "$APK" /data/local/tmp/vibelauncher.apk
 printf '%s\n' \
   "pm install -r /data/local/tmp/vibelauncher.apk" \
   "rm -f /data/local/tmp/vibelauncher.apk" \
   "pm grant com.maydings.vibelauncher android.permission.ACCESS_FINE_LOCATION 2>/dev/null; echo location-granted" \
+  "pm grant com.maydings.vibelauncher android.permission.READ_TV_LISTINGS 2>/dev/null; echo cards-granted" \
   "cmd package set-home-activity --user 0 com.maydings.vibelauncher" \
   "pm disable-user --user 0 $STOCK_LAUNCHER" \
-  | "$PY" -I ../tools/tv.py --batch
+  | "$PY" -I ../debloat/tools/tv.py --batch
 echo "Installed. Press Home on the remote to see it."

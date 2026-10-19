@@ -34,7 +34,7 @@ com.google.android.feedback
 com.google.android.apps.tachyon        # Google Duo
 fusion.android.tv.demo
 
-# Stock Google TV launcher and its recommendation services, replaced by launcher/
+# Stock Google TV launcher and its recommendation services, replaced by Vibe Launcher (../vibe-launcher)
 com.google.android.tvlauncher
 com.google.android.tvrecommendations
 com.google.android.leanbacklauncher.recommendations
