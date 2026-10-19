@@ -2,10 +2,11 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FF000000">
+    android:layout_height="match_parent">
+    <!-- No background of its own: the window's is already black, and every full-screen paint costs
+         a frame's worth of GPU fill on TV chips. -->
 
-    <!-- Backdrop still for the focused dock app (big streaming apps), darkened for legibility. -->
+    <!-- Backdrop still for the focused dock app, darkened for legibility (baked in by Backdrops). -->
     <FrameLayout
         android:id="@+id/backdrop"
         android:layout_width="match_parent"
@@ -18,17 +19,6 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:contentDescription="@null" />
-
-        <!-- Tinted glass over the still: darkens it evenly so baked-in text recedes behind the dock. -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#8C05080C" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/backdrop_scrim" />
 
         <!-- A film or show's title on its backdrop: the logo, or the name when there is none. Above the
              tint so it stays bright; lined up with the app name by MainActivity. -->

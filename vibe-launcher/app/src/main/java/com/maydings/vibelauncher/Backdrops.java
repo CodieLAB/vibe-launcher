@@ -7,8 +7,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Shader;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
@@ -127,6 +129,7 @@ final class Backdrops {
         worker.execute(() -> {
             Choice c = pick(pkg);
             Bitmap bitmap = c == null ? null : c.files.size() == 1 ? decode(c.files.get(0)) : wall(c.files);
+            if (bitmap != null) darken(bitmap);
             Bitmap logo = c != null && c.logo != null ? decodeLogo(c.logo) : null;
             String title = c != null ? c.title : null;
             main.post(() -> callback.onBackdrop(pkg, bitmap, logo, title));
@@ -340,7 +343,22 @@ final class Backdrops {
         o.inSampleSize = 1;
         while (o.outWidth / (o.inSampleSize * 2) >= targetWidth) o.inSampleSize *= 2;
         o.inPreferredConfig = Bitmap.Config.RGB_565;
+        o.inMutable = true;   // darkened in place
         return BitmapFactory.decodeFile(file.getPath(), o);
+    }
+
+    /**
+     * Darkens a still for legibility: an even tinted-glass layer so text in the art recedes, then a
+     * gradient that is darkest behind the dock and the clock. Baked into the image once, here on the
+     * worker thread, instead of two full-screen layers the GPU would paint on every frame.
+     */
+    private static void darken(Bitmap bitmap) {
+        Canvas canvas = new Canvas(bitmap);
+        canvas.drawColor(0x8C05080C);   // over the image (SRC_OVER), as the old tint layer did
+        Paint scrim = new Paint();
+        scrim.setShader(new LinearGradient(0, 0, 0, bitmap.getHeight(),
+                new int[]{0xB3000000, 0x40000000, 0xF2000000}, new float[]{0f, 0.38f, 1f}, Shader.TileMode.CLAMP));
+        canvas.drawRect(0, 0, bitmap.getWidth(), bitmap.getHeight(), scrim);
     }
 
     /** A title logo, kept transparent and no wider than 800 px (it shows at about a third of the screen). */
