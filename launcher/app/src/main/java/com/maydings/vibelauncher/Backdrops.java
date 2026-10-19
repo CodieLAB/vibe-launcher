@@ -37,7 +37,8 @@ import java.util.concurrent.Executors;
  * shown with TMDB's clean full-size backdrop instead of the app's own art. Otherwise only wide artwork
  * is used, and low-res art (Netflix's 853x480) becomes a 2x2 wall of four cards. YouTube publishes no
  * cards, so its tile borrows SmartTube's (the user's own feed), or without SmartTube shows popular
- * videos via the YouTube Data API key. Apps with none keep the colour glow.
+ * videos via the YouTube Data API key. Plex, with a Plex token, shows art from the user's own server.
+ * Apps with none keep the colour glow.
  * Downloaded images are cached on disk for a week.
  */
 final class Backdrops {
@@ -53,6 +54,7 @@ final class Backdrops {
     private static final String[] COLUMNS = {"package_name", "intent_uri", "title", "poster_art_uri", "thumbnail_uri"};
     private static final int FIRST_IMAGE = 3;   // COLUMNS from here on are image URIs
     private static final String YOUTUBE = "com.google.android.youtube.tv";
+    private static final String PLEX = "com.plexapp.android";
     /** SmartTube builds (stable, beta, the old names): they publish the signed-in user's YouTube feed. */
     private static final String[] SMARTTUBE = {"org.smarttube.stable", "org.smarttube.beta",
             "com.liskovsoft.smarttubetv", "com.liskovsoft.smarttubetv.beta", "com.teamsmart.videomanager.tv"};
@@ -68,6 +70,7 @@ final class Backdrops {
     private final ContentResolver resolver;
     private final Tmdb tmdb;
     private final YouTubePopular youtubePopular;
+    private final Plex plex;
     private final File root;
     private final ExecutorService worker = Executors.newSingleThreadExecutor();
     private final Handler main = new Handler(Looper.getMainLooper());
@@ -83,6 +86,7 @@ final class Backdrops {
         root = new File(context.getCacheDir(), "cards");
         targetWidth = context.getResources().getDisplayMetrics().widthPixels;
         targetHeight = context.getResources().getDisplayMetrics().heightPixels;
+        plex = new Plex(context, targetWidth, targetHeight);
         worker.execute(() -> {
             deleteTree(new File(context.getCacheDir(), "backdrops"));   // the old scraped stills
             prune();
@@ -176,6 +180,19 @@ final class Backdrops {
      * permission or any cards.
      */
     private List<Card> cards(String pkg) {
+        if (pkg.equals(PLEX)) {
+            // The server's own art; Plex's old cards point at a provider the new app no longer has.
+            List<Card> cards = new ArrayList<>();
+            for (String url : plex.backdrops()) {
+                Card card = new Card(null, false);
+                card.images.add(url);
+                cards.add(card);
+            }
+            if (!cards.isEmpty()) {
+                Collections.shuffle(cards, random);
+                return cards;
+            }
+        }
         Set<String> sources = new HashSet<>(Collections.singletonList(pkg));
         if (pkg.equals(YOUTUBE)) Collections.addAll(sources, SMARTTUBE);
         List<Card> clean = new ArrayList<>(), badged = new ArrayList<>();
