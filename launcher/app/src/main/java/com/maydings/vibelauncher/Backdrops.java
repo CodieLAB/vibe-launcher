@@ -1,11 +1,13 @@
 package com.maydings.vibelauncher;
 
+import android.content.ContentResolver;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.Html;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -15,7 +17,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -25,14 +27,11 @@ import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
- * Backdrop stills for the big streaming apps, scraped from their public web pages (no accounts or
- * API keys). Each has a recipe naming a page with good artwork; candidates are downloaded and kept
- * only if they are big and wide, then cached on disk and refreshed once a day. Every other app, and
- * any recipe that stops finding images (sites change), keeps the colour glow.
+ * Backdrop stills from the cards apps publish for the TV home screen (their channels and Watch Next
+ * rows in the system TV provider), read with READ_TV_LISTINGS. Only wide, big artwork is used; apps
+ * that publish none keep the colour glow. Downloaded images are cached on disk for a week.
  */
 final class Backdrops {
 
@@ -40,72 +39,34 @@ final class Backdrops {
         void onBackdrop(String pkg, Bitmap bitmap);
     }
 
-    private static final String UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/605.1.15 "
-            + "(KHTML, like Gecko) Version/17.0 Safari/605.1.15";
-    private static final long REFRESH_MS = 24L * 60 * 60 * 1000;
-    private static final int MIN_WIDTH = 1200;
+    static final String PERMISSION = "android.permission.READ_TV_LISTINGS";
+
+    private static final Uri PREVIEW = Uri.parse("content://android.media.tv/preview_program");
+    private static final Uri WATCH_NEXT = Uri.parse("content://android.media.tv/watch_next_program");
+    private static final String[] COLUMNS = {"package_name", "intent_uri", "poster_art_uri", "thumbnail_uri"};
+    private static final int MIN_WIDTH = 800;   // Netflix publishes 853x480
     private static final float MIN_ASPECT = 1.45f, MAX_ASPECT = 2.4f;
-    private static final int KEEP = 8;            // images cached per app
-    private static final int MAX_CANDIDATES = 30; // images downloaded per refresh
-    private static final int MAX_IMAGE_BYTES = 4 * 1024 * 1024;
-    private static final Pattern NOT_ARTWORK = Pattern.compile(
-            "logo|icon|favicon|social|share|sprite|badge|avatar|og[-_]?image", Pattern.CASE_INSENSITIVE);
+    private static final int MAX_TRIES = 6;       // candidates tried per visit before giving up
+    private static final int MAX_IMAGE_BYTES = 6 * 1024 * 1024;
+    private static final long CACHE_MS = 7L * 24 * 60 * 60 * 1000;
 
-    /** A page with good artwork for an app, and how to pull image URLs out of it. */
-    private static final class Recipe {
-        final String page;
-        final Pattern image;     // null: take every photo on the page
-        final String template;   // "%s" is replaced by the first group, or null to use the match
-
-        Recipe(String page, String imageRegex, String template) {
-            this.page = page;
-            this.image = imageRegex != null ? Pattern.compile(imageRegex) : null;
-            this.template = template;
-        }
-    }
-
-    private static final Map<String, Recipe> RECIPES = new HashMap<>();
-
-    static {
-        // YouTube's logged-out home is empty; the Movies storefront lists films with 1080p artwork.
-        RECIPES.put("com.google.android.youtube.tv", new Recipe("https://www.youtube.com/feed/storefront",
-                "\"videoId\":\"([A-Za-z0-9_-]{11})\"", "https://i.ytimg.com/vi/%s/maxresdefault.jpg"));
-        // Netflix's own pages load artwork with JavaScript; Tudum (its show news site) has it inline.
-        RECIPES.put("com.netflix.ninja", new Recipe("https://www.netflix.com/tudum",
-                "https://dnm\\.nflximg\\.net/api/v6/[^\"'\\s)\\\\]+", null));
-        RECIPES.put("com.apple.atve.androidtv.appletv", new Recipe("https://tv.apple.com/",
-                "https://is\\d-ssl\\.mzstatic\\.com/image/thumb/[^\"'\\s)\\\\]+?/\\d{3,4}x\\d{3,4}[^\"'\\s)\\\\/]*?\\.jpg", null));
-        // Plex's free movies and TV page links TMDB artwork (posters and backdrops; the size check
-        // keeps the wide ones). Fetched at 1280 wide rather than the multi-megabyte originals.
-        RECIPES.put("com.plexapp.android", new Recipe("https://watch.plex.tv/",
-                "https://image\\.tmdb\\.org/t/p/original/([A-Za-z0-9]+)\\.jpg", "https://image.tmdb.org/t/p/w1280/%s.jpg"));
-        // These homepages only have a few banners; the size check below picks the usable ones.
-        RECIPES.put("com.cbs.ott", new Recipe("https://www.paramountplus.com/", null, null));
-        RECIPES.put("com.amazon.amazonvideo.livingroom", new Recipe("https://www.primevideo.com/", null, null));
-        RECIPES.put("com.peacocktv.peacockandroid", new Recipe("https://www.peacocktv.com/", null, null));
-        // Disney+, Hulu and Max were tried: their artwork loads with JavaScript or is too small.
-    }
-
-    /** Whether this app has a backdrop recipe at all (others keep the colour glow). */
-    static boolean supports(String pkg) {
-        return RECIPES.containsKey(pkg);
-    }
-
-    private static final Pattern MZ_SIZE = Pattern.compile("/(\\d{3,4})x(\\d{3,4})");
-    private static final Pattern PAGE_IMAGE = Pattern.compile(
-            "(?:src|content|data-src|srcset)=\"([^\"]+)\"|url\\(['\"]?([^)'\"]+)['\"]?\\)");
-
+    private final ContentResolver resolver;
     private final File root;
     private final ExecutorService worker = Executors.newSingleThreadExecutor();
     private final Handler main = new Handler(Looper.getMainLooper());
-    private final Set<String> refreshing = new HashSet<>();
     private final Map<String, File> chosen = new HashMap<>();   // this visit's still per app
+    private final Set<String> unsuitable = Collections.synchronizedSet(new HashSet<>());
     private final Random random = new Random();
     private final int targetWidth;
 
     Backdrops(Context context) {
-        root = new File(context.getCacheDir(), "backdrops");
+        resolver = context.getContentResolver();
+        root = new File(context.getCacheDir(), "cards");
         targetWidth = context.getResources().getDisplayMetrics().widthPixels;
+        worker.execute(() -> {
+            deleteTree(new File(context.getCacheDir(), "backdrops"));   // the old scraped stills
+            prune();
+        });
     }
 
     /** Pick a fresh still per app next time each is shown (called when Home comes back). */
@@ -113,122 +74,101 @@ final class Backdrops {
         chosen.clear();
     }
 
-    /** Fetch in the background if this app has no images yet or they are a day old. */
+    /** Choose and download this visit's still in the background so it is ready on focus. */
     void prefetch(String pkg) {
-        if (supports(pkg) && stale(pkg)) worker.execute(() -> refresh(pkg));
+        worker.execute(() -> pick(pkg));
     }
 
-    /** Delivers this visit's still for the app on the main thread, or null when there is none (yet). */
+    /** Delivers this visit's still for the app on the main thread, or null when it has none. */
     void load(String pkg, Callback callback) {
         worker.execute(() -> {
-            if (cached(pkg).isEmpty()) refresh(pkg);
             File file = pick(pkg);
             Bitmap bitmap = file != null ? decode(file) : null;
             main.post(() -> callback.onBackdrop(pkg, bitmap));
-            if (stale(pkg)) refresh(pkg);
         });
     }
 
-    private synchronized File pick(String pkg) {
-        File file = chosen.get(pkg);
-        if (file != null && file.exists()) return file;
-        List<File> files = cached(pkg);
-        if (files.isEmpty()) return null;
-        file = files.get(random.nextInt(files.size()));
-        chosen.put(pkg, file);
-        return file;
-    }
-
-    private List<File> cached(String pkg) {
-        File[] files = new File(root, pkg).listFiles((dir, name) -> name.endsWith(".img"));
-        return files == null ? new ArrayList<>() : new ArrayList<>(Arrays.asList(files));
-    }
-
-    private boolean stale(String pkg) {
-        File stamp = new File(new File(root, pkg), "fetched");
-        return !stamp.exists() || System.currentTimeMillis() - stamp.lastModified() > REFRESH_MS;
-    }
-
-    /** Runs on the worker thread. Keeps the old images if the refresh finds nothing. */
-    private void refresh(String pkg) {
-        synchronized (refreshing) {
-            if (!refreshing.add(pkg)) return;
+    /** Runs on the worker thread. */
+    private File pick(String pkg) {
+        synchronized (this) {
+            File file = chosen.get(pkg);
+            if (file != null && file.exists()) return file;
         }
-        try {
-            List<String> candidates = candidates(pkg);
-            File dir = new File(root, pkg);
-            File fresh = new File(root, pkg + ".new");
-            deleteDir(fresh);
-            fresh.mkdirs();
-            int kept = 0;
-            for (String url : candidates) {
-                if (kept >= KEEP) break;
-                byte[] data = download(url, MAX_IMAGE_BYTES);
-                if (data == null || !suitable(data)) continue;
-                try (FileOutputStream out = new FileOutputStream(new File(fresh, (kept++) + ".img"))) {
-                    out.write(data);
-                }
-            }
-            if (kept > 0) {
-                deleteDir(dir);
-                fresh.renameTo(dir);
-            } else {
-                deleteDir(fresh);
-                dir.mkdirs();
-            }
-            // Stamp even when nothing qualified, so an app without artwork isn't re-scraped every visit.
-            File stamp = new File(dir, "fetched");
-            new FileOutputStream(stamp).close();
-            stamp.setLastModified(System.currentTimeMillis());
+        List<String> urls = artwork(pkg);
+        Collections.shuffle(urls, random);
+        int tries = 0;
+        for (String url : urls) {
+            if (unsuitable.contains(url)) continue;
+            if (tries++ >= MAX_TRIES) break;
+            File file = fetch(url);
+            if (file == null) continue;
             synchronized (this) {
-                chosen.remove(pkg);
+                chosen.put(pkg, file);
             }
-        } catch (IOException ignored) {
-        } finally {
-            synchronized (refreshing) {
-                refreshing.remove(pkg);
-            }
+            return file;
         }
+        return null;
     }
 
-    /** Image URLs worth downloading for this app, from its recipe's page. */
-    private List<String> candidates(String pkg) {
+    /** Image URIs from the app's home screen cards. Empty without the permission or any cards. */
+    private List<String> artwork(String pkg) {
         Set<String> urls = new LinkedHashSet<>();
-        Recipe recipe = RECIPES.get(pkg);
-        String page = recipe != null ? fetchText(recipe.page) : null;
-        if (page == null) return new ArrayList<>();
-        if (recipe.image != null) {
-            Matcher m = recipe.image.matcher(page);
-            while (m.find() && urls.size() < MAX_CANDIDATES * 3) {
-                String url = recipe.template != null ? String.format(recipe.template, m.group(1))
-                        : Html.fromHtml(m.group()).toString();
-                if (wideByName(url)) urls.add(url);
-            }
-        } else {
-            Matcher m = PAGE_IMAGE.matcher(page.replace("\\/", "/"));
-            while (m.find()) {
-                String raw = m.group(1) != null ? m.group(1) : m.group(2);
-                for (String part : Html.fromHtml(raw).toString().split(",")) {
-                    String url = part.trim().split("\\s+")[0];
-                    if (!url.matches("(?i).+\\.(jpe?g|webp)(\\?.*)?$") || NOT_ARTWORK.matcher(url).find()) continue;
-                    try {
-                        urls.add(new URL(new URL(recipe.page), url).toString());
-                    } catch (IOException ignored) {
+        for (Uri table : new Uri[]{WATCH_NEXT, PREVIEW}) {
+            // Filtering by package in the query isn't allowed without system permissions; read all.
+            try (Cursor c = resolver.query(table, COLUMNS, null, null, null)) {
+                while (c != null && c.moveToNext()) {
+                    if (!pkg.equals(c.getString(0)) || badged(c.getString(1))) continue;
+                    for (int i = 2; i < COLUMNS.length; i++) {
+                        String url = c.getString(i);
+                        if (url != null && !url.isEmpty()) urls.add(url);
                     }
                 }
+            } catch (RuntimeException e) {
+                // No permission, or the provider is missing (not a TV): no stills.
             }
         }
-        List<String> list = new ArrayList<>(urls);
-        java.util.Collections.shuffle(list, random);   // a different selection each day
-        return list.subList(0, Math.min(MAX_CANDIDATES, list.size()));
+        return new ArrayList<>(urls);
     }
 
-    /** Skips Apple's portrait and thumbnail sizes by the size in the URL, before downloading. */
-    private static boolean wideByName(String url) {
-        Matcher m = MZ_SIZE.matcher(url);
-        if (!url.contains("mzstatic") || !m.find()) return true;
-        int w = Integer.parseInt(m.group(1)), h = Integer.parseInt(m.group(2));
-        return w >= 1100 && w >= h * MIN_ASPECT;
+    /**
+     * Netflix bakes stickers such as "Recently Added" and "Top 10" into the artwork of some cards, and
+     * names them in the card's link (badges=B:recently.added). Those don't work as a backdrop.
+     */
+    private static boolean badged(String intentUri) {
+        return intentUri != null && (intentUri.contains("badges%3D") || intentUri.contains("badges="));
+    }
+
+    /** The cached file for this image, downloading it first; null if it isn't wide and big. */
+    private File fetch(String url) {
+        File file = new File(root, Integer.toHexString(url.hashCode()) + ".img");
+        if (file.exists()) {
+            file.setLastModified(System.currentTimeMillis());
+            return file;
+        }
+        byte[] data = read(url);
+        if (data == null || !suitable(data)) {
+            unsuitable.add(url);
+            return null;
+        }
+        root.mkdirs();
+        File tmp = new File(root, file.getName() + ".tmp");
+        try (FileOutputStream out = new FileOutputStream(tmp)) {
+            out.write(data);
+        } catch (IOException e) {
+            tmp.delete();
+            return null;
+        }
+        return tmp.renameTo(file) ? file : null;
+    }
+
+    private byte[] read(String url) {
+        if (url.startsWith("http://") || url.startsWith("https://")) return download(url);
+        // content:// and android.resource:// art served by the app itself.
+        try (InputStream in = resolver.openInputStream(Uri.parse(url))) {
+            return in == null ? null : readAll(in);
+        } catch (IOException | RuntimeException e) {
+            return null;
+        }
     }
 
     private static boolean suitable(byte[] data) {
@@ -252,28 +192,15 @@ final class Backdrops {
         return BitmapFactory.decodeFile(file.getPath(), o);
     }
 
-    private static String fetchText(String url) {
-        byte[] data = download(url, 8 * 1024 * 1024);
-        return data == null ? null : new String(data, java.nio.charset.StandardCharsets.UTF_8);
-    }
-
-    private static byte[] download(String url, int maxBytes) {
+    private static byte[] download(String url) {
         HttpURLConnection c = null;
         try {
             c = (HttpURLConnection) new URL(url).openConnection();
             c.setConnectTimeout(10000);
             c.setReadTimeout(15000);
-            c.setRequestProperty("User-Agent", UA);
-            c.setRequestProperty("Accept-Language", "en-US,en;q=0.9");
             if (c.getResponseCode() != 200) return null;
-            try (InputStream in = c.getInputStream(); ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-                byte[] buf = new byte[16384];
-                int n;
-                while ((n = in.read(buf)) > 0) {
-                    out.write(buf, 0, n);
-                    if (out.size() > maxBytes) return null;
-                }
-                return out.toByteArray();
+            try (InputStream in = c.getInputStream()) {
+                return readAll(in);
             }
         } catch (IOException | RuntimeException e) {
             return null;
@@ -282,9 +209,28 @@ final class Backdrops {
         }
     }
 
-    private static void deleteDir(File dir) {
-        File[] files = dir.listFiles();
-        if (files != null) for (File f : files) f.delete();
-        dir.delete();
+    private static byte[] readAll(InputStream in) throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        byte[] buf = new byte[16384];
+        int n;
+        while ((n = in.read(buf)) > 0) {
+            out.write(buf, 0, n);
+            if (out.size() > MAX_IMAGE_BYTES) return null;
+        }
+        return out.toByteArray();
+    }
+
+    /** Drops stills not shown for a week; apps rotate their cards, so old art piles up otherwise. */
+    private void prune() {
+        File[] files = root.listFiles();
+        if (files == null) return;
+        long now = System.currentTimeMillis();
+        for (File f : files) if (now - f.lastModified() > CACHE_MS) f.delete();
+    }
+
+    private static void deleteTree(File f) {
+        File[] children = f.listFiles();
+        if (children != null) for (File c : children) deleteTree(c);
+        f.delete();
     }
 }

@@ -115,6 +115,12 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         backdrop = findViewById(R.id.backdrop);
         backdropImage = findViewById(R.id.backdropImage);
         backdrops = new Backdrops(this);
+        // Granted at install over adb (-g); otherwise ask once, and keep the colour glow if refused.
+        if (checkSelfPermission(Backdrops.PERMISSION) != PackageManager.PERMISSION_GRANTED
+                && !getPreferences(MODE_PRIVATE).getBoolean("askedTvListings", false)) {
+            getPreferences(MODE_PRIVATE).edit().putBoolean("askedTvListings", true).apply();
+            requestPermissions(new String[]{Backdrops.PERMISSION}, 1);
+        }
         ambientGlow = new GradientDrawable();
         ambientGlow.setGradientType(GradientDrawable.RADIAL_GRADIENT);
         ambientGlow.setGradientCenter(0.32f, 0.42f);
@@ -352,10 +358,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private void showBackdrop(String pkg) {
         if (pkg == null || pkg.equals(backdropPkg)) return;
         backdropPkg = pkg;
-        if (!Backdrops.supports(pkg)) {
-            fadeBackdrop(null);
-            return;
-        }
         backdrops.load(pkg, (loaded, bitmap) -> {
             if (!heroShown || !loaded.equals(backdropPkg)) return;   // moved on while it loaded
             fadeBackdrop(bitmap);
