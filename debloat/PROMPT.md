@@ -3,9 +3,8 @@
 Paste this into Claude Code (or another coding assistant with shell access) on a computer that is
 on the same Wi-Fi as the TV. Works on Android TV / Google TV sets (Xiaomi, TCL, Hisense, Sony,
 OnePlus, Realme, Nvidia Shield and most others). It will not work on Samsung Tizen, LG webOS or
-Fire TV. If you cloned this repo, mention that: the assistant can reuse `debloat/tools/` and
-`vibe-launcher/` instead of writing them from scratch, and only needs to edit
-`vibe-launcher/app/src/main/res/values/config.xml`. A ready-built Vibe Launcher APK is on the repo's
+Fire TV. If you cloned this repo, mention that: the assistant can reuse `debloat/tools/` instead of writing
+an ADB client from scratch. The launcher is the ready-built Vibe Launcher APK from the repo's
 Releases page.
 
 Before you start, on the TV: Settings → Device Preferences → About → press OK on "Build" 7 times,
@@ -14,7 +13,7 @@ shows it). Keep the TV on.
 
 ---
 
-I want to debloat my Android TV and replace its launcher with a clean Apple TV style home screen.
+I want to debloat my Android TV and replace its launcher with Vibe Launcher, a clean Apple TV style home screen.
 My TV model is: <MODEL NAME HERE>. Work on the real device, step by step, and verify everything you
 do with screenshots pulled from the TV. Ask me before anything that depends on my preferences.
 
@@ -40,28 +39,29 @@ Debloat
 - Run `pm` commands one per shell call, chained commands may silently stop after the first.
 
 Launcher
-- Don't install a third-party launcher that charges for basics like wallpapers. Build a small native
-  Android TV launcher instead (Java, AndroidX RecyclerView, minSdk matching the TV, debug build is fine),
-  install it over ADB, set it as the default home and disable the stock launcher. If several apps claim
-  the HOME intent, set the default with `cmd package set-home-activity`.
-- Design, Apple TV 4K style: pitch black background; a dock row at the bottom of the screen inside a
-  slightly lighter rounded band holding the four apps I pick (ask me which, and the order); the rest of
-  the apps in a 4-column grid below that scrolls up when I press Down; one translucent "glass" highlight
-  that springs from tile to tile instead of per-tile borders; the focused tile scales up slightly and
-  shows its name underneath; above the dock, the focused dock app's name in large light type with an
-  ambient glow in a colour sampled from its banner; frosted pill buttons top right for Inputs, Wi-Fi
-  (showing the network name) and Settings; a greeting, a large thin clock and the date top left in a
-  downloaded open-licence typeface such as Outfit. Inputs opens a compact glass dropdown under the pill
-  listing the HDMI ports, AV and Live TV, switching via the TV input framework.
-- Make D-pad navigation deterministic: Up/Down move exactly one row, Up from the dock goes to the top
-  bar, the ends of the top bar don't fall through to tiles. Remember the last focused tile.
-- Keep it light: the TV has about 1 GB of RAM. No blur, no video, no network polling.
+- Install Vibe Launcher, a free, open-source home screen with no ads:
+  https://github.com/maydings/vibe-launcher/releases/latest/download/vibe-launcher.apk (or build it
+  from `vibe-launcher/` if I cloned the repo). Don't install launchers that show ads or charge for basics.
+- Order matters: `adb install -g` the APK (grants its TV listings and location permissions), start it
+  once with `am start -n com.maydings.vibelauncher/.MainActivity`, disable the stock launcher
+  (`com.google.android.tvlauncher`, or `com.google.android.apps.tv.launcherx` on Google TV) with
+  `pm disable-user --user 0`, and only then set Home with
+  `cmd package set-home-activity com.maydings.vibelauncher/.MainActivity`. Android forgets the chosen
+  home app whenever a home app is enabled or disabled, so setting it must come last.
+- Uninstall other third-party launchers (Projectivy and the like): they take Home back after a reboot.
+- Ask me which apps go in the dock and in what order, and arrange them on the TV: long-press OK on a
+  tile → Move. Tiles per row (4, 5 or 6) is under Settings → Vibe Launcher settings.
+- If a Google TV starts dropping off Wi-Fi after its launcher is disabled (seen on Google TV 14), enable
+  `com.google.android.apps.tv.launcherx` again.
 
 Verify
 - After each change, inject remote key presses over ADB, take a screenshot from the TV and look at it.
   Fix what you see before moving on.
-- When done, give me a restore script, a build-and-install script, and a README that explains how to
-  re-enable any app and how to change the dock order or the wallpaper.
+- Send one key press at a time, then check which app is in front and what has focus before the next.
+  Never chain presses: a layout change can put a different app under the same keys, and a stray OK
+  inside a streaming app can land on a subscription page. Prefer `am start` to reach a screen.
+- When done, give me the restore script and a short list of what was disabled and how to re-enable any
+  of it.
 
 ---
 

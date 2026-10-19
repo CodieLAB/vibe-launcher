@@ -25,7 +25,7 @@ source: every feature is in the APK, nothing is behind a purchase.
 
 **The home screen**
 
-- **Dock and grid.** Your four favourite apps sit in a dock at the bottom. Press Down and the rest of
+- **Dock and grid.** Your favourite apps (four, or up to six) sit in a dock at the bottom. Press Down and the rest of
   your apps slide up in a grid. A single glass highlight springs from tile to tile.
 - **Backdrops.** The focused dock app fills the screen behind it with artwork from what it is
   actually offering you:
@@ -46,10 +46,12 @@ source: every feature is in the APK, nothing is behind a purchase.
 
 - The gear shows live **RAM** use (and CPU on devices that allow apps to read it), **Vibe Launcher
   settings** and **Android settings**.
-- Vibe Launcher settings hold the TMDB, YouTube and Plex keys. Each has an ⓘ explaining what it does
-  and where to get it. Typing keys with a remote is no fun, so the screen shows a **QR code**: scan
-  it with your phone and paste the keys there. Saved keys are shown hidden but for their last four
-  characters.
+- Vibe Launcher settings start with **tiles per row**: 4 (the default), 5 or 6. Tiles shrink to fit,
+  and the dock holds as many apps.
+- Below that, the TMDB, YouTube and Plex keys. Each has an ⓘ explaining what it does and where to get
+  it. Typing keys with a remote is no fun, so the screen shows a **QR code**: scan it with your phone
+  and paste the keys there. Saved keys are shown hidden but for their last four characters, on the TV
+  and on the phone.
 - Keys stay on the TV; the launcher never ships with any.
 
 **Managing apps**

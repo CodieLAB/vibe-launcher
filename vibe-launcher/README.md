@@ -18,7 +18,7 @@ page covers configuring, building and how the backdrops work.
 | `dock_apps` | Package names for the dock, in order. Missing apps are skipped. Can also be changed on the TV with long-press → Move. |
 | `hidden_apps` | Packages never shown as tiles (e.g. the Live TV app, which the Inputs menu already offers). |
 | `live_tv_package` | The TV's tuner app, offered at the end of the Inputs menu. Empty to omit. |
-| `columns` | Tiles per row; the dock has this many slots. |
+| `columns` | Default tiles per row (the dock has this many slots). On the TV, Vibe Launcher settings offers 4, 5 or 6, which overrides it. |
 
 ## Build
 
@@ -87,11 +87,14 @@ their keys are set. No analytics, no accounts, nothing else.
 
 | File | What it does |
 |---|---|
-| `MainActivity` | Home screen, dock and grid focus, top bar menus, settings |
+| `MainActivity` | Home screen, dock and grid focus, top bar menus |
+| `SettingsDialog` | Vibe Launcher settings: tiles per row, the keys and their ⓘ, the QR code |
 | `AppAdapter`, `TileAnimator`, `DockDecoration` | Tiles, their animations and the dock band |
 | `GlassView`, `FrostView` | The glass focus highlight and the frosted top bar (software blur; Android 9 has no live blur) |
 | `Backdrops` | Picks, downloads, caches and decodes backdrops |
-| `Tmdb`, `YouTubePopular`, `Plex` | The keyed backdrop sources |
+| `TitleArt`, `Tmdb`, `Stremio` | Clean backdrops and logos for films and shows by title: TMDB with a key, Stremio without |
+| `YouTubePopular`, `Plex` | The keyed YouTube and Plex backdrop sources |
+| `Http` | Plain GET requests for all of the above |
 | `VibeSettings`, `PhoneLink` | Stored keys and the phone page with its QR code |
 | `CpuInfo` | CPU use where the device allows it |
 | `CrashGuard` | Falls back to the stock launcher's App info after repeated crashes |

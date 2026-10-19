@@ -63,7 +63,7 @@ printf '%s\n' \
   "pm grant com.maydings.vibelauncher android.permission.ACCESS_FINE_LOCATION 2>/dev/null; echo location-granted" \
   "pm grant com.maydings.vibelauncher android.permission.ACCESS_COARSE_LOCATION 2>/dev/null; echo coarse-granted" \
   "pm grant com.maydings.vibelauncher android.permission.READ_TV_LISTINGS 2>/dev/null; echo cards-granted" \
-  "am start -W -n com.maydings.vibelauncher/.MainActivity | grep -E '^(Status|Error)'" \
+  "am start -n com.maydings.vibelauncher/.MainActivity >/dev/null; sleep 2; echo started" \
   "$DISABLE_STOCK" \
   "cmd package set-home-activity --user 0 com.maydings.vibelauncher/.MainActivity" \
   "cmd package resolve-activity --brief -a android.intent.action.MAIN -c android.intent.category.HOME | tail -n 1" \
