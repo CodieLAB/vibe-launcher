@@ -17,7 +17,9 @@ adb shell input keyevent KEYCODE_DPAD_DOWN
 adb exec-out screencap -p > s.png
 ```
 
-(If macOS blocks `adb`, `../debloat/tools/tv.py` does the same.) Include a screenshot in your pull
+(If macOS blocks `adb`, run `../debloat/debloat.sh <tv-ip> --dry-run` once: it sets up the Python
+client, and then `TV_HOST=<tv-ip> ../debloat/tools/venv/bin/python ../debloat/tools/tv.py <command>`
+does the same.) Include a screenshot in your pull
 request and say which TV you tested on.
 
 Ideas that fit: more backdrop sources (Jellyfin and Emby servers), an idle screensaver, editing the

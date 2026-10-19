@@ -29,11 +29,11 @@ brew install openjdk@17 android-commandlinetools
 sdkmanager "platforms;android-34" "build-tools;34.0.0"
 ```
 
-Build, install on the TV and make it the home screen in one go (uses the ADB client from
-[`../debloat/tools`](../debloat/tools), which works where macOS blocks the stock `adb`):
+Build, install on the TV and make it the home screen in one go. It uses adb, or the Python ADB
+client in [`../debloat/tools`](../debloat/tools) where macOS blocks adb on the local network:
 
 ```bash
-TV_HOST=192.168.1.50 ./build-and-install.sh
+./build-and-install.sh 192.168.1.50
 ```
 
 Or by hand: `./gradlew assembleDebug`, then `adb install -r -g app/build/outputs/apk/debug/app-debug.apk`.

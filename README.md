@@ -84,6 +84,9 @@ latest version is always at
 
 **With a computer (adb)**
 
+On the [tested TVs](#tested-on), `debloat/debloat.sh` does all of this for you (see
+[Debloat](#debloat)). By hand:
+
 1. Turn on developer options and USB/network debugging on the TV (Settings → Device Preferences →
    About → press OK on **Build** seven times → back → Developer options).
 2. Download the APK and install it from a computer on the same network, in this order:
