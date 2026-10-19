@@ -39,6 +39,10 @@ source: every feature is in the APK, nothing is behind a purchase.
   - **Plex** shows Continue Watching and recently added from your own server with a Plex token;
   - low-resolution art becomes a 2×2 wall instead of one blurry still; apps with nothing to show get
     an ambient glow in their own colour.
+- **Screensaver.** "Vibe Launcher posters" shows the same backdrops full screen, slowly drifting
+  and cross-fading every 20 seconds, with a large clock and each film's logo. It uses only pictures
+  already on the TV, no network. Pick it in the TV's screen saver settings (on Android TV:
+  Settings → Device Preferences → Screen saver).
 - **Frosted top bar** with the clock, date and three pills: **Inputs** (HDMI, AV, Live TV; hidden
   on devices without inputs), **Network** (each interface and its IP address) and **Settings**.
 

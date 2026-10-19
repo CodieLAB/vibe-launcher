@@ -98,7 +98,8 @@ their keys are set. No analytics, no accounts, nothing else.
 | `SettingsDialog` | Vibe Launcher settings: tiles per row, the keys and their ⓘ, the QR code |
 | `AppAdapter`, `TileAnimator`, `DockDecoration` | Tiles, their animations and the dock band |
 | `GlassView`, `FrostView` | The glass focus highlight and the frosted top bar (software blur; Android 9 has no live blur) |
-| `Backdrops` | Picks, downloads, caches and decodes backdrops |
+| `Backdrops` | Builds each dock app's pool of backdrops and serves one per visit |
+| `VibeDream` | The screensaver: the pooled backdrops with a clock |
 | `TitleArt`, `Tmdb`, `Stremio` | Clean backdrops and logos for films and shows by title: TMDB with a key, Stremio without |
 | `YouTubePopular`, `Plex` | The keyed YouTube and Plex backdrop sources |
 | `Http` | Plain GET requests for all of the above |

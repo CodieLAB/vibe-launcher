@@ -74,7 +74,7 @@ final class Backdrops {
     }
 
     /** A finished still in an app's pool: screen-sized and darkened, with the title's logo if any. */
-    private static final class Entry {
+    static final class Entry {
         final File still, logo;
         final String title;
 
@@ -386,6 +386,30 @@ final class Backdrops {
         }
     }
 
+    /**
+     * Every still in the pools in use, for the screensaver: films and shows, so not the video sites'
+     * thumbnails. Reads files only; call off the main thread.
+     */
+    static List<Entry> screensaverStills(Context context) {
+        Set<String> videoSites = new HashSet<>();
+        videoSites.add(sha1(YOUTUBE));
+        videoSites.add(sha1(YOUTUBE + "kids"));   // com.google.android.youtube.tvkids
+        for (String s : SMARTTUBE) videoSites.add(sha1(s));
+        List<Entry> stills = new ArrayList<>();
+        File[] apps = new File(context.getCacheDir(), "pools").listFiles();
+        if (apps == null) return stills;
+        for (File app : apps) {
+            if (videoSites.contains(app.getName())) continue;
+            try {
+                String current = readText(new File(app, "current.txt")).trim();
+                for (Entry e : readPool(new File(app, current)).entries) if (e.still.exists()) stills.add(e);
+            } catch (IOException | RuntimeException e) {
+                // No pool for this app yet.
+            }
+        }
+        return stills;
+    }
+
     /** Deletes every app's builds other than the one in use. Runs on the builder thread. */
     private void dropReplaced() {
         File[] apps = poolRoot.listFiles();
@@ -675,7 +699,7 @@ final class Backdrops {
     }
 
     /** A title logo, kept transparent and no wider than 800 px (it shows at about a third of the screen). */
-    private static Bitmap decodeLogo(File file) {
+    static Bitmap decodeLogo(File file) {
         BitmapFactory.Options o = new BitmapFactory.Options();
         o.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(file.getPath(), o);
