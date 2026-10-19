@@ -572,6 +572,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             lp.y = (int) (24 * density);
             window.setAttributes(lp);
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+            // The dialog theme caps the width; the fields and the QR code sit side by side.
+            window.setLayout((int) (760 * density), ViewGroup.LayoutParams.WRAP_CONTENT);
         }
         View cancel = panel.findViewById(R.id.cancel), save = panel.findViewById(R.id.save);
         // Text fields keep Up/Down to themselves on this TV, so steer the remote by hand:
@@ -593,6 +595,21 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             if (imm != null) imm.hideSoftInputFromWindow(plex.getWindowToken(), 0);
             return save.requestFocus();
         });
+        // Typing a 32-character key with a remote is painful: offer a page to paste it from a phone.
+        PhoneLink link = new PhoneLink(fields -> {
+            if (!dialog.isShowing()) return;
+            if (fields.containsKey("tmdbKey")) tmdb.setText(fields.get("tmdbKey"));
+            if (fields.containsKey("plexToken")) plex.setText(fields.get("plexToken"));
+            settings.save(tmdb.getText().toString(), plex.getText().toString());
+            Toast.makeText(this, R.string.saved_from_phone, Toast.LENGTH_SHORT).show();
+        });
+        String url = link.start();
+        if (url != null) {
+            ((ImageView) panel.findViewById(R.id.qr)).setImageBitmap(PhoneLink.qr(url, (int) (134 * density)));
+            ((TextView) panel.findViewById(R.id.phoneUrl)).setText(url.replace("http://", ""));
+            panel.findViewById(R.id.phone).setVisibility(View.VISIBLE);
+        }
+        dialog.setOnDismissListener(d -> link.stop());
         cancel.setOnClickListener(v -> dialog.dismiss());
         save.setOnClickListener(v -> {
             settings.save(tmdb.getText().toString(), plex.getText().toString());

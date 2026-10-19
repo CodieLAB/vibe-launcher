@@ -30,4 +30,6 @@
     <string name="not_set">Not set</string>
     <string name="save">Save</string>
     <string name="saved">Saved</string>
+    <string name="scan_to_paste">Scan with your phone to paste the keys</string>
+    <string name="saved_from_phone">Saved from your phone</string>
 </resources>

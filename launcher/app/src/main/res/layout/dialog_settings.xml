@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Vibe Launcher settings: keys for the backdrop sources. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="520dp"
+    android:layout_width="760dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/glass_panel"
@@ -16,22 +16,75 @@
         android:fontFamily="@font/outfit"
         android:fontVariationSettings="'wght' 500" />
 
-    <TextView
-        style="@style/SettingsLabel"
-        android:text="@string/tmdb_key" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/tmdbKey"
-        style="@style/SettingsField" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-    <TextView
-        style="@style/SettingsLabel"
-        android:text="@string/plex_token" />
+            <TextView
+                style="@style/SettingsLabel"
+                android:text="@string/tmdb_key" />
 
-    <EditText
-        android:id="@+id/plexToken"
-        style="@style/SettingsField"
-        android:imeOptions="actionDone|flagNoExtractUi" />
+            <EditText
+                android:id="@+id/tmdbKey"
+                style="@style/SettingsField" />
+
+            <TextView
+                style="@style/SettingsLabel"
+                android:text="@string/plex_token" />
+
+            <EditText
+                android:id="@+id/plexToken"
+                style="@style/SettingsField"
+                android:imeOptions="actionDone|flagNoExtractUi" />
+        </LinearLayout>
+
+        <!-- Scan to type the keys on a phone instead (PhoneLink). -->
+        <LinearLayout
+            android:id="@+id/phone"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/qr"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:padding="8dp"
+                android:background="#FFFFFFFF"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:text="@string/scan_to_paste"
+                android:textColor="#B3FFFFFF"
+                android:textSize="13sp"
+                android:fontFamily="@font/outfit" />
+
+            <TextView
+                android:id="@+id/phoneUrl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:textColor="#80FFFFFF"
+                android:textSize="11sp"
+                android:fontFamily="@font/outfit" />
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
