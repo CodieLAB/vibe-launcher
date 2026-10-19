@@ -11,8 +11,8 @@ The repo has two parts:
 
 | Folder | What it is |
 |---|---|
-| [`vibe-launcher/`](vibe-launcher/) | The launcher: source, build script and docs. Ready-built APKs are on the [Releases](https://github.com/maydings/vibe-launcher/releases/latest) page. |
-| [`debloat/`](debloat/) | Debloating any Android TV over ADB: the prompt for Claude Code (or another coding assistant), ADB tools, and per-TV lists. |
+| [`vibe-launcher/`](vibe-launcher/) | The launcher. **Just download the APK from [Releases](https://github.com/maydings/vibe-launcher/releases/latest) and install it**; no AI needed. Source and build script included. |
+| [`debloat/`](debloat/) | Debloating any Android TV over ADB. **Requires an AI coding assistant** (Claude Code or similar): the prompt, ADB tools and per-TV lists. |
 
 ---
 
@@ -59,6 +59,8 @@ source: every feature is in the APK, nothing is behind a purchase.
   press of Enable gets you a working home screen back.
 
 ### Install
+
+Vibe Launcher is just an APK: download it and install it. No AI, no account, no build tools.
 
 1. Turn on developer options and USB/network debugging on the TV (Settings → Device Preferences →
    About → press OK on **Build** seven times → back → Developer options).
