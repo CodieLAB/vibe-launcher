@@ -118,6 +118,11 @@ final class Backdrops {
     private static final int POOL_SIZE = 8;
     private static final int POOL_TRIES = 40;     // lookups and downloads for a whole pool
     static final long POOL_MS = 6L * 60 * 60 * 1000;
+    /**
+     * How stills are stored: lossless, since a second lossy save (JPEG) showed in the darkened gradients.
+     * Part of the pool's fingerprint, so changing it rebuilds every pool.
+     */
+    private static final String STILL_FORMAT = "png";
     private static final long EMPTY_RETRY_MS = 2L * 60 * 1000;   // an empty pool (offline?) is retried sooner
     private static final long RETRY_MS = 10L * 60 * 1000;        // after a build that wasn't kept
     private static final long SHRINK_MS = 24L * 60 * 60 * 1000;  // a smaller pool is accepted after a day
@@ -271,7 +276,8 @@ final class Backdrops {
     /** The keys and the permission a pool was built with: changing any of them rebuilds it. */
     private String fingerprint() {
         boolean cards = context.checkSelfPermission(PERMISSION) == PackageManager.PERMISSION_GRANTED;
-        return sha1(settings.tmdbKey() + "|" + settings.youtubeKey() + "|" + settings.plexToken() + "|" + cards);
+        return sha1(settings.tmdbKey() + "|" + settings.youtubeKey() + "|" + settings.plexToken() + "|" + cards
+                + "|" + STILL_FORMAT);
     }
 
     /** When the app's pool should next be rebuilt (in the past when it's due now). */
@@ -339,9 +345,10 @@ final class Backdrops {
             try {
                 Bitmap b = render(c);
                 if (b == null) continue;
-                File still = new File(gen, i + ".jpg");
+                File still = new File(gen, i + ".png");
+                b.setHasAlpha(false);   // opaque: stored as RGB, a quarter smaller than RGBA
                 try (FileOutputStream out = new FileOutputStream(still)) {
-                    b.compress(Bitmap.CompressFormat.JPEG, 90, out);
+                    b.compress(Bitmap.CompressFormat.PNG, 100, out);
                 } finally {
                     b.recycle();
                 }
