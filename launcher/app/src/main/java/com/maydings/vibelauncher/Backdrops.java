@@ -5,6 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
@@ -30,8 +34,9 @@ import java.util.concurrent.Executors;
 
 /**
  * Backdrop stills from the cards apps publish for the TV home screen (their channels and Watch Next
- * rows in the system TV provider), read with READ_TV_LISTINGS. Only wide, big artwork is used; apps
- * that publish none keep the colour glow. Downloaded images are cached on disk for a week.
+ * rows in the system TV provider), read with READ_TV_LISTINGS. Only wide artwork is used; apps that
+ * publish none keep the colour glow. Low-res art (Netflix's 853x480) is shown as a 2x2 wall of four
+ * cards instead of one stretched still. Downloaded images are cached on disk for a week.
  */
 final class Backdrops {
 
@@ -46,7 +51,10 @@ final class Backdrops {
     private static final String[] COLUMNS = {"package_name", "intent_uri", "poster_art_uri", "thumbnail_uri"};
     private static final int MIN_WIDTH = 800;   // Netflix publishes 853x480
     private static final float MIN_ASPECT = 1.45f, MAX_ASPECT = 2.4f;
-    private static final int MAX_TRIES = 6;       // candidates tried per visit before giving up
+    private static final int SHARP_WIDTH = 1280;  // narrower art goes into a 2x2 wall
+    private static final int WALL = 4;
+    private static final int WALL_GAP = 6;        // px between the wall's cards
+    private static final int MAX_TRIES = 10;      // candidates tried per visit before giving up
     private static final int MAX_IMAGE_BYTES = 6 * 1024 * 1024;
     private static final long CACHE_MS = 7L * 24 * 60 * 60 * 1000;
 
@@ -54,15 +62,16 @@ final class Backdrops {
     private final File root;
     private final ExecutorService worker = Executors.newSingleThreadExecutor();
     private final Handler main = new Handler(Looper.getMainLooper());
-    private final Map<String, File> chosen = new HashMap<>();   // this visit's still per app
+    private final Map<String, List<File>> chosen = new HashMap<>();   // this visit's still (or wall) per app
     private final Set<String> unsuitable = Collections.synchronizedSet(new HashSet<>());
     private final Random random = new Random();
-    private final int targetWidth;
+    private final int targetWidth, targetHeight;
 
     Backdrops(Context context) {
         resolver = context.getContentResolver();
         root = new File(context.getCacheDir(), "cards");
         targetWidth = context.getResources().getDisplayMetrics().widthPixels;
+        targetHeight = context.getResources().getDisplayMetrics().heightPixels;
         worker.execute(() -> {
             deleteTree(new File(context.getCacheDir(), "backdrops"));   // the old scraped stills
             prune();
@@ -82,42 +91,68 @@ final class Backdrops {
     /** Delivers this visit's still for the app on the main thread, or null when it has none. */
     void load(String pkg, Callback callback) {
         worker.execute(() -> {
-            File file = pick(pkg);
-            Bitmap bitmap = file != null ? decode(file) : null;
+            List<File> files = pick(pkg);
+            Bitmap bitmap = files == null ? null : files.size() == 1 ? decode(files.get(0)) : wall(files);
             main.post(() -> callback.onBackdrop(pkg, bitmap));
         });
     }
 
-    /** Runs on the worker thread. */
-    private File pick(String pkg) {
+    /**
+     * One sharp, unbadged still, or else four low-res cards for a wall (the wall may use badged ones:
+     * the sticker doesn't change the card's size). Runs on the worker thread.
+     */
+    private List<File> pick(String pkg) {
         synchronized (this) {
-            File file = chosen.get(pkg);
-            if (file != null && file.exists()) return file;
+            List<File> files = chosen.get(pkg);
+            if (files != null && allExist(files)) return files;
         }
-        List<String> urls = artwork(pkg);
-        Collections.shuffle(urls, random);
+        List<String> clean = new ArrayList<>(), badged = new ArrayList<>();
+        artwork(pkg, clean, badged);
+        Collections.shuffle(clean, random);
+        Collections.shuffle(badged, random);
+        List<File> wall = new ArrayList<>();
+        File plain = null;   // first unbadged low-res card, the fallback when there aren't enough for a wall
         int tries = 0;
-        for (String url : urls) {
+        for (int i = 0; i < clean.size() + badged.size() && wall.size() < WALL; i++) {
+            boolean isClean = i < clean.size();
+            String url = isClean ? clean.get(i) : badged.get(i - clean.size());
             if (unsuitable.contains(url)) continue;
             if (tries++ >= MAX_TRIES) break;
             File file = fetch(url);
             if (file == null) continue;
-            synchronized (this) {
-                chosen.put(pkg, file);
+            if (width(file) >= SHARP_WIDTH) {
+                if (isClean) return remember(pkg, Collections.singletonList(file));
+                continue;
             }
-            return file;
+            if (plain == null && isClean) plain = file;
+            wall.add(file);
         }
-        return null;
+        if (wall.size() == WALL) return remember(pkg, wall);
+        return plain != null ? remember(pkg, Collections.singletonList(plain)) : null;
     }
 
-    /** Image URIs from the app's home screen cards. Empty without the permission or any cards. */
-    private List<String> artwork(String pkg) {
-        Set<String> urls = new LinkedHashSet<>();
+    private synchronized List<File> remember(String pkg, List<File> files) {
+        chosen.put(pkg, files);
+        return files;
+    }
+
+    private static boolean allExist(List<File> files) {
+        for (File f : files) if (!f.exists()) return false;
+        return true;
+    }
+
+    /**
+     * Image URIs from the app's home screen cards, split by whether the art carries a sticker. Empty
+     * without the permission or any cards.
+     */
+    private void artwork(String pkg, List<String> clean, List<String> badged) {
+        Set<String> cleanUrls = new LinkedHashSet<>(), badgedUrls = new LinkedHashSet<>();
         for (Uri table : new Uri[]{WATCH_NEXT, PREVIEW}) {
             // Filtering by package in the query isn't allowed without system permissions; read all.
             try (Cursor c = resolver.query(table, COLUMNS, null, null, null)) {
                 while (c != null && c.moveToNext()) {
-                    if (!pkg.equals(c.getString(0)) || badged(c.getString(1))) continue;
+                    if (!pkg.equals(c.getString(0))) continue;
+                    Set<String> urls = badged(c.getString(1)) ? badgedUrls : cleanUrls;
                     for (int i = 2; i < COLUMNS.length; i++) {
                         String url = c.getString(i);
                         if (url != null && !url.isEmpty()) urls.add(url);
@@ -127,12 +162,14 @@ final class Backdrops {
                 // No permission, or the provider is missing (not a TV): no stills.
             }
         }
-        return new ArrayList<>(urls);
+        badgedUrls.removeAll(cleanUrls);
+        clean.addAll(cleanUrls);
+        badged.addAll(badgedUrls);
     }
 
     /**
      * Netflix bakes stickers such as "Recently Added" and "Top 10" into the artwork of some cards, and
-     * names them in the card's link (badges=B:recently.added). Those don't work as a backdrop.
+     * names them in the card's link (badges=B:recently.added). Those don't work as a full-screen still.
      */
     private static boolean badged(String intentUri) {
         return intentUri != null && (intentUri.contains("badges%3D") || intentUri.contains("badges="));
@@ -190,6 +227,41 @@ final class Backdrops {
         while (o.outWidth / (o.inSampleSize * 2) >= targetWidth) o.inSampleSize *= 2;
         o.inPreferredConfig = Bitmap.Config.RGB_565;
         return BitmapFactory.decodeFile(file.getPath(), o);
+    }
+
+    private static int width(File file) {
+        BitmapFactory.Options o = new BitmapFactory.Options();
+        o.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(file.getPath(), o);
+        return o.outWidth;
+    }
+
+    /** Four cards in a 2x2 grid filling the screen, each centre-cropped into its cell. */
+    private Bitmap wall(List<File> files) {
+        Bitmap out = Bitmap.createBitmap(targetWidth, targetHeight, Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(out);
+        canvas.drawColor(Color.BLACK);
+        Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG);
+        int cellW = (targetWidth - WALL_GAP) / 2, cellH = (targetHeight - WALL_GAP) / 2;
+        for (int i = 0; i < files.size(); i++) {
+            Bitmap card = BitmapFactory.decodeFile(files.get(i).getPath());
+            if (card == null) continue;
+            int left = (i % 2) * (cellW + WALL_GAP), top = (i / 2) * (cellH + WALL_GAP);
+            canvas.drawBitmap(card, centreCrop(card.getWidth(), card.getHeight(), cellW, cellH),
+                    new Rect(left, top, left + cellW, top + cellH), paint);
+            card.recycle();
+        }
+        return out;
+    }
+
+    /** The part of a w x h image with the cell's aspect ratio, centred. */
+    private static Rect centreCrop(int w, int h, int cellW, int cellH) {
+        if (w * cellH > h * cellW) {
+            int cw = h * cellW / cellH;
+            return new Rect((w - cw) / 2, 0, (w + cw) / 2, h);
+        }
+        int ch = w * cellH / cellW;
+        return new Rect(0, (h - ch) / 2, w, (h + ch) / 2);
     }
 
     private static byte[] download(String url) {
