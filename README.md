@@ -84,17 +84,21 @@ latest version is always at
 
 1. Turn on developer options and USB/network debugging on the TV (Settings → Device Preferences →
    About → press OK on **Build** seven times → back → Developer options).
-2. Download the APK and install it from a computer on the same network:
+2. Download the APK and install it from a computer on the same network, in this order:
 
    ```bash
    adb connect <tv-ip>:5555
-   adb install -g vibe-launcher.apk      # -g grants both permissions up front
+   adb install -g vibe-launcher.apk      # -g grants its permissions up front
+   adb shell am start -n com.maydings.vibelauncher/.MainActivity
+   # Optional: keep the stock launcher from coming back (on Google TV: com.google.android.apps.tv.launcherx)
+   adb shell pm disable-user --user 0 com.google.android.tvlauncher
+   # Always last: Android forgets the chosen home app whenever one is enabled or disabled
    adb shell cmd package set-home-activity com.maydings.vibelauncher/.MainActivity
    ```
 
-3. Press Home. To keep the stock launcher from coming back, disable it:
-   `adb shell pm disable-user --user 0 com.google.android.tvlauncher` (on Google TV devices,
-   `com.google.android.apps.tv.launcherx`). Undo with `pm enable`.
+3. Press Home. To bring the stock launcher back, `pm enable` it. If a Google TV starts dropping off
+   Wi-Fi every minute after its launcher is disabled (seen on Google TV 14, where Home falls to the
+   setup wizard), run `adb shell pm enable --user 0 com.google.android.apps.tv.launcherx`.
 
 Build it yourself, configure the dock and hidden apps, and the details of each backdrop source:
 [`vibe-launcher/README.md`](vibe-launcher/README.md).

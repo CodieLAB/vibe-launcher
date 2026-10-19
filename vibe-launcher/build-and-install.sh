@@ -27,8 +27,16 @@ printf '%s\n' \
   "pm install -r /data/local/tmp/vibelauncher.apk" \
   "rm -f /data/local/tmp/vibelauncher.apk" \
   "pm grant com.maydings.vibelauncher android.permission.ACCESS_FINE_LOCATION 2>/dev/null; echo location-granted" \
+  "pm grant com.maydings.vibelauncher android.permission.ACCESS_COARSE_LOCATION 2>/dev/null; echo coarse-granted" \
   "pm grant com.maydings.vibelauncher android.permission.READ_TV_LISTINGS 2>/dev/null; echo cards-granted" \
-  "cmd package set-home-activity --user 0 com.maydings.vibelauncher" \
+  "am start -W -n com.maydings.vibelauncher/.MainActivity | grep -E '^(Status|Error)'" \
   "pm disable-user --user 0 $STOCK_LAUNCHER" \
+  "cmd package set-home-activity --user 0 com.maydings.vibelauncher/.MainActivity" \
+  "cmd package resolve-activity --brief -a android.intent.action.MAIN -c android.intent.category.HOME | tail -n 1" \
   | "$PY" -I ../debloat/tools/tv.py --batch
+# Order matters. Android forgets the chosen home app whenever the set of home apps changes, so it is
+# set after the stock launcher is disabled; on Google TV 14 the next candidate would otherwise be the
+# setup wizard's recovery screen, which crash-loops the system. Vibe Launcher is started first so
+# Home is never left without a running launcher. The last line above must print
+# com.maydings.vibelauncher/.MainActivity.
 echo "Installed. Press Home on the remote to see it."
