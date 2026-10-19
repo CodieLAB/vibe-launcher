@@ -31,8 +31,8 @@ import java.util.concurrent.Executors;
 /**
  * Backdrop stills from the cards apps publish for the TV home screen (their channels and Watch Next
  * rows in the system TV provider), read with READ_TV_LISTINGS. With a TMDB key, a card's title is
- * shown with TMDB's clean full-size backdrop and the title's logo instead of the app's own art.
- * Otherwise only wide artwork
+ * shown with a clean full-size backdrop and the title's logo instead of the app's own art: from TMDB
+ * with a key, from Stremio's free metadata without one. Otherwise only wide artwork
  * is used, and low-res art (Netflix's 853x480) becomes a 2x2 wall of four cards. YouTube publishes no
  * cards, so its tile borrows SmartTube's (the user's own feed), or without SmartTube shows popular
  * videos via the YouTube Data API key. Plex, with a Plex token, shows art from the user's own server.
@@ -89,6 +89,7 @@ final class Backdrops {
 
     private final ContentResolver resolver;
     private final Tmdb tmdb;
+    private final Stremio stremio;
     private final YouTubePopular youtubePopular;
     private final Plex plex;
     private final File root;
@@ -102,6 +103,7 @@ final class Backdrops {
     Backdrops(Context context) {
         resolver = context.getContentResolver();
         tmdb = new Tmdb(context);
+        stremio = new Stremio(context);
         youtubePopular = new YouTubePopular(context);
         root = new File(context.getCacheDir(), "cards");
         targetWidth = context.getResources().getDisplayMetrics().widthPixels;
@@ -154,8 +156,8 @@ final class Backdrops {
             if (c != null && c.exists()) return c;
         }
         List<Card> cards = cards(pkg);
-        // Films and shows by title, with a TMDB key. Not for video sites' video names.
-        TitleArt titleArt = isVideoSite(pkg) || !tmdb.enabled() ? null : tmdb;
+        // Films and shows by title: TMDB with a key, Stremio without. Not for video sites' video names.
+        TitleArt titleArt = isVideoSite(pkg) ? null : tmdb.enabled() ? tmdb : stremio;
         List<File> wall = new ArrayList<>();
         File plain = null;   // first unbadged low-res card, the fallback when there aren't enough for a wall
         int tries = 0;
