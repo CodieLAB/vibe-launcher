@@ -1,5 +1,6 @@
 package com.maydings.vibelauncher;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Dialog;
@@ -123,12 +124,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         backdrop = findViewById(R.id.backdrop);
         backdropImage = findViewById(R.id.backdropImage);
         backdrops = new Backdrops(this);
-        // Granted at install over adb (-g); otherwise ask once, and keep the colour glow if refused.
-        if (checkSelfPermission(Backdrops.PERMISSION) != PackageManager.PERMISSION_GRANTED
-                && !getPreferences(MODE_PRIVATE).getBoolean("askedTvListings", false)) {
-            getPreferences(MODE_PRIVATE).edit().putBoolean("askedTvListings", true).apply();
-            requestPermissions(new String[]{Backdrops.PERMISSION}, 1);
-        }
+        askPermissionsOnce();
         ambientGlow = new GradientDrawable();
         ambientGlow.setGradientType(GradientDrawable.RADIAL_GRADIENT);
         ambientGlow.setGradientCenter(0.32f, 0.42f);
@@ -458,6 +454,31 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     // ---- top bar ---------------------------------------------------------------------------------
 
     /** Shows the Wi-Fi network name on the button when we can read it, otherwise the connection type. */
+    /**
+     * Granted at install over adb (-g). Installed from a file manager instead, ask once for both: TV
+     * listings (the apps' home screen cards, for backdrops) and location (Android only reveals the
+     * Wi-Fi network's name with it). Refused, the launcher keeps the colour glow and shows "Wi-Fi".
+     */
+    private void askPermissionsOnce() {
+        if (getPreferences(MODE_PRIVATE).getBoolean("askedPermissions", false)) return;
+        List<String> missing = new ArrayList<>();
+        for (String p : new String[]{Backdrops.PERMISSION, Manifest.permission.ACCESS_FINE_LOCATION}) {
+            if (checkSelfPermission(p) != PackageManager.PERMISSION_GRANTED) missing.add(p);
+        }
+        if (missing.isEmpty()) return;
+        getPreferences(MODE_PRIVATE).edit().putBoolean("askedPermissions", true).apply();
+        requestPermissions(missing.toArray(new String[0]), 1);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] results) {
+        super.onRequestPermissionsResult(requestCode, permissions, results);
+        // Show what the new permissions unlock straight away: the network name and this visit's backdrops.
+        updateWifiLabel();
+        backdrops.reshuffle();
+        backdropPkg = null;
+    }
+
     private void updateWifiLabel() {
         String text = getString(R.string.wifi);
         int icon = R.drawable.ic_wifi;
