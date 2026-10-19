@@ -54,8 +54,9 @@ release install either, or the other way round; uninstall first.)
 
 ## Backdrops
 
-When a dock app is focused, the launcher picks one image for it, a different one each time you come
-back to Home:
+Each dock app has a pool of up to eight backdrops, prepared in the background and stored already cut
+to the screen and darkened, so one shows almost at once when you focus the app (a different one each
+time you come back to Home, never the same twice in a row):
 
 | App | Source | Needs |
 |---|---|---|
@@ -67,8 +68,14 @@ back to Home:
 
 Art narrower than 1280 px (Netflix publishes 853×480) is shown as a 2×2 wall of four cards; cards
 with stickers baked in (Netflix's "Recently added", "Top 10") are only used in the wall. Apps with
-nothing usable get an ambient glow in their icon's colour. Images are cached for a week, title matches
-for a month. Stremio's metadata is not an official public API; if it stops answering, the cards' own
+nothing usable get an ambient glow in their icon's colour.
+
+The pools are rebuilt every six hours while the TV is on (when Home opens, or on a timer set for when
+the next one is due while Home is on screen). A new pool is made in a folder of its own and only
+replaces the old one once it is as full, so a failed or partial refresh (offline, a service down)
+never leaves an app without a picture; the replaced pool is deleted on the next visit to Home.
+Changing a key rebuilds an app's pool the next time it is shown. Downloads are kept for two days, title matches for a
+month. Stremio's metadata is not an official public API; if it stops answering, the cards' own
 art is used.
 
 Keys are entered in **Settings → Vibe Launcher settings**, on the TV or from a phone: the dialog shows

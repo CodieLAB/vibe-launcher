@@ -135,6 +135,24 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             });
         }
     };
+    /**
+     * Rebuilds the dock apps' backdrop pools that are due (six hours old), then comes back when the next
+     * one will be. Only while Home is on screen; the next visit catches up on any that fell due meanwhile.
+     */
+    private final Runnable refreshPools = new Runnable() {
+        @Override
+        public void run() {
+            List<String> dock = new ArrayList<>();
+            for (int i = 0; i < COLUMNS; i++) {
+                String pkg = adapter.packageAt(i);
+                if (pkg != null) dock.add(pkg);
+            }
+            for (String pkg : dock) backdrops.refresh(pkg);
+            handler.removeCallbacks(this);
+            // Builds just started count as fresh, so this lands on the next pool to fall due.
+            handler.postDelayed(this, Math.max(MINUTE_MS, backdrops.untilDue(dock)));
+        }
+    };
     private final Runnable minuteTick = new Runnable() {
         @Override
         public void run() {
@@ -285,10 +303,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         backdropPkg = null;
         backdrop.setAlpha(0f);
         backdrops.reshuffle();
-        for (int i = 0; i < COLUMNS; i++) {
-            String pkg = adapter.packageAt(i);
-            if (pkg != null) backdrops.prefetch(pkg);
-        }
+        refreshPools.run();
         grid.scheduleLayoutAnimation();
         grid.requestLayout();   // reload() only touches changed tiles, so ask for the pass that plays the entrance
         updateWifiLabel();
@@ -306,6 +321,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     protected void onPause() {
         super.onPause();
         handler.removeCallbacks(minuteTick);
+        handler.removeCallbacks(refreshPools);
         unregisterReceiver(packageReceiver);
     }
 
