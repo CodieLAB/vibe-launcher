@@ -521,6 +521,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             Network net = cm != null ? cm.getActiveNetwork() : null;
             NetworkCapabilities caps = net != null ? cm.getNetworkCapabilities(net) : null;
+            // The pill names the physical connection; a VPN on top of it shows in the dropdown.
+            if (caps != null && caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) caps = underlying(cm);
             if (caps == null) {
                 text = getString(R.string.offline);
             } else if (caps.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
@@ -535,6 +537,18 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         btnWifi.setText(text);
         // The style's drawableTint also applies to an icon swapped in here.
         btnWifi.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, 0, 0, 0);
+    }
+
+    /** The Ethernet (preferred) or Wi-Fi connection under a VPN, or null. */
+    private static NetworkCapabilities underlying(ConnectivityManager cm) {
+        NetworkCapabilities wifi = null;
+        for (Network n : cm.getAllNetworks()) {
+            NetworkCapabilities c = cm.getNetworkCapabilities(n);
+            if (c == null || c.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) continue;
+            if (c.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) return c;
+            if (c.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) wifi = c;
+        }
+        return wifi;
     }
 
     /** The connected Wi-Fi network's name, or null when it can't be read. */
@@ -566,6 +580,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 NetworkCapabilities caps = cm.getNetworkCapabilities(net);
                 LinkProperties lp = cm.getLinkProperties(net);
                 if (caps == null || lp == null) continue;
+                boolean vpn = caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN);
                 String ip = null;
                 for (LinkAddress a : lp.getLinkAddresses()) {
                     if (a.getAddress() instanceof Inet4Address) {
@@ -573,17 +588,24 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                         break;
                     }
                 }
+                // A VPN is worth listing even with only an IPv6 address (or none we can show).
+                if (ip == null && vpn) {
+                    ip = lp.getLinkAddresses().isEmpty() ? getString(R.string.connected)
+                            : lp.getLinkAddresses().get(0).getAddress().getHostAddress();
+                }
                 if (ip == null) continue;
                 String type;
                 int icon = R.drawable.ic_wifi;
-                if (caps.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                // VPN first: Android often also marks a VPN with the Wi-Fi or Ethernet it runs over.
+                if (vpn) {
+                    type = getString(R.string.vpn_connected);
+                    icon = R.drawable.ic_lock;
+                } else if (caps.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
                     type = getString(R.string.ethernet);
                     icon = R.drawable.ic_ethernet;
                 } else if (caps.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
                     String ssid = wifiName();
                     type = ssid != null ? getString(R.string.wifi) + " \u00B7 " + ssid : getString(R.string.wifi);
-                } else if (caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) {
-                    type = getString(R.string.vpn);
                 } else {
                     type = getString(R.string.network);
                 }
