@@ -1,11 +1,13 @@
 package com.maydings.vibelauncher;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
@@ -41,6 +43,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -546,11 +549,69 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         View panel = getLayoutInflater().inflate(R.layout.popup_inputs, root, false);
         LinearLayout rows = panel.findViewById(R.id.rows);
         PopupWindow popup = newMenu(panel);
+        // Usage on top, like the device and addresses in the network menu.
+        // CPU only where the device lets apps read the counters (not on Android 8+ TVs like ours).
+        CpuInfo cpuInfo = new CpuInfo();
+        boolean cpuLive = cpuInfo.canMeasure();
+        View cpu = cpuLive ? addMeterRow(rows, getString(R.string.cpu)) : null;
+        View ram = addMeterRow(rows, getString(R.string.ram));
+        addSeparator(rows);
         addInputRow(rows, popup, R.drawable.ic_all_apps, getString(R.string.vibe_settings), -1,
                 this::showVibeSettings);
         addInputRow(rows, popup, R.drawable.ic_settings, getString(R.string.android_settings), -1,
                 () -> open(new Intent(Settings.ACTION_SETTINGS)));
+        // Live while the menu is open.
+        Runnable tick = new Runnable() {
+            @Override
+            public void run() {
+                if (cpuLive) updateCpu(cpu, cpuInfo.usage());
+                updateRam(ram);
+                handler.postDelayed(this, 1000);
+            }
+        };
+        tick.run();
+        popup.setOnDismissListener(() -> handler.removeCallbacks(tick));
         showMenu(popup, panel, rows, anchor, Gravity.END);
+    }
+
+    private String versionName() {
+        try {
+            return getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            return "?";
+        }
+    }
+
+    /** A read-only row with a usage bar; fill it with the returned view. */
+    private View addMeterRow(LinearLayout rows, String label) {
+        View row = getLayoutInflater().inflate(R.layout.item_meter, rows, false);
+        ((TextView) row.findViewById(R.id.label)).setText(label);
+        row.setFocusable(false);
+        rows.addView(row);
+        return row;
+    }
+
+    private void updateCpu(View row, float usage) {
+        if (usage < 0) return;
+        ((ProgressBar) row.findViewById(R.id.bar)).setProgress((int) (1000 * usage));
+        ((TextView) row.findViewById(R.id.value)).setText(getString(R.string.percent, Math.round(100 * usage)));
+    }
+
+    /** Memory in use: total minus what the system says it can hand out without killing apps. */
+    private void updateRam(View row) {
+        ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        if (am == null) return;
+        ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
+        am.getMemoryInfo(mi);
+        long used = mi.totalMem - mi.availMem;
+        ProgressBar bar = row.findViewById(R.id.bar);
+        bar.setProgress((int) (1000 * used / Math.max(1, mi.totalMem)));
+        // Green while there's room, yellow under 100 MB free, red under 10 MB.
+        long mb = 1024 * 1024;
+        int color = mi.availMem > 100 * mb ? 0xFF34C759 : mi.availMem > 10 * mb ? 0xFFFFCC00 : 0xFFFF3B30;
+        bar.setProgressTintList(ColorStateList.valueOf(color));
+        float gb = 1024f * 1024 * 1024;
+        ((TextView) row.findViewById(R.id.value)).setText(getString(R.string.ram_value, used / gb, mi.totalMem / gb));
     }
 
     private void showVibeSettings() {
@@ -575,6 +636,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             // The dialog theme caps the width; the fields and the QR code sit side by side.
             window.setLayout((int) (760 * density), ViewGroup.LayoutParams.WRAP_CONTENT);
         }
+        ((TextView) panel.findViewById(R.id.version)).setText(getString(R.string.version, versionName()));
         View cancel = panel.findViewById(R.id.cancel), save = panel.findViewById(R.id.save);
         // Text fields keep Up/Down to themselves on this TV, so steer the remote by hand:
         // TMDB <-> Plex <-> Save, and the keyboard's Next/Done buttons step forward the same way.
