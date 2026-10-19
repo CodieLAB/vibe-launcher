@@ -24,6 +24,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -127,7 +128,7 @@ final class PhoneLink {
 
     private static int contentLength(String head) {
         for (String line : head.split("\r\n")) {
-            if (line.toLowerCase().startsWith("content-length:")) {
+            if (line.toLowerCase(Locale.ROOT).startsWith("content-length:")) {
                 try {
                     return Math.min(MAX_BODY, Integer.parseInt(line.substring(15).trim()));
                 } catch (NumberFormatException e) {
