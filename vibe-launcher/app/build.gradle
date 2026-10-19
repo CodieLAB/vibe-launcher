@@ -2,6 +2,11 @@ plugins {
     id 'com.android.application'
 }
 
+// Release signing comes from local.properties (never committed); without it the release APK is unsigned.
+def localProps = new Properties()
+def localFile = rootProject.file('local.properties')
+if (localFile.exists()) localFile.withInputStream { localProps.load(it) }
+
 android {
     namespace 'com.maydings.vibelauncher'
     compileSdk 34
@@ -10,13 +15,25 @@ android {
         applicationId 'com.maydings.vibelauncher'
         minSdk 26
         targetSdk 34
-        versionCode 2
-        versionName '2.0'
+        versionCode 3
+        versionName '1.0.0'
+    }
+
+    signingConfigs {
+        release {
+            if (localProps.releaseStoreFile) {
+                storeFile file(localProps.releaseStoreFile)
+                storePassword localProps.releaseStorePassword
+                keyAlias localProps.releaseKeyAlias
+                keyPassword localProps.releaseKeyPassword
+            }
+        }
     }
 
     buildTypes {
         release {
             minifyEnabled false
+            if (localProps.releaseStoreFile) signingConfig signingConfigs.release
         }
     }
 
