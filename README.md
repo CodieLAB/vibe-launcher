@@ -11,8 +11,8 @@ The repo has two parts:
 
 | Folder | What it is |
 |---|---|
-| [`vibe-launcher/`](vibe-launcher/) | The launcher. **Just download the APK from [Releases](https://github.com/maydings/vibe-launcher/releases/latest) and install it**; no AI needed. Source and build script included. |
-| [`debloat/`](debloat/) | Debloating any Android TV over ADB. **Requires an AI coding assistant** (Claude Code or similar): the prompt, ADB tools and per-TV lists. |
+| [`vibe-launcher/`](vibe-launcher/) | The launcher. **Just download the APK from [Releases](https://github.com/maydings/vibe-launcher/releases/latest) and install it**. Source and build script included. |
+| [`debloat/`](debloat/) | A script that removes the ads and bloat from the tested TVs over the network and makes Vibe Launcher the home screen, with a restore script to undo it. |
 
 ---
 
@@ -63,7 +63,7 @@ source: every feature is in the APK, nothing is behind a purchase.
 
 ### Install
 
-Vibe Launcher is just an APK: download it and install it. No AI, no account, no build tools. The
+Vibe Launcher is just an APK: download it and install it. No account, no build tools. The
 latest version is always at
 
 **https://github.com/maydings/vibe-launcher/releases/latest/download/vibe-launcher.apk**
@@ -109,35 +109,33 @@ Build it yourself, configure the dock and hidden apps, and the details of each b
 
 ## Debloat
 
-Every Android TV ships with sponsored rows, store apps, telemetry and demo modes. The
-[`debloat/`](debloat/) folder removes them over ADB, reversibly: packages are disabled, never
-uninstalled, and a restore script puts everything back.
+Every Android TV ships with sponsored rows, promoted apps, viewing-data tracking and demo modes. The
+[`debloat/`](debloat/) folder has a script that turns them off over the network and makes Vibe
+Launcher the home screen, reversibly: packages are disabled, never uninstalled, and `restore.sh`
+puts back exactly what it changed.
 
-**Debloating requires an AI coding assistant** such as Claude Code: every brand and firmware ships
-different bloat, so the assistant inspects your TV, works out what is safe to disable and asks you
-about the rest. (Vibe Launcher itself needs no AI; just install the APK.)
+```bash
+cd debloat
+./debloat.sh 192.168.1.50 --dry-run    # see what it would do
+./debloat.sh 192.168.1.50              # do it
+./restore.sh 192.168.1.50              # undo it
+```
 
-- **[`PROMPT.md`](debloat/PROMPT.md)**: paste it into Claude Code (or any coding assistant with a
-  shell) on a computer on the same Wi-Fi as the TV, fill in your model, and it backs up the TV,
-  finds the bloat, asks which apps you use, disables the rest and installs Vibe Launcher, checking
-  each step with screenshots from the TV.
-- **[`tools/`](debloat/tools/)**: a pure-Python ADB client for when the stock `adb` is blocked
-  (recent macOS), an APK uploader, and scripts to apply or undo a list.
-- **[`examples/`](debloat/examples/)**: tested lists for the Sony Bravia XBR-940E and 900F, the
-  NVIDIA Shield TV and the Xiaomi Mi TV 4A.
-
-Works on Android TV and Google TV sets (Sony, TCL, Hisense, Xiaomi, Philips, the Shield and most
-others). Not on Samsung Tizen, LG webOS or Fire TV. Details and the gotchas we hit:
+It needs a Mac or Linux computer with adb, and debugging turned on on the TV. It backs the TV up
+first, asks before turning off anything you might use (voice search, screen mirroring, cable box
+control and so on) and installs the latest Vibe Launcher. Step by step:
 [`debloat/README.md`](debloat/README.md).
 
 ## Tested on
 
-| Device | Android |
-|---|---|
-| Sony Bravia XBR-940E | 9 |
-| Sony Bravia 900F | 9 |
-| NVIDIA Shield TV (2017) | 11 |
-| Xiaomi Mi TV 4A | 10 |
+| Device | Android | Debloat list |
+|---|---|---|
+| Sony Bravia XBR-940E | 9 | [`sony-bravia-xbr-940e.txt`](debloat/lists/sony-bravia-xbr-940e.txt) |
+| Sony Bravia 900F | 9 | [`sony-bravia-900f.txt`](debloat/lists/sony-bravia-900f.txt) |
+| NVIDIA Shield TV (2017) | 11 | [`nvidia-shield-2017.txt`](debloat/lists/nvidia-shield-2017.txt) |
+
+Vibe Launcher itself runs on any Android TV or Google TV with Android 8 or newer; the debloat script
+only runs on the TVs above (and the Sony models that share their platform).
 
 ## Credits and licence
 
