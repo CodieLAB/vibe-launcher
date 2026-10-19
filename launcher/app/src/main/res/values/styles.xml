@@ -35,6 +35,28 @@
         <item name="android:fontFamily">@font/outfit</item>
     </style>
 
+    <!-- A key's label with its (i) button. -->
+    <style name="SettingsLabelRow">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="InfoButton">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:src">@drawable/ic_info</item>
+        <item name="android:tint">@drawable/pill_text</item>
+        <item name="android:background">@drawable/info_button_bg</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:contentDescription">@string/about_key</item>
+    </style>
+
     <style name="SettingsField">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

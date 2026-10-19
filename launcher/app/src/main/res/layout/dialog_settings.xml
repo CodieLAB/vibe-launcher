@@ -27,25 +27,49 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
-                style="@style/SettingsLabel"
-                android:text="@string/tmdb_key" />
+            <LinearLayout style="@style/SettingsLabelRow">
+
+                <TextView
+                    style="@style/SettingsLabel"
+                    android:layout_marginTop="0dp"
+                    android:text="@string/tmdb_key" />
+
+                <ImageView
+                    android:id="@+id/tmdbInfo"
+                    style="@style/InfoButton" />
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/tmdbKey"
                 style="@style/SettingsField" />
 
-            <TextView
-                style="@style/SettingsLabel"
-                android:text="@string/youtube_key" />
+            <LinearLayout style="@style/SettingsLabelRow">
+
+                <TextView
+                    style="@style/SettingsLabel"
+                    android:layout_marginTop="0dp"
+                    android:text="@string/youtube_key" />
+
+                <ImageView
+                    android:id="@+id/youtubeInfo"
+                    style="@style/InfoButton" />
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/youtubeKey"
                 style="@style/SettingsField" />
 
-            <TextView
-                style="@style/SettingsLabel"
-                android:text="@string/plex_token" />
+            <LinearLayout style="@style/SettingsLabelRow">
+
+                <TextView
+                    style="@style/SettingsLabel"
+                    android:layout_marginTop="0dp"
+                    android:text="@string/plex_token" />
+
+                <ImageView
+                    android:id="@+id/plexInfo"
+                    style="@style/InfoButton" />
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/plexToken"

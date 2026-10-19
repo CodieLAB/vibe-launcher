@@ -640,9 +640,14 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         }
         ((TextView) panel.findViewById(R.id.version)).setText(getString(R.string.version, versionName()));
         View cancel = panel.findViewById(R.id.cancel), save = panel.findViewById(R.id.save);
-        // Text fields keep Up/Down to themselves on this TV, so steer the remote by hand:
-        // TMDB <-> YouTube <-> Plex <-> Save, and the keyboard's Next/Done buttons step forward the same way.
-        View[] order = {tmdb, youtube, plex, save};
+        View tmdbInfo = panel.findViewById(R.id.tmdbInfo), youtubeInfo = panel.findViewById(R.id.youtubeInfo),
+                plexInfo = panel.findViewById(R.id.plexInfo);
+        tmdbInfo.setOnClickListener(v -> showInfo(v, R.string.tmdb_info));
+        youtubeInfo.setOnClickListener(v -> showInfo(v, R.string.youtube_info));
+        plexInfo.setOnClickListener(v -> showInfo(v, R.string.plex_info));
+        // Text fields keep Up/Down to themselves on this TV, so steer the remote by hand: each key's (i)
+        // then its field, down to Save; the keyboard's Next/Done buttons step from field to field.
+        View[] order = {tmdbInfo, tmdb, youtubeInfo, youtube, plexInfo, plex, save};
         for (int i = 0; i < order.length; i++) {
             View up = i > 0 ? order[i - 1] : null, down = i < order.length - 1 ? order[i + 1] : null;
             order[i].setOnKeyListener((v, keyCode, event) -> {
@@ -684,6 +689,28 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         });
         dialog.show();
         tmdb.requestFocus();
+    }
+
+    /** A glass bubble under the (i) explaining a key; Back or OK closes it. */
+    private void showInfo(View anchor, int textRes) {
+        TextView text = new TextView(this);
+        text.setText(textRes);
+        text.setTextColor(0xE6FFFFFF);
+        text.setTextSize(15);
+        text.setLineSpacing(0, 1.15f);
+        text.setTypeface(getResources().getFont(R.font.outfit));
+        int pad = (int) (18 * density);
+        text.setPadding(pad, pad, pad, pad);
+        text.setBackgroundResource(R.drawable.glass_panel);
+        text.setMaxWidth((int) (440 * density));
+        text.setFocusable(true);
+        PopupWindow bubble = new PopupWindow(text, ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        bubble.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));   // needed for Back to dismiss
+        bubble.setOutsideTouchable(true);
+        text.setOnClickListener(v -> bubble.dismiss());
+        bubble.showAsDropDown(anchor, 0, (int) (6 * density));
+        text.requestFocus();
     }
 
     private void open(Intent i) {
