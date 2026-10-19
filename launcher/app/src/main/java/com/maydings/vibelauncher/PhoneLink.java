@@ -42,13 +42,15 @@ final class PhoneLink {
     private static final int MAX_BODY = 8 * 1024;
 
     private final Listener listener;
+    private final VibeSettings settings;
     private final Handler main = new Handler(Looper.getMainLooper());
     private final String code;
     private ServerSocket server;
     private String url;
 
-    PhoneLink(Listener listener) {
+    PhoneLink(Listener listener, VibeSettings settings) {
         this.listener = listener;
+        this.settings = settings;
         SecureRandom r = new SecureRandom();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 8; i++) sb.append("abcdefghjkmnpqrstuvwxyz23456789".charAt(r.nextInt(31)));
@@ -178,10 +180,25 @@ final class PhoneLink {
         return "<!doctype html><title>Vibe Launcher</title>" + STYLE
                 + "<h1>Vibe Launcher settings</h1><p>Paste your keys, then tap Send. Leave a field empty to keep "
                 + "what the TV already has.</p><form method=post action='/" + code + "'>"
-                + "<label for=t>TMDB API key</label><input id=t name=tmdbKey autocomplete=off autocapitalize=off spellcheck=false>"
-                + "<label for=y>YouTube API key</label><input id=y name=youtubeKey autocomplete=off autocapitalize=off spellcheck=false>"
-                + "<label for=p>Plex token</label><input id=p name=plexToken autocomplete=off autocapitalize=off spellcheck=false>"
+                + field("tmdbKey", "TMDB API key", settings.tmdbKey())
+                + field("youtubeKey", "YouTube API key", settings.youtubeKey())
+                + field("plexToken", "Plex token", settings.plexToken())
                 + "<button>Send to TV</button></form>";
+    }
+
+    /**
+     * A field showing what the TV has saved for it, hidden but for the last four characters (anyone on
+     * the network who sees the QR code can open this page). Left empty, the saved value stays.
+     */
+    private static String field(String name, String label, String saved) {
+        String hint = saved.isEmpty() ? "Not set"
+                : "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022" + escape(saved.substring(Math.max(0, saved.length() - 4)));
+        return "<label for=" + name + ">" + label + "</label><input id=" + name + " name=" + name
+                + " placeholder=\"" + hint + "\" autocomplete=off autocapitalize=off spellcheck=false>";
+    }
+
+    private static String escape(String s) {
+        return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;");
     }
 
     private static String page(String message) {

@@ -668,7 +668,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             if (fields.containsKey("plexToken")) plex.setText(fields.get("plexToken"));
             settings.save(tmdb.getText().toString(), youtube.getText().toString(), plex.getText().toString());
             Toast.makeText(this, R.string.saved_from_phone, Toast.LENGTH_SHORT).show();
-        });
+        }, settings);
         String url = link.start();
         if (url != null) {
             ((ImageView) panel.findViewById(R.id.qr)).setImageBitmap(PhoneLink.qr(url, (int) (134 * density)));
