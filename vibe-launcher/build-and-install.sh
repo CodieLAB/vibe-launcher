@@ -3,13 +3,24 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 : "${TV_HOST:?set TV_HOST to the TV IP address, e.g. TV_HOST=192.168.1.50 $0}"
-STOCK_LAUNCHER="${STOCK_LAUNCHER:-com.google.android.tvlauncher}"
 export JAVA_HOME="${JAVA_HOME:-/opt/homebrew/opt/openjdk@17}"
 export ANDROID_HOME="${ANDROID_HOME:-/opt/homebrew/share/android-commandlinetools}"
 export PATH="$JAVA_HOME/bin:$PATH"
 [ -f local.properties ] || echo "sdk.dir=$ANDROID_HOME" > local.properties
 ./gradlew assembleDebug -q --console=plain
 PY=../debloat/tools/venv/bin/python   # the ADB client from debloat/tools
+# Which app owns Home differs by build (com.google.android.tvlauncher on Android TV,
+# com.google.android.apps.tv.launcherx on newer Google TV), so ask the TV instead of guessing.
+# Ignore an answer of our own launcher, left over from a previous run of this script.
+if [ -z "${STOCK_LAUNCHER:-}" ]; then
+  STOCK_LAUNCHER=$("$PY" -I ../debloat/tools/tv.py \
+    'cmd package resolve-activity --brief -a android.intent.action.MAIN -c android.intent.category.HOME' \
+    | tail -n 1 | cut -d/ -f1 || true)
+  case "$STOCK_LAUNCHER" in
+    com.maydings.vibelauncher | *[!a-zA-Z0-9._]* | "") STOCK_LAUNCHER=com.google.android.tvlauncher ;;
+  esac
+  echo "Stock launcher: $STOCK_LAUNCHER"
+fi
 APK=app/build/outputs/apk/debug/app-debug.apk
 "$PY" -I ../debloat/tools/b64push.py "$APK" /data/local/tmp/vibelauncher.apk
 printf '%s\n' \

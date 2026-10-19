@@ -3,18 +3,22 @@ package com.maydings.vibelauncher;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.Settings;
 
 /**
  * Escape hatch for when this is the only home screen and it keeps crashing. An app can't re-enable
  * another (that needs a system permission), so on the second crash within two minutes this opens the
- * App info page of Google's TV launcher, where one press of Enable gives the TV a working home again.
+ * App info page of Google's TV launcher (whichever this TV has), where one press of Enable gives the TV
+ * a working home again.
  * A single crash just restarts as usual.
  */
 final class CrashGuard {
 
-    private static final String FALLBACK_LAUNCHER = "com.google.android.tvlauncher";
+    /** Google's TV launchers, newest first: Google TV, then Android TV and its older version. */
+    private static final String[] STOCK_LAUNCHERS = {"com.google.android.apps.tv.launcherx",
+            "com.google.android.tvlauncher", "com.google.android.leanbacklauncher"};
     private static final long WINDOW_MS = 2 * 60 * 1000;
 
     private CrashGuard() {
@@ -42,7 +46,16 @@ final class CrashGuard {
      * deferred for minutes.)
      */
     private static void openFallbackInfo(Context app) {
-        app.startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + FALLBACK_LAUNCHER))
+        String stock = STOCK_LAUNCHERS[1];
+        for (String pkg : STOCK_LAUNCHERS) {
+            try {
+                app.getPackageManager().getApplicationInfo(pkg, 0);   // also finds disabled apps
+                stock = pkg;
+                break;
+            } catch (PackageManager.NameNotFoundException ignored) {
+            }
+        }
+        app.startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + stock))
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
     }
 }

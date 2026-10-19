@@ -25,6 +25,10 @@
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent>
+        <!-- Google's stock TV launchers: CrashGuard opens the installed one's App info. -->
+        <package android:name="com.google.android.apps.tv.launcherx" />
+        <package android:name="com.google.android.tvlauncher" />
+        <package android:name="com.google.android.leanbacklauncher" />
     </queries>
 
     <application
