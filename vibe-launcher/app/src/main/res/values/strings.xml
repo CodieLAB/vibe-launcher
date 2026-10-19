@@ -37,7 +37,7 @@
     <string name="scan_to_paste">Scan with your phone to paste the keys</string>
     <string name="tmdb_notice">Backdrops use the TMDB API but are not endorsed or certified by TMDB.</string>
     <string name="about_key">About this key</string>
-    <string name="tmdb_info">Clean, full-size backdrops for the films and shows on your apps\' home screen cards (Netflix, Apple TV, Prime Video and others), without their logos or stickers.\n\nFree key: themoviedb.org → Settings → API, choose personal use, and copy the API key.</string>
+    <string name="tmdb_info">Clean, full-size backdrops for the films and shows on your apps\' home screen cards (Netflix, Apple TV, Prime Video and others), shown with the title\'s logo instead of the apps\' own art and stickers. Works without a key using Stremio\'s free metadata; a TMDB key is the official, more reliable source.\n\nFree key: themoviedb.org → Settings → API, choose personal use, and copy the API key.</string>
     <string name="youtube_info">Better option: install SmartTube. Its backdrops come from your own YouTube feed and need no key.\n\nWithout SmartTube, this key shows the most popular videos in your country.\n\nFree key: console.cloud.google.com → new project → enable YouTube Data API v3 → Credentials → Create API key.</string>
     <string name="plex_info">Backdrops from your own Plex server: what\'s on Continue Watching and recently added.\n\nTo find it: app.plex.tv → open any title → ⋯ → Get Info → View XML. The token is the part after X-Plex-Token= in the address. Keep it private, like a password.</string>
     <string name="saved_from_phone">Saved from your phone</string>

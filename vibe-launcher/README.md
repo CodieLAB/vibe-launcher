@@ -60,15 +60,16 @@ back to Home:
 | App | Source | Needs |
 |---|---|---|
 | Any app with home screen cards (Netflix, Apple TV, Prime Video, Jellyfin…) | The cards the app publishes to the system TV provider, read with the `READ_TV_LISTINGS` permission | Permission (granted with `adb install -g`, or asked for on first start) |
-| Same, with a TMDB key | The card's title looked up on TMDB: a textless backdrop at full size. Exact title matches only; otherwise the card's own art | TMDB API key |
+| Films and shows on those cards | The card's title looked up by exact match: a textless full-size backdrop plus the title's logo (or its name in Outfit when there is no logo). Otherwise the card's own art | Nothing: Stremio's free metadata (Cinemeta, metahub). With a TMDB key, TMDB instead |
 | YouTube | SmartTube's cards: your own feed, at 1280×720 | [SmartTube](https://github.com/yuliskov/SmartTube) installed and signed in |
 | YouTube without SmartTube | The most popular videos in the TV's country, refreshed every 4 hours (1 unit of the free 10,000 a day) | YouTube Data API key |
 | Plex | Art of Continue Watching and recently added on your server, found through plex.tv and scaled by the server | Plex token |
 
 Art narrower than 1280 px (Netflix publishes 853×480) is shown as a 2×2 wall of four cards; cards
 with stickers baked in (Netflix's "Recently added", "Top 10") are only used in the wall. Apps with
-nothing usable get an ambient glow in their icon's colour. Images are cached for a week, TMDB matches
-for a month.
+nothing usable get an ambient glow in their icon's colour. Images are cached for a week, title matches
+for a month. Stremio's metadata is not an official public API; if it stops answering, the cards' own
+art is used.
 
 Keys are entered in **Settings → Vibe Launcher settings**, on the TV or from a phone: the dialog shows
 a QR code for a small page the launcher serves on your home network while the dialog is open. The
@@ -77,9 +78,10 @@ last four characters.
 
 ### What goes over the network
 
-Only what the backdrops need: image downloads from the apps' own artwork servers, TMDB
-(`api.themoviedb.org`, `image.tmdb.org`), YouTube (`googleapis.com`, `i.ytimg.com`) and plex.tv plus
-your Plex server, each only once its key is set. No analytics, no accounts, nothing else.
+Only what the backdrops need: image downloads from the apps' own artwork servers; title art from
+Stremio (`v3-cinemeta.strem.io`, `images.metahub.space`) or, with a key, TMDB (`api.themoviedb.org`,
+`image.tmdb.org`); YouTube (`googleapis.com`, `i.ytimg.com`) and plex.tv plus your Plex server once
+their keys are set. No analytics, no accounts, nothing else.
 
 ## Code map
 

@@ -31,8 +31,9 @@ source: every feature is in the APK, nothing is behind a purchase.
   actually offering you:
   - the cards apps publish for the TV home screen (Netflix, Apple TV, Prime Video, Jellyfin and
     others), read the same way Google's own launcher does;
-  - with a free **TMDB** key, the films and shows on those cards are shown with TMDB's clean,
-    full-size backdrops instead of the apps' own art (no logos, no "Recently added" stickers);
+  - the films and shows on those cards are shown with a clean, full-size backdrop and the title's
+    own logo instead of the apps' art (no "Recently added" stickers): out of the box from Stremio's
+    free metadata, or from **TMDB** with a free key;
   - **YouTube** shows your own feed through [SmartTube](https://github.com/yuliskov/SmartTube)'s
     cards, or popular videos with a YouTube Data API key;
   - **Plex** shows Continue Watching and recently added from your own server with a Plex token;
