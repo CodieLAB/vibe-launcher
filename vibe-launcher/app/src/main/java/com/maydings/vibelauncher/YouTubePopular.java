@@ -8,12 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -59,26 +54,12 @@ final class YouTubePopular {
     }
 
     private static String fetch(String key, String region) throws IOException, JSONException {
-        URL url = new URL("https://www.googleapis.com/youtube/v3/videos?part=id&chart=mostPopular&maxResults=30"
-                + "&regionCode=" + region + "&key=" + Uri.encode(key));
-        HttpURLConnection c = (HttpURLConnection) url.openConnection();
-        try {
-            c.setConnectTimeout(10000);
-            c.setReadTimeout(15000);
-            if (c.getResponseCode() != 200) throw new IOException("YouTube " + c.getResponseCode());
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            try (InputStream in = c.getInputStream()) {
-                byte[] buf = new byte[8192];
-                int n;
-                while ((n = in.read(buf)) > 0) out.write(buf, 0, n);
-            }
-            JSONArray items = new JSONObject(out.toString(StandardCharsets.UTF_8.name())).optJSONArray("items");
-            List<String> ids = new ArrayList<>();
-            for (int i = 0; items != null && i < items.length(); i++) ids.add(items.getJSONObject(i).getString("id"));
-            return String.join(",", ids);
-        } finally {
-            c.disconnect();
-        }
+        String url = "https://www.googleapis.com/youtube/v3/videos?part=id&chart=mostPopular&maxResults=30"
+                + "&regionCode=" + region + "&key=" + Uri.encode(key);
+        JSONArray items = new JSONObject(Http.getText(url, Collections.emptyMap())).optJSONArray("items");
+        List<String> ids = new ArrayList<>();
+        for (int i = 0; items != null && i < items.length(); i++) ids.add(items.getJSONObject(i).getString("id"));
+        return String.join(",", ids);
     }
 
     /** The TV's country (e.g. "US"), which YouTube's chart is per. */

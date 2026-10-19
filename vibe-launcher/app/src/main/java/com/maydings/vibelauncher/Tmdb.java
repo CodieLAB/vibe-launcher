@@ -8,15 +8,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -109,23 +106,10 @@ final class Tmdb {
         // A v4 read access token (a long JWT) goes in a header; a v3 API key goes in the URL.
         boolean token = key.startsWith("eyJ");
         String url = API + path + (token ? "" : (path.contains("?") ? "&" : "?") + "api_key=" + Uri.encode(key));
-        HttpURLConnection c = (HttpURLConnection) new URL(url).openConnection();
-        try {
-            c.setConnectTimeout(10000);
-            c.setReadTimeout(15000);
-            c.setRequestProperty("Accept", "application/json");
-            if (token) c.setRequestProperty("Authorization", "Bearer " + key);
-            if (c.getResponseCode() != 200) throw new IOException("TMDB " + c.getResponseCode());
-            try (InputStream in = c.getInputStream()) {
-                ByteArrayOutputStream out = new ByteArrayOutputStream();
-                byte[] buf = new byte[8192];
-                int n;
-                while ((n = in.read(buf)) > 0) out.write(buf, 0, n);
-                return new JSONObject(out.toString(StandardCharsets.UTF_8.name()));
-            }
-        } finally {
-            c.disconnect();
-        }
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Accept", "application/json");
+        if (token) headers.put("Authorization", "Bearer " + key);
+        return new JSONObject(Http.getText(url, headers));
     }
 
     /** "The Office (U.S.)" and "the office u s" compare equal: lower case, letters and digits only. */

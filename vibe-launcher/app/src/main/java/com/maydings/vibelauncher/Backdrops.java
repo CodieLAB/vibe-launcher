@@ -13,13 +13,10 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -279,11 +276,14 @@ final class Backdrops {
         return tmp.renameTo(file) ? file : null;
     }
 
+    /** The image's bytes, or null when it can't be had (offline, gone, too big). */
     private byte[] read(String url) {
-        if (url.startsWith("http://") || url.startsWith("https://")) return download(url);
-        // content:// and android.resource:// art served by the app itself.
-        try (InputStream in = resolver.openInputStream(Uri.parse(url))) {
-            return in == null ? null : readAll(in);
+        try {
+            if (url.startsWith("http://") || url.startsWith("https://")) return Http.get(url, MAX_IMAGE_BYTES);
+            // content:// and android.resource:// art served by the app itself.
+            try (InputStream in = resolver.openInputStream(Uri.parse(url))) {
+                return in == null ? null : Http.readAll(in, MAX_IMAGE_BYTES);
+            }
         } catch (IOException | RuntimeException e) {
             return null;
         }
@@ -343,34 +343,6 @@ final class Backdrops {
         }
         int ch = w * cellH / cellW;
         return new Rect(0, (h - ch) / 2, w, (h + ch) / 2);
-    }
-
-    private static byte[] download(String url) {
-        HttpURLConnection c = null;
-        try {
-            c = (HttpURLConnection) new URL(url).openConnection();
-            c.setConnectTimeout(10000);
-            c.setReadTimeout(15000);
-            if (c.getResponseCode() != 200) return null;
-            try (InputStream in = c.getInputStream()) {
-                return readAll(in);
-            }
-        } catch (IOException | RuntimeException e) {
-            return null;
-        } finally {
-            if (c != null) c.disconnect();
-        }
-    }
-
-    private static byte[] readAll(InputStream in) throws IOException {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        byte[] buf = new byte[16384];
-        int n;
-        while ((n = in.read(buf)) > 0) {
-            out.write(buf, 0, n);
-            if (out.size() > MAX_IMAGE_BYTES) return null;
-        }
-        return out.toByteArray();
     }
 
     /** Drops stills not shown for a week; apps rotate their cards, so old art piles up otherwise. */

@@ -8,16 +8,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -126,24 +123,11 @@ final class Plex {
     }
 
     private String get(String url, String token) throws IOException {
-        HttpURLConnection c = (HttpURLConnection) new URL(url).openConnection();
-        try {
-            c.setConnectTimeout(8000);
-            c.setReadTimeout(15000);
-            c.setRequestProperty("Accept", "application/json");
-            c.setRequestProperty("X-Plex-Token", token);
-            c.setRequestProperty("X-Plex-Product", "Vibe Launcher");
-            c.setRequestProperty("X-Plex-Client-Identifier", cache.getString("clientId", "vibe-launcher"));
-            if (c.getResponseCode() != 200) throw new IOException("Plex " + c.getResponseCode());
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            try (InputStream in = c.getInputStream()) {
-                byte[] buf = new byte[8192];
-                int n;
-                while ((n = in.read(buf)) > 0) out.write(buf, 0, n);
-            }
-            return out.toString(StandardCharsets.UTF_8.name());
-        } finally {
-            c.disconnect();
-        }
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Accept", "application/json");
+        headers.put("X-Plex-Token", token);
+        headers.put("X-Plex-Product", "Vibe Launcher");
+        headers.put("X-Plex-Client-Identifier", cache.getString("clientId", "vibe-launcher"));
+        return Http.getText(url, headers);
     }
 }
