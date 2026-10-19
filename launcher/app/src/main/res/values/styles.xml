@@ -25,4 +25,27 @@
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
     </style>
+
+    <style name="SettingsLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:textColor">#B3FFFFFF</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/outfit</item>
+    </style>
+
+    <style name="SettingsField">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:inputType">text|textNoSuggestions</item>
+        <item name="android:imeOptions">actionNext|flagNoExtractUi</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">#FFFFFFFF</item>
+        <item name="android:textColorHint">#66FFFFFF</item>
+        <item name="android:hint">@string/not_set</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/outfit</item>
+    </style>
 </resources>

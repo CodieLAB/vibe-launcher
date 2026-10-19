@@ -23,4 +23,11 @@
     <string name="uninstall">Uninstall</string>
     <string name="app_info">App info</string>
     <string name="show_hidden">Show hidden apps</string>
+    <string name="vibe_settings">Vibe Launcher settings</string>
+    <string name="android_settings">Android settings</string>
+    <string name="tmdb_key">TMDB API key</string>
+    <string name="plex_token">Plex token</string>
+    <string name="not_set">Not set</string>
+    <string name="save">Save</string>
+    <string name="saved">Saved</string>
 </resources>

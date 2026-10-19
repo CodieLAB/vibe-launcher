@@ -1,6 +1,7 @@
 package com.maydings.vibelauncher;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -30,8 +31,12 @@ import android.view.KeyEvent;
 import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.view.animation.LayoutAnimationController;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -193,7 +198,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         View btnSettings = findViewById(R.id.btnSettings);
         btnInputs.setOnClickListener(v -> showInputs());
         btnWifi.setOnClickListener(v -> showNetwork());
-        btnSettings.setOnClickListener(v -> open(new Intent(Settings.ACTION_SETTINGS)));
+        btnSettings.setOnClickListener(v -> showSettingsMenu(btnSettings));
 
         // Keep focus on the top bar at its ends and at the top: Android's focus finder would otherwise
         // jump to a tile far below when there is nothing in that direction.
@@ -534,6 +539,68 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         addInputRow(rows, popup, R.drawable.ic_settings, getString(R.string.network_settings), -1,
                 () -> open(new Intent(Settings.ACTION_WIFI_SETTINGS)));
         showMenu(popup, panel, rows, btnWifi, Gravity.END);
+    }
+
+    /** Dropdown under the gear: the launcher's own settings, or the system's. */
+    private void showSettingsMenu(View anchor) {
+        View panel = getLayoutInflater().inflate(R.layout.popup_inputs, root, false);
+        LinearLayout rows = panel.findViewById(R.id.rows);
+        PopupWindow popup = newMenu(panel);
+        addInputRow(rows, popup, R.drawable.ic_all_apps, getString(R.string.vibe_settings), -1,
+                this::showVibeSettings);
+        addInputRow(rows, popup, R.drawable.ic_settings, getString(R.string.android_settings), -1,
+                () -> open(new Intent(Settings.ACTION_SETTINGS)));
+        showMenu(popup, panel, rows, anchor, Gravity.END);
+    }
+
+    private void showVibeSettings() {
+        VibeSettings settings = new VibeSettings(this);
+        View panel = getLayoutInflater().inflate(R.layout.dialog_settings, root, false);
+        EditText tmdb = panel.findViewById(R.id.tmdbKey);
+        EditText plex = panel.findViewById(R.id.plexToken);
+        tmdb.setText(settings.tmdbKey());
+        plex.setText(settings.plexToken());
+        Dialog dialog = new Dialog(this, android.R.style.Theme_Material_Dialog_NoActionBar);
+        dialog.setContentView(panel);
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            // Near the top, so the on-screen keyboard (bottom half on TVs) doesn't cover the fields,
+            // and the keyboard only comes up once a field is picked.
+            window.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
+            WindowManager.LayoutParams lp = window.getAttributes();
+            lp.y = (int) (24 * density);
+            window.setAttributes(lp);
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        }
+        View cancel = panel.findViewById(R.id.cancel), save = panel.findViewById(R.id.save);
+        // Text fields keep Up/Down to themselves on this TV, so steer the remote by hand:
+        // TMDB <-> Plex <-> Save, and the keyboard's Next/Done buttons step forward the same way.
+        View[] order = {tmdb, plex, save};
+        for (int i = 0; i < order.length; i++) {
+            View up = i > 0 ? order[i - 1] : null, down = i < order.length - 1 ? order[i + 1] : null;
+            order[i].setOnKeyListener((v, keyCode, event) -> {
+                if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
+                View to = keyCode == KeyEvent.KEYCODE_DPAD_UP ? up : keyCode == KeyEvent.KEYCODE_DPAD_DOWN ? down : null;
+                return to != null && to.requestFocus();
+            });
+        }
+        cancel.setOnKeyListener((v, keyCode, event) -> event.getAction() == KeyEvent.ACTION_DOWN
+                && keyCode == KeyEvent.KEYCODE_DPAD_UP && plex.requestFocus());
+        tmdb.setOnEditorActionListener((v, actionId, event) -> plex.requestFocus());
+        plex.setOnEditorActionListener((v, actionId, event) -> {
+            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            if (imm != null) imm.hideSoftInputFromWindow(plex.getWindowToken(), 0);
+            return save.requestFocus();
+        });
+        cancel.setOnClickListener(v -> dialog.dismiss());
+        save.setOnClickListener(v -> {
+            settings.save(tmdb.getText().toString(), plex.getText().toString());
+            dialog.dismiss();
+            Toast.makeText(this, R.string.saved, Toast.LENGTH_SHORT).show();
+        });
+        dialog.show();
+        tmdb.requestFocus();
     }
 
     private void open(Intent i) {
