@@ -101,6 +101,18 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private float density;
 
     private final Handler handler = new Handler(Looper.getMainLooper());
+    /** Refreshes the network pill when the connection changes: after a reboot Wi-Fi often connects after Home is shown. */
+    private final ConnectivityManager.NetworkCallback networkCallback = new ConnectivityManager.NetworkCallback() {
+        @Override
+        public void onAvailable(@NonNull Network network) {
+            handler.post(MainActivity.this::updateWifiLabel);
+        }
+
+        @Override
+        public void onLost(@NonNull Network network) {
+            handler.post(MainActivity.this::updateWifiLabel);
+        }
+    };
     private final Runnable minuteTick = new Runnable() {
         @Override
         public void run() {
@@ -126,6 +138,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         backdropImage = findViewById(R.id.backdropImage);
         backdrops = new Backdrops(this);
         askPermissionsOnce();
+        ConnectivityManager cm = getSystemService(ConnectivityManager.class);
+        if (cm != null) cm.registerDefaultNetworkCallback(networkCallback);
         ambientGlow = new GradientDrawable();
         ambientGlow.setGradientType(GradientDrawable.RADIAL_GRADIENT);
         ambientGlow.setGradientCenter(0.32f, 0.42f);
@@ -261,6 +275,19 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     protected void onPause() {
         super.onPause();
         handler.removeCallbacks(minuteTick);
+    }
+
+    @Override
+    protected void onDestroy() {
+        ConnectivityManager cm = getSystemService(ConnectivityManager.class);
+        if (cm != null) {
+            try {
+                cm.unregisterNetworkCallback(networkCallback);
+            } catch (IllegalArgumentException ignored) {
+                // never registered
+            }
+        }
+        super.onDestroy();
     }
 
     @Override
