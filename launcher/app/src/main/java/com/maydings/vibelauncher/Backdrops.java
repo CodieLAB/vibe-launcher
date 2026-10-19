@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -34,9 +33,10 @@ import java.util.concurrent.Executors;
 
 /**
  * Backdrop stills from the cards apps publish for the TV home screen (their channels and Watch Next
- * rows in the system TV provider), read with READ_TV_LISTINGS. Only wide artwork is used; apps that
- * publish none keep the colour glow. Low-res art (Netflix's 853x480) is shown as a 2x2 wall of four
- * cards instead of one stretched still. Downloaded images are cached on disk for a week.
+ * rows in the system TV provider), read with READ_TV_LISTINGS. Only wide artwork is used, and low-res
+ * art (Netflix's 853x480) becomes a 2x2 wall of four cards. YouTube publishes no cards, so its tile
+ * borrows SmartTube's (the user's own feed). Apps with none keep the colour glow. Downloaded images are
+ * cached on disk for a week.
  */
 final class Backdrops {
 
@@ -49,12 +49,17 @@ final class Backdrops {
     private static final Uri PREVIEW = Uri.parse("content://android.media.tv/preview_program");
     private static final Uri WATCH_NEXT = Uri.parse("content://android.media.tv/watch_next_program");
     private static final String[] COLUMNS = {"package_name", "intent_uri", "poster_art_uri", "thumbnail_uri"};
+    private static final int FIRST_IMAGE = 2;   // COLUMNS from here on are image URIs
+    private static final String YOUTUBE = "com.google.android.youtube.tv";
+    /** SmartTube builds (stable, beta, the old names): they publish the signed-in user's YouTube feed. */
+    private static final String[] SMARTTUBE = {"org.smarttube.stable", "org.smarttube.beta",
+            "com.liskovsoft.smarttubetv", "com.liskovsoft.smarttubetv.beta", "com.teamsmart.videomanager.tv"};
     private static final int MIN_WIDTH = 800;   // Netflix publishes 853x480
     private static final float MIN_ASPECT = 1.45f, MAX_ASPECT = 2.4f;
     private static final int SHARP_WIDTH = 1280;  // narrower art goes into a 2x2 wall
     private static final int WALL = 4;
     private static final int WALL_GAP = 6;        // px between the wall's cards
-    private static final int MAX_TRIES = 10;      // candidates tried per visit before giving up
+    private static final int MAX_TRIES = 10;      // downloads per visit before giving up
     private static final int MAX_IMAGE_BYTES = 6 * 1024 * 1024;
     private static final long CACHE_MS = 7L * 24 * 60 * 60 * 1000;
 
@@ -97,6 +102,16 @@ final class Backdrops {
         });
     }
 
+    /** One card from the provider: whether its art carries a sticker, and its images. */
+    private static final class Card {
+        final boolean badged;
+        final List<String> images = new ArrayList<>();
+
+        Card(boolean badged) {
+            this.badged = badged;
+        }
+    }
+
     /**
      * One sharp, unbadged still, or else four low-res cards for a wall (the wall may use badged ones:
      * the sticker doesn't change the card's size). Runs on the worker thread.
@@ -106,26 +121,25 @@ final class Backdrops {
             List<File> files = chosen.get(pkg);
             if (files != null && allExist(files)) return files;
         }
-        List<String> clean = new ArrayList<>(), badged = new ArrayList<>();
-        artwork(pkg, clean, badged);
-        Collections.shuffle(clean, random);
-        Collections.shuffle(badged, random);
+        List<Card> cards = cards(pkg);
         List<File> wall = new ArrayList<>();
         File plain = null;   // first unbadged low-res card, the fallback when there aren't enough for a wall
         int tries = 0;
-        for (int i = 0; i < clean.size() + badged.size() && wall.size() < WALL; i++) {
-            boolean isClean = i < clean.size();
-            String url = isClean ? clean.get(i) : badged.get(i - clean.size());
-            if (unsuitable.contains(url)) continue;
-            if (tries++ >= MAX_TRIES) break;
-            File file = fetch(url);
-            if (file == null) continue;
-            if (width(file) >= SHARP_WIDTH) {
-                if (isClean) return remember(pkg, Collections.singletonList(file));
-                continue;
+        for (Card card : cards) {
+            if (tries >= MAX_TRIES || wall.size() == WALL) break;
+            for (String url : card.images) {
+                if (unsuitable.contains(url)) continue;
+                if (tries++ >= MAX_TRIES) break;
+                File file = fetch(url);
+                if (file == null) continue;
+                if (width(file) >= SHARP_WIDTH) {
+                    if (!card.badged) return remember(pkg, Collections.singletonList(file));
+                } else {
+                    if (plain == null && !card.badged) plain = file;
+                    if (wall.size() < WALL) wall.add(file);
+                }
+                break;   // one image per card
             }
-            if (plain == null && isClean) plain = file;
-            wall.add(file);
         }
         if (wall.size() == WALL) return remember(pkg, wall);
         return plain != null ? remember(pkg, Collections.singletonList(plain)) : null;
@@ -142,29 +156,47 @@ final class Backdrops {
     }
 
     /**
-     * Image URIs from the app's home screen cards, split by whether the art carries a sticker. Empty
-     * without the permission or any cards.
+     * The app's home screen cards, unbadged ones first, each group shuffled. Empty without the
+     * permission or any cards.
      */
-    private void artwork(String pkg, List<String> clean, List<String> badged) {
-        Set<String> cleanUrls = new LinkedHashSet<>(), badgedUrls = new LinkedHashSet<>();
+    private List<Card> cards(String pkg) {
+        Set<String> sources = new HashSet<>(Collections.singletonList(pkg));
+        if (pkg.equals(YOUTUBE)) Collections.addAll(sources, SMARTTUBE);
+        List<Card> clean = new ArrayList<>(), badged = new ArrayList<>();
+        Set<String> seen = new HashSet<>();
         for (Uri table : new Uri[]{WATCH_NEXT, PREVIEW}) {
             // Filtering by package in the query isn't allowed without system permissions; read all.
             try (Cursor c = resolver.query(table, COLUMNS, null, null, null)) {
                 while (c != null && c.moveToNext()) {
-                    if (!pkg.equals(c.getString(0))) continue;
-                    Set<String> urls = badged(c.getString(1)) ? badgedUrls : cleanUrls;
-                    for (int i = 2; i < COLUMNS.length; i++) {
+                    if (!sources.contains(c.getString(0))) continue;
+                    Card card = new Card(badged(c.getString(1)));
+                    for (int i = FIRST_IMAGE; i < COLUMNS.length; i++) {
                         String url = c.getString(i);
-                        if (url != null && !url.isEmpty()) urls.add(url);
+                        if (url == null || url.isEmpty() || !seen.add(url)) continue;
+                        String sharper = youtubeMaxRes(url);
+                        if (sharper != null && seen.add(sharper)) card.images.add(sharper);
+                        card.images.add(url);
                     }
+                    if (!card.images.isEmpty()) (card.badged ? badged : clean).add(card);
                 }
             } catch (RuntimeException e) {
                 // No permission, or the provider is missing (not a TV): no stills.
             }
         }
-        badgedUrls.removeAll(cleanUrls);
-        clean.addAll(cleanUrls);
-        badged.addAll(badgedUrls);
+        Collections.shuffle(clean, random);
+        Collections.shuffle(badged, random);
+        clean.addAll(badged);
+        return clean;
+    }
+
+    /**
+     * YouTube thumbnails come in several sizes under one video ID; the largest, maxresdefault, is
+     * 1280x720 when the uploader provided one (a 404 otherwise, and the card's own size is used).
+     */
+    private static String youtubeMaxRes(String url) {
+        if (!url.startsWith("https://i.ytimg.com/vi/")) return null;
+        int end = url.indexOf('/', "https://i.ytimg.com/vi/".length());
+        return end < 0 ? null : url.substring(0, end) + "/maxresdefault.jpg";
     }
 
     /**
