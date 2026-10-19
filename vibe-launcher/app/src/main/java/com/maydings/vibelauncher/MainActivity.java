@@ -60,11 +60,12 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * tvOS style home: black, a pinned dock row, an app grid, and one glass highlight that springs between tiles.
+ * tvOS style home: a backdrop for the focused dock app, a pinned dock row, an app grid, and one glass
+ * highlight that springs between tiles.
  */
 public class MainActivity extends Activity implements AppAdapter.TileListener {
 
-    /** Tiles per row and dock slots (res/values/config.xml, columns). Set in onCreate. */
+    /** Tiles per row and dock slots: Vibe Launcher settings (4, 5 or 6), else config.xml. Set in onCreate. */
     static int COLUMNS = 4;
     private static final long MINUTE_MS = 60_000L;
     private String liveTvPkg;
@@ -535,7 +536,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     // ---- top bar ---------------------------------------------------------------------------------
 
-    /** Shows the Wi-Fi network name on the button when we can read it, otherwise the connection type. */
     /**
      * Granted at install over adb (-g). Installed from a file manager instead, ask once for both: TV
      * listings (the apps' home screen cards, for backdrops) and location (Android only reveals the
@@ -560,9 +560,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         // Show what the new permissions unlock straight away: the network name and this visit's backdrops.
         updateWifiLabel();
         backdrops.reshuffle();
-        backdropPkg = null;
+        backdropPkg = null;   // onResume, which follows the permission dialog, loads it again
     }
 
+    /** Shows the Wi-Fi network name on the button when we can read it, otherwise the connection type. */
     private void updateWifiLabel() {
         String text = getString(R.string.wifi);
         int icon = R.drawable.ic_wifi;
@@ -738,7 +739,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         try {
             startActivity(i);
         } catch (ActivityNotFoundException e) {
-            Toast.makeText(this, "Not available on this TV", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.not_available, Toast.LENGTH_SHORT).show();
         }
     }
 

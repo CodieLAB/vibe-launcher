@@ -19,6 +19,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -32,10 +35,9 @@ import java.util.concurrent.Executors;
 
 /**
  * Backdrop stills from the cards apps publish for the TV home screen (their channels and Watch Next
- * rows in the system TV provider), read with READ_TV_LISTINGS. With a TMDB key, a card's title is
- * shown with a clean full-size backdrop and the title's logo instead of the app's own art: from TMDB
- * with a key, from Stremio's free metadata without one. Otherwise only wide artwork
- * is used, and low-res art (Netflix's 853x480) becomes a 2x2 wall of four cards. YouTube publishes no
+ * rows in the system TV provider), read with READ_TV_LISTINGS. A card's film or show is shown with a
+ * clean full-size backdrop and the title's logo instead of the app's own art: from TMDB with a key,
+ * from Stremio's free metadata without one. Otherwise only wide artwork is used, and low-res art (Netflix's 853x480) becomes a 2x2 wall of four cards. YouTube publishes no
  * cards, so its tile borrows SmartTube's (the user's own feed), or without SmartTube shows popular
  * videos via the YouTube Data API key. Plex, with a Plex token, shows art from the user's own server.
  * Apps with none keep the colour glow.
@@ -121,18 +123,36 @@ final class Backdrops {
 
     /** Choose and download this visit's still in the background so it is ready on focus. */
     void prefetch(String pkg) {
-        worker.execute(() -> pick(pkg));
+        worker.execute(() -> {
+            try {
+                pick(pkg);
+            } catch (RuntimeException | OutOfMemoryError e) {
+                // Nothing ready; load() tries again on focus.
+            }
+        });
     }
 
     /** Delivers this visit's still for the app on the main thread, or null when it has none. */
     void load(String pkg, Callback callback) {
         worker.execute(() -> {
-            Choice c = pick(pkg);
-            Bitmap bitmap = c == null ? null : c.files.size() == 1 ? decode(c.files.get(0)) : wall(c.files);
-            if (bitmap != null) darken(bitmap);
-            Bitmap logo = c != null && c.logo != null ? decodeLogo(c.logo) : null;
-            String title = c != null ? c.title : null;
-            main.post(() -> callback.onBackdrop(pkg, bitmap, logo, title));
+            Bitmap bitmap = null, logo = null;
+            String title = null;
+            try {
+                Choice c = pick(pkg);
+                bitmap = c == null ? null : c.files.size() == 1 ? decode(c.files.get(0)) : wall(c.files);
+                if (bitmap != null) darken(bitmap);
+                logo = c != null && c.logo != null ? decodeLogo(c.logo) : null;
+                title = c != null ? c.title : null;
+            } catch (RuntimeException | OutOfMemoryError e) {
+                // A bad image or cache entry, or no memory left on a small TV: the colour glow instead
+                // of taking the launcher down (an error here would crash the whole app).
+                bitmap = null;
+                logo = null;
+                title = null;
+            }
+            Bitmap b = bitmap, l = logo;
+            String t = title;
+            main.post(() -> callback.onBackdrop(pkg, b, l, t));
         });
     }
 
@@ -284,7 +304,7 @@ final class Backdrops {
      * if it isn't wide and big enough.
      */
     private File fetch(String url, boolean backdrop) {
-        File file = new File(root, Integer.toHexString(url.hashCode()) + ".img");
+        File file = new File(root, sha1(url) + ".img");
         if (file.exists()) {
             file.setLastModified(System.currentTimeMillis());
             return file;
@@ -303,6 +323,18 @@ final class Backdrops {
             return null;
         }
         return tmp.renameTo(file) ? file : null;
+    }
+
+    /** A file name for a URL: a 32-bit hash could give two images the same name and show the wrong one. */
+    private static String sha1(String s) {
+        try {
+            byte[] d = MessageDigest.getInstance("SHA-1").digest(s.getBytes(StandardCharsets.UTF_8));
+            StringBuilder sb = new StringBuilder();
+            for (byte b : d) sb.append(String.format("%02x", b));
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            return Integer.toHexString(s.hashCode());
+        }
     }
 
     /** The image's bytes, or null when it can't be had (offline, gone, too big). */

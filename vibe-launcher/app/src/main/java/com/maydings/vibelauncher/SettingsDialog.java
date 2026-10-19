@@ -35,9 +35,18 @@ final class SettingsDialog {
         EditText tmdb = panel.findViewById(R.id.tmdbKey);
         EditText youtube = panel.findViewById(R.id.youtubeKey);
         EditText plex = panel.findViewById(R.id.plexToken);
-        tmdb.setText(settings.tmdbKey());
-        youtube.setText(settings.youtubeKey());
-        plex.setText(settings.plexToken());
+        // Saved keys show only their last four characters. Focusing a field selects it, so typing replaces
+        // the key and clearing it removes it; left alone, the saved key stays.
+        EditText[] fields = {tmdb, youtube, plex};
+        String[] saved = {settings.tmdbKey(), settings.youtubeKey(), settings.plexToken()};
+        for (int i = 0; i < fields.length; i++) {
+            fields[i].setText(mask(saved[i]));
+            fields[i].setSelectAllOnFocus(true);
+        }
+        Runnable saveKeys = () -> {
+            for (int i = 0; i < fields.length; i++) saved[i] = value(fields[i], saved[i]);
+            settings.save(saved[0], saved[1], saved[2]);
+        };
         Dialog dialog = new Dialog(activity, android.R.style.Theme_Material_Dialog_NoActionBar);
         dialog.setContentView(panel);
         Window window = dialog.getWindow();
@@ -106,12 +115,14 @@ final class SettingsDialog {
             return save.requestFocus();
         });
         // Typing a 32-character key with a remote is painful: offer a page to paste it from a phone.
-        PhoneLink link = new PhoneLink(fields -> {
+        PhoneLink link = new PhoneLink(received -> {
             if (!dialog.isShowing()) return;
-            if (fields.containsKey("tmdbKey")) tmdb.setText(fields.get("tmdbKey"));
-            if (fields.containsKey("youtubeKey")) youtube.setText(fields.get("youtubeKey"));
-            if (fields.containsKey("plexToken")) plex.setText(fields.get("plexToken"));
-            settings.save(tmdb.getText().toString(), youtube.getText().toString(), plex.getText().toString());
+            String[] names = {"tmdbKey", "youtubeKey", "plexToken"};
+            for (int i = 0; i < names.length; i++) {
+                if (received.containsKey(names[i])) fields[i].setText(received.get(names[i]));
+            }
+            saveKeys.run();
+            for (int i = 0; i < fields.length; i++) fields[i].setText(mask(saved[i]));
             Toast.makeText(activity, R.string.saved_from_phone, Toast.LENGTH_SHORT).show();
         }, settings);
         String url = link.start();
@@ -123,7 +134,7 @@ final class SettingsDialog {
         dialog.setOnDismissListener(d -> link.stop());
         cancel.setOnClickListener(v -> dialog.dismiss());
         save.setOnClickListener(v -> {
-            settings.save(tmdb.getText().toString(), youtube.getText().toString(), plex.getText().toString());
+            saveKeys.run();
             dialog.dismiss();
             Toast.makeText(activity, R.string.saved, Toast.LENGTH_SHORT).show();
             if (chosen[0] != current) {
@@ -133,6 +144,17 @@ final class SettingsDialog {
         });
         dialog.show();
         columnsEntry.requestFocus();
+    }
+
+    /** A saved key as shown in its field: bullets and the last four characters; "" when not set. */
+    private static String mask(String key) {
+        return key.isEmpty() ? "" : "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022" + key.substring(Math.max(0, key.length() - 4));
+    }
+
+    /** What a field holds: the saved key while it still shows the mask, else what was typed. */
+    private static String value(EditText field, String saved) {
+        String text = field.getText().toString().trim();
+        return !saved.isEmpty() && text.equals(mask(saved)) ? saved : text;
     }
 
     /** Up and Down move to these views; Right goes to Save, remembering where it came from. */

@@ -206,7 +206,7 @@ final class PhoneLink {
         return "<!doctype html><title>Vibe Launcher</title>" + STYLE + "<h1>Vibe Launcher</h1><p>" + message + "</p>";
     }
 
-    /** The QR code for the page's address, white on transparent, size x size pixels. */
+    /** The QR code for the page's address, black on white, size x size pixels. */
     static Bitmap qr(String text, int size) {
         try {
             BitMatrix m = new QRCodeWriter().encode(text, BarcodeFormat.QR_CODE, size, size,

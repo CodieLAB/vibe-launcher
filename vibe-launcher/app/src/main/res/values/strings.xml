@@ -42,4 +42,6 @@
     <string name="youtube_info">Better option: install SmartTube. Its backdrops come from your own YouTube feed and need no key.\n\nWithout SmartTube, this key shows the most popular videos in your country.\n\nFree key: console.cloud.google.com → new project → enable YouTube Data API v3 → Credentials → Create API key.</string>
     <string name="plex_info">Backdrops from your own Plex server: what\'s on Continue Watching and recently added.\n\nTo find it: app.plex.tv → open any title → ⋯ → Get Info → View XML. The token is the part after X-Plex-Token= in the address. Keep it private, like a password.</string>
     <string name="saved_from_phone">Saved from your phone</string>
+    <string name="not_available">Not available on this TV</string>
+    <string name="cant_open">Can\'t open %1$s</string>
 </resources>
