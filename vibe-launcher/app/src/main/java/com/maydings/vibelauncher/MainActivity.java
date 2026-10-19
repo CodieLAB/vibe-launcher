@@ -241,10 +241,17 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         updateWifiLabel();
         handler.postDelayed(minuteTick, MINUTE_MS);
 
-        // Return to the tile we left from, or the first one.
+        // Return to the tile we left from, or the first one. When a tile kept focus while we were away
+        // (the usual case), no focus change follows, so bring back its glass, name and backdrop here:
+        // the reset above cleared them.
         grid.post(() -> {
             View focused = getCurrentFocus();
-            if (focused != null && grid.findContainingViewHolder(focused) != null) return;
+            RecyclerView.ViewHolder holder = focused != null ? grid.findContainingViewHolder(focused) : null;
+            int position = holder != null ? holder.getBindingAdapterPosition() : RecyclerView.NO_POSITION;
+            if (position != RecyclerView.NO_POSITION && focused.getId() == R.id.card) {
+                onTileFocused(position, focused);
+                return;
+            }
             focusTile(lastFocused);
         });
     }
