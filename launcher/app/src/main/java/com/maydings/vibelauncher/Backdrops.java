@@ -33,10 +33,11 @@ import java.util.concurrent.Executors;
 
 /**
  * Backdrop stills from the cards apps publish for the TV home screen (their channels and Watch Next
- * rows in the system TV provider), read with READ_TV_LISTINGS. Only wide artwork is used, and low-res
- * art (Netflix's 853x480) becomes a 2x2 wall of four cards. YouTube publishes no cards, so its tile
- * borrows SmartTube's (the user's own feed). Apps with none keep the colour glow. Downloaded images are
- * cached on disk for a week.
+ * rows in the system TV provider), read with READ_TV_LISTINGS. With a TMDB key, a card's title is
+ * shown with TMDB's clean full-size backdrop instead of the app's own art. Otherwise only wide artwork
+ * is used, and low-res art (Netflix's 853x480) becomes a 2x2 wall of four cards. YouTube publishes no
+ * cards, so its tile borrows SmartTube's (the user's own feed). Apps with none keep the colour glow.
+ * Downloaded images are cached on disk for a week.
  */
 final class Backdrops {
 
@@ -48,8 +49,8 @@ final class Backdrops {
 
     private static final Uri PREVIEW = Uri.parse("content://android.media.tv/preview_program");
     private static final Uri WATCH_NEXT = Uri.parse("content://android.media.tv/watch_next_program");
-    private static final String[] COLUMNS = {"package_name", "intent_uri", "poster_art_uri", "thumbnail_uri"};
-    private static final int FIRST_IMAGE = 2;   // COLUMNS from here on are image URIs
+    private static final String[] COLUMNS = {"package_name", "intent_uri", "title", "poster_art_uri", "thumbnail_uri"};
+    private static final int FIRST_IMAGE = 3;   // COLUMNS from here on are image URIs
     private static final String YOUTUBE = "com.google.android.youtube.tv";
     /** SmartTube builds (stable, beta, the old names): they publish the signed-in user's YouTube feed. */
     private static final String[] SMARTTUBE = {"org.smarttube.stable", "org.smarttube.beta",
@@ -59,11 +60,12 @@ final class Backdrops {
     private static final int SHARP_WIDTH = 1280;  // narrower art goes into a 2x2 wall
     private static final int WALL = 4;
     private static final int WALL_GAP = 6;        // px between the wall's cards
-    private static final int MAX_TRIES = 10;      // downloads per visit before giving up
+    private static final int MAX_TRIES = 12;      // lookups and downloads per visit before giving up
     private static final int MAX_IMAGE_BYTES = 6 * 1024 * 1024;
     private static final long CACHE_MS = 7L * 24 * 60 * 60 * 1000;
 
     private final ContentResolver resolver;
+    private final Tmdb tmdb;
     private final File root;
     private final ExecutorService worker = Executors.newSingleThreadExecutor();
     private final Handler main = new Handler(Looper.getMainLooper());
@@ -74,6 +76,7 @@ final class Backdrops {
 
     Backdrops(Context context) {
         resolver = context.getContentResolver();
+        tmdb = new Tmdb(context);
         root = new File(context.getCacheDir(), "cards");
         targetWidth = context.getResources().getDisplayMetrics().widthPixels;
         targetHeight = context.getResources().getDisplayMetrics().heightPixels;
@@ -102,19 +105,22 @@ final class Backdrops {
         });
     }
 
-    /** One card from the provider: whether its art carries a sticker, and its images. */
+    /** One card from the provider: its title, whether its art carries a sticker, and its images. */
     private static final class Card {
+        final String title;
         final boolean badged;
         final List<String> images = new ArrayList<>();
 
-        Card(boolean badged) {
+        Card(String title, boolean badged) {
+            this.title = title;
             this.badged = badged;
         }
     }
 
     /**
-     * One sharp, unbadged still, or else four low-res cards for a wall (the wall may use badged ones:
-     * the sticker doesn't change the card's size). Runs on the worker thread.
+     * One sharp still (TMDB's backdrop for a card's title, or the card's own unbadged art), or else four
+     * low-res cards for a wall (the wall may use badged ones: the sticker doesn't change the card's
+     * size). Runs on the worker thread.
      */
     private List<File> pick(String pkg) {
         synchronized (this) {
@@ -122,11 +128,18 @@ final class Backdrops {
             if (files != null && allExist(files)) return files;
         }
         List<Card> cards = cards(pkg);
+        boolean useTmdb = tmdb.enabled() && !isVideoSite(pkg);
         List<File> wall = new ArrayList<>();
         File plain = null;   // first unbadged low-res card, the fallback when there aren't enough for a wall
         int tries = 0;
         for (Card card : cards) {
-            if (tries >= MAX_TRIES || wall.size() == WALL) break;
+            if (tries >= MAX_TRIES || (wall.size() == WALL && !useTmdb)) break;
+            if (useTmdb && card.title != null) {
+                tries++;
+                String url = tmdb.backdrop(card.title);
+                File file = url != null && !unsuitable.contains(url) ? fetch(url) : null;
+                if (file != null) return remember(pkg, Collections.singletonList(file));
+            }
             for (String url : card.images) {
                 if (unsuitable.contains(url)) continue;
                 if (tries++ >= MAX_TRIES) break;
@@ -169,7 +182,7 @@ final class Backdrops {
             try (Cursor c = resolver.query(table, COLUMNS, null, null, null)) {
                 while (c != null && c.moveToNext()) {
                     if (!sources.contains(c.getString(0))) continue;
-                    Card card = new Card(badged(c.getString(1)));
+                    Card card = new Card(c.getString(2), badged(c.getString(1)));
                     for (int i = FIRST_IMAGE; i < COLUMNS.length; i++) {
                         String url = c.getString(i);
                         if (url == null || url.isEmpty() || !seen.add(url)) continue;
@@ -187,6 +200,13 @@ final class Backdrops {
         Collections.shuffle(badged, random);
         clean.addAll(badged);
         return clean;
+    }
+
+    /** Video sites: their card titles are video names, not films or shows to look up on TMDB. */
+    private static boolean isVideoSite(String pkg) {
+        if (pkg.startsWith(YOUTUBE)) return true;   // also YouTube Kids (com.google.android.youtube.tvkids)
+        for (String s : SMARTTUBE) if (s.equals(pkg)) return true;
+        return false;
     }
 
     /**

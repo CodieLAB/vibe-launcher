@@ -43,6 +43,16 @@
                 android:id="@+id/plexToken"
                 style="@style/SettingsField"
                 android:imeOptions="actionDone|flagNoExtractUi" />
+
+            <!-- TMDB's terms ask apps using its API to say so. -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/tmdb_notice"
+                android:textColor="#66FFFFFF"
+                android:textSize="11sp"
+                android:fontFamily="@font/outfit" />
         </LinearLayout>
 
         <!-- Scan to type the keys on a phone instead (PhoneLink). -->
