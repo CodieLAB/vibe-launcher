@@ -497,7 +497,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private void askPermissionsOnce() {
         if (getPreferences(MODE_PRIVATE).getBoolean("askedPermissions", false)) return;
         List<String> missing = new ArrayList<>();
-        for (String p : new String[]{Backdrops.PERMISSION, Manifest.permission.ACCESS_FINE_LOCATION}) {
+        // Coarse with fine: Android 12+ refuses a request for fine location alone.
+        for (String p : new String[]{Backdrops.PERMISSION, Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION}) {
             if (checkSelfPermission(p) != PackageManager.PERMISSION_GRANTED) missing.add(p);
         }
         if (missing.isEmpty()) return;
