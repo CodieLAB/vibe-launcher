@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
@@ -766,7 +767,29 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     }
 
     private Intent getLiveTvIntent() {
-        return liveTvPkg.isEmpty() ? null : getPackageManager().getLeanbackLaunchIntentForPackage(liveTvPkg);
+        Intent launch = liveTvPkg.isEmpty() ? null : getPackageManager().getLeanbackLaunchIntentForPackage(liveTvPkg);
+        if (launch == null) return null;
+        // Launched plainly, the TV app resumes the last source, often an HDMI input (seen on the
+        // XBR-940E). Ask it for the built-in tuner instead, when the TV has one.
+        String tuner = builtInTuner();
+        return tuner == null ? launch : new Intent(Intent.ACTION_VIEW)
+                .setDataAndType(TvContract.buildChannelUriForPassthroughInput(tuner), "vnd.android.cursor.item/channel")
+                .setPackage(liveTvPkg);
+    }
+
+    /** The TV's own tuner input (a system app, not e.g. an HDHomeRun app), or null. */
+    private String builtInTuner() {
+        TvInputManager tim = (TvInputManager) getSystemService(TV_INPUT_SERVICE);
+        String tuner = null;
+        if (tim == null) return null;
+        for (TvInputInfo info : tim.getTvInputList()) {
+            if (info.getType() == TvInputInfo.TYPE_TUNER
+                    && (info.getServiceInfo().applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0
+                    && (tuner == null || info.getId().compareTo(tuner) < 0)) {
+                tuner = info.getId();
+            }
+        }
+        return tuner;
     }
 
     /** Dropdown menu under the Inputs pill: HDMI ports (with connection state), AV and Live TV. */
