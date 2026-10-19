@@ -8,6 +8,7 @@ final class VibeSettings {
 
     private static final String FILE = "vibe_settings";
     private static final String TMDB_KEY = "tmdbKey";
+    private static final String YOUTUBE_KEY = "youtubeKey";
     private static final String PLEX_TOKEN = "plexToken";
 
     private final SharedPreferences prefs;
@@ -21,12 +22,18 @@ final class VibeSettings {
         return prefs.getString(TMDB_KEY, "");
     }
 
+    /** YouTube Data API key, or "" when not set. */
+    String youtubeKey() {
+        return prefs.getString(YOUTUBE_KEY, "");
+    }
+
     /** Plex account token (X-Plex-Token), or "" when not set. */
     String plexToken() {
         return prefs.getString(PLEX_TOKEN, "");
     }
 
-    void save(String tmdbKey, String plexToken) {
-        prefs.edit().putString(TMDB_KEY, tmdbKey.trim()).putString(PLEX_TOKEN, plexToken.trim()).apply();
+    void save(String tmdbKey, String youtubeKey, String plexToken) {
+        prefs.edit().putString(TMDB_KEY, tmdbKey.trim()).putString(YOUTUBE_KEY, youtubeKey.trim())
+                .putString(PLEX_TOKEN, plexToken.trim()).apply();
     }
 }

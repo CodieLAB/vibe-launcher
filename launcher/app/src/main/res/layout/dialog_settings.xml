@@ -37,6 +37,14 @@
 
             <TextView
                 style="@style/SettingsLabel"
+                android:text="@string/youtube_key" />
+
+            <EditText
+                android:id="@+id/youtubeKey"
+                style="@style/SettingsField" />
+
+            <TextView
+                style="@style/SettingsLabel"
                 android:text="@string/plex_token" />
 
             <EditText

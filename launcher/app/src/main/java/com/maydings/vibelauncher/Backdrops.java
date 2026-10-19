@@ -36,7 +36,8 @@ import java.util.concurrent.Executors;
  * rows in the system TV provider), read with READ_TV_LISTINGS. With a TMDB key, a card's title is
  * shown with TMDB's clean full-size backdrop instead of the app's own art. Otherwise only wide artwork
  * is used, and low-res art (Netflix's 853x480) becomes a 2x2 wall of four cards. YouTube publishes no
- * cards, so its tile borrows SmartTube's (the user's own feed). Apps with none keep the colour glow.
+ * cards, so its tile borrows SmartTube's (the user's own feed), or without SmartTube shows popular
+ * videos via the YouTube Data API key. Apps with none keep the colour glow.
  * Downloaded images are cached on disk for a week.
  */
 final class Backdrops {
@@ -66,6 +67,7 @@ final class Backdrops {
 
     private final ContentResolver resolver;
     private final Tmdb tmdb;
+    private final YouTubePopular youtubePopular;
     private final File root;
     private final ExecutorService worker = Executors.newSingleThreadExecutor();
     private final Handler main = new Handler(Looper.getMainLooper());
@@ -77,6 +79,7 @@ final class Backdrops {
     Backdrops(Context context) {
         resolver = context.getContentResolver();
         tmdb = new Tmdb(context);
+        youtubePopular = new YouTubePopular(context);
         root = new File(context.getCacheDir(), "cards");
         targetWidth = context.getResources().getDisplayMetrics().widthPixels;
         targetHeight = context.getResources().getDisplayMetrics().heightPixels;
@@ -194,6 +197,15 @@ final class Backdrops {
                 }
             } catch (RuntimeException e) {
                 // No permission, or the provider is missing (not a TV): no stills.
+            }
+        }
+        if (pkg.equals(YOUTUBE) && clean.isEmpty()) {
+            // No SmartTube: popular videos instead (needs the YouTube key; empty without it).
+            for (String id : youtubePopular.videoIds()) {
+                Card card = new Card(null, false);
+                card.images.add("https://i.ytimg.com/vi/" + id + "/maxresdefault.jpg");
+                card.images.add("https://i.ytimg.com/vi/" + id + "/hq720.jpg");
+                clean.add(card);
             }
         }
         Collections.shuffle(clean, random);

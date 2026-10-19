@@ -179,6 +179,7 @@ final class PhoneLink {
                 + "<h1>Vibe Launcher settings</h1><p>Paste your keys, then tap Send. Leave a field empty to keep "
                 + "what the TV already has.</p><form method=post action='/" + code + "'>"
                 + "<label for=t>TMDB API key</label><input id=t name=tmdbKey autocomplete=off autocapitalize=off spellcheck=false>"
+                + "<label for=y>YouTube API key</label><input id=y name=youtubeKey autocomplete=off autocapitalize=off spellcheck=false>"
                 + "<label for=p>Plex token</label><input id=p name=plexToken autocomplete=off autocapitalize=off spellcheck=false>"
                 + "<button>Send to TV</button></form>";
     }

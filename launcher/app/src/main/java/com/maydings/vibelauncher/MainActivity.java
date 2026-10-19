@@ -618,8 +618,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         VibeSettings settings = new VibeSettings(this);
         View panel = getLayoutInflater().inflate(R.layout.dialog_settings, root, false);
         EditText tmdb = panel.findViewById(R.id.tmdbKey);
+        EditText youtube = panel.findViewById(R.id.youtubeKey);
         EditText plex = panel.findViewById(R.id.plexToken);
         tmdb.setText(settings.tmdbKey());
+        youtube.setText(settings.youtubeKey());
         plex.setText(settings.plexToken());
         Dialog dialog = new Dialog(this, android.R.style.Theme_Material_Dialog_NoActionBar);
         dialog.setContentView(panel);
@@ -639,8 +641,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         ((TextView) panel.findViewById(R.id.version)).setText(getString(R.string.version, versionName()));
         View cancel = panel.findViewById(R.id.cancel), save = panel.findViewById(R.id.save);
         // Text fields keep Up/Down to themselves on this TV, so steer the remote by hand:
-        // TMDB <-> Plex <-> Save, and the keyboard's Next/Done buttons step forward the same way.
-        View[] order = {tmdb, plex, save};
+        // TMDB <-> YouTube <-> Plex <-> Save, and the keyboard's Next/Done buttons step forward the same way.
+        View[] order = {tmdb, youtube, plex, save};
         for (int i = 0; i < order.length; i++) {
             View up = i > 0 ? order[i - 1] : null, down = i < order.length - 1 ? order[i + 1] : null;
             order[i].setOnKeyListener((v, keyCode, event) -> {
@@ -651,7 +653,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         }
         cancel.setOnKeyListener((v, keyCode, event) -> event.getAction() == KeyEvent.ACTION_DOWN
                 && keyCode == KeyEvent.KEYCODE_DPAD_UP && plex.requestFocus());
-        tmdb.setOnEditorActionListener((v, actionId, event) -> plex.requestFocus());
+        tmdb.setOnEditorActionListener((v, actionId, event) -> youtube.requestFocus());
+        youtube.setOnEditorActionListener((v, actionId, event) -> plex.requestFocus());
         plex.setOnEditorActionListener((v, actionId, event) -> {
             InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             if (imm != null) imm.hideSoftInputFromWindow(plex.getWindowToken(), 0);
@@ -661,8 +664,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         PhoneLink link = new PhoneLink(fields -> {
             if (!dialog.isShowing()) return;
             if (fields.containsKey("tmdbKey")) tmdb.setText(fields.get("tmdbKey"));
+            if (fields.containsKey("youtubeKey")) youtube.setText(fields.get("youtubeKey"));
             if (fields.containsKey("plexToken")) plex.setText(fields.get("plexToken"));
-            settings.save(tmdb.getText().toString(), plex.getText().toString());
+            settings.save(tmdb.getText().toString(), youtube.getText().toString(), plex.getText().toString());
             Toast.makeText(this, R.string.saved_from_phone, Toast.LENGTH_SHORT).show();
         });
         String url = link.start();
@@ -674,7 +678,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         dialog.setOnDismissListener(d -> link.stop());
         cancel.setOnClickListener(v -> dialog.dismiss());
         save.setOnClickListener(v -> {
-            settings.save(tmdb.getText().toString(), plex.getText().toString());
+            settings.save(tmdb.getText().toString(), youtube.getText().toString(), plex.getText().toString());
             dialog.dismiss();
             Toast.makeText(this, R.string.saved, Toast.LENGTH_SHORT).show();
         });
