@@ -10,7 +10,7 @@
     <!-- Downloads the cards' artwork. -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!-- Needed on Android 10 to read the Wi-Fi network name; granted over adb at install time. -->
+    <!-- Android only reveals the Wi-Fi network's name with location; asked for on first start. -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- Android 12+ only grants fine location when coarse is asked for with it. -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />

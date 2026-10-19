@@ -84,10 +84,7 @@ final class Backdrops {
         targetWidth = context.getResources().getDisplayMetrics().widthPixels;
         targetHeight = context.getResources().getDisplayMetrics().heightPixels;
         plex = new Plex(context, targetWidth, targetHeight);
-        worker.execute(() -> {
-            deleteTree(new File(context.getCacheDir(), "backdrops"));   // the old scraped stills
-            prune();
-        });
+        worker.execute(this::prune);
     }
 
     /** Pick a fresh still per app next time each is shown (called when Home comes back). */
@@ -351,11 +348,5 @@ final class Backdrops {
         if (files == null) return;
         long now = System.currentTimeMillis();
         for (File f : files) if (now - f.lastModified() > CACHE_MS) f.delete();
-    }
-
-    private static void deleteTree(File f) {
-        File[] children = f.listFiles();
-        if (children != null) for (File c : children) deleteTree(c);
-        f.delete();
     }
 }

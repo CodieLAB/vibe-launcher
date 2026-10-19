@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Launcher configuration for Sony XBR-940E.
+  Launcher defaults: the dock, apps to leave out, and the Live TV app. The dock and hidden apps can
+  also be changed on the TV (long-press OK on a tile). The Live TV entries below are Sony's; on other
+  TVs they simply match nothing, so the Inputs menu leaves Live TV out.
 -->
 <resources>
 
@@ -16,7 +18,6 @@
     <string-array name="hidden_apps">
         <item>com.sony.dtv.tvx</item>
         <item>com.sony.dtv.tvxlauncher.programguide</item>
-        <item>me.efesser.flauncher</item>
     </string-array>
 
     <!-- The TV's Live TV / tuner app, offered at the end of the Inputs menu. Leave empty to omit. -->
