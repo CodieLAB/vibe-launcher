@@ -1,155 +1,119 @@
 # Vibe Launcher
 
-A fork of [Gathin23/tv-vibehack](https://github.com/Gathin23/tv-vibehack), developed further into a
-daily-driver home screen (**Vibe Launcher**) and tested on Sony Bravia TVs and the NVIDIA Shield.
+A clean, tvOS-inspired home screen for Android TV, and the tools to strip the ads and bloat out of
+the TV it runs on. **Free and open source** (MIT), and **no ads, ever**: no accounts, no tracking, no paid tier.
 
-**Your TV, minus the ads.** Debloat any Android TV / Google TV over ADB and give it a clean,
-tvOS-inspired launcher. Hand the prompt to Claude Code or any coding assistant, answer a few
-questions about which apps you use, and it does the rest on the real TV.
-
-| Stock home screen | After |
+| Stock Sony home screen | Vibe Launcher |
 |---|---|
-| ![Stock Google TV home on a Sony XBR-940E, with a sponsored carousel and Shop tab](docs/stock-home-sony.jpg) | ![Vibe Launcher home with a backdrop still](docs/new-home.jpg) |
+| ![Stock Google TV home on a Sony XBR-940E, with a sponsored carousel and a Shop tab](debloat/docs/stock-home-sony.jpg) | ![Vibe Launcher on the same TV, with a full-screen backdrop behind the dock](vibe-launcher/docs/new-home.jpg) |
 
-Everything is reversible: packages are disabled, never uninstalled, and a restore script puts the
-stock launcher back.
+The repo has two parts:
 
-## Quick start
-
-1. On the TV: Settings → Device Preferences → About → press OK on **Build** seven times → back →
-   Developer options → turn on **USB debugging** (and Network/ADB debugging if your TV shows it).
-   Keep the TV on and on the same Wi-Fi as your computer.
-2. Open Claude Code (or your assistant of choice) on your computer and paste the prompt from
-   [`PROMPT.md`](PROMPT.md), filling in your TV model.
-3. Accept the "Allow USB debugging?" prompt on the TV when told to, then answer the checklist
-   questions (which apps you use, which four go in the dock).
-
-That's it. The assistant backs up, debloats, builds and installs the launcher, and verifies each
-step with screenshots from the TV. If you'd rather do it by hand, the pieces are below.
-
-## What's in the repo
-
-| Path | What it is |
+| Folder | What it is |
 |---|---|
-| [`PROMPT.md`](PROMPT.md) | The prompt. Brand-neutral; the assistant discovers your TV's bloat. |
-| [`launcher/`](launcher/) | The tvOS-style launcher. Edit `app/src/main/res/values/config.xml` for your dock, hidden apps and Live TV package, then run `build-and-install.sh`. |
-| [`tools/tv.py`](tools/tv.py) | Pure-Python ADB client (shell, batch, push, pull). Works where the stock `adb` is blocked. |
-| [`tools/b64push.py`](tools/b64push.py) | Uploads larger files (APKs) as base64 chunks with an md5 check. |
-| [`tools/disable.sh`](tools/disable.sh), [`tools/restore.sh`](tools/restore.sh) | Apply or undo a debloat list. |
-| [`examples/`](examples/) | Per-TV debloat lists. Add yours, see [CONTRIBUTING.md](CONTRIBUTING.md). |
+| [`vibe-launcher/`](vibe-launcher/) | The launcher: source, build script and docs. Ready-built APKs are on the [Releases](https://github.com/maydings/vibe-launcher/releases/latest) page. |
+| [`debloat/`](debloat/) | Debloating any Android TV over ADB: the prompt for Claude Code (or another coding assistant), ADB tools, and per-TV lists. |
 
-## The launcher
+---
 
-**Vibe Launcher** (`com.maydings.vibelauncher`) is a small native Android TV home screen built for sets
-with 1 GB of RAM. It runs on Android 8.0+ and targets API 34, so Play Protect lets you install it on
-Android 11+ devices such as the Shield.
+## Vibe Launcher
 
-![App grid with the glass highlight, Sony XBR-940E](docs/launcher-grid.jpg)
+A small, fast home screen built for TVs with 1 to 2 GB of RAM. Android 8.0 and newer. Free and open
+source: every feature is in the APK, nothing is behind a purchase.
 
-**Home screen**
+![The app grid with the glass focus highlight](vibe-launcher/docs/launcher-grid.jpg)
 
-- Pitch-black background, like Apple TV 4K.
-- A dock at the bottom in a lighter rounded band with the four apps you choose. The shelf above
-  shows the focused dock app's name in large type.
-- **Backdrops.** Big streaming apps (YouTube, Netflix, Apple TV, Plex, Paramount+, Prime Video,
-  Peacock) get a sharp still from their public pages behind the dock, darkened as if behind tinted
-  glass so text stays legible. No accounts or API keys are needed. Stills are cached on disk,
-  refreshed daily and change each visit. Other apps get an ambient glow sampled from their icon.
-- Press Down and the dock slides up to reveal the rest of your apps in a grid.
-- **Frosted top bar.** Tiles that scroll under the bar are shown blurred and tinted. It is drawn in
-  software because Android 9 has no live blur, and is flicker-free on Android 9 through 11+.
-- Clock and full date (weekday, day, month, year) top left, set in
-  [Outfit](https://fonts.google.com/specimen/Outfit).
+**The home screen**
 
-**Navigation**
+- **Dock and grid.** Your four favourite apps sit in a dock at the bottom. Press Down and the rest of
+  your apps slide up in a grid. A single glass highlight springs from tile to tile.
+- **Backdrops.** The focused dock app fills the screen behind it with artwork from what it is
+  actually offering you:
+  - the cards apps publish for the TV home screen (Netflix, Apple TV, Prime Video, Jellyfin and
+    others), read the same way Google's own launcher does;
+  - with a free **TMDB** key, the films and shows on those cards are shown with TMDB's clean,
+    full-size backdrops instead of the apps' own art (no logos, no "Recently added" stickers);
+  - **YouTube** shows your own feed through [SmartTube](https://github.com/yuliskov/SmartTube)'s
+    cards, or popular videos with a YouTube Data API key;
+  - **Plex** shows Continue Watching and recently added from your own server with a Plex token;
+  - low-resolution art becomes a 2×2 wall instead of one blurry still; apps with nothing to show get
+    an ambient glow in their own colour.
+- **Frosted top bar** with the clock, date and three pills: **Inputs** (HDMI, AV, Live TV; hidden
+  on devices without inputs), **Network** (each interface and its IP address) and **Settings**.
 
-- One translucent glass highlight springs from tile to tile. The focused tile lifts and shows its
-  name.
-- Vertical moves plan the scroll first so the highlight glides straight to its target without
-  overshooting. Up/down plays the same click as left/right.
-- Deterministic D-pad navigation. Left and right stop at the ends of a row instead of escaping to
-  the top bar. The last focused tile is remembered, and tiles enter with a staggered animation.
+**Settings**
+
+- The gear shows live **RAM** use (and CPU on devices that allow apps to read it), **Vibe Launcher
+  settings** and **Android settings**.
+- Vibe Launcher settings hold the TMDB, YouTube and Plex keys. Each has an ⓘ explaining what it does
+  and where to get it. Typing keys with a remote is no fun, so the screen shows a **QR code**: scan
+  it with your phone and paste the keys there. Saved keys are shown hidden but for their last four
+  characters.
+- Keys stay on the TV; the launcher never ships with any.
 
 **Managing apps**
 
-- Long-press OK on a tile for **Move** (rearrange with the D-pad, into and out of the dock),
-  **Remove** (hide from Home or uninstall), **App info** and **Show hidden apps**. Order and hidden
-  apps are saved.
-- An **All apps** tile at the end of the grid opens Settings › Apps.
+- Long-press OK on a tile to **move** it (into and out of the dock), **hide** it, **uninstall** it or
+  open **App info**. Hidden apps can be brought back from the same menu.
+- If the launcher ever crashes twice in two minutes, it opens App info for the stock launcher so one
+  press of Enable gets you a working home screen back.
 
-**Top bar pills**
+### Install
 
-- **Inputs:** a dropdown of HDMI ports, AV and Live TV. It is hidden automatically on devices with
-  no inputs, such as the Shield.
-- **Network:** shows the network name. The dropdown lists the device name and model (handy with
-  several TVs), then each interface with its IPv4 address.
-- **Settings.**
+1. Turn on developer options and USB/network debugging on the TV (Settings → Device Preferences →
+   About → press OK on **Build** seven times → back → Developer options).
+2. Download `vibe-launcher-v1.0.0.apk` from [Releases](https://github.com/maydings/vibe-launcher/releases/latest)
+   and install it from a computer on the same network:
 
-**Safety net**
+   ```bash
+   adb connect <tv-ip>:5555
+   adb install -g vibe-launcher-v1.0.0.apk      # -g grants the home-screen-cards and Wi-Fi permissions
+   adb shell cmd package set-home-activity com.maydings.vibelauncher/.MainActivity
+   ```
 
-- If the launcher crashes twice within two minutes, it opens App info for Google's stock TV launcher
-  so one press of Enable restores a working home screen.
+3. Press Home. To keep the stock launcher from coming back, disable it:
+   `adb shell pm disable-user --user 0 com.google.android.tvlauncher` (on Google TV devices,
+   `com.google.android.apps.tv.launcherx`). Undo with `pm enable`.
 
-Configure it in [`launcher/app/src/main/res/values/config.xml`](launcher/app/src/main/res/values/config.xml):
-dock order, hidden apps, Live TV package and columns. Build and install with
+Installed without `-g`, the launcher asks for access to TV listings on its first start; that is what
+lets it read the apps' home screen cards.
 
-```bash
-TV_HOST=192.168.1.50 launcher/build-and-install.sh
-```
+Build it yourself, configure the dock and hidden apps, and the details of each backdrop source:
+[`vibe-launcher/README.md`](vibe-launcher/README.md).
 
-Needs JDK 17 and the Android SDK (platform 34, build-tools 34.0.0). On macOS:
-`brew install openjdk@17 android-commandlinetools && sdkmanager "platforms;android-34" "build-tools;34.0.0"`.
+---
 
-## Talking to the TV by hand
+## Debloat
 
-```bash
-python3 -m venv tools/venv && tools/venv/bin/pip install -r tools/requirements.txt
-export TV_HOST=192.168.1.50                                   # your TV's IP
-tools/venv/bin/python -I tools/tv.py --probe                 # model, Android version, firmware
-tools/venv/bin/python -I tools/tv.py 'pm list packages'      # one command
-printf 'cmd1\ncmd2\n' | tools/venv/bin/python -I tools/tv.py --batch
-tools/disable.sh examples/xiaomi-mi-tv-4a/debloat.txt        # apply a list
-tools/restore.sh examples/xiaomi-mi-tv-4a/debloat.txt        # undo it, restore stock launcher
-```
+Every Android TV ships with sponsored rows, store apps, telemetry and demo modes. The
+[`debloat/`](debloat/) folder removes them over ADB, reversibly: packages are disabled, never
+uninstalled, and a restore script puts everything back.
 
-### Gotchas we hit
+- **[`PROMPT.md`](debloat/PROMPT.md)**: paste it into Claude Code (or any coding assistant with a
+  shell) on a computer on the same Wi-Fi as the TV, fill in your model, and it backs up the TV,
+  finds the bloat, asks which apps you use, disables the rest and installs Vibe Launcher, checking
+  each step with screenshots from the TV.
+- **[`tools/`](debloat/tools/)**: a pure-Python ADB client for when the stock `adb` is blocked
+  (recent macOS), an APK uploader, and scripts to apply or undo a list.
+- **[`examples/`](debloat/examples/)**: tested lists for the Sony Bravia XBR-940E and 900F, the
+  NVIDIA Shield TV and the Xiaomi Mi TV 4A.
 
-- **macOS: `adb connect` says "No route to host"** while the port is clearly open. Recent macOS
-  treats the Google-signed `adb` as its own app under Local Network privacy and silently blocks it.
-  `tools/tv.py` avoids the binary entirely.
-- **No "wireless debugging" toggle** on some TVs (Xiaomi among them). USB debugging alone opens
-  network ADB on port 5555.
-- **Chained `pm` commands** (`pm disable a; pm disable b`) may silently stop after the first. Run
-  one per shell call; `--batch` does this.
-- **Large pushes hang** through the Python client. Use `tools/b64push.py` for APKs.
-- **Disable the stock launcher only after the new one is installed**, or the Home button lands on
-  a factory test app.
-- **Third-party launchers** often charge for basics like a custom wallpaper. Hence `launcher/`.
-- **No on-screen keyboard** after switching launchers (seen on Xiaomi): the default input method
-  pointed at a Baidu IME that isn't installed. Fix with
-  `tools/tv.py 'ime set com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME'`.
+Works on Android TV and Google TV sets (Sony, TCL, Hisense, Xiaomi, Philips, the Shield and most
+others). Not on Samsung Tizen, LG webOS or Fire TV. Details and the gotchas we hit:
+[`debloat/README.md`](debloat/README.md).
 
-## Supported TVs
-
-Anything running Android TV or Google TV: Xiaomi/Redmi, TCL, Hisense, Sony, OnePlus, Realme,
-Nvidia Shield and most others. Not Samsung Tizen, LG webOS or Amazon Fire TV (different OS, no ADB
-launcher replacement).
-
-Tested so far:
+## Tested on
 
 | Device | Android |
 |---|---|
 | Sony Bravia XBR-940E | 9 |
 | Sony Bravia 900F | 9 |
 | NVIDIA Shield TV (2017) | 11 |
-| Xiaomi Mi TV 4A (see [`examples/`](examples/)) | 10 |
+| Xiaomi Mi TV 4A | 10 |
 
-## Contributing
+## Credits and licence
 
-Add your TV's debloat list, improve the launcher, or sharpen the prompt. See
-[CONTRIBUTING.md](CONTRIBUTING.md).
-
-## Licence
-
-MIT, see [`LICENSE`](LICENSE). The Outfit typeface is under the SIL Open Font License, see
-`launcher/FONT-LICENSE-OFL.txt`.
+Started as a fork of [Gathin23/tv-vibehack](https://github.com/Gathin23/tv-vibehack) and rewritten
+since. MIT licence, see [`LICENSE`](LICENSE). The Outfit typeface is under the SIL Open Font
+License (`vibe-launcher/FONT-LICENSE-OFL.txt`). Backdrops use the TMDB API but are not endorsed or
+certified by TMDB.
