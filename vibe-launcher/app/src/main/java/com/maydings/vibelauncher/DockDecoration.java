@@ -44,8 +44,10 @@ public class DockDecoration extends RecyclerView.ItemDecoration {
             View child = parent.getChildAt(i);
             int pos = parent.getChildAdapterPosition(child);
             if (pos < 0 || pos >= dockSize) continue;
-            View card = child.findViewById(R.id.card);
-            if (card == null) continue;
+            // The holder already has the card: no view search for every dock tile on every frame.
+            RecyclerView.ViewHolder holder = parent.getChildViewHolder(child);
+            if (!(holder instanceof AppAdapter.Holder)) continue;
+            View card = ((AppAdapter.Holder) holder).card;
             float l = child.getLeft() + card.getLeft();
             float t = child.getTop() + card.getTop() + child.getTranslationY();
             float r = l + card.getWidth();

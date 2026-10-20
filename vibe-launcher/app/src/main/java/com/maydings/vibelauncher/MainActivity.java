@@ -198,6 +198,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         ambientGlow.setGradientType(GradientDrawable.RADIAL_GRADIENT);
         ambientGlow.setGradientCenter(0.32f, 0.42f);
         ambient.setBackground(ambientGlow);
+        // One drawable, nothing overlapping: its fades can apply alpha while drawing, instead of rendering
+        // the full-screen glow into an offscreen buffer on every frame of the fade.
+        ambient.forceHasOverlappingRendering(false);
         ambient.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) ->
                 ambientGlow.setGradientRadius((r - l) * 0.62f));
         btnWifi = findViewById(R.id.btnWifi);
@@ -514,7 +517,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     /** Shows a still (cross-fading from the one before, if any), or the glow in this colour. */
     private void fadeBackdrop(Bitmap bitmap, Bitmap logo, String title, int color) {
         if (bitmap == null) {
-            backdrop.animate().alpha(0f).setDuration(300).start();
+            backdrop.animate().alpha(0f).setDuration(300).withLayer().start();
             if (ambient.getAlpha() > 0f && color != ambientColor) {
                 // Glow to glow: dip, change colour, come back.
                 ambient.animate().alpha(0.35f).setDuration(200).withEndAction(() -> {
@@ -543,7 +546,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 showBackdropTitle(logo, title);
                 backdropTitleBox.animate().alpha(1f).setDuration(300).start();
             }).start();
-            backdrop.animate().alpha(1f).setDuration(200).start();   // in case it was fading out
+            // In case it was fading out. No layer: the picture inside is cross-fading, so a layer would be
+            // redrawn on every frame anyway.
+            backdrop.animate().alpha(1f).setDuration(200).start();
             return;
         }
         backdropImage.animate().cancel();
@@ -552,7 +557,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         backdropTitleBox.animate().cancel();
         backdropTitleBox.setAlpha(1f);
         showBackdropTitle(logo, title);
-        backdrop.animate().alpha(1f).setDuration(450).start();
+        backdrop.animate().alpha(1f).setDuration(450).withLayer().start();
     }
 
     /** The film or show's logo, else its name, at the right, level with the app name; nothing otherwise. */
@@ -576,7 +581,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         heroShown = false;
         heroName.animate().alpha(0f).setDuration(160).start();
         ambient.animate().alpha(0f).setDuration(300).start();
-        backdrop.animate().alpha(0f).setDuration(300).start();
+        backdrop.animate().alpha(0f).setDuration(300).withLayer().start();
         backdropPkg = null;
     }
 

@@ -543,6 +543,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
                 view.animate().scaleX(s).scaleY(s)
                         .setDuration(focused ? 260 : 180)
                         .setInterpolator(new OvershootInterpolator(focused ? 1.6f : 0f))
+                        .withLayer()   // the rounded banner is drawn once and scaled, not redrawn every frame
                         .start();
                 name.animate().alpha(focused ? 1f : 0f)
                         .translationY(focused ? density * 4f : -density * 6f)
