@@ -112,14 +112,21 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
         List<ResolveInfo> found = pm.queryIntentActivities(probe, 0);
         List<Entry> fresh = new ArrayList<>();
         Set<String> userHidden = userHidden();
+        // Some system apps declare two Home entries under one name (Sony's Timers & Clock on some
+        // BRAVIAs), which would show as two identical tiles: keep the first per package and label.
+        Set<String> seen = new HashSet<>();
         for (ResolveInfo ri : found) {
             if (ri.activityInfo == null) continue;
             String pkg = ri.activityInfo.packageName;
             if (pkg.equals(ctx.getPackageName()) || hidden.contains(pkg) || userHidden.contains(pkg)) continue;
+            String label = String.valueOf(ri.loadLabel(pm));
+            if (!seen.add(pkg + '\n' + label)) continue;
             Drawable banner = ri.activityInfo.loadBanner(pm);
             if (banner == null) banner = ri.activityInfo.applicationInfo.loadBanner(pm);
+            // A small square "banner" (Rockchip's Media Center ships a 64 px one) is a blur cropped over a
+            // wide tile: treat it as none, so the tile shows the icon and name instead.
+            if (banner != null && !isBannerShaped(banner.getIntrinsicWidth(), banner.getIntrinsicHeight())) banner = null;
             Drawable icon = ri.loadIcon(pm);
-            String label = String.valueOf(ri.loadLabel(pm));
             fresh.add(new Entry(label, new ComponentName(pkg, ri.activityInfo.name), banner, icon));
         }
         // The saved arrangement wins; apps installed since then go at the end, alphabetically.
@@ -171,6 +178,11 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
         diff.dispatchUpdatesTo(this);
         // Tiles that crossed the dock edge show or hide their name.
         notifyItemRangeChanged(0, items.size(), PAYLOAD_STATE);
+    }
+
+    /** Wide enough to be a banner. A drawable with no intrinsic size (a colour, a shape) still fills the tile. */
+    static boolean isBannerShaped(int width, int height) {
+        return width <= 0 || height <= 0 || width >= height * 1.4f;
     }
 
     // ---- hiding ----------------------------------------------------------------------------------
