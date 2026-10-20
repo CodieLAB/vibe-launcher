@@ -300,6 +300,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         packages.addDataScheme("package");
         if (Build.VERSION.SDK_INT >= 33) registerReceiver(packageReceiver, packages, Context.RECEIVER_NOT_EXPORTED);
         else registerReceiver(packageReceiver, packages);
+        ChannelSetup.run(this);
         backdropPkg = null;
         backdrop.setAlpha(0f);
         backdrops.reshuffle();

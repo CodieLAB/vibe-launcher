@@ -66,6 +66,9 @@ time you come back to Home, never the same twice in a row):
 | YouTube without SmartTube | The most popular videos in the TV's country, refreshed every 4 hours (1 unit of the free 10,000 a day) | YouTube Data API key |
 | Plex | Art of Continue Watching and recently added on your server, found through plex.tv and scaled by the server | Plex token |
 
+Some apps (Prime Video) only publish their cards when the home screen asks them to, which the
+stock launcher does after each install or update. Vibe Launcher asks too, once per app and version.
+
 Art narrower than 1280 px (Netflix publishes 853×480) is shown as a 2×2 wall of four cards; cards
 with stickers baked in (Netflix's "Recently added", "Top 10") are only used in the wall. Apps with
 nothing usable get an ambient glow in their icon's colour.
@@ -99,6 +102,7 @@ their keys are set. No analytics, no accounts, nothing else.
 | `AppAdapter`, `TileAnimator`, `DockDecoration` | Tiles, their animations and the dock band |
 | `GlassView`, `FrostView` | The glass focus highlight and the frosted top bar (software blur; Android 9 has no live blur) |
 | `Backdrops` | Builds each dock app's pool of backdrops and serves one per visit |
+| `ChannelSetup` | Asks apps to publish their home screen cards, as the stock launcher did |
 | `VibeDream` | The screensaver: the pooled backdrops with a clock |
 | `TitleArt`, `Tmdb`, `Stremio` | Clean backdrops and logos for films and shows by title: TMDB with a key, Stremio without |
 | `YouTubePopular`, `Plex` | The keyed YouTube and Plex backdrop sources |
