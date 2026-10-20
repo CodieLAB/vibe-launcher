@@ -45,7 +45,6 @@
                 android:textColor="#FFFFFFFF"
                 android:textSize="96sp"
                 android:fontFamily="@font/outfit"
-                android:fontVariationSettings="'wght' 200"
                 android:letterSpacing="-0.04"
                 android:includeFontPadding="false"
                 android:shadowColor="#80000000"
@@ -62,7 +61,6 @@
                 android:textColor="#B3FFFFFF"
                 android:textSize="22sp"
                 android:fontFamily="@font/outfit"
-                android:fontVariationSettings="'wght' 500"
                 android:letterSpacing="0.08"
                 android:textAllCaps="true" />
         </LinearLayout>
@@ -77,7 +75,6 @@
             android:textColor="#B3FFFFFF"
             android:textSize="18sp"
             android:fontFamily="@font/outfit"
-            android:fontVariationSettings="'wght' 400"
             android:letterSpacing="0.14"
             android:textAllCaps="true" />
     </LinearLayout>
@@ -115,7 +112,6 @@
             android:textColor="#FFFFFFFF"
             android:textSize="40sp"
             android:fontFamily="@font/outfit"
-            android:fontVariationSettings="'wght' 400"
             android:includeFontPadding="false"
             android:shadowColor="#99000000"
             android:shadowRadius="14" />
