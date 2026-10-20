@@ -191,7 +191,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         backdropLogo = findViewById(R.id.backdropLogo);
         backdropTitle = findViewById(R.id.backdropTitle);
         backdrops = new Backdrops(this);
-        askPermissionsOnce();
+        if (!askPermissionsOnce()) askHomeOnce();
         ConnectivityManager cm = getSystemService(ConnectivityManager.class);
         if (cm != null) cm.registerDefaultNetworkCallback(networkCallback);
         ambientGlow = new GradientDrawable();
@@ -641,17 +641,44 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
      * listings (the apps' home screen cards, for backdrops) and location (Android only reveals the
      * Wi-Fi network's name with it). Refused, the launcher keeps the colour glow and shows "Wi-Fi".
      */
-    private void askPermissionsOnce() {
-        if (getPreferences(MODE_PRIVATE).getBoolean("askedPermissions", false)) return;
+    private boolean askPermissionsOnce() {
+        if (getPreferences(MODE_PRIVATE).getBoolean("askedPermissions", false)) return false;
         List<String> missing = new ArrayList<>();
         // Coarse with fine: Android 12+ refuses a request for fine location alone.
         for (String p : new String[]{Backdrops.PERMISSION, Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION}) {
             if (checkSelfPermission(p) != PackageManager.PERMISSION_GRANTED) missing.add(p);
         }
-        if (missing.isEmpty()) return;
+        if (missing.isEmpty()) return false;
         getPreferences(MODE_PRIVATE).edit().putBoolean("askedPermissions", true).apply();
         requestPermissions(missing.toArray(new String[0]), 1);
+        return true;
+    }
+
+    /**
+     * Opened as an app rather than as Home (installed from a file, no computer): offer once to become the
+     * default Home where the TV has a way to (see DefaultHome). The gear menu offers it again later.
+     */
+    private void askHomeOnce() {
+        if (getPreferences(MODE_PRIVATE).getBoolean("askedHome", false) || DefaultHome.isHome(this)) return;
+        getPreferences(MODE_PRIVATE).edit().putBoolean("askedHome", true).apply();
+        if (DefaultHome.request(this) != null) makeHome();
+    }
+
+    /** The system's own screen for choosing the default Home, or a note that this TV has none. */
+    private void makeHome() {
+        Intent request = DefaultHome.request(this);
+        if (request == null) {
+            Toast.makeText(this, R.string.home_not_changeable, Toast.LENGTH_LONG).show();
+            return;
+        }
+        try {
+            // The Android 10+ dialog answers with a result; Android 9's chooser is plain Home.
+            if (Build.VERSION.SDK_INT >= 29) startActivityForResult(request, 2);
+            else startActivity(request);
+        } catch (ActivityNotFoundException | SecurityException e) {
+            Toast.makeText(this, R.string.home_not_changeable, Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -662,6 +689,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         backdrops.reshuffle();
         backdropPkg = null;   // onResume, which follows the permission dialog, loads it again
         rebuildOnResume = true;   // the dialog only paused Home
+        askHomeOnce();
     }
 
     /** Shows the Wi-Fi network name on the button when we can read it, otherwise the connection type. */
@@ -789,6 +817,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 () -> SettingsDialog.show(this, root));
         addInputRow(rows, popup, R.drawable.ic_settings, getString(R.string.android_settings), -1,
                 () -> open(new Intent(Settings.ACTION_SETTINGS)));
+        if (!DefaultHome.isHome(this)) {
+            addInputRow(rows, popup, R.drawable.ic_home, getString(R.string.make_home), -1, this::makeHome);
+        }
         // Live while the menu is open.
         Runnable tick = new Runnable() {
             @Override

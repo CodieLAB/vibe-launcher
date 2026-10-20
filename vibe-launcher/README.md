@@ -103,6 +103,7 @@ their keys are set. No analytics, no accounts, nothing else.
 | `GlassView`, `FrostView` | The glass focus highlight and the frosted top bar (software blur; Android 9 has no live blur) |
 | `Backdrops` | Builds each dock app's pool of backdrops and serves one per visit |
 | `ChannelSetup` | Asks apps to publish their home screen cards, as the stock launcher did |
+| `DefaultHome` | Offers to become the default Home through the TV's own dialog or chooser, where it has one |
 | `VibeDream` | The screensaver: the pooled backdrops with a clock |
 | `TitleArt`, `Tmdb`, `Stremio` | Clean backdrops and logos for films and shows by title: TMDB with a key, Stremio without |
 | `YouTubePopular`, `Plex` | The keyed YouTube and Plex backdrop sources |

@@ -24,6 +24,8 @@
     <string name="show_hidden">Show hidden apps</string>
     <string name="vibe_settings">Vibe Launcher settings</string>
     <string name="android_settings">Android settings</string>
+    <string name="make_home">Make Vibe Launcher your Home</string>
+    <string name="home_not_changeable">This TV doesn\'t let apps choose the Home app. Set it from a computer: see Vibe Launcher\'s README</string>
     <string name="tmdb_key">TMDB API key</string>
     <string name="youtube_key">YouTube API key</string>
     <string name="tiles_per_row">Tiles per row</string>
