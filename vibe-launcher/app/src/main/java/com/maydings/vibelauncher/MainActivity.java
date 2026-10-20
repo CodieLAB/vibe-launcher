@@ -56,8 +56,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.net.Inet4Address;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * tvOS style home: a backdrop for the focused dock app, a pinned dock row, an app grid, and one glass
@@ -851,19 +853,49 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 if (ha != hb) return ha ? -1 : 1;
                 return String.valueOf(a.loadLabel(this)).compareToIgnoreCase(String.valueOf(b.loadLabel(this)));
             });
+            // A device found over HDMI-CEC is a child input of its port: an Apple TV and a PS5 behind a switch
+            // on HDMI 2 are two children of HDMI 2. Picking one has the TV ask over CEC for that device's
+            // picture (and wakes it), which also turns a CEC-aware switch or receiver to it. One device shows
+            // as "HDMI 2 · Apple TV"; several as an HDMI 2 heading with a row for each. Ordered by id, which
+            // follows the device's address, so a switch's inputs come in order.
+            Map<String, List<TvInputInfo>> devices = new HashMap<>();
             for (TvInputInfo info : inputs) {
-                if (!info.isPassthroughInput()) continue;
+                if (info.getParentId() == null || info.isHidden(this)) continue;
+                List<TvInputInfo> known = devices.get(info.getParentId());
+                if (known == null) devices.put(info.getParentId(), known = new ArrayList<>());
+                known.add(info);
+            }
+            for (List<TvInputInfo> list : devices.values()) {
+                Collections.sort(list, (a, b) -> a.getId().compareTo(b.getId()));
+            }
+            for (TvInputInfo info : inputs) {
+                // Inputs hidden in the TV's Settings > Inputs stay out of the menu too.
+                if (!info.isPassthroughInput() || info.isHidden(this) || info.getParentId() != null) continue;
                 CharSequence l = info.loadLabel(this);
                 String label = l == null ? info.getId() : l.toString();
                 boolean hdmi = info.getType() == TvInputInfo.TYPE_HDMI;
                 if (hdmi && !label.toUpperCase(Locale.ROOT).contains("HDMI")) label = "HDMI " + label;
-                final String id = info.getId();
-                int state = tim.getInputState(id);
+                // The port, then the name given in Settings > Inputs.
+                CharSequence custom = info.loadCustomLabel(this);
+                if (custom != null && custom.length() > 0 && !custom.toString().equals(label)) label = label + " · " + custom;
                 if (!hdmi && rows.getChildCount() > 0 && !sawNonHdmi) addSeparator(rows);
                 if (!hdmi) sawNonHdmi = true;
-                addInputRow(rows, popup, hdmi ? R.drawable.ic_input : R.drawable.ic_av, label, state,
-                        () -> open(new Intent(Intent.ACTION_VIEW).setDataAndType(
-                                TvContract.buildChannelUriForPassthroughInput(id), "vnd.android.cursor.item/channel")));
+                List<TvInputInfo> children = devices.get(info.getId());
+                if (children == null) {
+                    addPassthroughRow(rows, popup, hdmi, label, info.getId(), tim);
+                } else if (children.size() == 1) {
+                    addPassthroughRow(rows, popup, hdmi, label + " · " + name(children.get(0), label), children.get(0).getId(), tim);
+                } else {
+                    // Several devices (behind a switch or a receiver): the port as a heading, each device under it.
+                    View heading = addPassthroughRow(rows, popup, hdmi, label, info.getId(), tim);
+                    heading.setFocusable(false);
+                    heading.setClickable(false);
+                    for (TvInputInfo child : children) {
+                        View row = addPassthroughRow(rows, popup, hdmi, name(child, label), child.getId(), tim);
+                        // Indented: no icon, the name lines up under the port's.
+                        row.findViewById(R.id.icon).setVisibility(View.INVISIBLE);
+                    }
+                }
             }
         }
         Intent liveTv = getLiveTvIntent();
@@ -1006,6 +1038,20 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         });
     }
 
+    /** A device's name as the TV reports it over CEC, or the port's when it has none. */
+    private String name(TvInputInfo device, String port) {
+        CharSequence name = device.loadLabel(this);
+        return name == null || name.length() == 0 ? port : name.toString();
+    }
+
+    /** A row that shows an HDMI or AV input (or a device on one), with whether something is plugged in. */
+    private View addPassthroughRow(LinearLayout rows, PopupWindow popup, boolean hdmi, String label, String id,
+                                   TvInputManager tim) {
+        return addInputRow(rows, popup, hdmi ? R.drawable.ic_input : R.drawable.ic_av, label, tim.getInputState(id),
+                () -> open(new Intent(Intent.ACTION_VIEW).setDataAndType(
+                        TvContract.buildChannelUriForPassthroughInput(id), "vnd.android.cursor.item/channel")));
+    }
+
     private void addSeparator(LinearLayout rows) {
         View line = new View(this);
         line.setBackgroundColor(0x1FFFFFFF);
@@ -1033,7 +1079,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         rows.addView(row);
     }
 
-    private void addInputRow(LinearLayout rows, PopupWindow popup, int iconRes, String title, int state, Runnable action) {
+    private View addInputRow(LinearLayout rows, PopupWindow popup, int iconRes, String title, int state, Runnable action) {
         View row = getLayoutInflater().inflate(R.layout.item_input, rows, false);
         ((ImageView) row.findViewById(R.id.icon)).setImageResource(iconRes);
         ((TextView) row.findViewById(R.id.title)).setText(title);
@@ -1055,5 +1101,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             action.run();
         });
         rows.addView(row);
+        return row;
     }
 }
