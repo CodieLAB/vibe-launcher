@@ -41,6 +41,8 @@ public class VibeDream extends DreamService {
     private List<Backdrops.Entry> stills = Collections.emptyList();
     private int next;
     private ObjectAnimator zoom;
+    /** Between onDreamingStarted and onDreamingStopped. A load still running when it stops hands back late. */
+    private boolean dreaming;
 
     @Override
     public void onAttachedToWindow() {
@@ -60,11 +62,13 @@ public class VibeDream extends DreamService {
     @Override
     public void onDreamingStarted() {
         super.onDreamingStarted();
+        dreaming = true;
         loader = Executors.newSingleThreadExecutor();
         loader.execute(() -> {
             List<Backdrops.Entry> found = new ArrayList<>(Backdrops.screensaverStills(this));
             Collections.shuffle(found, random);
             main.post(() -> {
+                if (!dreaming) return;
                 stills = found;
                 showNext();
             });
@@ -73,6 +77,7 @@ public class VibeDream extends DreamService {
 
     @Override
     public void onDreamingStopped() {
+        dreaming = false;
         main.removeCallbacksAndMessages(null);
         if (zoom != null) zoom.cancel();
         if (loader != null) loader.shutdownNow();
@@ -81,7 +86,7 @@ public class VibeDream extends DreamService {
 
     /** Loads the next still in the background, then fades it in; again every SHOW_MS. */
     private void showNext() {
-        if (stills.isEmpty()) return;   // nothing cached yet: just the clock
+        if (!dreaming || stills.isEmpty()) return;   // stopped, or nothing cached yet: just the clock
         if (next >= stills.size()) {    // every one shown once: a new order, not starting on the last one
             Backdrops.Entry last = stills.get(stills.size() - 1);
             Collections.shuffle(stills, random);
@@ -99,6 +104,7 @@ public class VibeDream extends DreamService {
             }
             Bitmap still = b, logoBitmap = l;
             main.post(() -> {
+                if (!dreaming) return;   // woken while this one loaded: the loader is gone
                 if (still != null) show(still, logoBitmap, e.title);
                 main.postDelayed(this::showNext, still != null ? SHOW_MS : 0);
             });
