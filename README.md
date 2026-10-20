@@ -26,11 +26,13 @@ source: every feature is in the APK, nothing is behind a purchase.
 **The home screen**
 
 - **Dock and grid.** Your favourite apps (four, or up to six) sit in a dock at the bottom. Press Down and the rest of
-  your apps slide up in a grid. A single glass highlight springs from tile to tile.
+  your apps slide up in a grid. A single glass highlight springs from tile to tile. Press Home on
+  the home screen to jump back to the top.
 - **Backdrops.** The focused dock app fills the screen behind it with artwork from what it is
   actually offering you:
   - the cards apps publish for the TV home screen (Netflix, Apple TV, Prime Video, Jellyfin and
-    others), read the same way Google's own launcher does;
+    others), read the same way Google's own launcher does, and asked for the same way, so apps such
+    as Prime Video publish theirs without the stock launcher;
   - the films and shows on those cards are shown with a clean, full-size backdrop and the title's
     own logo instead of the apps' art (no "Recently added" stickers): out of the box from Stremio's
     free metadata, or from **TMDB** with a free key;
@@ -43,8 +45,13 @@ source: every feature is in the APK, nothing is behind a purchase.
   and cross-fading every 20 seconds, with a large clock and each film's logo. It uses only pictures
   already on the TV, no network. Pick it in the TV's screen saver settings (on Android TV:
   Settings → Device Preferences → Screen saver).
-- **Frosted top bar** with the clock, date and three pills: **Inputs** (HDMI, AV, Live TV; hidden
-  on devices without inputs), **Network** (each interface and its IP address) and **Settings**.
+- **Frosted top bar** with the clock, date and three pills: **Inputs**, **Network** (each interface
+  and its IP address) and **Settings**.
+- **Inputs** lists HDMI, AV and Live TV, with whether something is plugged in (the pill is hidden on
+  devices without inputs). Devices that announce themselves over HDMI-CEC show by name under their
+  port: "HDMI 1 · PlayStation 5", or for an Apple TV and a PS5 behind a switch, HDMI 2 with a row
+  for each. Picking a device wakes it, and an AV receiver or switch that supports CEC switching turns to
+  it. Names and hidden inputs set in the TV's own input settings carry over.
 
 **Settings**
 

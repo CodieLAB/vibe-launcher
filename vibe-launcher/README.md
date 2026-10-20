@@ -97,7 +97,7 @@ their keys are set. No analytics, no accounts, nothing else.
 
 | File | What it does |
 |---|---|
-| `MainActivity` | Home screen, dock and grid focus, top bar menus |
+| `MainActivity` | Home screen, dock and grid focus, top bar menus, the Inputs menu with its HDMI-CEC devices |
 | `SettingsDialog` | Vibe Launcher settings: tiles per row, the keys and their ⓘ, the QR code |
 | `AppAdapter`, `TileAnimator`, `DockDecoration` | Tiles, their animations and the dock band |
 | `GlassView`, `FrostView` | The glass focus highlight and the frosted top bar (software blur; Android 9 has no live blur) |
