@@ -26,7 +26,7 @@ public class FrostView extends View {
 
     private static final int SCALE = 8;           // the strip is drawn at 1/8 size
     private static final int BLUR_RADIUS = 2;     // in downscaled pixels, three passes ~ a gaussian
-    private static final int TINT = 0x8C000000;   // darkens the frost so the clock and buttons stay legible
+    private static final int TINT = 0xA6000000;   // darkens the frost so the clock and buttons stay legible
     private static final int HAIRLINE = 0x26FFFFFF;
 
     private final Paint bitmapPaint = new Paint(Paint.FILTER_BITMAP_FLAG);

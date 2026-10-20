@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|top"
-            android:layout_marginEnd="56dp">
+            android:layout_marginEnd="50dp">
 
             <ImageView
                 android:id="@+id/backdropLogo"
@@ -82,7 +82,7 @@
         android:id="@+id/heroName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
+        android:layout_marginStart="62dp"
         android:alpha="0"
         android:textColor="#FFFFFFFF"
         android:textSize="48sp"
@@ -97,8 +97,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="56dp"
-        android:layout_marginEnd="56dp">
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/grid"
@@ -127,8 +127,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="56dp"
-            android:layout_marginEnd="56dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
             android:layout_marginTop="26dp"
             android:layout_marginBottom="10dp">
 
@@ -149,43 +149,44 @@
                     <!-- Pinned to the bottom, not to the clock's baseline, so a two-line date grows upwards
                          without lifting AM with it. -->
 
-                    <TextClock
-                        android:id="@+id/clock"
+                    <!-- The time and AM/PM, as wide as the widest time with as many hour digits, so the date
+                         doesn't shift from 1:40 to 1:41: the digits differ in width (sized in MainActivity). -->
+                    <LinearLayout
+                        android:id="@+id/timeBox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:format12Hour="h:mm"
-                        android:format24Hour="HH:mm"
-                        android:textColor="#FFFFFFFF"
-                        android:textSize="52sp"
-                        android:fontFamily="@font/outfit"
-                        android:fontVariationSettings="'wght' 300"
-                        android:letterSpacing="-0.04"
-                        android:includeFontPadding="false" />
+                        android:orientation="horizontal"
+                        android:baselineAligned="false">
 
-                    <TextClock
-                        android:id="@+id/ampm"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="6dp"
-                        android:layout_gravity="bottom"
-                        android:layout_marginBottom="16.5dp"
-                        android:format12Hour="a"
-                        android:format24Hour=""
-                        android:textColor="#B3FFFFFF"
-                        android:textSize="15sp"
-                        android:fontFamily="@font/outfit"
-                        android:fontVariationSettings="'wght' 500"
-                        android:letterSpacing="0.08"
-                        android:textAllCaps="true" />
+                        <TextClock
+                            android:id="@+id/clock"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:format12Hour="h:mm"
+                            android:format24Hour="HH:mm"
+                            android:textColor="#FFFFFFFF"
+                            android:textSize="52sp"
+                            android:fontFamily="@font/outfit"
+                            android:fontVariationSettings="'wght' 300"
+                            android:letterSpacing="-0.04"
+                            android:includeFontPadding="false" />
 
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="26dp"
-                        android:layout_gravity="bottom"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="#33FFFFFF" />
+                        <TextClock
+                            android:id="@+id/ampm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:layout_gravity="bottom"
+                            android:layout_marginBottom="16.5dp"
+                            android:format12Hour="a"
+                            android:format24Hour=""
+                            android:textColor="#B3FFFFFF"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/outfit"
+                            android:fontVariationSettings="'wght' 500"
+                            android:letterSpacing="0.08"
+                            android:textAllCaps="true" />
+                    </LinearLayout>
 
                     <!-- A long date (other languages) wraps onto a second line, growing upwards, instead of
                          running into the pills: the clock block ends where they begin. -->
@@ -194,6 +195,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginStart="20dp"
                         android:layout_gravity="bottom"
                         android:layout_marginBottom="17.5dp"
                         android:maxLines="2"

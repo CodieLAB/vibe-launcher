@@ -31,6 +31,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
+import android.text.Editable;
+import android.text.Layout;
+import android.text.TextWatcher;
+import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.SoundEffectConstants;
@@ -43,6 +47,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
+import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,7 +59,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.net.Inet4Address;
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -112,6 +119,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private boolean rebuildOnResume = true;
     /** Home was pressed while Home was in front: go back to the first dock tile. */
     private boolean homeToTop;
+    /** The time box's width for each length of time text ("8:08" is 4, "10:08" is 5); see sizeTimeBox. */
+    private final Map<Integer, Integer> timeBoxWidths = new HashMap<>();
 
     private final Handler handler = new Handler(Looper.getMainLooper());
     /** Refreshes the network pill when the connection changes: after a reboot Wi-Fi often connects after Home is shown. */
@@ -204,6 +213,23 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         ambient.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) ->
                 ambientGlow.setGradientRadius((r - l) * 0.62f));
         btnWifi = findViewById(R.id.btnWifi);
+        TextView clock = findViewById(R.id.clock), date = findViewById(R.id.date);
+        sizeTimeBox();
+        clock.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                fitTimeBox(s);   // the hour gained or lost a digit
+            }
+        });
+        date.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> centreTwoLineDate(clock, date));
 
         grid = findViewById(R.id.grid);
         grid.setLayoutManager(new GridLayoutManager(this, COLUMNS));
@@ -327,6 +353,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     @Override
     protected void onResume() {
         super.onResume();
+        sizeTimeBox();   // the 12/24-hour setting may have changed meanwhile
         updateWifiLabel();
         handler.postDelayed(minuteTick, MINUTE_MS);
         refreshPools.run();
@@ -635,6 +662,64 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     }
 
     // ---- top bar ---------------------------------------------------------------------------------
+
+    /**
+     * One line of date sits level with AM. When it wraps onto two (a long network name narrows the space,
+     * or a long language), the pair is centred on the clock's digits instead: kept level with AM, the
+     * second line pulled the block below the digits' middle.
+     */
+    /**
+     * The time box is as wide as the widest time with as many characters as the one showing ("8:08" from 1:00
+     * to 9:59, "10:08" from 10:00), with the wider of AM and PM: the digits differ in width, and the date
+     * beside it would shift from 1:40 to 1:41. Sized for "10:00" all day, it left a wide gap after 1:11; this
+     * way the date moves only when the hour gains or loses a digit (in 24-hour time, never).
+     */
+    private void sizeTimeBox() {
+        TextClock clock = findViewById(R.id.clock), ampm = findViewById(R.id.ampm);
+        boolean h24 = DateFormat.is24HourFormat(this);
+        CharSequence format = h24 ? clock.getFormat24Hour() : clock.getFormat12Hour();
+        float half = 0;
+        if (!h24) {
+            for (String s : new DateFormatSymbols().getAmPmStrings()) {
+                half = Math.max(half, ampm.getPaint().measureText(s.toUpperCase(Locale.getDefault())));
+            }
+        }
+        float extra = ((ViewGroup.MarginLayoutParams) ampm.getLayoutParams()).getMarginStart() + half;
+        Calendar time = Calendar.getInstance();
+        timeBoxWidths.clear();
+        for (int minute = 0; minute < 24 * 60; minute++) {
+            time.set(Calendar.HOUR_OF_DAY, minute / 60);
+            time.set(Calendar.MINUTE, minute % 60);
+            String s = DateFormat.format(format, time).toString();
+            int w = (int) Math.ceil(clock.getPaint().measureText(s) + extra);
+            Integer known = timeBoxWidths.get(s.length());
+            if (known == null || w > known) timeBoxWidths.put(s.length(), w);
+        }
+        fitTimeBox(clock.getText());
+    }
+
+    /** Applies the width sizeTimeBox worked out for times as long as this one. */
+    private void fitTimeBox(CharSequence shown) {
+        Integer w = timeBoxWidths.get(shown.length());
+        View box = findViewById(R.id.timeBox);
+        if (w != null && box.getMinimumWidth() != w) box.setMinimumWidth(w);
+    }
+
+    private void centreTwoLineDate(TextView clock, TextView date) {
+        Layout lines = date.getLayout();
+        if (lines == null || lines.getLineCount() < 2) {
+            date.setTranslationY(0f);
+            return;
+        }
+        Rect cap = new Rect();
+        clock.getPaint().getTextBounds("0", 0, 1, cap);   // top is negative: the digit's height above the baseline
+        // The clock sits in the time box, beside the date: offset by the box's own top.
+        float digits = ((View) clock.getParent()).getTop() + clock.getTop() + clock.getBaseline() + cap.exactCenterY();
+        date.getPaint().getTextBounds("D", 0, 1, cap);
+        float firstTop = date.getTop() + date.getTotalPaddingTop() + lines.getLineBaseline(0) + cap.top;
+        float lastBaseline = date.getTop() + date.getTotalPaddingTop() + lines.getLineBaseline(lines.getLineCount() - 1);
+        date.setTranslationY(digits - (firstTop + lastBaseline) / 2f);
+    }
 
     /**
      * Granted at install over adb (-g). Installed from a file manager instead, ask once for both: TV
