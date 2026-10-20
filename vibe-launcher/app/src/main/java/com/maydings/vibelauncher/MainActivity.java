@@ -1037,7 +1037,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         }
     }
 
-    // ---- tile menu: move, hide, app info ---------------------------------------------------------
+    // ---- tile menu: move, hide, remove, app info, hidden apps -------------------------------------
 
     @Override
     public void onTileLongPress(int position, View card) {
@@ -1052,8 +1052,15 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 adapter.startMove(position);
                 Toast.makeText(this, R.string.move_hint, Toast.LENGTH_LONG).show();
             });
-            addInputRow(rows, popup, R.drawable.ic_delete, getString(R.string.remove), -1,
-                    () -> showRemove(card, position));
+            addInputRow(rows, popup, R.drawable.ic_hide, getString(R.string.hide), -1, () -> {
+                adapter.hide(position);
+                grid.postOnAnimation(() -> focusTile(position));   // the tile sliding into its place
+            });
+            // Remove uninstalls: only downloaded apps (or updates to built-in ones) can be.
+            if (adapter.canUninstall(position)) {
+                addInputRow(rows, popup, R.drawable.ic_delete, getString(R.string.remove), -1,
+                        () -> adapter.uninstall(position));
+            }
             addInputRow(rows, popup, R.drawable.ic_settings, getString(R.string.app_info), -1,
                     () -> adapter.openAppInfo(position));
         }
@@ -1064,22 +1071,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         }
         if (rows.getChildCount() == 0) return;
         showMenu(popup, panel, rows, card, Gravity.START);
-    }
-
-    /** Remove: hide the tile from Home, or uninstall the app (when it isn't built in). */
-    private void showRemove(View anchor, int position) {
-        View panel = getLayoutInflater().inflate(R.layout.popup_inputs, root, false);
-        LinearLayout rows = panel.findViewById(R.id.rows);
-        PopupWindow popup = newMenu(panel);
-        addInputRow(rows, popup, R.drawable.ic_hide, getString(R.string.hide_from_home), -1, () -> {
-            adapter.hide(position);
-            grid.postOnAnimation(() -> focusTile(position));   // the tile sliding into its place
-        });
-        if (adapter.canUninstall(position)) {
-            addInputRow(rows, popup, R.drawable.ic_delete, getString(R.string.uninstall), -1,
-                    () -> adapter.uninstall(position));
-        }
-        showMenu(popup, panel, rows, anchor, Gravity.START);
     }
 
     /** Lists hidden apps; picking one puts it back at the end of the grid. */

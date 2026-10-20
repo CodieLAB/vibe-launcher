@@ -18,8 +18,7 @@
     <string name="move">Move</string>
     <string name="move_hint">Use the arrows to move it, then press OK</string>
     <string name="remove">Remove</string>
-    <string name="hide_from_home">Hide from Home</string>
-    <string name="uninstall">Uninstall</string>
+    <string name="hide">Hide</string>
     <string name="app_info">App info</string>
     <string name="show_hidden">Show hidden apps</string>
     <string name="vibe_settings">Vibe Launcher settings</string>
