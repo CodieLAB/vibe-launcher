@@ -2,8 +2,8 @@
 
 Take the ads, sponsored rows, promoted apps, viewing-data tracking and demo modes off your TV, and make
 [Vibe Launcher](../vibe-launcher/) its home screen. One script, run from a Mac or Linux computer on
-the same network as the TV. Everything is reversible: packages are disabled, never uninstalled, and
-`restore.sh` puts back exactly what was changed.
+the same network as the TV. Everything is reversible: packages are disabled, not uninstalled (except
+Projectivy Launcher, if you say yes), and `restore.sh` puts back exactly what was changed.
 
 ![The stock Sony home screen this replaces: a sponsored carousel, a Shop tab and app promotions](docs/stock-home-sony.jpg)
 

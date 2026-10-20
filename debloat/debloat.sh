@@ -7,10 +7,12 @@
 #   --defaults       don't ask, take the default answer to every question (the tested setup)
 #   --list <file>    use this list instead of the one matched to the TV's model
 #   --apk <file>     install this Vibe Launcher APK instead of downloading the latest release
-#   --skip-launcher  don't install Vibe Launcher (the stock launcher is then left enabled)
+#   --skip-launcher  don't install Vibe Launcher; the stock launcher is then left enabled, unless Vibe
+#                    Launcher is already on the TV
 #
-# Packages are disabled, never uninstalled, and everything is recorded under backups/ so
-# ./restore.sh can put the TV back the way it was.
+# Packages are disabled, not uninstalled (the one exception: Projectivy Launcher, if you say yes, since
+# it takes Home back after a reboot), and everything is recorded under backups/ so ./restore.sh can put
+# the TV back the way it was.
 set -uo pipefail
 . "$(dirname "$0")/lib.sh"
 

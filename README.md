@@ -133,8 +133,8 @@ Build it yourself, configure the dock and hidden apps, and the details of each b
 
 Every Android TV ships with sponsored rows, promoted apps, viewing-data tracking and demo modes. The
 [`debloat/`](debloat/) folder has a script that turns them off over the network and makes Vibe
-Launcher the home screen, reversibly: packages are disabled, never uninstalled, and `restore.sh`
-puts back exactly what it changed.
+Launcher the home screen, reversibly: packages are disabled, not uninstalled (except Projectivy
+Launcher, if you say yes), and `restore.sh` puts back exactly what it changed.
 
 ```bash
 cd debloat
