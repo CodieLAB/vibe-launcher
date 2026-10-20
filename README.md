@@ -97,9 +97,12 @@ latest version is always at
 4. Make it your home screen. Right after the permissions, Vibe Launcher offers this itself where the
    TV allows it: Android's "default Home app" dialog on Android 10 and newer, or the "Always / Just
    once" chooser on Android 9 while no Home app has been chosen yet. It's also under the gear menu →
-   **Make Vibe Launcher your Home** whenever it isn't. Some TVs, and Google TV, still send the Home
-   button to the stock launcher until it is disabled, which takes the commands below once from a
-   computer. Until then you can still open Vibe Launcher from your apps.
+   **Make Vibe Launcher your Home** whenever it isn't.
+
+   That isn't always enough. Google's TV launcher is part of the system and outranks any app, so on
+   many TVs, Google TV included, the Home button keeps opening it even with Vibe Launcher set as the
+   default. Only disabling it fixes that, and no app is allowed to disable another: it takes the
+   commands below, once, from a computer. Until then you can still open Vibe Launcher from your apps.
 
 **With a computer (adb)**
 
