@@ -53,10 +53,16 @@ source: every feature is in the APK, nothing is behind a purchase.
   for each. Picking a device wakes it, and an AV receiver or switch that supports CEC switching turns to
   it. Names and hidden inputs set in the TV's own input settings carry over.
 
+| ![The Inputs menu: HDMI 2 with a PlayStation 5 and an Apple TV behind a switch, found over HDMI-CEC](vibe-launcher/docs/inputs-menu.jpg) | ![The screensaver: a film's backdrop and logo with a large clock](vibe-launcher/docs/screensaver.jpg) |
+|---|---|
+
 **Settings**
 
 - The gear shows live **RAM** use (and CPU on devices that allow apps to read it), **Vibe Launcher
   settings** and **Android settings**.
+
+  ![The gear menu with live RAM use](vibe-launcher/docs/settings-menu.jpg)
+
 - Vibe Launcher settings start with **tiles per row**: 4 (the default), 5 or 6. Tiles shrink to fit,
   and the dock holds as many apps.
 - Below that, the TMDB, YouTube and Plex keys. Each has an ⓘ explaining what it does and where to get
@@ -88,10 +94,12 @@ latest version is always at
 3. Open Vibe Launcher from your apps and allow the two permissions it asks for: TV listings (the
    apps' home screen cards, for backdrops) and location (Android only reveals the Wi-Fi network's
    name with it).
-4. Make it your home screen. Some TVs offer this under Settings → Apps → Default apps → Home app.
-   Many Android TVs, and Google TV, have no such setting: there the Home button stays with the stock
-   launcher until you run the `set-home-activity` command below once from a computer. Until then you
-   can still open Vibe Launcher from your apps.
+4. Make it your home screen. Right after the permissions, Vibe Launcher offers this itself where the
+   TV allows it: Android's "default Home app" dialog on Android 10 and newer, or the "Always / Just
+   once" chooser on Android 9 while no Home app has been chosen yet. It's also under the gear menu →
+   **Make Vibe Launcher your Home** whenever it isn't. Some TVs, and Google TV, still send the Home
+   button to the stock launcher until it is disabled, which takes the commands below once from a
+   computer. Until then you can still open Vibe Launcher from your apps.
 
 **With a computer (adb)**
 
