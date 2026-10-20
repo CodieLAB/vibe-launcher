@@ -20,11 +20,19 @@ final class CrashGuard {
     private static final String[] STOCK_LAUNCHERS = {"com.google.android.apps.tv.launcherx",
             "com.google.android.tvlauncher", "com.google.android.leanbacklauncher"};
     private static final long WINDOW_MS = 2 * 60 * 1000;
+    /**
+     * Once per process. Home is recreated (a new tiles-per-row choice, a language change) without the
+     * process restarting; a second install wrapped the first, so one crash was counted twice and went
+     * straight to the stock launcher's App info.
+     */
+    private static boolean installed;
 
     private CrashGuard() {
     }
 
     static void install(Context context) {
+        if (installed) return;
+        installed = true;
         Context app = context.getApplicationContext();
         Thread.UncaughtExceptionHandler previous = Thread.getDefaultUncaughtExceptionHandler();
         Thread.setDefaultUncaughtExceptionHandler((thread, error) -> {

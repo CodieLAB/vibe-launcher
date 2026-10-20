@@ -28,6 +28,7 @@ public class VibeDream extends DreamService {
 
     private static final long SHOW_MS = 20_000;
     private static final long FADE_MS = 1_600;
+    private static final long SKIP_MS = 1_000;   // before trying the next still when one won't load
     private static final float ZOOM = 1.07f;   // how far each still drifts in while it is shown
     private static final float DRIFT_DP = 28;   // how far the clock and title wander between stills
 
@@ -106,7 +107,9 @@ public class VibeDream extends DreamService {
             main.post(() -> {
                 if (!dreaming) return;   // woken while this one loaded: the loader is gone
                 if (still != null) show(still, logoBitmap, e.title);
-                main.postDelayed(this::showNext, still != null ? SHOW_MS : 0);
+                // A still that won't load is skipped after a moment: with no pause, a pool whose files had
+                // all gone would spin through them non-stop for as long as the screensaver runs.
+                main.postDelayed(this::showNext, still != null ? SHOW_MS : SKIP_MS);
             });
         });
     }

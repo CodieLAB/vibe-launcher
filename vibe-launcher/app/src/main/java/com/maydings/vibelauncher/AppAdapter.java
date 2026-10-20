@@ -107,6 +107,9 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
     }
 
     void reload() {
+        // A tile part-way through Move (an app updating in the background reloads the list) keeps where it
+        // got to: the order so far is saved, else the reload put every tile back.
+        if (moving >= 0) stopMove();
         PackageManager pm = ctx.getPackageManager();
         Intent probe = new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LEANBACK_LAUNCHER);
         List<ResolveInfo> found = pm.queryIntentActivities(probe, 0);
@@ -190,6 +193,21 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
     /** Packages hidden from the long-press menu (on top of config.xml's hidden_apps). */
     Set<String> userHidden() {
         return new HashSet<>(prefs.getStringSet(KEY_HIDDEN, Collections.emptySet()));
+    }
+
+    /**
+     * The apps that can be tiles right now: installed, enabled and not hidden (by config.xml or from the
+     * menu). Backdrops keeps pools only for these. Safe off the main thread.
+     */
+    static Set<String> tilePackages(Context ctx) {
+        Set<String> hidden = new HashSet<>(Arrays.asList(ctx.getResources().getStringArray(R.array.hidden_apps)));
+        hidden.addAll(ctx.getSharedPreferences(PREFS, Context.MODE_PRIVATE).getStringSet(KEY_HIDDEN, Collections.emptySet()));
+        Set<String> apps = new HashSet<>();
+        Intent probe = new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LEANBACK_LAUNCHER);
+        for (ResolveInfo ri : ctx.getPackageManager().queryIntentActivities(probe, 0)) {   // enabled apps only
+            if (ri.activityInfo != null && !hidden.contains(ri.activityInfo.packageName)) apps.add(ri.activityInfo.packageName);
+        }
+        return apps;
     }
 
     void hide(int position) {
@@ -420,6 +438,14 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
 
     String packageAt(int position) {
         return isApp(position) ? items.get(position).pkg : null;
+    }
+
+    /** Where this app's tile is now, or -1 when it's gone. */
+    int positionOf(String pkg) {
+        for (int i = 0; i < items.size(); i++) {
+            if (!items.get(i).allApps && items.get(i).pkg.equals(pkg)) return i;
+        }
+        return -1;
     }
 
     String labelAt(int position) {

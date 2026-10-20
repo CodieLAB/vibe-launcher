@@ -34,6 +34,7 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -128,7 +129,6 @@ final class Backdrops {
     private static final long SHRINK_MS = 24L * 60 * 60 * 1000;  // a smaller pool is accepted after a day
     private static final int MAX_IMAGE_BYTES = 6 * 1024 * 1024;
     private static final long CACHE_MS = 2L * 24 * 60 * 60 * 1000;   // downloads, reused by the next rebuilds
-    private static final long POOL_KEEP_MS = 7L * 24 * 60 * 60 * 1000;   // pools of apps no longer shown
 
     private final Context context;
     private final VibeSettings settings;
@@ -173,30 +173,49 @@ final class Backdrops {
         builder.execute(this::prune);
     }
 
+    /**
+     * Home is gone (recreated for a new tiles-per-row choice or language): stop this instance's threads,
+     * or each recreation leaves two behind and the old and new one rebuild the same pools at once. A pool
+     * being built finishes first; the new instance picks it up from disk.
+     */
+    void close() {
+        worker.shutdownNow();
+        builder.shutdown();
+    }
+
     /** Pick a fresh still per app next time each is shown (called when Home comes back). */
     synchronized void reshuffle() {
         before.putAll(shown);
         shown.clear();
         // Pools replaced since the last visit can go now: nothing from them is picked any more. And the
         // old downloads: the launcher can run for weeks, so starting up isn't often enough.
-        builder.execute(() -> {
-            dropReplaced();
-            prune();
-        });
+        try {
+            builder.execute(() -> {
+                dropReplaced();
+                prune();
+            });
+        } catch (RejectedExecutionException closed) {
+            // Home was rebuilt: the new instance does this.
+        }
     }
 
     /** Rebuilds the app's pool in the background if it is due (six hours old, or the keys changed). */
     void refresh(String pkg) {
         if (!due(pkg) || !building.add(pkg)) return;
-        builder.execute(() -> {
-            try {
-                build(pkg);
-            } catch (RuntimeException | OutOfMemoryError e) {
-                // Keep the old pool; the next refresh tries again.
-            } finally {
-                building.remove(pkg);
-            }
-        });
+        try {
+            builder.execute(() -> {
+                try {
+                    build(pkg);
+                } catch (RuntimeException | OutOfMemoryError e) {
+                    // Keep the old pool; the next refresh tries again.
+                } finally {
+                    building.remove(pkg);
+                }
+            });
+        } catch (RejectedExecutionException closed) {
+            // Closed (Home was rebuilt), maybe from a load still finishing: the new instance builds it.
+            building.remove(pkg);
+        }
     }
 
     /** How long until the first of these apps' pools is due; 0 when one already is. */
@@ -752,8 +771,10 @@ final class Backdrops {
     }
 
     /**
-     * Drops downloads not used for two days (the pools keep their own finished copies) and the pools of
-     * apps not shown for a week.
+     * Drops downloads not used for two days: the pools keep their own finished copies, so no picture is
+     * lost. A pool is never dropped for its age, only once a newer one replaced it (dropReplaced), so
+     * there is always a picture to show. The exception: the pool of an app that can't be a tile any more,
+     * because it was uninstalled, disabled or hidden. Brought back, it has no pool and gets a fresh one.
      */
     private void prune() {
         long now = System.currentTimeMillis();
@@ -761,8 +782,22 @@ final class Backdrops {
         if (files != null) for (File f : files) if (now - f.lastModified() > CACHE_MS) f.delete();
         File[] dirs = poolRoot.listFiles();
         if (dirs == null) return;
+        Set<String> apps = AppAdapter.tilePackages(context);
+        if (apps.isEmpty()) return;   // the app list unreadable (early in boot?): never take that as "none"
+        Set<String> keep = new HashSet<>();
+        for (String pkg : apps) keep.add(sha1(pkg));   // pools are named by hash
+        boolean dropped = false;
         for (File d : dirs) {
-            if (now - new File(d, "current.txt").lastModified() > POOL_KEEP_MS) deleteTree(d);
+            if (keep.contains(d.getName())) continue;
+            deleteTree(d);
+            dropped = true;
+        }
+        // Forget the dropped pools too, or a cached one would still be served: read from disk again,
+        // an app that comes back starts with none.
+        if (dropped) {
+            synchronized (this) {
+                pools.clear();
+            }
         }
     }
 }

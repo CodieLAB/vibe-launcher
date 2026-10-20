@@ -121,6 +121,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private boolean homeToTop;
     /** The time box's width for each length of time text ("8:08" is 4, "10:08" is 5); see sizeTimeBox. */
     private final Map<Integer, Integer> timeBoxWidths = new HashMap<>();
+    /** The 12/24-hour setting and language timeBoxWidths were measured for. */
+    private String timeBoxMeasuredFor;
 
     private final Handler handler = new Handler(Looper.getMainLooper());
     /** Refreshes the network pill when the connection changes: after a reboot Wi-Fi often connects after Home is shown. */
@@ -403,6 +405,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     @Override
     protected void onDestroy() {
+        backdrops.close();
+        handler.removeCallbacksAndMessages(null);
         ConnectivityManager cm = getSystemService(ConnectivityManager.class);
         if (cm != null) {
             try {
@@ -664,11 +668,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     // ---- top bar ---------------------------------------------------------------------------------
 
     /**
-     * One line of date sits level with AM. When it wraps onto two (a long network name narrows the space,
-     * or a long language), the pair is centred on the clock's digits instead: kept level with AM, the
-     * second line pulled the block below the digits' middle.
-     */
-    /**
      * The time box is as wide as the widest time with as many characters as the one showing ("8:08" from 1:00
      * to 9:59, "10:08" from 10:00), with the wider of AM and PM: the digits differ in width, and the date
      * beside it would shift from 1:40 to 1:41. Sized for "10:00" all day, it left a wide gap after 1:11; this
@@ -677,6 +676,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private void sizeTimeBox() {
         TextClock clock = findViewById(R.id.clock), ampm = findViewById(R.id.ampm);
         boolean h24 = DateFormat.is24HourFormat(this);
+        // Measuring every minute of the day takes a moment: only again when the format or language changed.
+        String measuredFor = h24 + "|" + Locale.getDefault();
+        if (measuredFor.equals(timeBoxMeasuredFor)) return;
+        timeBoxMeasuredFor = measuredFor;
         CharSequence format = h24 ? clock.getFormat24Hour() : clock.getFormat12Hour();
         float half = 0;
         if (!h24) {
@@ -705,6 +708,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         if (w != null && box.getMinimumWidth() != w) box.setMinimumWidth(w);
     }
 
+    /**
+     * One line of date sits level with AM. When it wraps onto two (a long network name narrows the space,
+     * or a long language), the pair is centred on the clock's digits instead: kept level with AM, the
+     * second line pulled the block below the digits' middle.
+     */
     private void centreTwoLineDate(TextView clock, TextView date) {
         Layout lines = date.getLayout();
         if (lines == null || lines.getLineCount() < 2) {
@@ -966,7 +974,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         TvInputManager tim = (TvInputManager) getSystemService(TV_INPUT_SERVICE);
         if (!any && tim != null) {
             for (TvInputInfo info : tim.getTvInputList()) {
-                if (info.isPassthroughInput()) {
+                if (info.isPassthroughInput() && !info.isHidden(this)) {   // what the menu would list
                     any = true;
                     break;
                 }
@@ -1133,21 +1141,28 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         LinearLayout rows = panel.findViewById(R.id.rows);
         PopupWindow popup = newMenu(panel);
         if (adapter.isApp(position)) {
+            // Acted on by app, not by place: an app installed or updated while the menu is open moves the
+            // tiles, and the place would then point at a different app.
+            String pkg = adapter.packageAt(position);
             addInputRow(rows, popup, R.drawable.ic_move, getString(R.string.move), -1, () -> {
-                adapter.startMove(position);
+                int at = adapter.positionOf(pkg);
+                if (at < 0) return;
+                adapter.startMove(at);
                 Toast.makeText(this, R.string.move_hint, Toast.LENGTH_LONG).show();
             });
             addInputRow(rows, popup, R.drawable.ic_hide, getString(R.string.hide), -1, () -> {
-                adapter.hide(position);
-                grid.postOnAnimation(() -> focusTile(position));   // the tile sliding into its place
+                int at = adapter.positionOf(pkg);
+                if (at < 0) return;
+                adapter.hide(at);
+                grid.postOnAnimation(() -> focusTile(at));   // the tile sliding into its place
             });
             // Remove uninstalls: only downloaded apps (or updates to built-in ones) can be.
             if (adapter.canUninstall(position)) {
                 addInputRow(rows, popup, R.drawable.ic_delete, getString(R.string.remove), -1,
-                        () -> adapter.uninstall(position));
+                        () -> adapter.uninstall(adapter.positionOf(pkg)));
             }
             addInputRow(rows, popup, R.drawable.ic_settings, getString(R.string.app_info), -1,
-                    () -> adapter.openAppInfo(position));
+                    () -> adapter.openAppInfo(adapter.positionOf(pkg)));
         }
         if (!adapter.userHidden().isEmpty()) {
             if (rows.getChildCount() > 0) addSeparator(rows);
