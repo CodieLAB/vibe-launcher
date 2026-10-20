@@ -105,6 +105,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private PopupWindow openMenu;
     private int lastFocused = 0;
     private float density;
+    /**
+     * Rebuild Home on resume: an app covered it (or it is starting). Not after a side panel such as the
+     * TV's Settings, which only pauses Home: nothing changed underneath, so Home stays as it was.
+     */
+    private boolean rebuildOnResume = true;
+    /** Home was pressed while Home was in front: go back to the first dock tile. */
+    private boolean homeToTop;
 
     private final Handler handler = new Handler(Looper.getMainLooper());
     /** Refreshes the network pill when the connection changes: after a reboot Wi-Fi often connects after Home is shown. */
@@ -270,6 +277,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         View.OnKeyListener pillKeys = (v, keyCode, event) -> {
             if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
             if (keyCode == KeyEvent.KEYCODE_DPAD_UP) return true;
+            if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                // Back to the dock tile Up came from, not whichever tile the focus finder picks.
+                focusTile(lastFocused % COLUMNS);
+                return true;
+            }
             if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT && (v.getId() == R.id.btnInputs
                     || (v.getId() == R.id.btnWifi && btnInputs.getVisibility() != View.VISIBLE))) return true;
             return keyCode == KeyEvent.KEYCODE_DPAD_RIGHT && v.getId() == R.id.btnSettings;
@@ -286,15 +298,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        updateInputsButton();
-        glassShown = false;
-        glass.setAlpha(0f);
-        heroShown = false;
-        heroName.setAlpha(0f);
-        ambient.setAlpha(0f);
-        adapter.reload();
+    protected void onStart() {
+        super.onStart();
+        // Registered while Home is visible, side panels included, so no change is missed under one.
         IntentFilter packages = new IntentFilter();
         packages.addAction(Intent.ACTION_PACKAGE_ADDED);
         packages.addAction(Intent.ACTION_PACKAGE_REMOVED);
@@ -302,15 +308,46 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         packages.addDataScheme("package");
         if (Build.VERSION.SDK_INT >= 33) registerReceiver(packageReceiver, packages, Context.RECEIVER_NOT_EXPORTED);
         else registerReceiver(packageReceiver, packages);
+    }
+
+    /**
+     * Home pressed: singleTask delivers it here, then onResume runs. From an app, Home was stopped and
+     * returns to the tile you left from as usual. Pressed on Home itself (Home never stopped), it goes
+     * back to the top and the first dock tile, like the stock launcher.
+     */
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (intent != null && intent.hasCategory(Intent.CATEGORY_HOME) && !rebuildOnResume) homeToTop = true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateWifiLabel();
+        handler.postDelayed(minuteTick, MINUTE_MS);
+        refreshPools.run();
+        if (homeToTop) {
+            homeToTop = false;
+            lastFocused = 0;
+            grid.scrollToPosition(0);
+            grid.post(() -> focusTile(0));
+        }
+        if (!rebuildOnResume) return;   // back from a side panel: Home is as it was
+        rebuildOnResume = false;
+        updateInputsButton();
+        glassShown = false;
+        glass.setAlpha(0f);
+        heroShown = false;
+        heroName.setAlpha(0f);
+        ambient.setAlpha(0f);
+        adapter.reload();
         ChannelSetup.run(this);
         backdropPkg = null;
         backdrop.setAlpha(0f);
         backdrops.reshuffle();
-        refreshPools.run();
         grid.scheduleLayoutAnimation();
         grid.requestLayout();   // reload() only touches changed tiles, so ask for the pass that plays the entrance
-        updateWifiLabel();
-        handler.postDelayed(minuteTick, MINUTE_MS);
 
         // Return to the tile we left from, or the first one. When a tile kept focus while we were away
         // (the usual case), no focus change follows, so bring back its glass, name and backdrop here:
@@ -325,7 +362,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         super.onPause();
         handler.removeCallbacks(minuteTick);
         handler.removeCallbacks(refreshPools);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
         unregisterReceiver(packageReceiver);
+        rebuildOnResume = true;
     }
 
     @Override
@@ -613,6 +656,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         updateWifiLabel();
         backdrops.reshuffle();
         backdropPkg = null;   // onResume, which follows the permission dialog, loads it again
+        rebuildOnResume = true;   // the dialog only paused Home
     }
 
     /** Shows the Wi-Fi network name on the button when we can read it, otherwise the connection type. */
