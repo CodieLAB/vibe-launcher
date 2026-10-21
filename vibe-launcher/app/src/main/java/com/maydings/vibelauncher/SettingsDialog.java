@@ -100,7 +100,7 @@ final class SettingsDialog {
         TextView updateStatus = panel.findViewById(R.id.updateStatus);
         View tabGeneral = panel.findViewById(R.id.tabGeneral), tabKeys = panel.findViewById(R.id.tabKeys);
         View pageGeneral = panel.findViewById(R.id.pageGeneral), pageKeys = panel.findViewById(R.id.pageKeys);
-        View phone = panel.findViewById(R.id.phone);
+        View phone = panel.findViewById(R.id.phone), projectLink = panel.findViewById(R.id.projectLink);
         boolean[] phoneReady = {false};
         // A tab shows its page as soon as it has focus, like the tabs in the TV's own apps.
         Runnable showGeneral = () -> {
@@ -109,6 +109,7 @@ final class SettingsDialog {
             pageGeneral.setVisibility(View.VISIBLE);
             pageKeys.setVisibility(View.GONE);
             phone.setVisibility(View.GONE);
+            projectLink.setVisibility(View.VISIBLE);
             tabGeneral.setSelected(true);
             tabKeys.setSelected(false);
         };
@@ -116,6 +117,7 @@ final class SettingsDialog {
             pageGeneral.setVisibility(View.GONE);
             pageKeys.setVisibility(View.VISIBLE);
             phone.setVisibility(phoneReady[0] ? View.VISIBLE : View.GONE);   // the QR code is for the keys
+            projectLink.setVisibility(View.GONE);
             tabGeneral.setSelected(false);
             tabKeys.setSelected(true);
         };

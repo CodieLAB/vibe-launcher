@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">Vibe Launcher</string>
+    <string name="project_link" translatable="false">github.com/maydings/vibe-launcher</string>
     <string name="dream_name">Vibe Launcher posters</string>
     <string name="inputs">Inputs</string>
     <string name="wifi">Wi-Fi</string>
