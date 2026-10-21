@@ -1,6 +1,6 @@
 # Vibe Launcher
 
-**A clean, fast home screen for Android TV.** Your favourite apps in a dock, full-screen artwork from
+**A clean, snappy home screen for Android TV.** Your favourite apps in a dock, full-screen artwork from
 what they're offering you, and nothing else: **no ads, no data collection**, no sponsored rows, no
 accounts. Free and open source.
 
@@ -21,7 +21,8 @@ and gets out of the way. It works well enough for us that I'd like to share it w
 - **A screensaver to match.** Your backdrops, full screen, with a large clock.
 - **50 languages.** Follows your TV, or pick one.
 - **Updates itself.** Shows what's new, checks the download, installs with one confirmation.
-- **Light.** Built for TVs with 1 to 2 GB of RAM; no background services.
+- **Snappy and light.** Moving around feels instant, even on older TVs with 1 to 2 GB of RAM; no
+  background services.
 
 ## The home screen
 
