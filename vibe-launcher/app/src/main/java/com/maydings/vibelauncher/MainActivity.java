@@ -61,6 +61,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.net.Inet4Address;
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
@@ -1075,6 +1076,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                     View heading = addPassthroughRow(rows, popup, hdmi, label, info.getId(), tim);
                     heading.setFocusable(false);
                     heading.setClickable(false);
+                    // Just the port's name: each device under it says whether it's connected.
+                    heading.findViewById(R.id.status).setVisibility(View.GONE);
+                    heading.findViewById(R.id.dot).setVisibility(View.GONE);
                     for (TvInputInfo child : children) {
                         View row = addPassthroughRow(rows, popup, hdmi, name(child, label), child.getId(), tim);
                         // Indented: no icon, the name lines up under the port's.
@@ -1140,6 +1144,34 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 break;
             }
         }
+        // The top bar's menus work as one menu bar: Left and Right go to the neighbouring pill's menu,
+        // and stop at the ends (nothing left of Inputs, nothing right of Settings).
+        View[] bar = topBarPills();
+        int at = Arrays.asList(bar).indexOf(anchor);
+        if (at < 0) return;   // a tile's menu: not part of the bar
+        View.OnKeyListener sideways = (v, keyCode, event) -> {
+            if (keyCode != KeyEvent.KEYCODE_DPAD_LEFT && keyCode != KeyEvent.KEYCODE_DPAD_RIGHT) return false;
+            if (event.getAction() != KeyEvent.ACTION_DOWN) return true;
+            int to = at + (keyCode == KeyEvent.KEYCODE_DPAD_LEFT ? -1 : 1);
+            if (to < 0 || to >= bar.length) return true;   // an end of the bar
+            popup.dismiss();
+            bar[to].requestFocus();
+            bar[to].performClick();
+            return true;
+        };
+        for (int i = 0; i < rows.getChildCount(); i++) {
+            if (rows.getChildAt(i).isFocusable()) rows.getChildAt(i).setOnKeyListener(sideways);
+        }
+    }
+
+    /** The top bar's pills that are showing, left to right (no Inputs on devices without inputs). */
+    private View[] topBarPills() {
+        List<View> pills = new ArrayList<>();
+        for (int id : new int[]{R.id.btnInputs, R.id.btnWifi, R.id.btnSettings}) {
+            View v = findViewById(id);
+            if (v.getVisibility() == View.VISIBLE) pills.add(v);
+        }
+        return pills.toArray(new View[0]);
     }
 
     // ---- tile menu: move, hide, remove, app info, hidden apps -------------------------------------
