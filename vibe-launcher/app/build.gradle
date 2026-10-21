@@ -35,6 +35,11 @@ android {
             minifyEnabled false
             if (localProps.releaseStoreFile) signingConfig signingConfigs.release
         }
+        // With the release key at hand, debug builds use it too: a TV can then switch between a debug
+        // build and the releases (and their in-app updates) without uninstalling and losing its settings.
+        debug {
+            if (localProps.releaseStoreFile) signingConfig signingConfigs.release
+        }
     }
 
     compileOptions {
