@@ -195,7 +195,7 @@ final class SettingsDialog {
         dialog.setOnDismissListener(d -> {
             link.stop();
             // An update found here shows on the Settings pill straight away, not at the next return to Home.
-            if (activity instanceof MainActivity) ((MainActivity) activity).updateDot();
+            if (activity instanceof MainActivity) ((MainActivity) activity).showUpdateReady();
         });
         cancel.setOnClickListener(v -> dialog.dismiss());
         save.setOnClickListener(v -> {
@@ -328,23 +328,14 @@ final class SettingsDialog {
             button.setVisibility(View.GONE);
             return;
         }
+        // What the last check found: the gear menu, which opens this dialog, has just asked GitHub again.
         Updater.Release found = Updater.available(activity);
         if (found != null) {
             offerUpdate(activity, status, button, found);
-        } else {
-            status.setText(activity.getString(R.string.version_current, version));
-            button.setText(R.string.check_updates);
+            return;
         }
-        // What the daily check found shows at once; meanwhile ask again, so a release out since then is the
-        // one offered. Quietly: a failed check leaves things as they are, and focus stays where it is.
-        Updater.check(activity, (newer, failed) -> {
-            if (newer != null) {
-                offerUpdate(activity, status, button, newer);
-            } else if (!failed) {
-                status.setText(activity.getString(R.string.version_up_to_date, version));
-            }
-        });
-        if (found != null) return;
+        status.setText(activity.getString(R.string.version_current, version));
+        button.setText(R.string.check_updates);
         button.setOnClickListener(v -> {
             button.setText(R.string.checking_updates);
             button.setEnabled(false);

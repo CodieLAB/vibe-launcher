@@ -231,7 +231,9 @@
                     android:drawableStart="@drawable/ic_wifi"
                     android:nextFocusDown="@+id/grid" />
 
-                <!-- The dot on the pill's corner: an update is ready (Updater). -->
+                <!-- A green dot in the gear's hollow centre while an update is ready (MainActivity.showUpdateReady).
+                     Placed from the start: TopButton's 10dp margin and 16dp padding put the 22dp gear's centre
+                     37dp across and 21dp down. -->
                 <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -245,11 +247,11 @@
 
                     <View
                         android:id="@+id/updateDot"
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:layout_gravity="top|end"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginEnd="6dp"
+                        android:layout_width="5dp"
+                        android:layout_height="5dp"
+                        android:layout_gravity="top|start"
+                        android:layout_marginTop="18.5dp"
+                        android:layout_marginStart="34.5dp"
                         android:background="@drawable/status_dot"
                         android:visibility="gone" />
                 </FrameLayout>

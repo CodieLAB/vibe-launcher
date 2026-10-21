@@ -378,8 +378,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     @Override
     protected void onResume() {
         super.onResume();
-        updateDot();
-        Updater.checkIfDue(this, (newer, failed) -> updateDot());   // at most once a day
+        showUpdateReady();
+        Updater.checkIfDue(this, (newer, failed) -> showUpdateReady());   // at most once a day
         sizeTimeBox();   // the 12/24-hour setting may have changed meanwhile
         updateWifiLabel();
         handler.postDelayed(minuteTick, MINUTE_MS);
@@ -975,13 +975,29 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         View cpu = cpuLive ? addMeterRow(rows, getString(R.string.cpu)) : null;
         View ram = addMeterRow(rows, getString(R.string.ram));
         addSeparator(rows);
-        Updater.Release update = Updater.available(this);
-        if (update != null) {
-            addInputRow(rows, popup, R.drawable.ic_update, getString(R.string.update_to, update.version), -1,
-                    () -> SettingsDialog.startUpdate(this, update));
-        }
-        addInputRow(rows, popup, R.drawable.ic_all_apps, getString(R.string.vibe_settings), -1,
+        // The daily check's answer at once, then ask GitHub again: a release out since then replaces it in
+        // this row, or adds the row. Settings → General, opened from here, shows the same answer.
+        Updater.Release[] update = {Updater.available(this)};
+        Runnable startUpdate = () -> SettingsDialog.startUpdate(this, update[0]);
+        View updateRow = update[0] == null ? null : addInputRow(rows, popup, R.drawable.ic_update,
+                getString(R.string.update_to, update[0].version), -1, startUpdate);
+        View settingsRow = addInputRow(rows, popup, R.drawable.ic_all_apps, getString(R.string.vibe_settings), -1,
                 () -> SettingsDialog.show(this, root));
+        if (!Updater.isDevelopmentBuild(this)) {
+            Updater.check(this, (newer, failed) -> {
+                showUpdateReady();
+                if (newer == null || !popup.isShowing()) return;
+                update[0] = newer;
+                if (updateRow != null) {
+                    ((TextView) updateRow.findViewById(R.id.title)).setText(getString(R.string.update_to, newer.version));
+                } else {
+                    View row = addInputRow(rows, popup, R.drawable.ic_update, getString(R.string.update_to, newer.version), -1,
+                            startUpdate);
+                    rows.removeView(row);
+                    rows.addView(row, rows.indexOfChild(settingsRow));
+                }
+            });
+        }
         addInputRow(rows, popup, R.drawable.ic_settings, getString(R.string.android_settings), -1,
                 () -> open(new Intent(Settings.ACTION_SETTINGS)));
         if (!DefaultHome.isHome(this)) {
@@ -1001,8 +1017,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         showMenu(popup, panel, rows, anchor, Gravity.END);
     }
 
-    /** The dot on the Settings pill: shown while a newer release is waiting to be installed. */
-    void updateDot() {
+    /** The green dot in the Settings gear: shown while a newer release is waiting to be installed. */
+    void showUpdateReady() {
         findViewById(R.id.updateDot).setVisibility(Updater.available(this) != null ? View.VISIBLE : View.GONE);
     }
 
