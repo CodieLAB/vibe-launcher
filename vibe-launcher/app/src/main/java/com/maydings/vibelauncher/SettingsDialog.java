@@ -248,9 +248,9 @@ final class SettingsDialog {
                 activity.startActivity(open);
                 return;
             }
-            Toast.makeText(activity, R.string.smarttube_downloading, Toast.LENGTH_LONG).show();
-            SmartTube.install(activity, res -> Toast.makeText(activity,
+            boolean started = SmartTube.install(activity, res -> Toast.makeText(activity,
                     res == R.string.update_failed ? R.string.smarttube_failed : res, Toast.LENGTH_LONG).show());
+            if (started) Toast.makeText(activity, R.string.smarttube_downloading, Toast.LENGTH_LONG).show();
         });
         showGeneral.run();
         dialog.setOnDismissListener(d -> {
@@ -426,7 +426,8 @@ final class SettingsDialog {
      * to confirm. Shared with the gear menu.
      */
     static void startUpdate(Activity activity, Updater.Release release) {
-        View panel = activity.getLayoutInflater().inflate(R.layout.dialog_update, null);
+        View panel = activity.getLayoutInflater().inflate(R.layout.dialog_update,
+                activity.findViewById(android.R.id.content), false);
         ((TextView) panel.findViewById(R.id.updateTitle)).setText(activity.getString(R.string.update_to, release.version));
         TextView notes = panel.findViewById(R.id.notes);
         CharSequence text = changes(activity, release.notes);

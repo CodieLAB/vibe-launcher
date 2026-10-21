@@ -1,5 +1,6 @@
 package com.maydings.vibelauncher;
 
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
@@ -107,6 +108,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
         this.prefs = ctx.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
     }
 
+    @SuppressLint("NotifyDataSetChanged")   // only the first fill; later reloads apply just the changes
     void reload() {
         // A tile part-way through Move (an app updating in the background reloads the list) keeps where it
         // got to: the order so far is saved, else the reload put every tile back.

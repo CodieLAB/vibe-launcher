@@ -1,5 +1,6 @@
 package com.maydings.vibelauncher;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -30,6 +31,7 @@ final class CrashGuard {
     private CrashGuard() {
     }
 
+    @SuppressLint("ApplySharedPref")   // on disk at once: the process is dying
     static void install(Context context) {
         if (installed) return;
         installed = true;

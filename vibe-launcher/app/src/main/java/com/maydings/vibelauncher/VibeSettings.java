@@ -1,5 +1,6 @@
 package com.maydings.vibelauncher;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -51,6 +52,7 @@ final class VibeSettings {
     }
 
     /** Saved at once (commit): Home is recreated in the new language straight after. */
+    @SuppressLint("ApplySharedPref")
     void setLanguage(String tag) {
         prefs.edit().putString(LANGUAGE, tag).commit();
     }

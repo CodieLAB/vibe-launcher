@@ -9,14 +9,14 @@ if (localFile.exists()) localFile.withInputStream { localProps.load(it) }
 
 android {
     namespace 'com.maydings.vibelauncher'
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId 'com.maydings.vibelauncher'
         minSdk 26
         targetSdk 34
-        versionCode 30
-        versionName '1.5.0'
+        versionCode 31
+        versionName '1.5.1'
     }
 
     packagingOptions {
@@ -40,7 +40,10 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            // R8: drops the library code the launcher never calls (most of AndroidX and Kotlin's standard
+            // library), and shortens names. Each build's mapping.txt turns a stack trace back into real names.
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             if (localProps.releaseStoreFile) signingConfig signingConfigs.release
         }
         // With the release key at hand, debug builds use it too: a TV can then switch between a debug
@@ -57,7 +60,7 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.recyclerview:recyclerview:1.3.2'
-    implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'
-    implementation 'com.google.zxing:core:3.5.3'   // QR code for pasting keys from a phone
+    implementation 'androidx.recyclerview:recyclerview:1.4.0'
+    implementation 'androidx.dynamicanimation:dynamicanimation:1.1.0'
+    implementation 'com.google.zxing:core:3.5.4'   // QR code for pasting keys from a phone
 }

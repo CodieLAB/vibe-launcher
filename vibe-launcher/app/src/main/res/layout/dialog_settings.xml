@@ -2,6 +2,7 @@
 <!-- Vibe Launcher settings on two tabs: General (tiles per row, updates) and API keys (the backdrop
      sources' keys and the phone QR code). Save and Cancel on the right serve both. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="620dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -37,7 +38,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:baselineAligned="false">
 
         <!-- Both pages in one frame; only the chosen tab's page is there (SettingsDialog). -->
         <FrameLayout
@@ -73,21 +75,24 @@
                         style="@style/TopButton"
                         android:paddingStart="22dp"
                         android:paddingEnd="22dp"
-                        android:text="4" />
+                        android:text="4"
+                        tools:ignore="HardcodedText" />
 
                     <TextView
                         android:id="@+id/columns5"
                         style="@style/TopButton"
                         android:paddingStart="22dp"
                         android:paddingEnd="22dp"
-                        android:text="5" />
+                        android:text="5"
+                        tools:ignore="HardcodedText" />
 
                     <TextView
                         android:id="@+id/columns6"
                         style="@style/TopButton"
                         android:paddingStart="22dp"
                         android:paddingEnd="22dp"
-                        android:text="6" />
+                        android:text="6"
+                        tools:ignore="HardcodedText" />
                 </LinearLayout>
 
                 <!-- Off or on, the choice marked like tiles per row; applied on Save. -->
@@ -169,32 +174,41 @@
                 android:orientation="vertical"
                 android:visibility="gone">
 
-                <LinearLayout style="@style/SettingsLabelRow">
+                <LinearLayout
+                    style="@style/SettingsLabelRow"
+                    tools:ignore="UseCompoundDrawables">
 
                     <TextView
                         style="@style/SettingsLabel"
                         android:layout_marginTop="0dp"
+                        android:labelFor="@id/tmdbKey"
                         android:text="@string/tmdb_key" />
 
                     <ImageView
                         android:id="@+id/tmdbInfo"
-                        style="@style/InfoButton" />
+                        style="@style/InfoButton"
+                        android:contentDescription="@string/about_key" />
                 </LinearLayout>
 
                 <EditText
                     android:id="@+id/tmdbKey"
-                    style="@style/SettingsField" />
+                    style="@style/SettingsField"
+                    android:importantForAutofill="no" />
 
-                <LinearLayout style="@style/SettingsLabelRow">
+                <LinearLayout
+                    style="@style/SettingsLabelRow"
+                    tools:ignore="UseCompoundDrawables">
 
                     <TextView
                         style="@style/SettingsLabel"
                         android:layout_marginTop="0dp"
+                        android:labelFor="@id/youtubeKey"
                         android:text="@string/youtube_key" />
 
                     <ImageView
                         android:id="@+id/youtubeInfo"
-                        style="@style/InfoButton" />
+                        style="@style/InfoButton"
+                        android:contentDescription="@string/about_key" />
                 </LinearLayout>
 
                 <!-- SmartTube signed in beats a key (the user's own feed): offered first, Install or Open. -->
@@ -204,27 +218,35 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="4dp"
-                    android:paddingStart="20dp" />
+                    android:paddingStart="20dp"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
 
                 <EditText
                     android:id="@+id/youtubeKey"
-                    style="@style/SettingsField" />
+                    style="@style/SettingsField"
+                    android:importantForAutofill="no" />
 
-                <LinearLayout style="@style/SettingsLabelRow">
+                <LinearLayout
+                    style="@style/SettingsLabelRow"
+                    tools:ignore="UseCompoundDrawables">
 
                     <TextView
                         style="@style/SettingsLabel"
                         android:layout_marginTop="0dp"
+                        android:labelFor="@id/plexToken"
                         android:text="@string/plex_token" />
 
                     <ImageView
                         android:id="@+id/plexInfo"
-                        style="@style/InfoButton" />
+                        style="@style/InfoButton"
+                        android:contentDescription="@string/about_key" />
                 </LinearLayout>
 
                 <EditText
                     android:id="@+id/plexToken"
                     style="@style/SettingsField"
+                    android:importantForAutofill="no"
                     android:imeOptions="actionDone|flagNoExtractUi" />
 
                 <!-- TMDB's terms ask apps using its API to say so. -->

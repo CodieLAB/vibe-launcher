@@ -1,6 +1,8 @@
 package com.maydings.vibelauncher;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -10,6 +12,8 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
 import java.util.Map;
 
@@ -53,6 +57,8 @@ final class Http {
      * instead, and only addresses on the home network (192.168.x.x and the like).
      */
     static String getLan(String ip, String path) throws IOException {
+        // A plain IPv4 address only: a name would be looked up first, and could point anywhere.
+        if (!ip.matches("\\d{1,3}(\\.\\d{1,3}){3}")) throw new IOException("not an address: " + ip);
         InetAddress address = InetAddress.getByName(ip);   // a literal address: no lookup
         if (!address.isSiteLocalAddress()) throw new IOException("not on the home network: " + ip);
         try (Socket socket = new Socket()) {
@@ -69,6 +75,42 @@ final class Http {
             }
             return reply.substring(body + 4);
         }
+    }
+
+    /**
+     * Saves a 200 reply to a file, at most maxBytes, and returns its SHA-256 (lower-case hex). Written as it
+     * arrives: an APK (SmartTube's is up to 35 MB) held in memory whole could run a small TV out of it.
+     */
+    static String download(String url, File to, int maxBytes) throws IOException {
+        MessageDigest sha;
+        try {
+            sha = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            throw new IOException(e);
+        }
+        HttpURLConnection c = (HttpURLConnection) new URL(url).openConnection();
+        try {
+            c.setConnectTimeout(10000);
+            c.setReadTimeout(15000);
+            int code = c.getResponseCode();
+            if (code != 200) throw new IOException("HTTP " + code);
+            try (InputStream in = c.getInputStream(); FileOutputStream out = new FileOutputStream(to)) {
+                byte[] buf = new byte[65536];
+                long total = 0;
+                int n;
+                while ((n = in.read(buf)) > 0) {
+                    total += n;
+                    if (total > maxBytes) throw new IOException("over " + maxBytes + " bytes");
+                    sha.update(buf, 0, n);
+                    out.write(buf, 0, n);
+                }
+            }
+        } finally {
+            c.disconnect();
+        }
+        StringBuilder hex = new StringBuilder();
+        for (byte b : sha.digest()) hex.append(String.format("%02x", b));
+        return hex.toString();
     }
 
     /** All of a stream, refusing more than maxBytes (a runaway download). */

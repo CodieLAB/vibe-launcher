@@ -398,14 +398,16 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             pillsShown = true;
         }
         handler.postDelayed(minuteTick, MINUTE_MS);
-        refreshPools.run();
         if (homeToTop) {
             homeToTop = false;
             lastFocused = 0;
             grid.scrollToPosition(0);
             grid.post(() -> focusTile(0));
         }
-        if (!rebuildOnResume) return;   // back from a side panel: Home is as it was
+        if (!rebuildOnResume) {   // back from a side panel: Home is as it was
+            refreshPools.run();
+            return;
+        }
         rebuildOnResume = false;
         glassShown = false;
         glass.setAlpha(0f);
@@ -413,6 +415,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         heroName.setAlpha(0f);
         ambient.setAlpha(0f);
         adapter.reload();
+        // After the reload: on a cold start the grid was still empty, and with no dock apps the next check
+        // would have been six hours away.
+        refreshPools.run();
         ChannelSetup.run(this);
         backdropPkg = null;
         backdrop.setAlpha(0f);

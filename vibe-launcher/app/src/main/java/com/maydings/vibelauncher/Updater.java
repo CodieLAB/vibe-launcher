@@ -1,5 +1,6 @@
 package com.maydings.vibelauncher;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
@@ -21,7 +22,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -224,6 +224,14 @@ final class Updater {
      */
     static void installApk(Context context, String url, String sha, String pkg, int allowRes, InstallListener listener) {
         Context app = context.getApplicationContext();
+        worker.execute(() -> {
+            int problem = installNow(app, url, sha, pkg, allowRes);
+            if (problem != 0) main.post(() -> listener.onProblem(problem));
+        });
+    }
+
+    /** installApk on the calling (worker) thread: 0 once it's with the installer, else a message for the user. */
+    static int installNow(Context app, String url, String sha, String pkg, int allowRes) {
         if (!app.getPackageManager().canRequestPackageInstalls()) {
             try {
                 Intent allow = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
@@ -235,39 +243,29 @@ final class Updater {
                 ActivityManager am = (ActivityManager) app.getSystemService(Context.ACTIVITY_SERVICE);
                 if (settings != null && am != null) am.killBackgroundProcesses(settings.activityInfo.packageName);
                 app.startActivity(allow);
-                listener.onProblem(allowRes);
+                return allowRes;
             } catch (ActivityNotFoundException e) {
-                listener.onProblem(R.string.update_no_installs);
+                return R.string.update_no_installs;
             }
-            return;
         }
-        worker.execute(() -> {
-            int problem = 0;
-            File apk = new File(new File(app.getCacheDir(), "update"), APK);
-            try {
-                byte[] data = Http.get(url, MAX_APK_BYTES);
-                if (!sha256(data).equals(sha)) {
-                    problem = R.string.update_bad_download;   // corrupted or tampered with: never installed
-                } else {
-                    apk.getParentFile().mkdirs();
-                    try (FileOutputStream out = new FileOutputStream(apk)) {
-                        out.write(data);
-                    }
-                    commit(app, apk, pkg);
-                }
-            } catch (IOException | RuntimeException e) {
-                problem = R.string.update_failed;
-            } finally {
-                apk.delete();   // the installer has its own copy by now
+        // One file per app: the launcher's update and SmartTube can be on their way at once.
+        File apk = new File(new File(app.getCacheDir(), "update"), pkg + ".apk");
+        try {
+            apk.getParentFile().mkdirs();
+            if (!Http.download(url, apk, MAX_APK_BYTES).equals(sha)) {
+                return R.string.update_bad_download;   // corrupted or tampered with: never installed
             }
-            if (problem != 0) {
-                int p = problem;
-                main.post(() -> listener.onProblem(p));
-            }
-        });
+            commit(app, apk, pkg);
+            return 0;
+        } catch (IOException | RuntimeException e) {
+            return R.string.update_failed;
+        } finally {
+            apk.delete();   // the installer has its own copy by now
+        }
     }
 
     /** Hands the APK to Android's installer; UpdateReceiver shows its confirmation. */
+    @SuppressLint("ApplySharedPref")   // on disk at once: the process ends straight after
     private static void commit(Context app, File apk, String pkg) throws IOException {
         boolean self = pkg.equals(app.getPackageName());
         PackageInstaller installer = app.getPackageManager().getPackageInstaller();
@@ -281,6 +279,9 @@ final class Updater {
                 int n;
                 while ((n = in.read(buf)) > 0) out.write(buf, 0, n);
                 session.fsync(out);
+            } catch (IOException | RuntimeException e) {
+                session.abandon();   // or the half-written session stays behind in the installer
+                throw e;
             }
             // Written now (not applied later): installing ends this process. UpdateReceiver reads it back.
             if (self) prefs(app).edit().putLong("installing", System.currentTimeMillis()).commit();
@@ -296,6 +297,7 @@ final class Updater {
      * Whether an update handed to the installer from here in the last quarter hour just went in, and
      * forgets it. Updates installed from a computer don't count.
      */
+    @SuppressLint("ApplySharedPref")   // on disk at once: Home starts straight after, maybe in a new process
     static boolean justUpdated(Context context) {
         SharedPreferences p = prefs(context);
         long at = p.getLong("installing", 0);

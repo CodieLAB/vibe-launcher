@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * SmartTube, the YouTube app whose home screen cards come from the signed-in user's own feed (the best
@@ -31,6 +32,8 @@ final class SmartTube {
     private static final String LATEST = "https://api.github.com/repos/yuliskov/SmartTube/releases/latest";
     private static final ExecutorService worker = Executors.newSingleThreadExecutor();
     private static final Handler main = new Handler(Looper.getMainLooper());
+    /** A download on its way: pressing Install again doesn't start a second one. */
+    private static final AtomicBoolean busy = new AtomicBoolean();
 
     private SmartTube() {
     }
@@ -46,22 +49,28 @@ final class SmartTube {
         return null;
     }
 
-    /** Finds the latest stable APK for this TV's processor and hands it to Updater to install. */
-    static void install(Context context, Updater.InstallListener listener) {
+    /**
+     * Finds the latest stable APK for this TV's processor and hands it to Android's installer (Updater).
+     * False when a download is already on its way.
+     */
+    static boolean install(Context context, Updater.InstallListener listener) {
+        if (!busy.compareAndSet(false, true)) return false;
         Context app = context.getApplicationContext();
         worker.execute(() -> {
-            String[] apk;
+            int problem;
             try {
-                apk = latestApk();
+                String[] apk = latestApk();
+                problem = apk == null ? R.string.smarttube_failed
+                        : Updater.installNow(app, apk[0], apk[1], PACKAGES[0], R.string.smarttube_allow_installs);
             } catch (IOException | JSONException | RuntimeException e) {
-                apk = null;   // offline, or GitHub busy
+                problem = R.string.smarttube_failed;   // offline, or GitHub busy
+            } finally {
+                busy.set(false);
             }
-            String[] found = apk;
-            main.post(() -> {
-                if (found == null) listener.onProblem(R.string.smarttube_failed);
-                else Updater.installApk(app, found[0], found[1], PACKAGES[0], R.string.smarttube_allow_installs, listener);
-            });
+            int p = problem;
+            if (p != 0) main.post(() -> listener.onProblem(p));
         });
+        return true;
     }
 
     /** The download address and SHA-256 of the build for this TV's processor (else the universal one). */
