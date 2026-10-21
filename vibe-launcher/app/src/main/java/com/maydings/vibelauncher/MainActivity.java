@@ -355,6 +355,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     @Override
     protected void onResume() {
         super.onResume();
+        updateDot();
+        Updater.checkIfDue(this, (newer, failed) -> updateDot());   // at most once a day
         sizeTimeBox();   // the 12/24-hour setting may have changed meanwhile
         updateWifiLabel();
         handler.postDelayed(minuteTick, MINUTE_MS);
@@ -906,6 +908,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         View cpu = cpuLive ? addMeterRow(rows, getString(R.string.cpu)) : null;
         View ram = addMeterRow(rows, getString(R.string.ram));
         addSeparator(rows);
+        Updater.Release update = Updater.available(this);
+        if (update != null) {
+            addInputRow(rows, popup, R.drawable.ic_update, getString(R.string.update_to, update.version), -1,
+                    () -> SettingsDialog.startUpdate(this, update));
+        }
         addInputRow(rows, popup, R.drawable.ic_all_apps, getString(R.string.vibe_settings), -1,
                 () -> SettingsDialog.show(this, root));
         addInputRow(rows, popup, R.drawable.ic_settings, getString(R.string.android_settings), -1,
@@ -925,6 +932,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         tick.run();
         popup.setOnDismissListener(() -> handler.removeCallbacks(tick));
         showMenu(popup, panel, rows, anchor, Gravity.END);
+    }
+
+    /** The dot on the Settings pill: shown while a newer release is waiting to be installed. */
+    void updateDot() {
+        findViewById(R.id.updateDot).setVisibility(Updater.available(this) != null ? View.VISIBLE : View.GONE);
     }
 
     /** A read-only row with a usage bar; fill it with the returned view. */

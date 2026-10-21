@@ -31,7 +31,23 @@
     <string name="plex_token">Plex token</string>
     <string name="not_set">Not set</string>
     <string name="save">Save</string>
-    <string name="version">v%1$s</string>
+    <string name="tab_general">General</string>
+    <string name="tab_keys">API keys</string>
+    <string name="updates">Software version</string>
+    <string name="check_updates">Check for updates</string>
+    <string name="checking_updates">Checking…</string>
+    <string name="update_to">Update to %1$s</string>
+    <string name="version_current">%1$s</string>
+    <string name="version_up_to_date">%1$s · Up to date</string>
+    <string name="update_available">Update available: %1$s</string>
+    <string name="update_check_failed">%1$s · Couldn\'t check for updates</string>
+    <string name="update_downloading">Downloading the update…</string>
+    <string name="update_development_status">%1$s, built with a different signing key: update it from a computer with build-and-install.sh</string>
+    <string name="update_development">This build has a different signing key: update it from a computer, with build-and-install.sh</string>
+    <string name="update_allow_installs">Allow Vibe Launcher to install apps, then choose Update again</string>
+    <string name="update_no_installs">This TV doesn\'t let apps install updates</string>
+    <string name="update_bad_download">The download didn\'t match the release, so it wasn\'t installed</string>
+    <string name="update_failed">The update didn\'t install</string>
     <string name="cpu">CPU</string>
     <string name="percent">%1$d%%</string>
     <string name="ram">RAM</string>
@@ -40,9 +56,9 @@
     <string name="scan_to_paste">Scan with your phone to paste the keys</string>
     <string name="tmdb_notice">Backdrops use the TMDB API but are not endorsed or certified by TMDB.</string>
     <string name="about_key">About this key</string>
-    <string name="tmdb_info">Clean, full-size backdrops for the films and shows on your apps\' home screen cards (Netflix, Apple TV, Prime Video and others), shown with the title\'s logo instead of the apps\' own art and stickers. Works without a key using Stremio\'s free metadata; a TMDB key is the official, more reliable source.\n\nFree key: themoviedb.org → Settings → API, choose personal use, and copy the API key.</string>
-    <string name="youtube_info">Better option: install SmartTube. Its backdrops come from your own YouTube feed and need no key.\n\nWithout SmartTube, this key shows the most popular videos in your country.\n\nFree key: console.cloud.google.com → new project → enable YouTube Data API v3 → Credentials → Create API key.</string>
-    <string name="plex_info">Backdrops from your own Plex server: what\'s on Continue Watching and recently added.\n\nTo find it: app.plex.tv → open any title → ⋯ → Get Info → View XML. The token is the part after X-Plex-Token= in the address. Keep it private, like a password.</string>
+    <string name="tmdb_info">Clean backdrops and title logos for the films and shows on your apps\' home screen cards, in place of their own art and stickers. It works without a key, from Stremio\'s free data; TMDB is the official, more reliable source.\n\nFree key: themoviedb.org → Settings → API → personal use.</string>
+    <string name="youtube_info">Shows the most popular videos in your country behind the YouTube tile.\n\nFree key: console.cloud.google.com → new project → enable YouTube Data API v3 → Credentials → Create API key.\n\nWith SmartTube installed, the backdrops come from your own YouTube feed instead, with no key needed.</string>
+    <string name="plex_info">Backdrops from your own Plex server: Continue Watching and recently added.\n\nTo find it: app.plex.tv → open any title → ⋯ → Get Info → View XML, and copy what follows X-Plex-Token= in the address. Keep it private, like a password.</string>
     <string name="saved_from_phone">Saved from your phone</string>
     <string name="not_available">Not available on this TV</string>
     <string name="cant_open">Can\'t open %1$s</string>

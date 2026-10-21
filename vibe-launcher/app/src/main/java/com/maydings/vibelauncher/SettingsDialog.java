@@ -3,7 +3,6 @@ package com.maydings.vibelauncher;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
@@ -20,8 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Vibe Launcher settings: the TMDB, YouTube and Plex keys, each with an (i) explaining it, tiles per
- * row, a QR code for pasting the keys from a phone (PhoneLink), and the app version.
+ * Vibe Launcher settings on two tabs. General: tiles per row and updates (Updater). API keys: the TMDB,
+ * YouTube and Plex keys, each with an (i) explaining it, and a QR code for pasting them from a phone
+ * (PhoneLink). Save and Cancel serve both tabs.
  */
 final class SettingsDialog {
 
@@ -60,9 +60,8 @@ final class SettingsDialog {
             window.setAttributes(lp);
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
             // The dialog theme caps the width; the fields and the QR code sit side by side.
-            window.setLayout((int) (760 * density), ViewGroup.LayoutParams.WRAP_CONTENT);
+            window.setLayout((int) (620 * density), ViewGroup.LayoutParams.WRAP_CONTENT);
         }
-        ((TextView) panel.findViewById(R.id.version)).setText(activity.getString(R.string.version, versionName(activity)));
         View cancel = panel.findViewById(R.id.cancel), save = panel.findViewById(R.id.save);
         View tmdbInfo = panel.findViewById(R.id.tmdbInfo), youtubeInfo = panel.findViewById(R.id.youtubeInfo),
                 plexInfo = panel.findViewById(R.id.plexInfo);
@@ -83,19 +82,66 @@ final class SettingsDialog {
             });
         }
         View columnsEntry = columnPills[Math.max(0, Math.min(2, current - 4))];
-        // Text fields keep Up/Down to themselves on this TV, so steer the remote by hand: the
-        // tiles-per-row choice, then each key's (i) and its field. Right from any of them jumps to Save
-        // (and Cancel under it), and Left comes back to where it left.
-        View[] order = {tmdbInfo, tmdb, youtubeInfo, youtube, plexInfo, plex};
+        TextView updateButton = panel.findViewById(R.id.updateButton);
+        TextView updateStatus = panel.findViewById(R.id.updateStatus);
+        View tabGeneral = panel.findViewById(R.id.tabGeneral), tabKeys = panel.findViewById(R.id.tabKeys);
+        View pageGeneral = panel.findViewById(R.id.pageGeneral), pageKeys = panel.findViewById(R.id.pageKeys);
+        View phone = panel.findViewById(R.id.phone);
+        boolean[] phoneReady = {false};
+        // A tab shows its page as soon as it has focus, like the tabs in the TV's own apps.
+        Runnable showGeneral = () -> {
+            // Each tab is as tall as it needs: the dialog is pinned to the top of the screen, so the title,
+            // tabs, Save and Cancel stay put and only the bottom edge moves.
+            pageGeneral.setVisibility(View.VISIBLE);
+            pageKeys.setVisibility(View.GONE);
+            phone.setVisibility(View.GONE);
+            tabGeneral.setSelected(true);
+            tabKeys.setSelected(false);
+        };
+        Runnable showKeys = () -> {
+            pageGeneral.setVisibility(View.GONE);
+            pageKeys.setVisibility(View.VISIBLE);
+            phone.setVisibility(phoneReady[0] ? View.VISIBLE : View.GONE);   // the QR code is for the keys
+            tabGeneral.setSelected(false);
+            tabKeys.setSelected(true);
+        };
+        tabGeneral.setOnFocusChangeListener((v, focused) -> { if (focused) showGeneral.run(); });
+        tabKeys.setOnFocusChangeListener((v, focused) -> { if (focused) showKeys.run(); });
+        tabGeneral.setOnClickListener(v -> columnsEntry.requestFocus());
+        tabKeys.setOnClickListener(v -> tmdbInfo.requestFocus());
+
+        // Text fields keep Up/Down to themselves on this TV, so steer the remote by hand. Up from the top
+        // of a page reaches its tab; Right from anything jumps to Save (and Cancel under it), and Left
+        // comes back to where it left.
         View[] cameFrom = {columnsEntry};
+        View[] order = {tmdbInfo, tmdb, youtubeInfo, youtube, plexInfo, plex};
         for (int i = 0; i < order.length; i++) {
-            steer(order[i], i > 0 ? order[i - 1] : columnsEntry, i < order.length - 1 ? order[i + 1] : null, save, cameFrom);
+            steer(order[i], i > 0 ? order[i - 1] : tabKeys, i < order.length - 1 ? order[i + 1] : null, save, cameFrom);
         }
+        View.OnKeyListener tabKeysNav = (v, keyCode, event) -> {
+            if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
+            if (keyCode == KeyEvent.KEYCODE_DPAD_UP) return true;   // nothing above
+            if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                return v == tabGeneral ? columnsEntry.requestFocus() : tmdbInfo.requestFocus();
+            }
+            if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) return v == tabGeneral || tabGeneral.requestFocus();
+            if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                if (v == tabGeneral) return tabKeys.requestFocus();
+                cameFrom[0] = v;
+                return save.requestFocus();
+            }
+            return false;
+        };
+        tabGeneral.setOnKeyListener(tabKeysNav);
+        tabKeys.setOnKeyListener(tabKeysNav);
         for (View pill : columnPills) {
             pill.setOnKeyListener((v, keyCode, event) -> {
                 if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
-                if (keyCode == KeyEvent.KEYCODE_DPAD_UP) return true;   // nothing above
-                if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) return tmdbInfo.requestFocus();
+                if (keyCode == KeyEvent.KEYCODE_DPAD_UP) return tabGeneral.requestFocus();
+                if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                    if (updateButton.getVisibility() == View.VISIBLE) updateButton.requestFocus();
+                    return true;   // nothing else below
+                }
                 if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT && v == columnPills[2]) {
                     cameFrom[0] = v;
                     return save.requestFocus();
@@ -103,6 +149,8 @@ final class SettingsDialog {
                 return false;   // Left/Right move between the pills
             });
         }
+        steer(updateButton, columnsEntry, null, save, cameFrom);
+        showUpdates(activity, updateStatus, updateButton);
         View.OnKeyListener back = (v, keyCode, event) -> event.getAction() == KeyEvent.ACTION_DOWN
                 && keyCode == KeyEvent.KEYCODE_DPAD_LEFT && cameFrom[0].requestFocus();
         save.setOnKeyListener(back);
@@ -127,11 +175,16 @@ final class SettingsDialog {
         }, settings);
         String url = link.start();
         if (url != null) {
-            ((ImageView) panel.findViewById(R.id.qr)).setImageBitmap(PhoneLink.qr(url, (int) (134 * density)));
+            ((ImageView) panel.findViewById(R.id.qr)).setImageBitmap(PhoneLink.qr(url, (int) (114 * density)));
             ((TextView) panel.findViewById(R.id.phoneUrl)).setText(url.replace("http://", ""));
-            panel.findViewById(R.id.phone).setVisibility(View.VISIBLE);
+            phoneReady[0] = true;
         }
-        dialog.setOnDismissListener(d -> link.stop());
+        showGeneral.run();
+        dialog.setOnDismissListener(d -> {
+            link.stop();
+            // An update found here shows on the Settings pill straight away, not at the next return to Home.
+            if (activity instanceof MainActivity) ((MainActivity) activity).updateDot();
+        });
         cancel.setOnClickListener(v -> dialog.dismiss());
         save.setOnClickListener(v -> {
             saveKeys.run();
@@ -189,15 +242,62 @@ final class SettingsDialog {
         bubble.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));   // needed for Back to dismiss
         bubble.setOutsideTouchable(true);
         text.setOnClickListener(v -> bubble.dismiss());
-        bubble.showAsDropDown(anchor, 0, (int) (6 * density));
+        // Below the (i), or above it when there isn't room: the Plex one sits low enough on screen that a
+        // bubble below ran off the bottom.
+        int gap = (int) (6 * density);
+        text.measure(View.MeasureSpec.makeMeasureSpec((int) (440 * density), View.MeasureSpec.AT_MOST),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        int[] at = new int[2];
+        anchor.getLocationOnScreen(at);
+        int below = activity.getResources().getDisplayMetrics().heightPixels - at[1] - anchor.getHeight();
+        boolean above = text.getMeasuredHeight() + gap > below;
+        bubble.showAsDropDown(anchor, 0, above ? -(anchor.getHeight() + text.getMeasuredHeight() + gap) : gap);
         text.requestFocus();
     }
 
-    private static String versionName(Activity activity) {
-        try {
-            return activity.getPackageManager().getPackageInfo(activity.getPackageName(), 0).versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            return "?";
+    /**
+     * The Updates part of General: the installed version and a button that checks for a newer one, then
+     * offers to install it. A development build only says how it updates.
+     */
+    private static void showUpdates(Activity activity, TextView status, TextView button) {
+        String version = Updater.installedVersion(activity);
+        if (Updater.isDevelopmentBuild(activity)) {
+            status.setText(activity.getString(R.string.update_development_status, version));
+            button.setVisibility(View.GONE);
+            return;
         }
+        Updater.Release found = Updater.available(activity);
+        if (found != null) {
+            offerUpdate(activity, status, button, found);
+            return;
+        }
+        status.setText(activity.getString(R.string.version_current, version));
+        button.setText(R.string.check_updates);
+        button.setOnClickListener(v -> {
+            button.setText(R.string.checking_updates);
+            button.setEnabled(false);
+            Updater.check(activity, (newer, failed) -> {
+                button.setEnabled(true);
+                if (newer != null) {
+                    offerUpdate(activity, status, button, newer);
+                } else {
+                    status.setText(activity.getString(failed ? R.string.update_check_failed : R.string.version_up_to_date, version));
+                    button.setText(R.string.check_updates);
+                }
+                button.requestFocus();
+            });
+        });
+    }
+
+    private static void offerUpdate(Activity activity, TextView status, TextView button, Updater.Release release) {
+        status.setText(activity.getString(R.string.update_available, release.version));
+        button.setText(activity.getString(R.string.update_to, release.version));
+        button.setOnClickListener(v -> startUpdate(activity, release));
+    }
+
+    /** Downloads and installs; Android's own screen asks to confirm. Shared with the gear menu. */
+    static void startUpdate(Activity activity, Updater.Release release) {
+        Toast.makeText(activity, R.string.update_downloading, Toast.LENGTH_SHORT).show();
+        Updater.install(activity, release, problem -> Toast.makeText(activity, problem, Toast.LENGTH_LONG).show());
     }
 }

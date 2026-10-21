@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Vibe Launcher settings: tiles per row and the keys for the backdrop sources. -->
+<!-- Vibe Launcher settings on two tabs: General (tiles per row, updates) and API keys (the backdrop
+     sources' keys and the phone QR code). Save and Cancel on the right serve both. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="760dp"
+    android:layout_width="620dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/glass_panel"
@@ -16,111 +17,166 @@
         android:fontFamily="@font/outfit" />
 
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tabGeneral"
+            style="@style/TopButton"
+            android:layout_marginStart="0dp"
+            android:text="@string/tab_general" />
+
+        <TextView
+            android:id="@+id/tabKeys"
+            style="@style/TopButton"
+            android:text="@string/tab_keys" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <LinearLayout
+        <!-- Both pages in one frame; only the chosen tab's page is there (SettingsDialog). -->
+        <FrameLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_weight="1">
 
-            <!-- Label and choices on one line, so the dialog still fits a 1080p screen. -->
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/pageGeneral"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:orientation="vertical">
+
+                <!-- Label and choices on one line, so the dialog still fits a 1080p screen. -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/SettingsLabel"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="6dp"
+                        android:text="@string/tiles_per_row" />
+
+                    <TextView
+                        android:id="@+id/columns4"
+                        style="@style/TopButton"
+                        android:paddingStart="22dp"
+                        android:paddingEnd="22dp"
+                        android:text="4" />
+
+                    <TextView
+                        android:id="@+id/columns5"
+                        style="@style/TopButton"
+                        android:paddingStart="22dp"
+                        android:paddingEnd="22dp"
+                        android:text="5" />
+
+                    <TextView
+                        android:id="@+id/columns6"
+                        style="@style/TopButton"
+                        android:paddingStart="22dp"
+                        android:paddingEnd="22dp"
+                        android:text="6" />
+                </LinearLayout>
 
                 <TextView
                     style="@style/SettingsLabel"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginEnd="6dp"
-                    android:text="@string/tiles_per_row" />
+                    android:layout_marginTop="28dp"
+                    android:text="@string/updates" />
 
                 <TextView
-                    android:id="@+id/columns4"
+                    android:id="@+id/updateStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:textColor="#B3FFFFFF"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/outfit" />
+
+                <TextView
+                    android:id="@+id/updateButton"
                     style="@style/TopButton"
-                    android:paddingStart="22dp"
-                    android:paddingEnd="22dp"
-                    android:text="4" />
-
-                <TextView
-                    android:id="@+id/columns5"
-                    style="@style/TopButton"
-                    android:paddingStart="22dp"
-                    android:paddingEnd="22dp"
-                    android:text="5" />
-
-                <TextView
-                    android:id="@+id/columns6"
-                    style="@style/TopButton"
-                    android:paddingStart="22dp"
-                    android:paddingEnd="22dp"
-                    android:text="6" />
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="12dp"
+                    android:paddingStart="20dp"
+                    android:text="@string/check_updates" />
             </LinearLayout>
 
-            <LinearLayout style="@style/SettingsLabelRow">
-
-                <TextView
-                    style="@style/SettingsLabel"
-                    android:layout_marginTop="0dp"
-                    android:text="@string/tmdb_key" />
-
-                <ImageView
-                    android:id="@+id/tmdbInfo"
-                    style="@style/InfoButton" />
-            </LinearLayout>
-
-            <EditText
-                android:id="@+id/tmdbKey"
-                style="@style/SettingsField" />
-
-            <LinearLayout style="@style/SettingsLabelRow">
-
-                <TextView
-                    style="@style/SettingsLabel"
-                    android:layout_marginTop="0dp"
-                    android:text="@string/youtube_key" />
-
-                <ImageView
-                    android:id="@+id/youtubeInfo"
-                    style="@style/InfoButton" />
-            </LinearLayout>
-
-            <EditText
-                android:id="@+id/youtubeKey"
-                style="@style/SettingsField" />
-
-            <LinearLayout style="@style/SettingsLabelRow">
-
-                <TextView
-                    style="@style/SettingsLabel"
-                    android:layout_marginTop="0dp"
-                    android:text="@string/plex_token" />
-
-                <ImageView
-                    android:id="@+id/plexInfo"
-                    style="@style/InfoButton" />
-            </LinearLayout>
-
-            <EditText
-                android:id="@+id/plexToken"
-                style="@style/SettingsField"
-                android:imeOptions="actionDone|flagNoExtractUi" />
-
-            <!-- TMDB's terms ask apps using its API to say so. -->
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/pageKeys"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/tmdb_notice"
-                android:textColor="#66FFFFFF"
-                android:textSize="11sp"
-                android:fontFamily="@font/outfit" />
-        </LinearLayout>
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout style="@style/SettingsLabelRow">
+
+                    <TextView
+                        style="@style/SettingsLabel"
+                        android:layout_marginTop="0dp"
+                        android:text="@string/tmdb_key" />
+
+                    <ImageView
+                        android:id="@+id/tmdbInfo"
+                        style="@style/InfoButton" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/tmdbKey"
+                    style="@style/SettingsField" />
+
+                <LinearLayout style="@style/SettingsLabelRow">
+
+                    <TextView
+                        style="@style/SettingsLabel"
+                        android:layout_marginTop="0dp"
+                        android:text="@string/youtube_key" />
+
+                    <ImageView
+                        android:id="@+id/youtubeInfo"
+                        style="@style/InfoButton" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/youtubeKey"
+                    style="@style/SettingsField" />
+
+                <LinearLayout style="@style/SettingsLabelRow">
+
+                    <TextView
+                        style="@style/SettingsLabel"
+                        android:layout_marginTop="0dp"
+                        android:text="@string/plex_token" />
+
+                    <ImageView
+                        android:id="@+id/plexInfo"
+                        style="@style/InfoButton" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/plexToken"
+                    style="@style/SettingsField"
+                    android:imeOptions="actionDone|flagNoExtractUi" />
+
+                <!-- TMDB's terms ask apps using its API to say so. -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/tmdb_notice"
+                    android:textColor="#66FFFFFF"
+                    android:textSize="11sp"
+                    android:fontFamily="@font/outfit" />
+            </LinearLayout>
+        </FrameLayout>
 
         <!-- Right of everything on the left, so Right from any row reaches Save and Cancel. -->
         <LinearLayout
@@ -131,19 +187,40 @@
             android:orientation="vertical"
             android:gravity="center_horizontal">
 
+            <!-- Save and Cancel first, so they sit in the same place on both tabs; the QR code comes under
+                 them on API keys only. -->
+            <TextView
+                android:id="@+id/save"
+                style="@style/TopButton"
+                android:layout_width="match_parent"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:paddingStart="20dp"
+                android:text="@string/save" />
+
+            <TextView
+                android:id="@+id/cancel"
+                style="@style/TopButton"
+                android:layout_width="match_parent"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="12dp"
+                android:paddingStart="20dp"
+                android:text="@android:string/cancel" />
+
             <!-- Scan to type the keys on a phone instead (PhoneLink). -->
             <LinearLayout
                 android:id="@+id/phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
                 android:orientation="vertical"
                 android:gravity="center_horizontal"
                 android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/qr"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
                     android:padding="8dp"
                     android:background="#FFFFFFFF"
                     android:contentDescription="@null" />
@@ -169,32 +246,6 @@
                     android:fontFamily="@font/outfit" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/save"
-                style="@style/TopButton"
-                android:layout_width="match_parent"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="24dp"
-                android:paddingStart="20dp"
-                android:text="@string/save" />
-
-            <TextView
-                android:id="@+id/cancel"
-                style="@style/TopButton"
-                android:layout_width="match_parent"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="12dp"
-                android:paddingStart="20dp"
-                android:text="@android:string/cancel" />
         </LinearLayout>
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/version"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:textColor="#66FFFFFF"
-        android:textSize="13sp"
-        android:fontFamily="@font/outfit" />
 </LinearLayout>
