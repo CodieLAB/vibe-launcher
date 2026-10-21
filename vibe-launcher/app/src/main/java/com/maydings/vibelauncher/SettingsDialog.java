@@ -331,10 +331,20 @@ final class SettingsDialog {
         Updater.Release found = Updater.available(activity);
         if (found != null) {
             offerUpdate(activity, status, button, found);
-            return;
+        } else {
+            status.setText(activity.getString(R.string.version_current, version));
+            button.setText(R.string.check_updates);
         }
-        status.setText(activity.getString(R.string.version_current, version));
-        button.setText(R.string.check_updates);
+        // What the daily check found shows at once; meanwhile ask again, so a release out since then is the
+        // one offered. Quietly: a failed check leaves things as they are, and focus stays where it is.
+        Updater.check(activity, (newer, failed) -> {
+            if (newer != null) {
+                offerUpdate(activity, status, button, newer);
+            } else if (!failed) {
+                status.setText(activity.getString(R.string.version_up_to_date, version));
+            }
+        });
+        if (found != null) return;
         button.setOnClickListener(v -> {
             button.setText(R.string.checking_updates);
             button.setEnabled(false);
