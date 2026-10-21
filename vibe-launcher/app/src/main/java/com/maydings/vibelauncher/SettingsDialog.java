@@ -408,8 +408,9 @@ final class SettingsDialog {
     }
 
     /**
-     * The release notes as shown before installing: **bold** in white Outfit Medium (Outfit has no bold),
-     * "- " items as bullets, and the download link and checksum (for people downloading by hand) left out.
+     * The release notes as shown before installing: "## 1.4.3" lines as version headings, **bold** in white
+     * Outfit Medium (Outfit has no bold), "- " items as bullets, and the download link and checksum (for
+     * people downloading by hand) left out.
      */
     private static CharSequence changes(Context context, String markdown) {
         android.text.SpannableStringBuilder out = new android.text.SpannableStringBuilder();
@@ -419,6 +420,22 @@ final class SettingsDialog {
             if (l.startsWith("Latest APK") || l.startsWith("SHA-256")) continue;
             if (l.startsWith("- ") || l.startsWith("* ")) l = "• " + l.substring(2);
             if (l.isEmpty() && (out.length() == 0 || endsWithBlankLine(out))) continue;
+            if (l.startsWith("#")) {
+                // A version's notes when several are shown (Updater.notesSince): its number, larger, after a
+                // blank line.
+                if (out.length() > 0 && !endsWithBlankLine(out)) out.append('\n');
+                int start = out.length();
+                out.append(l.replaceFirst("^#+\\s*", ""));
+                Object weight = android.os.Build.VERSION.SDK_INT >= 28 ? new android.text.style.TypefaceSpan(medium)
+                        : new android.text.style.StyleSpan(android.graphics.Typeface.BOLD);
+                out.setSpan(weight, start, out.length(), android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                out.setSpan(new android.text.style.ForegroundColorSpan(Color.WHITE), start, out.length(),
+                        android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                out.setSpan(new android.text.style.RelativeSizeSpan(1.25f), start, out.length(),
+                        android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                out.append('\n');
+                continue;
+            }
             int at = 0;
             while (true) {
                 int open = l.indexOf("**", at);

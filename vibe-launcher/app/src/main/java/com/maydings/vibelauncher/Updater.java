@@ -68,6 +68,7 @@ final class Updater {
     /** SHA-256 of the release signing certificate (apksigner verify --print-certs). */
     private static final String RELEASE_CERT = "6d7445860131aff657cf7749f7b7be5c0faaeb6d267f1422e3c24a6fe036cfa9";
     private static final String LATEST = "https://api.github.com/repos/maydings/vibe-launcher/releases/latest";
+    private static final String RECENT = "https://api.github.com/repos/maydings/vibe-launcher/releases?per_page=30";
     private static final String APK = "vibe-launcher.apk";
     private static final long DAY_MS = 24L * 60 * 60 * 1000;
     private static final int MAX_APK_BYTES = 30 * 1024 * 1024;
@@ -167,9 +168,34 @@ final class Updater {
         SharedPreferences.Editor e = prefs(context).edit().putLong("checked", System.currentTimeMillis());
         if (apk != null && sha != null) {
             e.putString("version", version).putString("apk", apk).putString("sha256", sha.toLowerCase(Locale.ROOT))
-                    .putString("notes", release.optString("body"));
+                    .putString("notes", notesSince(context, headers, release, version));
         }
         e.apply();
+    }
+
+    /**
+     * The notes of every release newer than this build, up to the latest, newest first and each under a
+     * "## version" line, so skipping versions still shows what each one changed. Just the latest's notes
+     * when it's the only one, or when the list can't be read.
+     */
+    private static String notesSince(Context context, Map<String, String> headers, JSONObject latest, String latestVersion) {
+        String installed = installedVersion(context);
+        StringBuilder out = new StringBuilder();
+        int count = 0;
+        try {
+            JSONArray releases = new JSONArray(Http.getText(RECENT, headers));
+            for (int i = 0; i < releases.length(); i++) {   // GitHub lists the newest first
+                JSONObject r = releases.getJSONObject(i);
+                if (r.optBoolean("draft") || r.optBoolean("prerelease")) continue;
+                String v = r.optString("tag_name").replaceFirst("^[vV]", "");
+                if (!newer(v, installed) || newer(v, latestVersion)) continue;
+                out.append("## ").append(v).append("\n").append(r.optString("body").trim()).append("\n\n");
+                count++;
+            }
+        } catch (IOException | JSONException | RuntimeException e) {
+            count = 0;
+        }
+        return count > 1 ? out.toString().trim() : latest.optString("body");
     }
 
     /**
