@@ -30,7 +30,7 @@ sdkmanager "platforms;android-34" "build-tools;34.0.0"
 ```
 
 Build, install on the TV and make it the home screen in one go. It uses adb, or the Python ADB
-client in [`../debloat/tools`](../debloat/tools) where macOS blocks adb on the local network:
+client in [`tools/`](tools/) where macOS blocks adb on the local network:
 
 ```bash
 ./build-and-install.sh 192.168.1.50

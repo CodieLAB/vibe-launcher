@@ -1,22 +1,22 @@
 # Vibe Launcher
 
-A clean, tvOS-inspired home screen for Android TV, and the tools to strip the ads and bloat out of
-the TV it runs on. **Free and open source** (MIT), and **no ads, ever**: no accounts, no tracking, no paid tier.
+A clean, tvOS-inspired home screen for Android TV. **Free and open source** (MIT), and **no ads,
+ever**: no accounts, no tracking, no paid tier.
 
 | Stock Sony home screen | Vibe Launcher |
 |---|---|
-| ![Stock Google TV home on a Sony XBR-940E, with a sponsored carousel and a Shop tab](debloat/docs/stock-home-sony.jpg) | ![Vibe Launcher on the same TV, with a full-screen backdrop behind the dock](vibe-launcher/docs/new-home.jpg) |
+| ![Stock Google TV home on a Sony XBR-940E, with a sponsored carousel and a Shop tab](vibe-launcher/docs/stock-home-sony.jpg) | ![Vibe Launcher on the same TV, with a full-screen backdrop behind the dock](vibe-launcher/docs/new-home.jpg) |
 
-The repo has two parts:
+**Just download the APK from [Releases](https://github.com/maydings/vibe-launcher/releases/latest)
+and install it** (see [Install](#install)). The source and a build script are in
+[`vibe-launcher/`](vibe-launcher/).
 
-| Folder | What it is |
-|---|---|
-| [`vibe-launcher/`](vibe-launcher/) | The launcher. **Just download the APK from [Releases](https://github.com/maydings/vibe-launcher/releases/latest) and install it**. Source and build script included. |
-| [`debloat/`](debloat/) | A script that removes the ads and bloat from the tested TVs over the network and makes Vibe Launcher the home screen, with a restore script to undo it. |
+> **This repo is the launcher only.** To debloat your TV (turn off the ads, tracking and preinstalled
+> extras), use the project this one is forked from,
+> [Gathin23/tv-vibehack](https://github.com/Gathin23/tv-vibehack): its tools and tested per-model lists
+> do that over the network, and can undo it. See [Before you install](#before-you-install).
 
----
-
-## Vibe Launcher
+## What it does
 
 A small, fast home screen built for TVs with 1 to 2 GB of RAM. Android 8.0 and newer. Free and open
 source: every feature is in the APK, nothing is behind a purchase.
@@ -86,14 +86,40 @@ source: every feature is in the APK, nothing is behind a purchase.
 - If the launcher ever crashes twice in two minutes, it opens App info for the stock launcher so one
   press of Enable gets you a working home screen back.
 
-### Install
+## Before you install
+
+Vibe Launcher replaces the home screen, and only that. Two things are up to you:
+
+- **Debloat your TV.** The ads and bloat don't live only in the stock home screen: TV makers and
+  Google also run promoted-app installers, viewing-data tracking, demo modes and the services behind
+  sponsored rows, and they keep running whatever the home screen is. Turn them off over adb first.
+  This repo doesn't do that: use [Gathin23/tv-vibehack](https://github.com/Gathin23/tv-vibehack), the
+  project it's forked from, which keeps tested lists for well over a hundred TV models. Disable
+  packages rather than uninstall them, so everything can be undone.
+- **Turn off Google's launcher and Google's setup app** for Vibe Launcher to stay the default home
+  screen. Both are system apps that answer the Home button, and Android lets them outrank any app you
+  install: while either is on, Home can keep opening it (or Android's "choose a home app" prompt),
+  even with Vibe Launcher set as the default. No app is allowed to disable another, so this takes a
+  computer, once (see [With a computer](#with-a-computer-adb)):
+  - Google's launcher: `com.google.android.tvlauncher` on Android TV,
+    `com.google.android.apps.tv.launcherx` on Google TV (`com.google.android.leanbacklauncher` on
+    older sets).
+  - Google's setup app: `com.google.android.tungsten.setupwraith`. Two things to know first:
+    - **Wi-Fi:** a network saved during the TV's first-time setup belongs to this app, and Android
+      removes an app's saved networks when it's disabled, taking the TV offline. Check with
+      `adb shell dumpsys wifi | grep -o 'cname=[^ ]*'`: if it names setupwraith, forget the network in
+      Settings and join it again (or use Ethernet) before disabling.
+    - **Casting:** on some Google TVs, casting from a phone then fails with "Untrusted device". If you
+      cast, turn it back on.
+
+## Install
 
 Vibe Launcher is just an APK: download it and install it. No account, no build tools. The
 latest version is always at
 
 **https://github.com/maydings/vibe-launcher/releases/latest/download/vibe-launcher.apk**
 
-**On the TV, no computer needed**
+### On the TV, no computer needed
 
 1. From the Play Store, install a downloader or file manager, e.g. **Downloader** (by AFTVnews) or
    **X-plore**.
@@ -107,68 +133,43 @@ latest version is always at
    once" chooser on Android 9 while no Home app has been chosen yet. It's also under the gear menu →
    **Make Vibe Launcher your Home** whenever it isn't.
 
-   That isn't always enough. Google's TV launcher is part of the system and outranks any app, so on
-   many TVs, Google TV included, the Home button keeps opening it even with Vibe Launcher set as the
-   default. Only disabling it fixes that, and no app is allowed to disable another: it takes the
-   commands below, once, from a computer. Until then you can still open Vibe Launcher from your apps.
+   That isn't always enough: while Google's launcher or setup app is on, Home can keep going to them
+   (see [Before you install](#before-you-install)). Until you turn them off, you can still open Vibe
+   Launcher from your apps.
 
-**With a computer (adb)**
-
-On the [tested TVs](#tested-on), `debloat/debloat.sh` does all of this for you (see
-[Debloat](#debloat)). By hand:
+### With a computer (adb)
 
 1. Turn on developer options and USB/network debugging on the TV (Settings → Device Preferences →
    About → press OK on **Build** seven times → back → Developer options).
-2. Download the APK and install it from a computer on the same network, in this order:
+2. Check the Wi-Fi note under [Before you install](#before-you-install), then download the APK and
+   install it from a computer on the same network, in this order:
 
    ```bash
    adb connect <tv-ip>:5555
    adb install -g vibe-launcher.apk      # -g grants its permissions up front
    adb shell am start -n com.maydings.vibelauncher/.MainActivity
-   # Optional: keep the stock launcher from coming back (on Google TV: com.google.android.apps.tv.launcherx)
+   # Google's launcher (on Google TV: com.google.android.apps.tv.launcherx) and Google's setup app
    adb shell pm disable-user --user 0 com.google.android.tvlauncher
+   adb shell pm disable-user --user 0 com.google.android.tungsten.setupwraith
    # Always last: Android forgets the chosen home app whenever one is enabled or disabled
    adb shell cmd package set-home-activity com.maydings.vibelauncher/.MainActivity
    ```
 
-3. Press Home. To bring the stock launcher back, `pm enable` it. If a Google TV starts dropping off
-   Wi-Fi every minute after its launcher is disabled (seen on Google TV 14, where Home falls to the
-   setup wizard), run `adb shell pm enable --user 0 com.google.android.apps.tv.launcherx`.
+3. Press Home. To bring the stock launcher or setup app back,
+   `adb shell pm enable --user 0 <package>`.
 
 Build it yourself, configure the dock and hidden apps, and the details of each backdrop source:
 [`vibe-launcher/README.md`](vibe-launcher/README.md).
 
----
-
-## Debloat
-
-Every Android TV ships with sponsored rows, promoted apps, viewing-data tracking and demo modes. The
-[`debloat/`](debloat/) folder has a script that turns them off over the network and makes Vibe
-Launcher the home screen, reversibly: packages are disabled, not uninstalled (except Projectivy
-Launcher, if you say yes), and `restore.sh` puts back exactly what it changed.
-
-```bash
-cd debloat
-./debloat.sh 192.168.1.50 --dry-run    # see what it would do
-./debloat.sh 192.168.1.50              # do it
-./restore.sh 192.168.1.50              # undo it
-```
-
-It needs a Mac or Linux computer with adb, and debugging turned on on the TV. It backs the TV up
-first, asks before turning off anything you might use (voice search, screen mirroring, cable box
-control and so on) and installs the latest Vibe Launcher. Step by step:
-[`debloat/README.md`](debloat/README.md).
-
 ## Tested on
 
-| Device | Android | Debloat list |
-|---|---|---|
-| Sony Bravia XBR-940E | 9 | [`sony-bravia-xbr-940e.txt`](debloat/lists/sony-bravia-xbr-940e.txt) |
-| Sony Bravia 900F | 9 | [`sony-bravia-900f.txt`](debloat/lists/sony-bravia-900f.txt) |
-| NVIDIA Shield TV (2017) | 11 | [`nvidia-shield-2017.txt`](debloat/lists/nvidia-shield-2017.txt) |
+| Device | Android |
+|---|---|
+| Sony Bravia XBR-940E | 9 |
+| Sony Bravia 900F | 9 |
+| NVIDIA Shield TV (2017) | 11 |
 
-Vibe Launcher itself runs on any Android TV or Google TV with Android 8 or newer; the debloat script
-only runs on the TVs above (and the Sony models that share their platform).
+It should run on any Android TV or Google TV with Android 8 or newer.
 
 ## Credits and licence
 

@@ -78,6 +78,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     /** Tiles per row and dock slots: Vibe Launcher settings (4, 5 or 6), else config.xml. Set in onCreate. */
     static int COLUMNS = 4;
     private static final long MINUTE_MS = 60_000L;
+    /** 2025-01-01: a clock before this hasn't been set yet. */
+    private static final long TIME_SET_AFTER = 1_735_689_600_000L;
     private String liveTvPkg;
 
     private AppAdapter adapter;
@@ -106,6 +108,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private int plannedScroll;
     /** The focused tile, so the glass can re-measure it once a scroll settles. */
     private View focusedCard;
+    /** Width of the tile the glass was last fitted to. */
+    private int glassCardW;
     /** Share of a vertical scroll the glass runs ahead into before settling back: a gentle bounce. */
     private static final float GLASS_LEAD = 0.12f;
     private boolean glassShown;
@@ -223,6 +227,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         btnWifi = findViewById(R.id.btnWifi);
         TextView clock = findViewById(R.id.clock), date = findViewById(R.id.date);
         localDate((TextClock) date, "EEEE d MMMM yyyy");
+        showClockOnceTimeIsSet(findViewById(R.id.clockRow));
         sizeTimeBox();
         clock.addTextChangedListener(new TextWatcher() {
             @Override
@@ -260,8 +265,19 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                     (r - l) - grid.getPaddingLeft() - grid.getPaddingRight(), COLUMNS, density));
             int dockRow = AppAdapter.itemHeightPx(tileH, density) + (int) ((6 + 12) * density);   // plus DockDecoration offsets
             int want = Math.max(0, h - dockRow - (int) (30 * density));
-            if (grid.getPaddingTop() != want) {
+            boolean moved = grid.getPaddingTop() != want;
+            if (moved) {
                 grid.setPadding(grid.getPaddingLeft(), want, grid.getPaddingRight(), grid.getPaddingBottom());
+            }
+            // Cold start, or a new column count: the focused tile can move or change size after the glass was
+            // fitted to it. Fit it again once this layout settles.
+            View card = focusedCard;
+            if (card != null && card.isFocused() && (moved || card.getWidth() != glassCardW)) {
+                grid.post(() -> {
+                    RecyclerView.ViewHolder holder = grid.findContainingViewHolder(card);
+                    int pos = holder != null ? holder.getBindingAdapterPosition() : RecyclerView.NO_POSITION;
+                    if (card.isFocused() && pos != RecyclerView.NO_POSITION) onTileFocused(pos, card);
+                });
             }
         });
 
@@ -448,6 +464,15 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     public void onTileFocused(int position, View card) {
         lastFocused = position;
         focusedCard = card;
+        // Focus can arrive before the first layout (cold start): the tile has no size yet, and the glass would
+        // shrink to its padding. Fit it once the tile is laid out.
+        if (card.getWidth() == 0) {
+            card.post(() -> {
+                if (card.isFocused() && card.getWidth() > 0) onTileFocused(position, card);
+            });
+            return;
+        }
+        glassCardW = card.getWidth();
         // Tile rect in root coordinates, using layout positions (ignores the scale animation).
         Rect r = new Rect(0, 0, card.getWidth(), card.getHeight());
         root.offsetDescendantRectToMyCoords(card, r);
@@ -680,6 +705,19 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
      * Other languages put the weekday, day, month and year in their own order ("2026年10月20日 星期二");
      * English keeps the launcher's own "TUESDAY  20 OCTOBER 2026".
      */
+    /**
+     * TVs without a clock battery start in 1970 until network time arrives, and Home showed that date. The
+     * clock and date stay hidden (keeping their space) until the time is plausible, checked once a second.
+     */
+    private void showClockOnceTimeIsSet(View clockRow) {
+        if (System.currentTimeMillis() > TIME_SET_AFTER) {
+            clockRow.setVisibility(View.VISIBLE);
+            return;
+        }
+        clockRow.setVisibility(View.INVISIBLE);
+        handler.postDelayed(() -> showClockOnceTimeIsSet(clockRow), 1000);
+    }
+
     static void localDate(TextClock date, String skeleton) {
         Locale locale = Locale.getDefault();
         if (locale.getLanguage().equals("en")) return;

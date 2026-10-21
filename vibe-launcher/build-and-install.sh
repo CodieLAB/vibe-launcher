@@ -3,12 +3,12 @@
 #
 #   ./build-and-install.sh <tv-ip>        (or TV_HOST=<tv-ip> ./build-and-install.sh)
 #
-# Connects with adb, or with the Python client in ../debloat/tools where macOS blocks adb (shared
-# with the debloat scripts, ../debloat/lib.sh). Pass STOCK_LAUNCHER=<package> to name the launcher
-# to disable yourself, or STOCK_LAUNCHER=none to disable nothing.
+# Connects with adb, or with the Python client in tools/ where macOS blocks adb (tools/lib.sh). Pass
+# STOCK_LAUNCHER=<package> to name the launcher to disable yourself, or STOCK_LAUNCHER=none to disable
+# nothing.
 set -uo pipefail
 cd "$(dirname "$0")"
-. ../debloat/lib.sh
+. tools/lib.sh
 HOST=${1:-${TV_HOST:-}}
 [ -n "$HOST" ] || die "usage: ./build-and-install.sh <tv-ip>"
 

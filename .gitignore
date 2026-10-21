@@ -1,6 +1,6 @@
-debloat/tools/venv/
-debloat/tools/adbkey/
-debloat/tools/__pycache__/
+vibe-launcher/tools/venv/
+vibe-launcher/tools/adbkey/
+vibe-launcher/tools/__pycache__/
 vibe-launcher/.gradle/
 vibe-launcher/build/
 vibe-launcher/app/build/
@@ -8,4 +8,4 @@ vibe-launcher/local.properties
 # your own TV's dumps (serial, android_id, device names) stay local
 backup/
 .DS_Store
-debloat/backups/
+debloat/
