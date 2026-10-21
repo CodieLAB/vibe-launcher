@@ -40,6 +40,7 @@
     <string name="check_updates">Tingnan kung may update</string>
     <string name="checking_updates">Tinitingnan…</string>
     <string name="update_to">I-update sa %1$s</string>
+    <string name="install">I-install</string>
     <string name="version_up_to_date">%1$s · Pinakabago</string>
     <string name="update_available">May update: %1$s</string>
     <string name="update_check_failed">%1$s · Hindi matingnan kung may update</string>

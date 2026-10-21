@@ -40,6 +40,7 @@
     <string name="check_updates">အပ်ဒိတ် စစ်ရန်</string>
     <string name="checking_updates">စစ်နေသည်…</string>
     <string name="update_to">%1$s သို့ အပ်ဒိတ်လုပ်ရန်</string>
+    <string name="install">ထည့်သွင်းရန်</string>
     <string name="version_up_to_date">%1$s · နောက်ဆုံးထွက်</string>
     <string name="update_available">အပ်ဒိတ် ရနိုင်သည်- %1$s</string>
     <string name="update_check_failed">%1$s · အပ်ဒိတ် မစစ်နိုင်ပါ</string>

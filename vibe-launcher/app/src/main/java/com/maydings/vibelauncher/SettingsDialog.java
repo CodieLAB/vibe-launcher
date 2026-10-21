@@ -357,9 +357,80 @@ final class SettingsDialog {
         button.setOnClickListener(v -> startUpdate(activity, release));
     }
 
-    /** Downloads and installs; Android's own screen asks to confirm. Shared with the gear menu. */
+    /**
+     * What's new in the release, with Install and Cancel; Install downloads it and Android's own screen asks
+     * to confirm. Shared with the gear menu.
+     */
     static void startUpdate(Activity activity, Updater.Release release) {
-        Toast.makeText(activity, R.string.update_downloading, Toast.LENGTH_SHORT).show();
-        Updater.install(activity, release, problem -> Toast.makeText(activity, problem, Toast.LENGTH_LONG).show());
+        View panel = activity.getLayoutInflater().inflate(R.layout.dialog_update, null);
+        ((TextView) panel.findViewById(R.id.updateTitle)).setText(activity.getString(R.string.update_to, release.version));
+        TextView notes = panel.findViewById(R.id.notes);
+        CharSequence text = changes(activity, release.notes);
+        notes.setText(text);
+        ScrollView scroll = panel.findViewById(R.id.notesScroll);
+        scroll.setVisibility(text.length() == 0 ? View.GONE : View.VISIBLE);
+        Dialog dialog = new Dialog(activity, android.R.style.Theme_Material_Dialog_NoActionBar);
+        dialog.setContentView(panel);
+        Window window = dialog.getWindow();
+        float density = activity.getResources().getDisplayMetrics().density;
+        if (window != null) {
+            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            window.setLayout((int) (560 * density), ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
+        // Long notes scroll in at most half the screen; then Up from the buttons reaches them, and Up and
+        // Down scroll.
+        int cap = activity.getResources().getDisplayMetrics().heightPixels / 2;
+        scroll.post(() -> {
+            if (scroll.getHeight() <= cap) return;
+            scroll.getLayoutParams().height = cap;
+            scroll.setFocusable(true);
+            scroll.requestLayout();
+        });
+        View install = panel.findViewById(R.id.install), cancel = panel.findViewById(R.id.cancelUpdate);
+        cancel.setOnClickListener(v -> dialog.dismiss());
+        install.setOnClickListener(v -> {
+            dialog.dismiss();
+            Toast.makeText(activity, R.string.update_downloading, Toast.LENGTH_SHORT).show();
+            Updater.install(activity, release, problem -> Toast.makeText(activity, problem, Toast.LENGTH_LONG).show());
+        });
+        dialog.show();
+        install.requestFocus();
+    }
+
+    /**
+     * The release notes as shown before installing: **bold** in white Outfit Medium (Outfit has no bold),
+     * "- " items as bullets, and the download link and checksum (for people downloading by hand) left out.
+     */
+    private static CharSequence changes(Context context, String markdown) {
+        android.text.SpannableStringBuilder out = new android.text.SpannableStringBuilder();
+        android.graphics.Typeface medium = context.getResources().getFont(R.font.outfit_medium);
+        for (String line : markdown.replace("\r", "").split("\n")) {
+            String l = line.trim();
+            if (l.startsWith("Latest APK") || l.startsWith("SHA-256")) continue;
+            if (l.startsWith("- ") || l.startsWith("* ")) l = "• " + l.substring(2);
+            if (l.isEmpty() && (out.length() == 0 || endsWithBlankLine(out))) continue;
+            int at = 0;
+            while (true) {
+                int open = l.indexOf("**", at);
+                int close = open < 0 ? -1 : l.indexOf("**", open + 2);
+                if (close < 0) break;
+                out.append(l, at, open);
+                int start = out.length();
+                out.append(l, open + 2, close);
+                Object weight = android.os.Build.VERSION.SDK_INT >= 28 ? new android.text.style.TypefaceSpan(medium)
+                        : new android.text.style.StyleSpan(android.graphics.Typeface.BOLD);
+                out.setSpan(weight, start, out.length(), android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                out.setSpan(new android.text.style.ForegroundColorSpan(Color.WHITE), start, out.length(),
+                        android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                at = close + 2;
+            }
+            out.append(l.substring(at)).append('\n');
+        }
+        while (out.length() > 0 && out.charAt(out.length() - 1) == '\n') out.delete(out.length() - 1, out.length());
+        return out;
+    }
+
+    private static boolean endsWithBlankLine(CharSequence s) {
+        return s.length() >= 2 && s.charAt(s.length() - 1) == '\n' && s.charAt(s.length() - 2) == '\n';
     }
 }

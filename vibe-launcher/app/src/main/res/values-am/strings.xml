@@ -40,6 +40,7 @@
     <string name="check_updates">ዝማኔዎችን ፈልግ</string>
     <string name="checking_updates">በመፈለግ ላይ…</string>
     <string name="update_to">ወደ %1$s አዘምን</string>
+    <string name="install">ጫን</string>
     <string name="version_up_to_date">%1$s · የቅርብ ጊዜ</string>
     <string name="update_available">ዝማኔ አለ፦ %1$s</string>
     <string name="update_check_failed">%1$s · ዝማኔዎችን መፈለግ አልተቻለም</string>

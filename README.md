@@ -74,9 +74,10 @@ source: every feature is in the APK, nothing is behind a purchase.
   paste the keys there. Saved keys are shown hidden but for their last four characters, on the TV and
   on the phone. Keys stay on the TV; the launcher never ships with any.
 - **Updates**: once a day Vibe Launcher checks this project's releases. When there's a new version, a
-  green dot appears on the Settings pill and the gear menu offers **Update to** it. The download is
-  checked against the release's SHA-256 before Android's own installer asks you to confirm. The first
-  time, Android asks you to allow Vibe Launcher to install apps.
+  green dot appears on the Settings pill and the gear menu offers **Update to** it, which shows what's
+  new with **Install** and **Cancel**. The download is checked against the release's SHA-256 before
+  Android's own installer asks you to confirm. The first time, Android asks you to allow Vibe Launcher
+  to install apps. Once the update is in, Home comes back by itself.
 
 **Managing apps**
 

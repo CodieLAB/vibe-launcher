@@ -40,6 +40,7 @@
     <string name="check_updates">Sprawdź aktualizacje</string>
     <string name="checking_updates">Sprawdzanie…</string>
     <string name="update_to">Zaktualizuj do %1$s</string>
+    <string name="install">Zainstaluj</string>
     <string name="version_up_to_date">%1$s · Aktualna</string>
     <string name="update_available">Dostępna aktualizacja: %1$s</string>
     <string name="update_check_failed">%1$s · Nie udało się sprawdzić aktualizacji</string>

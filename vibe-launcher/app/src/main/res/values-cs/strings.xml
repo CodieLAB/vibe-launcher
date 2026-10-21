@@ -40,6 +40,7 @@
     <string name="check_updates">Zkontrolovat aktualizace</string>
     <string name="checking_updates">Kontroluje se…</string>
     <string name="update_to">Aktualizovat na %1$s</string>
+    <string name="install">Instalovat</string>
     <string name="version_up_to_date">%1$s · Aktuální</string>
     <string name="update_available">K dispozici je aktualizace: %1$s</string>
     <string name="update_check_failed">%1$s · Aktualizace nelze zkontrolovat</string>

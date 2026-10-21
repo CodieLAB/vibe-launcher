@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A newer release before it installs: its version, what changed, and Install or Cancel (SettingsDialog). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="560dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/glass_panel"
+    android:padding="28dp">
+
+    <TextView
+        android:id="@+id/updateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFFFF"
+        android:textSize="22sp"
+        android:fontFamily="@font/outfit" />
+
+    <!-- Capped in height (SettingsDialog); long notes scroll. -->
+    <ScrollView
+        android:id="@+id/notesScroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#BFFFFFFF"
+            android:textSize="15sp"
+            android:lineSpacingMultiplier="1.15"
+            android:fontFamily="@font/outfit" />
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <TextView
+            android:id="@+id/install"
+            style="@style/TopButton"
+            android:paddingStart="20dp"
+            android:text="@string/install" />
+
+        <TextView
+            android:id="@+id/cancelUpdate"
+            style="@style/TopButton"
+            android:paddingStart="20dp"
+            android:text="@string/cancel" />
+    </LinearLayout>
+</LinearLayout>

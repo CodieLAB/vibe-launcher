@@ -40,6 +40,7 @@
     <string name="check_updates">Angalia masasisho</string>
     <string name="checking_updates">Inaangalia…</string>
     <string name="update_to">Sasisha hadi %1$s</string>
+    <string name="install">Sakinisha</string>
     <string name="version_up_to_date">%1$s · Ni toleo jipya zaidi</string>
     <string name="update_available">Sasisho lipo: %1$s</string>
     <string name="update_check_failed">%1$s · Imeshindwa kuangalia masasisho</string>

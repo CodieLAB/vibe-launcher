@@ -40,6 +40,7 @@
     <string name="check_updates">Güncellemeleri denetle</string>
     <string name="checking_updates">Denetleniyor…</string>
     <string name="update_to">%1$s sürümüne güncelle</string>
+    <string name="install">Yükle</string>
     <string name="version_up_to_date">%1$s · Güncel</string>
     <string name="update_available">Güncelleme var: %1$s</string>
     <string name="update_check_failed">%1$s · Güncellemeler denetlenemedi</string>

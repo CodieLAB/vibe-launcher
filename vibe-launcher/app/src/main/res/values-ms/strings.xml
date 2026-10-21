@@ -40,6 +40,7 @@
     <string name="check_updates">Semak kemas kini</string>
     <string name="checking_updates">Menyemak…</string>
     <string name="update_to">Kemas kini ke %1$s</string>
+    <string name="install">Pasang</string>
     <string name="version_up_to_date">%1$s · Terkini</string>
     <string name="update_available">Kemas kini tersedia: %1$s</string>
     <string name="update_check_failed">%1$s · Tidak dapat menyemak kemas kini</string>

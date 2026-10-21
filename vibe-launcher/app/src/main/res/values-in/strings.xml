@@ -40,6 +40,7 @@
     <string name="check_updates">Periksa pembaruan</string>
     <string name="checking_updates">Memeriksa…</string>
     <string name="update_to">Perbarui ke %1$s</string>
+    <string name="install">Instal</string>
     <string name="version_up_to_date">%1$s · Terbaru</string>
     <string name="update_available">Pembaruan tersedia: %1$s</string>
     <string name="update_check_failed">%1$s · Tidak bisa memeriksa pembaruan</string>

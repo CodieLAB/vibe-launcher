@@ -1,5 +1,6 @@
 package com.maydings.vibelauncher;
 
+import android.app.ActivityManager;
 import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInstaller;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
 import android.net.Uri;
 import android.os.Build;
@@ -41,14 +43,15 @@ import java.util.regex.Pattern;
  */
 final class Updater {
 
-    /** A newer release: its version and where its APK and checksum are. */
+    /** A newer release: its version, where its APK and checksum are, and its notes (Markdown; may be ""). */
     static final class Release {
-        final String version, apkUrl, sha256;
+        final String version, apkUrl, sha256, notes;
 
-        Release(String version, String apkUrl, String sha256) {
+        Release(String version, String apkUrl, String sha256, String notes) {
             this.version = version;
             this.apkUrl = apkUrl;
             this.sha256 = sha256;
+            this.notes = notes;
         }
     }
 
@@ -117,7 +120,7 @@ final class Updater {
         SharedPreferences p = prefs(context);
         String version = p.getString("version", "");
         if (version.isEmpty() || !newer(version, installedVersion(context))) return null;
-        return new Release(version, p.getString("apk", ""), p.getString("sha256", ""));
+        return new Release(version, p.getString("apk", ""), p.getString("sha256", ""), p.getString("notes", ""));
     }
 
     /** Checks in the background if the last check is a day old; then tells the listener, on the main thread. */
@@ -163,7 +166,8 @@ final class Updater {
         }
         SharedPreferences.Editor e = prefs(context).edit().putLong("checked", System.currentTimeMillis());
         if (apk != null && sha != null) {
-            e.putString("version", version).putString("apk", apk).putString("sha256", sha.toLowerCase(Locale.ROOT));
+            e.putString("version", version).putString("apk", apk).putString("sha256", sha.toLowerCase(Locale.ROOT))
+                    .putString("notes", release.optString("body"));
         }
         e.apply();
     }
@@ -181,8 +185,15 @@ final class Updater {
         }
         if (!app.getPackageManager().canRequestPackageInstalls()) {
             try {
-                app.startActivity(new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
-                        Uri.parse("package:" + app.getPackageName())).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                Intent allow = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
+                        Uri.parse("package:" + app.getPackageName())).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                // The TV's Settings remembers apps by their APK file, which every install replaces; left
+                // running since, it lists this one by its package name and a blank icon. Closed while it's
+                // in the background, it reloads and shows Vibe Launcher.
+                ResolveInfo settings = app.getPackageManager().resolveActivity(allow, 0);
+                ActivityManager am = (ActivityManager) app.getSystemService(Context.ACTIVITY_SERVICE);
+                if (settings != null && am != null) am.killBackgroundProcesses(settings.activityInfo.packageName);
+                app.startActivity(allow);
                 listener.onProblem(R.string.update_allow_installs);
             } catch (ActivityNotFoundException e) {
                 listener.onProblem(R.string.update_no_installs);
@@ -227,11 +238,29 @@ final class Updater {
                 while ((n = in.read(buf)) > 0) out.write(buf, 0, n);
                 session.fsync(out);
             }
+            // Written now (not applied later): installing ends this process. UpdateReceiver reads it back.
+            prefs(app).edit().putLong("installing", System.currentTimeMillis()).commit();
             // Mutable: the installer adds the status and its confirmation screen to this intent.
             int flags = PendingIntent.FLAG_UPDATE_CURRENT | (Build.VERSION.SDK_INT >= 31 ? PendingIntent.FLAG_MUTABLE : 0);
             PendingIntent status = PendingIntent.getBroadcast(app, id, new Intent(app, UpdateReceiver.class), flags);
             session.commit(status.getIntentSender());
         }
+    }
+
+    /**
+     * Whether an update handed to the installer from here in the last quarter hour just went in, and
+     * forgets it. Updates installed from a computer don't count.
+     */
+    static boolean justUpdated(Context context) {
+        SharedPreferences p = prefs(context);
+        long at = p.getLong("installing", 0);
+        p.edit().remove("installing").commit();
+        return System.currentTimeMillis() - at < 15 * 60 * 1000L;
+    }
+
+    /** An update that didn't go in: a later install from a computer isn't mistaken for it. */
+    static void installStopped(Context context) {
+        prefs(context).edit().remove("installing").apply();
     }
 
     /** Whether version a is newer than b, comparing "1.10.0" and "1.9.2" number by number. */

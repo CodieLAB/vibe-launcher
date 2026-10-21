@@ -40,6 +40,7 @@
     <string name="check_updates">Nach Updates suchen</string>
     <string name="checking_updates">Suche läuft…</string>
     <string name="update_to">Auf %1$s aktualisieren</string>
+    <string name="install">Installieren</string>
     <string name="version_up_to_date">%1$s · Aktuell</string>
     <string name="update_available">Update verfügbar: %1$s</string>
     <string name="update_check_failed">%1$s · Suche nach Updates fehlgeschlagen</string>

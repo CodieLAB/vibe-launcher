@@ -40,6 +40,7 @@
     <string name="check_updates">ពិនិត្យរកបច្ចុប្បន្នភាព</string>
     <string name="checking_updates">កំពុងពិនិត្យ…</string>
     <string name="update_to">ធ្វើបច្ចុប្បន្នភាពទៅ %1$s</string>
+    <string name="install">ដំឡើង</string>
     <string name="version_up_to_date">%1$s · ថ្មីបំផុត</string>
     <string name="update_available">មានបច្ចុប្បន្នភាព៖ %1$s</string>
     <string name="update_check_failed">%1$s · មិនអាចពិនិត្យរកបច្ចុប្បន្នភាពបានទេ</string>

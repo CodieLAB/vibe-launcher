@@ -40,6 +40,7 @@
     <string name="check_updates">البحث عن تحديثات</string>
     <string name="checking_updates">جارٍ البحث…</string>
     <string name="update_to">التحديث إلى %1$s</string>
+    <string name="install">تثبيت</string>
     <string name="version_up_to_date">%1$s · محدَّث</string>
     <string name="update_available">يتوفر تحديث: %1$s</string>
     <string name="update_check_failed">%1$s · تعذّر البحث عن تحديثات</string>

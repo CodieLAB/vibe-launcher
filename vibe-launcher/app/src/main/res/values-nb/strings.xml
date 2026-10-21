@@ -40,6 +40,7 @@
     <string name="check_updates">Se etter oppdateringer</string>
     <string name="checking_updates">Sjekker…</string>
     <string name="update_to">Oppdater til %1$s</string>
+    <string name="install">Installer</string>
     <string name="version_up_to_date">%1$s · Oppdatert</string>
     <string name="update_available">Oppdatering tilgjengelig: %1$s</string>
     <string name="update_check_failed">%1$s · Kunne ikke se etter oppdateringer</string>

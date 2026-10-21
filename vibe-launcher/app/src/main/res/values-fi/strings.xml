@@ -40,6 +40,7 @@
     <string name="check_updates">Tarkista päivitykset</string>
     <string name="checking_updates">Tarkistetaan…</string>
     <string name="update_to">Päivitä versioon %1$s</string>
+    <string name="install">Asenna</string>
     <string name="version_up_to_date">%1$s · Ajan tasalla</string>
     <string name="update_available">Päivitys saatavilla: %1$s</string>
     <string name="update_check_failed">%1$s · Päivitysten tarkistus epäonnistui</string>

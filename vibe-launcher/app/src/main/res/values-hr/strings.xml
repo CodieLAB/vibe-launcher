@@ -40,6 +40,7 @@
     <string name="check_updates">Provjeri ažuriranja</string>
     <string name="checking_updates">Provjera…</string>
     <string name="update_to">Ažuriraj na %1$s</string>
+    <string name="install">Instaliraj</string>
     <string name="version_up_to_date">%1$s · Ažurno</string>
     <string name="update_available">Dostupno ažuriranje: %1$s</string>
     <string name="update_check_failed">%1$s · Provjera ažuriranja nije uspjela</string>

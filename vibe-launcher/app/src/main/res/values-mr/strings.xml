@@ -40,6 +40,7 @@
     <string name="check_updates">अपडेट तपासा</string>
     <string name="checking_updates">तपासत आहे…</string>
     <string name="update_to">%1$s वर अपडेट करा</string>
+    <string name="install">इंस्टॉल करा</string>
     <string name="version_up_to_date">%1$s · नवीनतम</string>
     <string name="update_available">अपडेट उपलब्ध: %1$s</string>
     <string name="update_check_failed">%1$s · अपडेट तपासता आले नाहीत</string>
