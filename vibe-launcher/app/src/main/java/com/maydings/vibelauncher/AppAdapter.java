@@ -132,7 +132,8 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
             // A small square "banner" (Rockchip's Media Center ships a 64 px one) is a blur cropped over a
             // wide tile: treat it as none, so the tile shows the icon and name instead.
             if (banner != null && !isBannerShaped(banner.getIntrinsicWidth(), banner.getIntrinsicHeight())) banner = null;
-            Drawable icon = ri.loadIcon(pm);
+            // The icon only shows on a tile without a banner (and only colours the glow then too).
+            Drawable icon = banner == null ? ri.loadIcon(pm) : null;
             fresh.add(new Entry(label, new ComponentName(pkg, ri.activityInfo.name), banner, icon));
         }
         // The saved arrangement wins; apps installed since then go at the end, alphabetically.
@@ -184,6 +185,14 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
         diff.dispatchUpdatesTo(this);
         // Tiles that crossed the dock edge show or hide their name.
         notifyItemRangeChanged(0, items.size(), PAYLOAD_STATE);
+    }
+
+    /** Lets go of every tile and its artwork (Home is in the background and memory is short). */
+    @SuppressLint("NotifyDataSetChanged")   // everything goes
+    void clear() {
+        moving = -1;
+        items.clear();
+        notifyDataSetChanged();
     }
 
     /** Wide enough to be a banner. A drawable with no intrinsic size (a colour, a shape) still fills the tile. */

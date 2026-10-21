@@ -61,7 +61,7 @@ TV's screen saver settings (on Android TV: Settings → Device Preferences → S
 
 A frosted bar with the clock and date, and three menus. Left and Right move between them.
 
-- **Inputs** lists every HDMI and AV input with whether something is connected, plus Live TV. Devices
+- **Inputs** lists every HDMI and AV input, with whether something is connected to each HDMI one, plus Live TV. Devices
   that announce themselves over HDMI-CEC appear by name under their port, so an Apple TV and a
   PlayStation behind an HDMI switch each get their own row. Names and hidden inputs from the TV's own
   settings carry over.
@@ -79,7 +79,8 @@ A frosted bar with the clock and date, and three menus. Left and Right move betw
 |---|---|
 
 - **Tiles per row**: 4, 5 or 6. Tiles shrink to fit and the dock holds as many apps.
-- **Hide inactive inputs**: the Inputs menu lists only what's connected.
+- **Hide inactive inputs**: the Inputs menu leaves out HDMI inputs with nothing connected. AV inputs
+  always stay: TVs can't tell whether anything is plugged into them.
 - **Language**: Match system (the default), or any of 50 languages, each listed in its own name. The
   clock and date follow it.
 

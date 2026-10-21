@@ -129,6 +129,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private boolean rebuildOnResume = true;
     /** Home was pressed while Home was in front: go back to the first dock tile. */
     private boolean homeToTop;
+    /** Between onStart and onStop: Home is (at least partly) on screen. */
+    private boolean started;
     /** The time box's width for each length of time text ("8:08" is 4, "10:08" is 5); see sizeTimeBox. */
     private final Map<Integer, Integer> timeBoxWidths = new HashMap<>();
     /** The 12/24-hour setting and language timeBoxWidths were measured for. */
@@ -359,6 +361,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     @Override
     protected void onStart() {
         super.onStart();
+        started = true;
         // Registered while Home is visible, side panels included, so no change is missed under one.
         IntentFilter packages = new IntentFilter();
         packages.addAction(Intent.ACTION_PACKAGE_ADDED);
@@ -414,6 +417,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         heroShown = false;
         heroName.setAlpha(0f);
         ambient.setAlpha(0f);
+        if (grid.getAdapter() == null) grid.setAdapter(adapter);   // let go of in onTrimMemory
         adapter.reload();
         // After the reload: on a cold start the grid was still empty, and with no dock apps the next check
         // would have been six hours away.
@@ -444,6 +448,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     protected void onStop() {
         super.onStop();
         unregisterReceiver(packageReceiver);
+        started = false;
         rebuildOnResume = true;
     }
 
@@ -460,6 +465,33 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             }
         }
         super.onDestroy();
+    }
+
+    /**
+     * Another app needs the memory while Home is in the background: let go of the tiles and the backdrop
+     * pictures (a full-screen still is 8 MB at 1080p), which Home rebuilds and reloads when it comes back
+     * anyway. Not at UI_HIDDEN, the ordinary trip to an app.
+     */
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        // RUNNING_LOW and CRITICAL can also arrive while Home is on screen: never blank what's showing.
+        boolean due = level >= TRIM_MEMORY_BACKGROUND
+                || level == TRIM_MEMORY_RUNNING_LOW || level == TRIM_MEMORY_RUNNING_CRITICAL;
+        if (!due || started) return;
+        adapter.clear();
+        // Detached too: with Home stopped no layout pass runs, so the tile views (and the banners they
+        // hold) would stay until Home came back. setAdapter(null) recycles them now.
+        grid.setAdapter(null);
+        grid.getRecycledViewPool().clear();
+        focusedCard = null;
+        backdropImage.animate().cancel();
+        backdropImage.setImageDrawable(null);
+        backdropPrevious.setImageDrawable(null);
+        backdropPrevious.setVisibility(View.GONE);
+        backdropLogo.setImageDrawable(null);
+        backdropPkg = null;
+        rebuildOnResume = true;
     }
 
     @Override
@@ -1168,8 +1200,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
         TvInputManager tim = (TvInputManager) getSystemService(TV_INPUT_SERVICE);
         boolean sawNonHdmi = false;
-        // Settings → General: leave out inputs that say nothing is connected. Ones whose state the TV doesn't
-        // know stay, so nothing usable disappears.
+        // Settings → General: leave out HDMI inputs that say nothing is connected. Ones whose state the TV
+        // doesn't know stay, and so do analog inputs (see addPassthroughRow), so nothing usable disappears.
         boolean hideInactive = new VibeSettings(this).hideInactiveInputs();
         if (tim != null) {
             List<TvInputInfo> inputs = new ArrayList<>(tim.getTvInputList());
@@ -1198,6 +1230,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 // Inputs hidden in the TV's Settings > Inputs stay out of the menu too.
                 if (!info.isPassthroughInput() || info.isHidden(this) || info.getParentId() != null) continue;
                 List<TvInputInfo> children = devices.get(info.getId());
+                boolean hdmi = info.getType() == TvInputInfo.TYPE_HDMI;
                 if (hideInactive) {
                     if (children != null) {
                         List<TvInputInfo> active = new ArrayList<>();
@@ -1205,11 +1238,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                         children = active.isEmpty() ? null : active;
                     }
                     // A port stays while any device behind it is connected.
-                    if (children == null && inactive(tim, info.getId())) continue;
+                    if (children == null && hdmi && inactive(tim, info.getId())) continue;
                 }
                 CharSequence l = info.loadLabel(this);
                 String label = l == null ? info.getId() : l.toString();
-                boolean hdmi = info.getType() == TvInputInfo.TYPE_HDMI;
                 if (hdmi && !label.toUpperCase(Locale.ROOT).contains("HDMI")) label = "HDMI " + label;
                 // The port, then the name given in Settings > Inputs.
                 CharSequence custom = info.loadCustomLabel(this);
@@ -1414,10 +1446,15 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         return name == null || name.length() == 0 ? port : name.toString();
     }
 
-    /** A row that shows an HDMI or AV input (or a device on one), with whether something is plugged in. */
+    /**
+     * A row that shows an HDMI or AV input (or a device on one). HDMI rows say whether something is plugged
+     * in; AV, component and the other analog jacks can't detect it, so TVs report them as always connected
+     * or always not (the 940E's Video 1 and 2 say "No device" with a player on them): no state for those.
+     */
     private View addPassthroughRow(LinearLayout rows, PopupWindow popup, boolean hdmi, String label, String id,
                                    TvInputManager tim) {
-        return addInputRow(rows, popup, hdmi ? R.drawable.ic_input : R.drawable.ic_av, label, tim.getInputState(id),
+        int state = hdmi ? tim.getInputState(id) : -1;   // -1: neither, so no state is shown
+        return addInputRow(rows, popup, hdmi ? R.drawable.ic_input : R.drawable.ic_av, label, state,
                 () -> open(new Intent(Intent.ACTION_VIEW).setDataAndType(
                         TvContract.buildChannelUriForPassthroughInput(id), "vnd.android.cursor.item/channel")));
     }
