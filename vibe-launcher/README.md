@@ -49,8 +49,10 @@ releaseKeyPassword=…
 ```
 
 then `./gradlew assembleRelease`. Without these the release APK is built unsigned. Keep the key backed
-up: APKs signed with a different key can't update an existing install. (A debug build can't update a
-release install either, or the other way round; uninstall first.)
+up: APKs signed with a different key can't update an existing install. With the key set, debug builds
+are signed with it too, so a TV can move between your debug builds and the releases (and take in-app
+updates) without uninstalling. Without it, debug builds use Android's debug key: switching to a release
+means uninstalling first, and the in-app updater says to update from a computer.
 
 ## Backdrops
 
@@ -98,7 +100,8 @@ their keys are set. No analytics, no accounts, nothing else.
 | File | What it does |
 |---|---|
 | `MainActivity` | Home screen, dock and grid focus, top bar menus, the Inputs menu with its HDMI-CEC devices |
-| `SettingsDialog` | Vibe Launcher settings: tiles per row, the keys and their ⓘ, the QR code |
+| `SettingsDialog` | Vibe Launcher settings: General (tiles per row, software version) and API keys (the keys, their ⓘ, the QR code) |
+| `Updater`, `UpdateReceiver` | Checks the GitHub releases, downloads and verifies the APK, hands it to Android's installer |
 | `AppAdapter`, `TileAnimator`, `DockDecoration` | Tiles, their animations and the dock band |
 | `GlassView`, `FrostView` | The glass focus highlight and the frosted top bar (software blur; Android 9 has no live blur) |
 | `Backdrops` | Builds each dock app's pool of backdrops and serves one per visit |

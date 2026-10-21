@@ -63,13 +63,17 @@ source: every feature is in the APK, nothing is behind a purchase.
 
   ![The gear menu with live RAM use](vibe-launcher/docs/settings-menu.jpg)
 
-- Vibe Launcher settings start with **tiles per row**: 4 (the default), 5 or 6. Tiles shrink to fit,
-  and the dock holds as many apps.
-- Below that, the TMDB, YouTube and Plex keys. Each has an ⓘ explaining what it does and where to get
-  it. Typing keys with a remote is no fun, so the screen shows a **QR code**: scan it with your phone
-  and paste the keys there. Saved keys are shown hidden but for their last four characters, on the TV
-  and on the phone.
-- Keys stay on the TV; the launcher never ships with any.
+- Vibe Launcher settings have two tabs. **General**: **tiles per row** (4, the default, 5 or 6; tiles
+  shrink to fit and the dock holds as many apps) and the **software version** with **Check for
+  updates**.
+- **API keys**: the TMDB, YouTube and Plex keys. Each has an ⓘ explaining what it does and where to get
+  it. Typing keys with a remote is no fun, so the tab shows a **QR code**: scan it with your phone and
+  paste the keys there. Saved keys are shown hidden but for their last four characters, on the TV and
+  on the phone. Keys stay on the TV; the launcher never ships with any.
+- **Updates**: once a day Vibe Launcher checks this project's releases. When there's a new version, a
+  green dot appears on the Settings pill and the gear menu offers **Update to** it. The download is
+  checked against the release's SHA-256 before Android's own installer asks you to confirm. The first
+  time, Android asks you to allow Vibe Launcher to install apps.
 
 **Managing apps**
 
