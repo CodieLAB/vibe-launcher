@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">Plakaty Vibe Launcher</string>
+    <string name="inputs">Wejścia</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">Ustawienia</string>
+    <string name="connected">Połączono</string>
+    <string name="not_connected">Brak urządzenia</string>
+    <string name="live_tv">Telewizja na żywo</string>
+    <string name="no_inputs">Nie znaleziono wejść</string>
+    <string name="ethernet">Ethernet</string>
+    <string name="offline">Offline</string>
+    <string name="all_apps">Wszystkie aplikacje</string>
+    <string name="network_settings">Ustawienia sieci</string>
+    <string name="network">Sieć</string>
+    <string name="vpn_connected">VPN połączony</string>
+    <string name="move">Przenieś</string>
+    <string name="move_hint">Przesuń strzałkami, a potem naciśnij OK</string>
+    <string name="remove">Odinstaluj</string>
+    <string name="hide">Ukryj</string>
+    <string name="app_info">Informacje o aplikacji</string>
+    <string name="show_hidden">Pokaż ukryte aplikacje</string>
+    <string name="vibe_settings">Ustawienia Vibe Launcher</string>
+    <string name="android_settings">Ustawienia Androida</string>
+    <string name="make_home">Ustaw Vibe Launcher jako ekran główny</string>
+    <string name="home_not_changeable">Ten telewizor nie pozwala aplikacjom wybrać aplikacji ekranu głównego. Ustaw to z komputera: zobacz README Vibe Launcher</string>
+    <string name="tmdb_key">Klucz API TMDB</string>
+    <string name="youtube_key">Klucz API YouTube</string>
+    <string name="tiles_per_row">Kafelki w rzędzie</string>
+    <string name="language">Język</string>
+    <string name="language_system">Jak w systemie</string>
+    <string name="plex_token">Token Plex</string>
+    <string name="not_set">Nie ustawiono</string>
+    <string name="save">Zapisz</string>
+    <string name="cancel">Anuluj</string>
+    <string name="tab_general">Ogólne</string>
+    <string name="tab_keys">Klucze API</string>
+    <string name="updates">Wersja oprogramowania</string>
+    <string name="check_updates">Sprawdź aktualizacje</string>
+    <string name="checking_updates">Sprawdzanie…</string>
+    <string name="update_to">Zaktualizuj do %1$s</string>
+    <string name="version_up_to_date">%1$s · Aktualna</string>
+    <string name="update_available">Dostępna aktualizacja: %1$s</string>
+    <string name="update_check_failed">%1$s · Nie udało się sprawdzić aktualizacji</string>
+    <string name="update_downloading">Pobieranie aktualizacji…</string>
+    <string name="update_development_status">%1$s, zbudowana innym kluczem podpisu: aktualizuj z komputera przez build-and-install.sh</string>
+    <string name="update_development">Ta wersja ma inny klucz podpisu: aktualizuj ją z komputera, przez build-and-install.sh</string>
+    <string name="update_allow_installs">Pozwól Vibe Launcher instalować aplikacje, a potem ponownie wybierz Zaktualizuj</string>
+    <string name="update_no_installs">Ten telewizor nie pozwala aplikacjom instalować aktualizacji</string>
+    <string name="update_bad_download">Pobrany plik nie pasował do wydania, więc go nie zainstalowano</string>
+    <string name="update_failed">Aktualizacja się nie zainstalowała</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">RAM</string>
+    <string name="saved">Zapisano</string>
+    <string name="scan_to_paste">Zeskanuj telefonem, aby wkleić klucze</string>
+    <string name="tmdb_notice">Tła korzystają z API TMDB, ale nie są zatwierdzone ani certyfikowane przez TMDB.</string>
+    <string name="about_key">O tym kluczu</string>
+    <string name="tmdb_info">Czyste tła i logo tytułów dla filmów i seriali z kart ekranu głównego Twoich aplikacji, zamiast ich własnych grafik i naklejek. Działa bez klucza, na darmowych danych Stremio; TMDB to oficjalne, pewniejsze źródło.\n\nDarmowy klucz: themoviedb.org → Ustawienia → API → użytek osobisty.</string>
+    <string name="youtube_info">Pokazuje najpopularniejsze filmy w Twoim kraju za kafelkiem YouTube.\n\nDarmowy klucz: console.cloud.google.com → nowy projekt → włącz YouTube Data API v3 → Dane logowania → Utwórz klucz API.\n\nZ zainstalowanym SmartTube tła pochodzą z Twojego własnego kanału YouTube, bez klucza.</string>
+    <string name="plex_info">Tła z Twojego własnego serwera Plex: Kontynuuj oglądanie i ostatnio dodane.\n\nJak go znaleźć: app.plex.tv → otwórz dowolny tytuł → ⋯ → Pobierz informacje → Pokaż XML i skopiuj to, co następuje po X-Plex-Token= w adresie. Chroń go jak hasło.</string>
+    <string name="saved_from_phone">Zapisano z telefonu</string>
+    <string name="not_available">Niedostępne na tym telewizorze</string>
+    <string name="cant_open">Nie można otworzyć %1$s</string>
+</resources>

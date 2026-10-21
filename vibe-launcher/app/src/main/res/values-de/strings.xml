@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">Vibe Launcher Poster</string>
+    <string name="inputs">Eingänge</string>
+    <string name="wifi">WLAN</string>
+    <string name="settings">Einstellungen</string>
+    <string name="connected">Verbunden</string>
+    <string name="not_connected">Kein Gerät</string>
+    <string name="live_tv">Live-TV</string>
+    <string name="no_inputs">Keine Eingänge gefunden</string>
+    <string name="ethernet">Ethernet</string>
+    <string name="offline">Offline</string>
+    <string name="all_apps">Alle Apps</string>
+    <string name="network_settings">Netzwerkeinstellungen</string>
+    <string name="network">Netzwerk</string>
+    <string name="vpn_connected">VPN verbunden</string>
+    <string name="move">Verschieben</string>
+    <string name="move_hint">Mit den Pfeiltasten verschieben, dann OK drücken</string>
+    <string name="remove">Deinstallieren</string>
+    <string name="hide">Ausblenden</string>
+    <string name="app_info">App-Info</string>
+    <string name="show_hidden">Ausgeblendete Apps zeigen</string>
+    <string name="vibe_settings">Vibe Launcher Einstellungen</string>
+    <string name="android_settings">Android-Einstellungen</string>
+    <string name="make_home">Vibe Launcher als Startbildschirm</string>
+    <string name="home_not_changeable">Dieser Fernseher lässt Apps nicht die Startbildschirm-App wählen. Stelle es am Computer ein: siehe README von Vibe Launcher</string>
+    <string name="tmdb_key">TMDB-API-Schlüssel</string>
+    <string name="youtube_key">YouTube-API-Schlüssel</string>
+    <string name="tiles_per_row">Kacheln pro Reihe</string>
+    <string name="language">Sprache</string>
+    <string name="language_system">Wie das System</string>
+    <string name="plex_token">Plex-Token</string>
+    <string name="not_set">Nicht festgelegt</string>
+    <string name="save">Speichern</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="tab_general">Allgemein</string>
+    <string name="tab_keys">API-Schlüssel</string>
+    <string name="updates">Softwareversion</string>
+    <string name="check_updates">Nach Updates suchen</string>
+    <string name="checking_updates">Suche läuft…</string>
+    <string name="update_to">Auf %1$s aktualisieren</string>
+    <string name="version_up_to_date">%1$s · Aktuell</string>
+    <string name="update_available">Update verfügbar: %1$s</string>
+    <string name="update_check_failed">%1$s · Suche nach Updates fehlgeschlagen</string>
+    <string name="update_downloading">Update wird geladen…</string>
+    <string name="update_development_status">%1$s, mit anderem Signaturschlüssel erstellt: am Computer mit build-and-install.sh aktualisieren</string>
+    <string name="update_development">Diese Version hat einen anderen Signaturschlüssel: am Computer mit build-and-install.sh aktualisieren</string>
+    <string name="update_allow_installs">Erlaube Vibe Launcher, Apps zu installieren, und wähle dann erneut Aktualisieren</string>
+    <string name="update_no_installs">Dieser Fernseher lässt Apps keine Updates installieren</string>
+    <string name="update_bad_download">Der Download passte nicht zur Version und wurde nicht installiert</string>
+    <string name="update_failed">Das Update wurde nicht installiert</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">RAM</string>
+    <string name="saved">Gespeichert</string>
+    <string name="scan_to_paste">Mit dem Handy scannen, um die Schlüssel einzufügen</string>
+    <string name="tmdb_notice">Hintergründe nutzen die TMDB-API, sind aber nicht von TMDB unterstützt oder zertifiziert.</string>
+    <string name="about_key">Über diesen Schlüssel</string>
+    <string name="tmdb_info">Saubere Hintergründe und Titel-Logos für die Filme und Serien auf den Startbildschirm-Karten deiner Apps, statt deren eigener Bilder und Sticker. Funktioniert auch ohne Schlüssel, mit den kostenlosen Daten von Stremio; TMDB ist die offizielle, zuverlässigere Quelle.\n\nKostenloser Schlüssel: themoviedb.org → Einstellungen → API → private Nutzung.</string>
+    <string name="youtube_info">Zeigt die beliebtesten Videos in deinem Land hinter der YouTube-Kachel.\n\nKostenloser Schlüssel: console.cloud.google.com → neues Projekt → YouTube Data API v3 aktivieren → Anmeldedaten → API-Schlüssel erstellen.\n\nMit SmartTube kommen die Hintergründe stattdessen aus deinem eigenen YouTube-Feed, ganz ohne Schlüssel.</string>
+    <string name="plex_info">Hintergründe von deinem eigenen Plex-Server: Weiterschauen und kürzlich hinzugefügt.\n\nSo findest du ihn: app.plex.tv → beliebigen Titel öffnen → ⋯ → Info abrufen → XML anzeigen, dann den Teil nach X-Plex-Token= in der Adresse kopieren. Halte ihn geheim wie ein Passwort.</string>
+    <string name="saved_from_phone">Vom Handy gespeichert</string>
+    <string name="not_available">Auf diesem Fernseher nicht verfügbar</string>
+    <string name="cant_open">%1$s kann nicht geöffnet werden</string>
+</resources>

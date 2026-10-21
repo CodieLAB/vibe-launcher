@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">Plagáty Vibe Launcher</string>
+    <string name="inputs">Vstupy</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">Nastavenia</string>
+    <string name="connected">Pripojené</string>
+    <string name="not_connected">Žiadne zariadenie</string>
+    <string name="live_tv">Živé vysielanie</string>
+    <string name="no_inputs">Nenašli sa žiadne vstupy</string>
+    <string name="ethernet">Ethernet</string>
+    <string name="offline">Offline</string>
+    <string name="all_apps">Všetky aplikácie</string>
+    <string name="network_settings">Nastavenia siete</string>
+    <string name="network">Sieť</string>
+    <string name="vpn_connected">VPN pripojená</string>
+    <string name="move">Presunúť</string>
+    <string name="move_hint">Presuňte šípkami a stlačte OK</string>
+    <string name="remove">Odinštalovať</string>
+    <string name="hide">Skryť</string>
+    <string name="app_info">Informácie o aplikácii</string>
+    <string name="show_hidden">Zobraziť skryté aplikácie</string>
+    <string name="vibe_settings">Nastavenia Vibe Launcher</string>
+    <string name="android_settings">Nastavenia Androidu</string>
+    <string name="make_home">Nastaviť Vibe Launcher ako domovskú obrazovku</string>
+    <string name="home_not_changeable">Tento televízor nedovolí aplikáciám vybrať domovskú aplikáciu. Nastavte to z počítača: pozrite README Vibe Launcher</string>
+    <string name="tmdb_key">Kľúč API TMDB</string>
+    <string name="youtube_key">Kľúč API YouTube</string>
+    <string name="tiles_per_row">Dlaždíc v rade</string>
+    <string name="language">Jazyk</string>
+    <string name="language_system">Podľa systému</string>
+    <string name="plex_token">Token Plex</string>
+    <string name="not_set">Nenastavené</string>
+    <string name="save">Uložiť</string>
+    <string name="cancel">Zrušiť</string>
+    <string name="tab_general">Všeobecné</string>
+    <string name="tab_keys">Kľúče API</string>
+    <string name="updates">Verzia softvéru</string>
+    <string name="check_updates">Skontrolovať aktualizácie</string>
+    <string name="checking_updates">Kontroluje sa…</string>
+    <string name="update_to">Aktualizovať na %1$s</string>
+    <string name="version_up_to_date">%1$s · Aktuálne</string>
+    <string name="update_available">K dispozícii je aktualizácia: %1$s</string>
+    <string name="update_check_failed">%1$s · Aktualizácie sa nepodarilo skontrolovať</string>
+    <string name="update_downloading">Sťahuje sa aktualizácia…</string>
+    <string name="update_development_status">%1$s, zostavená iným podpisovým kľúčom: aktualizujte z počítača pomocou build-and-install.sh</string>
+    <string name="update_development">Táto zostava má iný podpisový kľúč: aktualizujte ju z počítača, pomocou build-and-install.sh</string>
+    <string name="update_allow_installs">Povoľte Vibe Launcher inštalovať aplikácie a potom znova zvoľte Aktualizovať</string>
+    <string name="update_no_installs">Tento televízor nedovolí aplikáciám inštalovať aktualizácie</string>
+    <string name="update_bad_download">Stiahnutý súbor nezodpovedal vydaniu, preto sa nenainštaloval</string>
+    <string name="update_failed">Aktualizácia sa nenainštalovala</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">RAM</string>
+    <string name="saved">Uložené</string>
+    <string name="scan_to_paste">Naskenujte telefónom a vložte kľúče</string>
+    <string name="tmdb_notice">Pozadia používajú API TMDB, no TMDB ich neschvaľuje ani necertifikuje.</string>
+    <string name="about_key">O tomto kľúči</string>
+    <string name="tmdb_info">Čisté pozadia a logá titulov pre filmy a seriály z kariet domovskej obrazovky vašich aplikácií namiesto ich vlastných obrázkov a nálepiek. Funguje aj bez kľúča, z bezplatných dát Stremio; TMDB je oficiálny, spoľahlivejší zdroj.\n\nBezplatný kľúč: themoviedb.org → Nastavenia → API → osobné použitie.</string>
+    <string name="youtube_info">Za dlaždicou YouTube zobrazuje najpopulárnejšie videá vo vašej krajine.\n\nBezplatný kľúč: console.cloud.google.com → nový projekt → zapnite YouTube Data API v3 → Poverenia → Vytvoriť kľúč API.\n\nS nainštalovaným SmartTube pochádzajú pozadia z vášho vlastného kanála YouTube, bez kľúča.</string>
+    <string name="plex_info">Pozadia z vášho vlastného servera Plex: Pokračovať v sledovaní a nedávno pridané.\n\nKde ho nájsť: app.plex.tv → otvorte ľubovoľný titul → ⋯ → Získať informácie → Zobraziť XML a skopírujte, čo je v adrese za X-Plex-Token=. Uchovajte ho v tajnosti ako heslo.</string>
+    <string name="saved_from_phone">Uložené z telefónu</string>
+    <string name="not_available">Na tomto televízore nie je k dispozícii</string>
+    <string name="cant_open">%1$s sa nedá otvoriť</string>
+</resources>

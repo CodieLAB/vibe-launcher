@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">Vibe Launcher පෝස්ටර්</string>
+    <string name="inputs">ආදාන</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">සැකසීම්</string>
+    <string name="connected">සම්බන්ධයි</string>
+    <string name="not_connected">උපාංගයක් නැත</string>
+    <string name="live_tv">සජීවී රූපවාහිනී</string>
+    <string name="no_inputs">ආදාන හමු නොවිණි</string>
+    <string name="ethernet">ඊතර්නෙට්</string>
+    <string name="offline">නොබැඳි</string>
+    <string name="all_apps">සියලු යෙදුම්</string>
+    <string name="network_settings">ජාල සැකසීම්</string>
+    <string name="network">ජාලය</string>
+    <string name="vpn_connected">VPN සම්බන්ධයි</string>
+    <string name="move">ගෙන යන්න</string>
+    <string name="move_hint">ඊතල බොත්තම්වලින් ගෙන ගොස් OK ඔබන්න</string>
+    <string name="remove">ඉවත් කරන්න</string>
+    <string name="hide">සඟවන්න</string>
+    <string name="app_info">යෙදුම් තොරතුරු</string>
+    <string name="show_hidden">සැඟවූ යෙදුම් පෙන්වන්න</string>
+    <string name="vibe_settings">Vibe Launcher සැකසීම්</string>
+    <string name="android_settings">Android සැකසීම්</string>
+    <string name="make_home">Vibe Launcher මුල් තිරය කරන්න</string>
+    <string name="home_not_changeable">මෙම රූපවාහිනිය යෙදුම්වලට මුල් තිර යෙදුම තෝරන්නට ඉඩ නොදේ. පරිගණකයකින් සකසන්න: Vibe Launcher README බලන්න</string>
+    <string name="tmdb_key">TMDB API යතුර</string>
+    <string name="youtube_key">YouTube API යතුර</string>
+    <string name="tiles_per_row">පේළියකට ටයිල්</string>
+    <string name="language">භාෂාව</string>
+    <string name="language_system">පද්ධතියට අනුව</string>
+    <string name="plex_token">Plex ටෝකනය</string>
+    <string name="not_set">සකසා නැත</string>
+    <string name="save">සුරකින්න</string>
+    <string name="cancel">අවලංගු කරන්න</string>
+    <string name="tab_general">සාමාන්‍ය</string>
+    <string name="tab_keys">API යතුරු</string>
+    <string name="updates">මෘදුකාංග අනුවාදය</string>
+    <string name="check_updates">යාවත්කාලීන සොයන්න</string>
+    <string name="checking_updates">සොයමින්…</string>
+    <string name="update_to">%1$s වෙත යාවත්කාලීන කරන්න</string>
+    <string name="version_up_to_date">%1$s · නවතම</string>
+    <string name="update_available">යාවත්කාලීනයක් ඇත: %1$s</string>
+    <string name="update_check_failed">%1$s · යාවත්කාලීන සෙවිය නොහැකි විය</string>
+    <string name="update_downloading">යාවත්කාලීනය බාගනිමින්…</string>
+    <string name="update_development_status">%1$s, වෙනත් අත්සන් යතුරකින් සැදූ: පරිගණකයෙන් build-and-install.sh මගින් යාවත්කාලීන කරන්න</string>
+    <string name="update_development">මෙම බිල්ඩ් එකට වෙනත් අත්සන් යතුරක් ඇත: පරිගණකයෙන් build-and-install.sh මගින් යාවත්කාලීන කරන්න</string>
+    <string name="update_allow_installs">Vibe Launcher හට යෙදුම් ස්ථාපනයට ඉඩ දී, නැවත යාවත්කාලීන කරන්න තෝරන්න</string>
+    <string name="update_no_installs">මෙම රූපවාහිනිය යෙදුම්වලට යාවත්කාලීන ස්ථාපනයට ඉඩ නොදේ</string>
+    <string name="update_bad_download">බාගැනීම නිකුතුවට නොගැළපුණු නිසා ස්ථාපනය නොකළා</string>
+    <string name="update_failed">යාවත්කාලීනය ස්ථාපනය නොවීය</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">RAM</string>
+    <string name="saved">සුරැකිණි</string>
+    <string name="scan_to_paste">යතුරු ඇලවීමට දුරකථනයෙන් ස්කෑන් කරන්න</string>
+    <string name="tmdb_notice">පසුබිම් TMDB API භාවිත කරයි, නමුත් TMDB විසින් අනුමත හෝ සහතික කර නැත.</string>
+    <string name="about_key">මෙම යතුර ගැන</string>
+    <string name="tmdb_info">ඔබේ යෙදුම්වල මුල් තිර කාඩ්පත්වල ඇති චිත්‍රපට හා වැඩසටහන් සඳහා, යෙදුම්වල ම රූප හා ස්ටිකර් වෙනුවට පිරිසිදු පසුබිම් හා මාතෘකා ලාංඡන. යතුරක් නැතිව ද Stremio හි නොමිලේ දත්තවලින් ක්‍රියා කරයි; TMDB නිල හා වඩා විශ්වාසදායී මූලාශ්‍රයයි.\n\nනොමිලේ යතුර: themoviedb.org → සැකසීම් → API → පුද්ගලික භාවිතය.</string>
+    <string name="youtube_info">YouTube ටයිලය පිටුපස ඔබේ රටේ වඩාත් ජනප්‍රිය වීඩියෝ පෙන්වයි.\n\nනොමිලේ යතුර: console.cloud.google.com → නව ව්‍යාපෘතිය → YouTube Data API v3 සක්‍රිය කරන්න → අක්තපත්‍ර → API යතුරක් සාදන්න.\n\nSmartTube ස්ථාපිත නම්, පසුබිම් ඔබේ ම YouTube සංග්‍රහයෙන් එයි, යතුරක් අවශ්‍ය නැත.</string>
+    <string name="plex_info">ඔබේ ම Plex සේවාදායකයෙන් පසුබිම්: නැරඹීම දිගටම කරගෙන යන්න සහ මෑතදී එක් කළ.\n\nලබා ගැනීමට: app.plex.tv → ඕනෑම මාතෘකාවක් විවෘත කරන්න → ⋯ → තොරතුරු ලබා ගන්න → XML බලන්න, ලිපිනයේ X-Plex-Token= පසු කොටස පිටපත් කරන්න. මුරපදයක් මෙන් රහසිගතව තබන්න.</string>
+    <string name="saved_from_phone">ඔබේ දුරකථනයෙන් සුරැකිණි</string>
+    <string name="not_available">මෙම රූපවාහිනියේ නොමැත</string>
+    <string name="cant_open">%1$s විවෘත කළ නොහැක</string>
+</resources>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">Vibe Launcher ပိုစတာများ</string>
+    <string name="inputs">အဝင်များ</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">ဆက်တင်များ</string>
+    <string name="connected">ချိတ်ဆက်ထားသည်</string>
+    <string name="not_connected">စက်ပစ္စည်း မရှိ</string>
+    <string name="live_tv">တိုက်ရိုက် TV</string>
+    <string name="no_inputs">အဝင် မတွေ့ပါ</string>
+    <string name="ethernet">အီသာနက်</string>
+    <string name="offline">အော့ဖ်လိုင်း</string>
+    <string name="all_apps">အက်ပ်အားလုံး</string>
+    <string name="network_settings">ကွန်ရက် ဆက်တင်များ</string>
+    <string name="network">ကွန်ရက်</string>
+    <string name="vpn_connected">VPN ချိတ်ဆက်ထားသည်</string>
+    <string name="move">ရွှေ့ရန်</string>
+    <string name="move_hint">မြှားခလုတ်များဖြင့် ရွှေ့ပြီး OK နှိပ်ပါ</string>
+    <string name="remove">ဖယ်ရှားရန်</string>
+    <string name="hide">ဝှက်ရန်</string>
+    <string name="app_info">အက်ပ် အချက်အလက်</string>
+    <string name="show_hidden">ဝှက်ထားသော အက်ပ်များ ပြရန်</string>
+    <string name="vibe_settings">Vibe Launcher ဆက်တင်များ</string>
+    <string name="android_settings">Android ဆက်တင်များ</string>
+    <string name="make_home">Vibe Launcher ကို ပင်မစာမျက်နှာ လုပ်ရန်</string>
+    <string name="home_not_changeable">ဤ TV သည် အက်ပ်များကို ပင်မအက်ပ် ရွေးခွင့်မပေးပါ။ ကွန်ပျူတာမှ သတ်မှတ်ပါ- Vibe Launcher ၏ README ကို ကြည့်ပါ</string>
+    <string name="tmdb_key">TMDB API ကီး</string>
+    <string name="youtube_key">YouTube API ကီး</string>
+    <string name="tiles_per_row">တစ်တန်းလျှင် အကွက်</string>
+    <string name="language">ဘာသာစကား</string>
+    <string name="language_system">စနစ်အတိုင်း</string>
+    <string name="plex_token">Plex တိုကင်</string>
+    <string name="not_set">မသတ်မှတ်ရသေး</string>
+    <string name="save">သိမ်းရန်</string>
+    <string name="cancel">မလုပ်တော့ပါ</string>
+    <string name="tab_general">အထွေထွေ</string>
+    <string name="tab_keys">API ကီးများ</string>
+    <string name="updates">ဆော့ဖ်ဝဲ ဗားရှင်း</string>
+    <string name="check_updates">အပ်ဒိတ် စစ်ရန်</string>
+    <string name="checking_updates">စစ်နေသည်…</string>
+    <string name="update_to">%1$s သို့ အပ်ဒိတ်လုပ်ရန်</string>
+    <string name="version_up_to_date">%1$s · နောက်ဆုံးထွက်</string>
+    <string name="update_available">အပ်ဒိတ် ရနိုင်သည်- %1$s</string>
+    <string name="update_check_failed">%1$s · အပ်ဒိတ် မစစ်နိုင်ပါ</string>
+    <string name="update_downloading">အပ်ဒိတ် ဒေါင်းလုဒ်လုပ်နေသည်…</string>
+    <string name="update_development_status">%1$s၊ အခြား လက်မှတ်ကီးဖြင့် တည်ဆောက်ထားသည်- ကွန်ပျူတာမှ build-and-install.sh ဖြင့် အပ်ဒိတ်လုပ်ပါ</string>
+    <string name="update_development">ဤဗားရှင်းတွင် လက်မှတ်ကီး ကွဲပြားသည်- ကွန်ပျူတာမှ build-and-install.sh ဖြင့် အပ်ဒိတ်လုပ်ပါ</string>
+    <string name="update_allow_installs">Vibe Launcher ကို အက်ပ်ထည့်သွင်းခွင့် ပေးပြီး အပ်ဒိတ်ကို ထပ်ရွေးပါ</string>
+    <string name="update_no_installs">ဤ TV သည် အက်ပ်များကို အပ်ဒိတ် ထည့်သွင်းခွင့်မပေးပါ</string>
+    <string name="update_bad_download">ဒေါင်းလုဒ်သည် ထုတ်ဝေမှုနှင့် မကိုက်ညီသဖြင့် မထည့်သွင်းခဲ့ပါ</string>
+    <string name="update_failed">အပ်ဒိတ် မထည့်သွင်းနိုင်ခဲ့ပါ</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">RAM</string>
+    <string name="saved">သိမ်းပြီး</string>
+    <string name="scan_to_paste">ကီးများ ကူးထည့်ရန် ဖုန်းဖြင့် စကင်ဖတ်ပါ</string>
+    <string name="tmdb_notice">နောက်ခံပုံများသည် TMDB API ကို သုံးသော်လည်း TMDB ၏ ထောက်ခံမှု သို့မဟုတ် အသိအမှတ်ပြုမှု မရှိပါ။</string>
+    <string name="about_key">ဤကီး အကြောင်း</string>
+    <string name="tmdb_info">သင့်အက်ပ်များ၏ ပင်မမျက်နှာပြင် ကတ်များပေါ်ရှိ ရုပ်ရှင်နှင့် ရုပ်သံအစီအစဉ်များအတွက် အက်ပ်၏ ကိုယ်ပိုင်ပုံနှင့် စတစ်ကာများအစား သန့်ရှင်းသော နောက်ခံပုံနှင့် ခေါင်းစဉ်လိုဂို။ ကီးမပါဘဲလည်း Stremio ၏ အခမဲ့ဒေတာဖြင့် အလုပ်လုပ်သည်။ TMDB သည် တရားဝင်ပြီး ပိုယုံကြည်ရသော ရင်းမြစ်ဖြစ်သည်။\n\nအခမဲ့ကီး- themoviedb.org → ဆက်တင်များ → API → ကိုယ်ပိုင်သုံး။</string>
+    <string name="youtube_info">YouTube အကွက်နောက်တွင် သင့်နိုင်ငံ၏ လူကြိုက်အများဆုံး ဗီဒီယိုများကို ပြသည်။\n\nအခမဲ့ကီး- console.cloud.google.com → ပရောဂျက်အသစ် → YouTube Data API v3 ဖွင့်ပါ → အထောက်အထားများ → API ကီး ဖန်တီးရန်။\n\nSmartTube ထည့်ထားလျှင် နောက်ခံပုံများကို သင့်ကိုယ်ပိုင် YouTube ဖိဒ်မှ ယူမည်ဖြစ်ပြီး ကီး မလိုပါ။</string>
+    <string name="plex_info">သင့်ကိုယ်ပိုင် Plex ဆာဗာမှ နောက်ခံပုံများ- ဆက်ကြည့်ရန်နှင့် မကြာသေးမီက ထည့်ထားသည်များ။\n\nရယူရန်- app.plex.tv → မည်သည့်ခေါင်းစဉ်မဆို ဖွင့်ပါ → ⋯ → အချက်အလက် ရယူရန် → XML ကြည့်ရန်၊ လိပ်စာထဲရှိ X-Plex-Token= နောက်ကအပိုင်းကို ကူးပါ။ စကားဝှက်ကဲ့သို့ လျှို့ဝှက်ထားပါ။</string>
+    <string name="saved_from_phone">သင့်ဖုန်းမှ သိမ်းပြီး</string>
+    <string name="not_available">ဤ TV တွင် မရနိုင်ပါ</string>
+    <string name="cant_open">%1$s ကို ဖွင့်၍ မရပါ</string>
+</resources>

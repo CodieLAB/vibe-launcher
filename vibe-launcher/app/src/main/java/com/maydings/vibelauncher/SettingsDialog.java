@@ -14,7 +14,9 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -83,6 +85,18 @@ final class SettingsDialog {
         }
         View columnsEntry = columnPills[Math.max(0, Math.min(2, current - 4))];
         TextView updateButton = panel.findViewById(R.id.updateButton);
+        // Language: the TV's own ("") or one from Lang; like tiles per row, applied on Save.
+        TextView languageButton = panel.findViewById(R.id.languageButton);
+        String savedLanguage = settings.language();
+        String[] chosenLanguage = {savedLanguage};
+        Runnable showLanguage = () -> languageButton.setText(chosenLanguage[0].isEmpty()
+                ? activity.getString(R.string.language_system) : Lang.name(chosenLanguage[0]));
+        showLanguage.run();
+        languageButton.setOnClickListener(v -> pickLanguage(activity, v, chosenLanguage[0], tag -> {
+            chosenLanguage[0] = tag;
+            showLanguage.run();
+            languageButton.requestFocus();
+        }));
         TextView updateStatus = panel.findViewById(R.id.updateStatus);
         View tabGeneral = panel.findViewById(R.id.tabGeneral), tabKeys = panel.findViewById(R.id.tabKeys);
         View pageGeneral = panel.findViewById(R.id.pageGeneral), pageKeys = panel.findViewById(R.id.pageKeys);
@@ -138,10 +152,7 @@ final class SettingsDialog {
             pill.setOnKeyListener((v, keyCode, event) -> {
                 if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
                 if (keyCode == KeyEvent.KEYCODE_DPAD_UP) return tabGeneral.requestFocus();
-                if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
-                    if (updateButton.getVisibility() == View.VISIBLE) updateButton.requestFocus();
-                    return true;   // nothing else below
-                }
+                if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) return languageButton.requestFocus();
                 if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT && v == columnPills[2]) {
                     cameFrom[0] = v;
                     return save.requestFocus();
@@ -149,7 +160,8 @@ final class SettingsDialog {
                 return false;   // Left/Right move between the pills
             });
         }
-        steer(updateButton, columnsEntry, null, save, cameFrom);
+        steer(languageButton, columnsEntry, updateButton.getVisibility() == View.VISIBLE ? updateButton : null, save, cameFrom);
+        steer(updateButton, languageButton, null, save, cameFrom);
         showUpdates(activity, updateStatus, updateButton);
         View.OnKeyListener back = (v, keyCode, event) -> event.getAction() == KeyEvent.ACTION_DOWN
                 && keyCode == KeyEvent.KEYCODE_DPAD_LEFT && cameFrom[0].requestFocus();
@@ -190,13 +202,50 @@ final class SettingsDialog {
             saveKeys.run();
             dialog.dismiss();
             Toast.makeText(activity, R.string.saved, Toast.LENGTH_SHORT).show();
-            if (chosen[0] != current) {
-                settings.setColumns(chosen[0]);
-                activity.recreate();   // rebuild Home with the new grid
-            }
+            boolean rebuild = chosen[0] != current || !chosenLanguage[0].equals(savedLanguage);
+            if (chosen[0] != current) settings.setColumns(chosen[0]);
+            if (!chosenLanguage[0].equals(savedLanguage)) settings.setLanguage(chosenLanguage[0]);
+            if (rebuild) activity.recreate();   // rebuild Home with the new grid or language
         });
         dialog.show();
         columnsEntry.requestFocus();
+    }
+
+    /**
+     * The languages in a scrolling list over the dialog: Match system first, then each in its own name.
+     * Opens on the one in use.
+     */
+    private static void pickLanguage(Activity activity, View anchor, String current, java.util.function.Consumer<String> picked) {
+        float density = activity.getResources().getDisplayMetrics().density;
+        LinearLayout rows = new LinearLayout(activity);
+        rows.setOrientation(LinearLayout.VERTICAL);
+        ScrollView scroll = new ScrollView(activity);
+        scroll.setBackgroundResource(R.drawable.glass_panel);
+        int pad = (int) (6 * density);
+        scroll.setPadding(pad, pad, pad, pad);
+        scroll.addView(rows);
+        int height = (int) (activity.getResources().getDisplayMetrics().heightPixels * 0.7f);
+        PopupWindow popup = new PopupWindow(scroll, (int) (340 * density), height, true);
+        popup.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));   // needed for Back to dismiss
+        View selected = null;
+        for (int i = -1; i < Lang.TAGS.length; i++) {
+            String tag = i < 0 ? "" : Lang.TAGS[i];
+            View row = activity.getLayoutInflater().inflate(R.layout.item_input, rows, false);
+            ((TextView) row.findViewById(R.id.title)).setText(i < 0 ? activity.getString(R.string.language_system) : Lang.NAMES[i]);
+            row.findViewById(R.id.icon).setVisibility(View.GONE);
+            row.findViewById(R.id.status).setVisibility(View.GONE);
+            row.findViewById(R.id.dot).setVisibility(tag.equals(current) ? View.VISIBLE : View.GONE);   // the one in use
+            row.setOnClickListener(v -> {
+                popup.dismiss();
+                picked.accept(tag);
+            });
+            rows.addView(row);
+            if (tag.equals(current)) selected = row;
+        }
+        popup.showAtLocation(anchor, Gravity.CENTER, 0, 0);   // on the dialog's window, so above it
+        View start = selected != null ? selected : rows.getChildAt(0);
+        start.requestFocus();
+        scroll.post(() -> scroll.scrollTo(0, Math.max(0, start.getTop() - height / 3)));
     }
 
     /** A saved key as shown in its field: bullets and the last four characters; "" when not set. */
@@ -223,9 +272,11 @@ final class SettingsDialog {
         });
     }
 
-    /** A glass bubble under the (i) explaining a key; Back or OK closes it. */
+    /** A glass bubble by the (i) explaining a key; Back or OK closes it. */
     private static void showInfo(Activity activity, View anchor, int textRes) {
         float density = activity.getResources().getDisplayMetrics().density;
+        int screenW = activity.getResources().getDisplayMetrics().widthPixels;
+        int screenH = activity.getResources().getDisplayMetrics().heightPixels;
         TextView text = new TextView(activity);
         text.setText(textRes);
         text.setTextColor(0xE6FFFFFF);
@@ -234,24 +285,35 @@ final class SettingsDialog {
         text.setTypeface(activity.getResources().getFont(R.font.outfit));
         int pad = (int) (18 * density);
         text.setPadding(pad, pad, pad, pad);
-        text.setBackgroundResource(R.drawable.glass_panel);
-        text.setMaxWidth((int) (440 * density));
         text.setFocusable(true);
-        PopupWindow bubble = new PopupWindow(text, ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        // In a ScrollView in case even the widest bubble is taller than the screen allows; Down scrolls it.
+        ScrollView scroll = new ScrollView(activity);
+        scroll.setBackgroundResource(R.drawable.glass_panel);
+        scroll.addView(text);
+        // Below the (i), or above it when there's more room there (the Plex one sits low on screen). Longer
+        // translations get a wider bubble before they get a scrolling one.
+        int gap = (int) (6 * density), margin = (int) (24 * density);
+        int[] at = new int[2];
+        anchor.getLocationOnScreen(at);
+        int below = screenH - at[1] - anchor.getHeight() - gap - margin, above = at[1] - gap - margin;
+        int room = Math.max(below, above);
+        int width = 0, height = 0;
+        for (int dp : new int[]{440, 560, 680}) {
+            width = Math.min((int) (dp * density), screenW - 2 * margin);
+            text.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+            height = text.getMeasuredHeight();
+            if (height <= room) break;
+        }
+        boolean fitsBelow = height <= below;
+        height = Math.min(height, room);
+        PopupWindow bubble = new PopupWindow(scroll, width, height, true);
         bubble.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));   // needed for Back to dismiss
         bubble.setOutsideTouchable(true);
         text.setOnClickListener(v -> bubble.dismiss());
-        // Below the (i), or above it when there isn't room: the Plex one sits low enough on screen that a
-        // bubble below ran off the bottom.
-        int gap = (int) (6 * density);
-        text.measure(View.MeasureSpec.makeMeasureSpec((int) (440 * density), View.MeasureSpec.AT_MOST),
-                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-        int[] at = new int[2];
-        anchor.getLocationOnScreen(at);
-        int below = activity.getResources().getDisplayMetrics().heightPixels - at[1] - anchor.getHeight();
-        boolean above = text.getMeasuredHeight() + gap > below;
-        bubble.showAsDropDown(anchor, 0, above ? -(anchor.getHeight() + text.getMeasuredHeight() + gap) : gap);
+        int dx = Math.max(margin, Math.min(at[0], screenW - margin - width)) - at[0];
+        boolean under = fitsBelow || below >= above;
+        bubble.showAsDropDown(anchor, dx, under ? gap : -(anchor.getHeight() + gap + height));
         text.requestFocus();
     }
 

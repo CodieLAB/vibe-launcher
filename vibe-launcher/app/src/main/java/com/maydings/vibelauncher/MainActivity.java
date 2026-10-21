@@ -183,6 +183,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     };
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(Lang.wrap(base));   // the language chosen in Settings, or the TV's own
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         CrashGuard.install(this);
@@ -217,6 +222,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 ambientGlow.setGradientRadius((r - l) * 0.62f));
         btnWifi = findViewById(R.id.btnWifi);
         TextView clock = findViewById(R.id.clock), date = findViewById(R.id.date);
+        localDate((TextClock) date, "EEEE d MMMM yyyy");
         sizeTimeBox();
         clock.addTextChangedListener(new TextWatcher() {
             @Override
@@ -669,6 +675,18 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     }
 
     // ---- top bar ---------------------------------------------------------------------------------
+
+    /**
+     * Other languages put the weekday, day, month and year in their own order ("2026年10月20日 星期二");
+     * English keeps the launcher's own "TUESDAY  20 OCTOBER 2026".
+     */
+    static void localDate(TextClock date, String skeleton) {
+        Locale locale = Locale.getDefault();
+        if (locale.getLanguage().equals("en")) return;
+        String pattern = DateFormat.getBestDateTimePattern(locale, skeleton);
+        date.setFormat12Hour(pattern);
+        date.setFormat24Hour(pattern);
+    }
 
     /**
      * The time box is as wide as the widest time with as many characters as the one showing ("8:08" from 1:00

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">Vibe Launcher ಪೋಸ್ಟರ್‌ಗಳು</string>
+    <string name="inputs">ಇನ್‌ಪುಟ್‌ಗಳು</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
+    <string name="connected">ಸಂಪರ್ಕಗೊಂಡಿದೆ</string>
+    <string name="not_connected">ಸಾಧನವಿಲ್ಲ</string>
+    <string name="live_tv">ಲೈವ್ ಟಿವಿ</string>
+    <string name="no_inputs">ಯಾವುದೇ ಇನ್‌ಪುಟ್ ಸಿಗಲಿಲ್ಲ</string>
+    <string name="ethernet">ಈಥರ್‌ನೆಟ್</string>
+    <string name="offline">ಆಫ್‌ಲೈನ್</string>
+    <string name="all_apps">ಎಲ್ಲಾ ಆ್ಯಪ್‌ಗಳು</string>
+    <string name="network_settings">ನೆಟ್‌ವರ್ಕ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
+    <string name="network">ನೆಟ್‌ವರ್ಕ್</string>
+    <string name="vpn_connected">VPN ಸಂಪರ್ಕಗೊಂಡಿದೆ</string>
+    <string name="move">ಸರಿಸು</string>
+    <string name="move_hint">ಬಾಣಗಳಿಂದ ಸರಿಸಿ, ನಂತರ OK ಒತ್ತಿ</string>
+    <string name="remove">ತೆಗೆದುಹಾಕು</string>
+    <string name="hide">ಮರೆಮಾಡು</string>
+    <string name="app_info">ಆ್ಯಪ್ ಮಾಹಿತಿ</string>
+    <string name="show_hidden">ಮರೆಮಾಡಿದ ಆ್ಯಪ್‌ಗಳನ್ನು ತೋರಿಸು</string>
+    <string name="vibe_settings">Vibe Launcher ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
+    <string name="android_settings">Android ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
+    <string name="make_home">Vibe Launcher ಅನ್ನು ಹೋಮ್ ಮಾಡಿ</string>
+    <string name="home_not_changeable">ಈ ಟಿವಿ ಆ್ಯಪ್‌ಗಳಿಗೆ ಹೋಮ್ ಆ್ಯಪ್ ಆಯ್ಕೆ ಮಾಡಲು ಬಿಡುವುದಿಲ್ಲ. ಕಂಪ್ಯೂಟರ್‌ನಿಂದ ಹೊಂದಿಸಿ: Vibe Launcher README ನೋಡಿ</string>
+    <string name="tmdb_key">TMDB API ಕೀ</string>
+    <string name="youtube_key">YouTube API ಕೀ</string>
+    <string name="tiles_per_row">ಸಾಲಿಗೆ ಟೈಲ್‌ಗಳು</string>
+    <string name="language">ಭಾಷೆ</string>
+    <string name="language_system">ಸಿಸ್ಟಂನಂತೆ</string>
+    <string name="plex_token">Plex ಟೋಕನ್</string>
+    <string name="not_set">ಹೊಂದಿಸಿಲ್ಲ</string>
+    <string name="save">ಉಳಿಸು</string>
+    <string name="cancel">ರದ್ದುಮಾಡಿ</string>
+    <string name="tab_general">ಸಾಮಾನ್ಯ</string>
+    <string name="tab_keys">API ಕೀಗಳು</string>
+    <string name="updates">ಸಾಫ್ಟ್‌ವೇರ್ ಆವೃತ್ತಿ</string>
+    <string name="check_updates">ಅಪ್‌ಡೇಟ್‌ಗಳಿಗಾಗಿ ಪರಿಶೀಲಿಸು</string>
+    <string name="checking_updates">ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ…</string>
+    <string name="update_to">%1$s ಗೆ ಅಪ್‌ಡೇಟ್ ಮಾಡು</string>
+    <string name="version_up_to_date">%1$s · ಇತ್ತೀಚಿನದು</string>
+    <string name="update_available">ಅಪ್‌ಡೇಟ್ ಲಭ್ಯವಿದೆ: %1$s</string>
+    <string name="update_check_failed">%1$s · ಅಪ್‌ಡೇಟ್ ಪರಿಶೀಲಿಸಲಾಗಲಿಲ್ಲ</string>
+    <string name="update_downloading">ಅಪ್‌ಡೇಟ್ ಡೌನ್‌ಲೋಡ್ ಆಗುತ್ತಿದೆ…</string>
+    <string name="update_development_status">%1$s, ಬೇರೆ ಸೈನಿಂಗ್ ಕೀಯಿಂದ ನಿರ್ಮಿತ: ಕಂಪ್ಯೂಟರ್‌ನಿಂದ build-and-install.sh ಮೂಲಕ ಅಪ್‌ಡೇಟ್ ಮಾಡಿ</string>
+    <string name="update_development">ಈ ಬಿಲ್ಡ್‌ಗೆ ಬೇರೆ ಸೈನಿಂಗ್ ಕೀ ಇದೆ: ಕಂಪ್ಯೂಟರ್‌ನಿಂದ build-and-install.sh ಮೂಲಕ ಅಪ್‌ಡೇಟ್ ಮಾಡಿ</string>
+    <string name="update_allow_installs">Vibe Launcher ಗೆ ಆ್ಯಪ್ ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಲು ಅನುಮತಿಸಿ, ನಂತರ ಮತ್ತೆ ಅಪ್‌ಡೇಟ್ ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="update_no_installs">ಈ ಟಿವಿ ಆ್ಯಪ್‌ಗಳಿಗೆ ಅಪ್‌ಡೇಟ್ ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಲು ಬಿಡುವುದಿಲ್ಲ</string>
+    <string name="update_bad_download">ಡೌನ್‌ಲೋಡ್ ರಿಲೀಸ್‌ಗೆ ಹೊಂದಿಕೆಯಾಗಲಿಲ್ಲ, ಹಾಗಾಗಿ ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಲಿಲ್ಲ</string>
+    <string name="update_failed">ಅಪ್‌ಡೇಟ್ ಇನ್‌ಸ್ಟಾಲ್ ಆಗಲಿಲ್ಲ</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">RAM</string>
+    <string name="saved">ಉಳಿಸಲಾಗಿದೆ</string>
+    <string name="scan_to_paste">ಕೀಗಳನ್ನು ಅಂಟಿಸಲು ಫೋನ್‌ನಿಂದ ಸ್ಕ್ಯಾನ್ ಮಾಡಿ</string>
+    <string name="tmdb_notice">ಹಿನ್ನೆಲೆಗಳು TMDB API ಬಳಸುತ್ತವೆ, ಆದರೆ TMDB ಇವನ್ನು ಅನುಮೋದಿಸಿಲ್ಲ ಅಥವಾ ಪ್ರಮಾಣೀಕರಿಸಿಲ್ಲ.</string>
+    <string name="about_key">ಈ ಕೀ ಬಗ್ಗೆ</string>
+    <string name="tmdb_info">ನಿಮ್ಮ ಆ್ಯಪ್‌ಗಳ ಹೋಮ್ ಸ್ಕ್ರೀನ್ ಕಾರ್ಡ್‌ಗಳಲ್ಲಿನ ಸಿನಿಮಾಗಳು ಮತ್ತು ಶೋಗಳಿಗೆ, ಆ್ಯಪ್‌ಗಳ ಸ್ವಂತ ಚಿತ್ರಗಳು ಮತ್ತು ಸ್ಟಿಕ್ಕರ್‌ಗಳ ಬದಲು ಸ್ವಚ್ಛ ಹಿನ್ನೆಲೆಗಳು ಮತ್ತು ಶೀರ್ಷಿಕೆ ಲೋಗೋಗಳು. ಕೀ ಇಲ್ಲದೆಯೂ Stremio ಉಚಿತ ಡೇಟಾದಿಂದ ಕೆಲಸ ಮಾಡುತ್ತದೆ; TMDB ಅಧಿಕೃತ ಮತ್ತು ಹೆಚ್ಚು ವಿಶ್ವಾಸಾರ್ಹ ಮೂಲ.\n\nಉಚಿತ ಕೀ: themoviedb.org → ಸೆಟ್ಟಿಂಗ್‌ಗಳು → API → ವೈಯಕ್ತಿಕ ಬಳಕೆ.</string>
+    <string name="youtube_info">YouTube ಟೈಲ್‌ನ ಹಿಂದೆ ನಿಮ್ಮ ದೇಶದ ಅತ್ಯಂತ ಜನಪ್ರಿಯ ವೀಡಿಯೊಗಳನ್ನು ತೋರಿಸುತ್ತದೆ.\n\nಉಚಿತ ಕೀ: console.cloud.google.com → ಹೊಸ ಪ್ರಾಜೆಕ್ಟ್ → YouTube Data API v3 ಆನ್ ಮಾಡಿ → ರುಜುವಾತುಗಳು → API ಕೀ ರಚಿಸಿ.\n\nSmartTube ಇದ್ದರೆ, ಹಿನ್ನೆಲೆಗಳು ನಿಮ್ಮದೇ YouTube ಫೀಡ್‌ನಿಂದ ಬರುತ್ತವೆ, ಕೀ ಬೇಕಿಲ್ಲ.</string>
+    <string name="plex_info">ನಿಮ್ಮದೇ Plex ಸರ್ವರ್‌ನಿಂದ ಹಿನ್ನೆಲೆಗಳು: ವೀಕ್ಷಣೆ ಮುಂದುವರಿಸಿ ಮತ್ತು ಇತ್ತೀಚೆಗೆ ಸೇರಿಸಿದವು.\n\nಪಡೆಯಲು: app.plex.tv → ಯಾವುದೇ ಶೀರ್ಷಿಕೆ ತೆರೆಯಿರಿ → ⋯ → ಮಾಹಿತಿ ಪಡೆಯಿರಿ → XML ವೀಕ್ಷಿಸಿ, ವಿಳಾಸದಲ್ಲಿ X-Plex-Token= ನಂತರದ ಭಾಗ ನಕಲಿಸಿ. ಪಾಸ್‌ವರ್ಡ್‌ನಂತೆ ಗೌಪ್ಯವಾಗಿಡಿ.</string>
+    <string name="saved_from_phone">ನಿಮ್ಮ ಫೋನ್‌ನಿಂದ ಉಳಿಸಲಾಗಿದೆ</string>
+    <string name="not_available">ಈ ಟಿವಿಯಲ್ಲಿ ಲಭ್ಯವಿಲ್ಲ</string>
+    <string name="cant_open">%1$s ತೆರೆಯಲಾಗುತ್ತಿಲ್ಲ</string>
+</resources>

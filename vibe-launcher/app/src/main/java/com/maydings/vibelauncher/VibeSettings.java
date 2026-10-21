@@ -11,6 +11,7 @@ final class VibeSettings {
     private static final String YOUTUBE_KEY = "youtubeKey";
     private static final String PLEX_TOKEN = "plexToken";
     private static final String COLUMNS = "columns";
+    private static final String LANGUAGE = "language";
 
     private final SharedPreferences prefs;
 
@@ -41,6 +42,16 @@ final class VibeSettings {
 
     void setColumns(int columns) {
         prefs.edit().putInt(COLUMNS, columns).apply();
+    }
+
+    /** The chosen language's tag (see Lang), or "" to follow the TV's own. */
+    String language() {
+        return prefs.getString(LANGUAGE, "");
+    }
+
+    /** Saved at once (commit): Home is recreated in the new language straight after. */
+    void setLanguage(String tag) {
+        prefs.edit().putString(LANGUAGE, tag).commit();
     }
 
     void save(String tmdbKey, String youtubeKey, String plexToken) {

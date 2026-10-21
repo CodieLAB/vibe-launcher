@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">Vibe Launcher पोस्टर</string>
+    <string name="inputs">इनपुट</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">सेटिंग्ज</string>
+    <string name="connected">जोडलेले</string>
+    <string name="not_connected">डिव्हाइस नाही</string>
+    <string name="live_tv">लाइव्ह टीव्ही</string>
+    <string name="no_inputs">कोणतेही इनपुट सापडले नाही</string>
+    <string name="ethernet">इथरनेट</string>
+    <string name="offline">ऑफलाइन</string>
+    <string name="all_apps">सर्व अ‍ॅप्स</string>
+    <string name="network_settings">नेटवर्क सेटिंग्ज</string>
+    <string name="network">नेटवर्क</string>
+    <string name="vpn_connected">VPN जोडलेले</string>
+    <string name="move">हलवा</string>
+    <string name="move_hint">बाणांनी हलवा, मग OK दाबा</string>
+    <string name="remove">काढा</string>
+    <string name="hide">लपवा</string>
+    <string name="app_info">अ‍ॅपची माहिती</string>
+    <string name="show_hidden">लपवलेली अ‍ॅप्स दाखवा</string>
+    <string name="vibe_settings">Vibe Launcher सेटिंग्ज</string>
+    <string name="android_settings">Android सेटिंग्ज</string>
+    <string name="make_home">Vibe Launcher ला तुमचे होम करा</string>
+    <string name="home_not_changeable">हा टीव्ही अ‍ॅप्सना होम अ‍ॅप निवडू देत नाही. संगणकावरून सेट करा: Vibe Launcher चे README पाहा</string>
+    <string name="tmdb_key">TMDB API की</string>
+    <string name="youtube_key">YouTube API की</string>
+    <string name="tiles_per_row">प्रत्येक ओळीतील टाइल</string>
+    <string name="language">भाषा</string>
+    <string name="language_system">सिस्टमप्रमाणे</string>
+    <string name="plex_token">Plex टोकन</string>
+    <string name="not_set">सेट केलेले नाही</string>
+    <string name="save">जतन करा</string>
+    <string name="cancel">रद्द करा</string>
+    <string name="tab_general">सामान्य</string>
+    <string name="tab_keys">API की</string>
+    <string name="updates">सॉफ्टवेअर आवृत्ती</string>
+    <string name="check_updates">अपडेट तपासा</string>
+    <string name="checking_updates">तपासत आहे…</string>
+    <string name="update_to">%1$s वर अपडेट करा</string>
+    <string name="version_up_to_date">%1$s · नवीनतम</string>
+    <string name="update_available">अपडेट उपलब्ध: %1$s</string>
+    <string name="update_check_failed">%1$s · अपडेट तपासता आले नाहीत</string>
+    <string name="update_downloading">अपडेट डाउनलोड होत आहे…</string>
+    <string name="update_development_status">%1$s, वेगळ्या साइनिंग कीने बनवलेले: संगणकावरून build-and-install.sh ने अपडेट करा</string>
+    <string name="update_development">हे बिल्ड वेगळ्या साइनिंग कीचे आहे: संगणकावरून build-and-install.sh ने अपडेट करा</string>
+    <string name="update_allow_installs">Vibe Launcher ला अ‍ॅप्स इन्स्टॉल करू द्या, मग पुन्हा अपडेट निवडा</string>
+    <string name="update_no_installs">हा टीव्ही अ‍ॅप्सना अपडेट इन्स्टॉल करू देत नाही</string>
+    <string name="update_bad_download">डाउनलोड रिलीजशी जुळले नाही, म्हणून इन्स्टॉल केले नाही</string>
+    <string name="update_failed">अपडेट इन्स्टॉल झाले नाही</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">RAM</string>
+    <string name="saved">जतन केले</string>
+    <string name="scan_to_paste">की पेस्ट करण्यासाठी फोनने स्कॅन करा</string>
+    <string name="tmdb_notice">पार्श्वभूमी TMDB API वापरतात, पण TMDB त्यांना मान्यता किंवा प्रमाणपत्र देत नाही.</string>
+    <string name="about_key">या कीबद्दल</string>
+    <string name="tmdb_info">तुमच्या अ‍ॅप्सच्या होम स्क्रीन कार्डवरील चित्रपट आणि शोसाठी स्वच्छ पार्श्वभूमी आणि शीर्षकाचे लोगो, अ‍ॅप्सच्या स्वतःच्या चित्रांऐवजी. की शिवायही चालते, Stremio च्या मोफत डेटामधून; TMDB अधिकृत आणि अधिक विश्वासार्ह स्रोत आहे.\n\nमोफत की: themoviedb.org → सेटिंग्ज → API → वैयक्तिक वापर.</string>
+    <string name="youtube_info">YouTube टाइलच्या मागे तुमच्या देशातील सर्वाधिक लोकप्रिय व्हिडिओ दाखवते.\n\nमोफत की: console.cloud.google.com → नवीन प्रोजेक्ट → YouTube Data API v3 सुरू करा → क्रेडेन्शियल्स → API की तयार करा.\n\nSmartTube असल्यास पार्श्वभूमी तुमच्या स्वतःच्या YouTube फीडमधून येते, की लागत नाही.</string>
+    <string name="plex_info">तुमच्या स्वतःच्या Plex सर्व्हरवरील पार्श्वभूमी: पाहणे सुरू ठेवा आणि अलीकडे जोडलेले.\n\nमिळवण्यासाठी: app.plex.tv → कोणतेही शीर्षक उघडा → ⋯ → माहिती मिळवा → XML पहा, आणि पत्त्यातील X-Plex-Token= नंतरचा भाग कॉपी करा. पासवर्डसारखा गुप्त ठेवा.</string>
+    <string name="saved_from_phone">तुमच्या फोनवरून जतन केले</string>
+    <string name="not_available">या टीव्हीवर उपलब्ध नाही</string>
+    <string name="cant_open">%1$s उघडता येत नाही</string>
+</resources>

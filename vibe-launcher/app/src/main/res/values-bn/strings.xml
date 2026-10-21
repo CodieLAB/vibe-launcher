@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">Vibe Launcher পোস্টার</string>
+    <string name="inputs">ইনপুট</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">সেটিংস</string>
+    <string name="connected">সংযুক্ত</string>
+    <string name="not_connected">কোনো ডিভাইস নেই</string>
+    <string name="live_tv">লাইভ টিভি</string>
+    <string name="no_inputs">কোনো ইনপুট পাওয়া যায়নি</string>
+    <string name="ethernet">ইথারনেট</string>
+    <string name="offline">অফলাইন</string>
+    <string name="all_apps">সব অ্যাপ</string>
+    <string name="network_settings">নেটওয়ার্ক সেটিংস</string>
+    <string name="network">নেটওয়ার্ক</string>
+    <string name="vpn_connected">VPN সংযুক্ত</string>
+    <string name="move">সরান</string>
+    <string name="move_hint">তীর বোতাম দিয়ে সরান, তারপর OK চাপুন</string>
+    <string name="remove">সরিয়ে দিন</string>
+    <string name="hide">লুকান</string>
+    <string name="app_info">অ্যাপের তথ্য</string>
+    <string name="show_hidden">লুকানো অ্যাপ দেখান</string>
+    <string name="vibe_settings">Vibe Launcher সেটিংস</string>
+    <string name="android_settings">Android সেটিংস</string>
+    <string name="make_home">Vibe Launcher-কে হোম বানান</string>
+    <string name="home_not_changeable">এই টিভি অ্যাপকে হোম অ্যাপ বেছে নিতে দেয় না। কম্পিউটার থেকে সেট করুন: Vibe Launcher-এর README দেখুন</string>
+    <string name="tmdb_key">TMDB API কী</string>
+    <string name="youtube_key">YouTube API কী</string>
+    <string name="tiles_per_row">প্রতি সারিতে টাইল</string>
+    <string name="language">ভাষা</string>
+    <string name="language_system">সিস্টেমের মতো</string>
+    <string name="plex_token">Plex টোকেন</string>
+    <string name="not_set">সেট করা নেই</string>
+    <string name="save">সংরক্ষণ</string>
+    <string name="cancel">বাতিল</string>
+    <string name="tab_general">সাধারণ</string>
+    <string name="tab_keys">API কী</string>
+    <string name="updates">সফটওয়্যার সংস্করণ</string>
+    <string name="check_updates">আপডেট খুঁজুন</string>
+    <string name="checking_updates">খোঁজা হচ্ছে…</string>
+    <string name="update_to">%1$s-এ আপডেট করুন</string>
+    <string name="version_up_to_date">%1$s · সর্বশেষ</string>
+    <string name="update_available">আপডেট আছে: %1$s</string>
+    <string name="update_check_failed">%1$s · আপডেট খোঁজা যায়নি</string>
+    <string name="update_downloading">আপডেট ডাউনলোড হচ্ছে…</string>
+    <string name="update_development_status">%1$s, অন্য সাইনিং কী দিয়ে তৈরি: কম্পিউটার থেকে build-and-install.sh দিয়ে আপডেট করুন</string>
+    <string name="update_development">এই বিল্ড অন্য সাইনিং কী দিয়ে তৈরি: কম্পিউটার থেকে build-and-install.sh দিয়ে আপডেট করুন</string>
+    <string name="update_allow_installs">Vibe Launcher-কে অ্যাপ ইনস্টল করার অনুমতি দিন, তারপর আবার আপডেট বেছে নিন</string>
+    <string name="update_no_installs">এই টিভি অ্যাপকে আপডেট ইনস্টল করতে দেয় না</string>
+    <string name="update_bad_download">ডাউনলোড রিলিজের সাথে মেলেনি, তাই ইনস্টল করা হয়নি</string>
+    <string name="update_failed">আপডেট ইনস্টল হয়নি</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">RAM</string>
+    <string name="saved">সংরক্ষিত</string>
+    <string name="scan_to_paste">কী পেস্ট করতে ফোন দিয়ে স্ক্যান করুন</string>
+    <string name="tmdb_notice">ব্যাকড্রপে TMDB API ব্যবহার হয়, তবে TMDB এগুলি অনুমোদন বা প্রত্যয়ন করে না।</string>
+    <string name="about_key">এই কী সম্পর্কে</string>
+    <string name="tmdb_info">আপনার অ্যাপের হোম স্ক্রিন কার্ডের সিনেমা ও শোর জন্য পরিষ্কার ব্যাকড্রপ ও শিরোনামের লোগো, অ্যাপের নিজস্ব ছবি ও স্টিকারের বদলে। কী ছাড়াও চলে, Stremio-র বিনামূল্যের তথ্য থেকে; TMDB সরকারি ও বেশি নির্ভরযোগ্য উৎস।\n\nবিনামূল্যের কী: themoviedb.org → সেটিংস → API → ব্যক্তিগত ব্যবহার।</string>
+    <string name="youtube_info">YouTube টাইলের পেছনে আপনার দেশের সবচেয়ে জনপ্রিয় ভিডিও দেখায়।\n\nবিনামূল্যের কী: console.cloud.google.com → নতুন প্রজেক্ট → YouTube Data API v3 চালু করুন → ক্রেডেনশিয়াল → API কী তৈরি করুন।\n\nSmartTube ইনস্টল থাকলে ব্যাকড্রপ আসে আপনার নিজের YouTube ফিড থেকে, কী লাগে না।</string>
+    <string name="plex_info">আপনার নিজের Plex সার্ভার থেকে ব্যাকড্রপ: দেখা চালিয়ে যান ও সম্প্রতি যোগ করা।\n\nপেতে: app.plex.tv → যেকোনো টাইটেল খুলুন → ⋯ → তথ্য দেখুন → XML দেখুন, এবং ঠিকানায় X-Plex-Token=-এর পরের অংশ কপি করুন। পাসওয়ার্ডের মতো গোপন রাখুন।</string>
+    <string name="saved_from_phone">আপনার ফোন থেকে সংরক্ষিত</string>
+    <string name="not_available">এই টিভিতে উপলব্ধ নয়</string>
+    <string name="cant_open">%1$s খোলা যাচ্ছে না</string>
+</resources>

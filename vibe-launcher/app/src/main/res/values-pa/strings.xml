@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">Vibe Launcher ਪੋਸਟਰ</string>
+    <string name="inputs">ਇਨਪੁੱਟ</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">ਸੈਟਿੰਗਾਂ</string>
+    <string name="connected">ਕਨੈਕਟ ਹੈ</string>
+    <string name="not_connected">ਕੋਈ ਡਿਵਾਈਸ ਨਹੀਂ</string>
+    <string name="live_tv">ਲਾਈਵ ਟੀਵੀ</string>
+    <string name="no_inputs">ਕੋਈ ਇਨਪੁੱਟ ਨਹੀਂ ਮਿਲਿਆ</string>
+    <string name="ethernet">ਈਥਰਨੈੱਟ</string>
+    <string name="offline">ਆਫ਼ਲਾਈਨ</string>
+    <string name="all_apps">ਸਾਰੀਆਂ ਐਪਾਂ</string>
+    <string name="network_settings">ਨੈੱਟਵਰਕ ਸੈਟਿੰਗਾਂ</string>
+    <string name="network">ਨੈੱਟਵਰਕ</string>
+    <string name="vpn_connected">VPN ਕਨੈਕਟ ਹੈ</string>
+    <string name="move">ਹਿਲਾਓ</string>
+    <string name="move_hint">ਤੀਰਾਂ ਨਾਲ ਹਿਲਾਓ, ਫਿਰ OK ਦਬਾਓ</string>
+    <string name="remove">ਹਟਾਓ</string>
+    <string name="hide">ਲੁਕਾਓ</string>
+    <string name="app_info">ਐਪ ਜਾਣਕਾਰੀ</string>
+    <string name="show_hidden">ਲੁਕੀਆਂ ਐਪਾਂ ਦਿਖਾਓ</string>
+    <string name="vibe_settings">Vibe Launcher ਸੈਟਿੰਗਾਂ</string>
+    <string name="android_settings">Android ਸੈਟਿੰਗਾਂ</string>
+    <string name="make_home">Vibe Launcher ਨੂੰ ਹੋਮ ਬਣਾਓ</string>
+    <string name="home_not_changeable">ਇਹ ਟੀਵੀ ਐਪਾਂ ਨੂੰ ਹੋਮ ਐਪ ਚੁਣਨ ਨਹੀਂ ਦਿੰਦਾ। ਕੰਪਿਊਟਰ ਤੋਂ ਸੈੱਟ ਕਰੋ: Vibe Launcher ਦਾ README ਦੇਖੋ</string>
+    <string name="tmdb_key">TMDB API ਕੁੰਜੀ</string>
+    <string name="youtube_key">YouTube API ਕੁੰਜੀ</string>
+    <string name="tiles_per_row">ਹਰ ਕਤਾਰ ਵਿੱਚ ਟਾਈਲਾਂ</string>
+    <string name="language">ਭਾਸ਼ਾ</string>
+    <string name="language_system">ਸਿਸਟਮ ਵਾਂਗ</string>
+    <string name="plex_token">Plex ਟੋਕਨ</string>
+    <string name="not_set">ਸੈੱਟ ਨਹੀਂ</string>
+    <string name="save">ਸੰਭਾਲੋ</string>
+    <string name="cancel">ਰੱਦ ਕਰੋ</string>
+    <string name="tab_general">ਆਮ</string>
+    <string name="tab_keys">API ਕੁੰਜੀਆਂ</string>
+    <string name="updates">ਸਾਫ਼ਟਵੇਅਰ ਵਰਜਨ</string>
+    <string name="check_updates">ਅੱਪਡੇਟ ਦੇਖੋ</string>
+    <string name="checking_updates">ਜਾਂਚ ਹੋ ਰਹੀ ਹੈ…</string>
+    <string name="update_to">%1$s ’ਤੇ ਅੱਪਡੇਟ ਕਰੋ</string>
+    <string name="version_up_to_date">%1$s · ਨਵੀਨਤਮ</string>
+    <string name="update_available">ਅੱਪਡੇਟ ਉਪਲਬਧ: %1$s</string>
+    <string name="update_check_failed">%1$s · ਅੱਪਡੇਟ ਨਹੀਂ ਦੇਖੇ ਜਾ ਸਕੇ</string>
+    <string name="update_downloading">ਅੱਪਡੇਟ ਡਾਊਨਲੋਡ ਹੋ ਰਿਹਾ ਹੈ…</string>
+    <string name="update_development_status">%1$s, ਹੋਰ ਸਾਈਨਿੰਗ ਕੁੰਜੀ ਨਾਲ ਬਣਿਆ: ਕੰਪਿਊਟਰ ਤੋਂ build-and-install.sh ਨਾਲ ਅੱਪਡੇਟ ਕਰੋ</string>
+    <string name="update_development">ਇਸ ਬਿਲਡ ਦੀ ਸਾਈਨਿੰਗ ਕੁੰਜੀ ਵੱਖਰੀ ਹੈ: ਕੰਪਿਊਟਰ ਤੋਂ build-and-install.sh ਨਾਲ ਅੱਪਡੇਟ ਕਰੋ</string>
+    <string name="update_allow_installs">Vibe Launcher ਨੂੰ ਐਪਾਂ ਸਥਾਪਤ ਕਰਨ ਦਿਓ, ਫਿਰ ਦੁਬਾਰਾ ਅੱਪਡੇਟ ਚੁਣੋ</string>
+    <string name="update_no_installs">ਇਹ ਟੀਵੀ ਐਪਾਂ ਨੂੰ ਅੱਪਡੇਟ ਸਥਾਪਤ ਕਰਨ ਨਹੀਂ ਦਿੰਦਾ</string>
+    <string name="update_bad_download">ਡਾਊਨਲੋਡ ਰਿਲੀਜ਼ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ ਸੀ, ਇਸ ਲਈ ਸਥਾਪਤ ਨਹੀਂ ਕੀਤਾ</string>
+    <string name="update_failed">ਅੱਪਡੇਟ ਸਥਾਪਤ ਨਹੀਂ ਹੋਇਆ</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">RAM</string>
+    <string name="saved">ਸੰਭਾਲਿਆ ਗਿਆ</string>
+    <string name="scan_to_paste">ਕੁੰਜੀਆਂ ਪੇਸਟ ਕਰਨ ਲਈ ਫ਼ੋਨ ਨਾਲ ਸਕੈਨ ਕਰੋ</string>
+    <string name="tmdb_notice">ਪਿਛੋਕੜ TMDB API ਵਰਤਦੇ ਹਨ, ਪਰ TMDB ਵੱਲੋਂ ਸਮਰਥਿਤ ਜਾਂ ਪ੍ਰਮਾਣਿਤ ਨਹੀਂ ਹਨ।</string>
+    <string name="about_key">ਇਸ ਕੁੰਜੀ ਬਾਰੇ</string>
+    <string name="tmdb_info">ਤੁਹਾਡੀਆਂ ਐਪਾਂ ਦੇ ਹੋਮ ਸਕ੍ਰੀਨ ਕਾਰਡਾਂ ’ਤੇ ਫ਼ਿਲਮਾਂ ਅਤੇ ਸ਼ੋਆਂ ਲਈ ਸਾਫ਼ ਪਿਛੋਕੜ ਅਤੇ ਸਿਰਲੇਖ ਲੋਗੋ, ਐਪਾਂ ਦੀਆਂ ਆਪਣੀਆਂ ਤਸਵੀਰਾਂ ਅਤੇ ਸਟਿੱਕਰਾਂ ਦੀ ਥਾਂ। ਕੁੰਜੀ ਤੋਂ ਬਿਨਾਂ ਵੀ Stremio ਦੇ ਮੁਫ਼ਤ ਡਾਟੇ ਨਾਲ ਚੱਲਦਾ ਹੈ; TMDB ਅਧਿਕਾਰਤ ਅਤੇ ਵੱਧ ਭਰੋਸੇਯੋਗ ਸਰੋਤ ਹੈ।\n\nਮੁਫ਼ਤ ਕੁੰਜੀ: themoviedb.org → ਸੈਟਿੰਗਾਂ → API → ਨਿੱਜੀ ਵਰਤੋਂ।</string>
+    <string name="youtube_info">YouTube ਟਾਈਲ ਪਿੱਛੇ ਤੁਹਾਡੇ ਦੇਸ਼ ਦੇ ਸਭ ਤੋਂ ਮਸ਼ਹੂਰ ਵੀਡੀਓ ਦਿਖਾਉਂਦਾ ਹੈ।\n\nਮੁਫ਼ਤ ਕੁੰਜੀ: console.cloud.google.com → ਨਵਾਂ ਪ੍ਰੋਜੈਕਟ → YouTube Data API v3 ਚਾਲੂ ਕਰੋ → ਕ੍ਰੈਡੈਂਸ਼ੀਅਲ → API ਕੁੰਜੀ ਬਣਾਓ।\n\nSmartTube ਹੋਵੇ ਤਾਂ ਪਿਛੋਕੜ ਤੁਹਾਡੀ ਆਪਣੀ YouTube ਫ਼ੀਡ ਤੋਂ ਆਉਂਦੇ ਹਨ, ਕੁੰਜੀ ਦੀ ਲੋੜ ਨਹੀਂ।</string>
+    <string name="plex_info">ਤੁਹਾਡੇ ਆਪਣੇ Plex ਸਰਵਰ ਤੋਂ ਪਿਛੋਕੜ: ਦੇਖਣਾ ਜਾਰੀ ਰੱਖੋ ਅਤੇ ਹਾਲ ਹੀ ਵਿੱਚ ਸ਼ਾਮਲ।\n\nਲੱਭਣ ਲਈ: app.plex.tv → ਕੋਈ ਵੀ ਸਿਰਲੇਖ ਖੋਲ੍ਹੋ → ⋯ → ਜਾਣਕਾਰੀ ਲਓ → XML ਦੇਖੋ, ਅਤੇ ਪਤੇ ਵਿੱਚ X-Plex-Token= ਤੋਂ ਬਾਅਦ ਵਾਲਾ ਹਿੱਸਾ ਕਾਪੀ ਕਰੋ। ਇਸਨੂੰ ਪਾਸਵਰਡ ਵਾਂਗ ਗੁਪਤ ਰੱਖੋ।</string>
+    <string name="saved_from_phone">ਤੁਹਾਡੇ ਫ਼ੋਨ ਤੋਂ ਸੰਭਾਲਿਆ ਗਿਆ</string>
+    <string name="not_available">ਇਸ ਟੀਵੀ ’ਤੇ ਉਪਲਬਧ ਨਹੀਂ</string>
+    <string name="cant_open">%1$s ਨਹੀਂ ਖੁੱਲ੍ਹ ਸਕਿਆ</string>
+</resources>

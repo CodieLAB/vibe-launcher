@@ -2,6 +2,7 @@ package com.maydings.vibelauncher;
 
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
@@ -46,6 +47,11 @@ public class VibeDream extends DreamService {
     private boolean dreaming;
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(Lang.wrap(base));   // the launcher's language, for the date
+    }
+
+    @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
         setInteractive(false);   // any key ends it
@@ -58,6 +64,7 @@ public class VibeDream extends DreamService {
         title = findViewById(R.id.title);
         clockBox = findViewById(R.id.clockBox);
         titleBox = findViewById(R.id.titleBox);
+        MainActivity.localDate(findViewById(R.id.dreamDate), "EEEE d MMMM");
     }
 
     @Override

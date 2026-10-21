@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">የVibe Launcher ፖስተሮች</string>
+    <string name="inputs">ግብዓቶች</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">ቅንብሮች</string>
+    <string name="connected">ተገናኝቷል</string>
+    <string name="not_connected">መሣሪያ የለም</string>
+    <string name="live_tv">ቀጥታ ቲቪ</string>
+    <string name="no_inputs">ምንም ግብዓት አልተገኘም</string>
+    <string name="ethernet">ኢተርኔት</string>
+    <string name="offline">ከመስመር ውጭ</string>
+    <string name="all_apps">ሁሉም መተግበሪያዎች</string>
+    <string name="network_settings">የአውታረ መረብ ቅንብሮች</string>
+    <string name="network">አውታረ መረብ</string>
+    <string name="vpn_connected">VPN ተገናኝቷል</string>
+    <string name="move">አንቀሳቅስ</string>
+    <string name="move_hint">በቀስቶቹ ያንቀሳቅሱ፣ ከዚያ OK ይጫኑ</string>
+    <string name="remove">አስወግድ</string>
+    <string name="hide">ደብቅ</string>
+    <string name="app_info">የመተግበሪያ መረጃ</string>
+    <string name="show_hidden">የተደበቁ መተግበሪያዎችን አሳይ</string>
+    <string name="vibe_settings">የVibe Launcher ቅንብሮች</string>
+    <string name="android_settings">የAndroid ቅንብሮች</string>
+    <string name="make_home">Vibe Launcherን መነሻ ማያ አድርግ</string>
+    <string name="home_not_changeable">ይህ ቲቪ መተግበሪያዎች የመነሻ መተግበሪያ እንዲመርጡ አይፈቅድም። ከኮምፒውተር ያቀናብሩት፦ የVibe Launcherን README ይመልከቱ</string>
+    <string name="tmdb_key">የTMDB API ቁልፍ</string>
+    <string name="youtube_key">የYouTube API ቁልፍ</string>
+    <string name="tiles_per_row">በአንድ ረድፍ ያሉ ሰቆች</string>
+    <string name="language">ቋንቋ</string>
+    <string name="language_system">እንደ ሥርዓቱ</string>
+    <string name="plex_token">የPlex ቶከን</string>
+    <string name="not_set">አልተቀናበረም</string>
+    <string name="save">አስቀምጥ</string>
+    <string name="cancel">ይቅር</string>
+    <string name="tab_general">አጠቃላይ</string>
+    <string name="tab_keys">የAPI ቁልፎች</string>
+    <string name="updates">የሶፍትዌር ስሪት</string>
+    <string name="check_updates">ዝማኔዎችን ፈልግ</string>
+    <string name="checking_updates">በመፈለግ ላይ…</string>
+    <string name="update_to">ወደ %1$s አዘምን</string>
+    <string name="version_up_to_date">%1$s · የቅርብ ጊዜ</string>
+    <string name="update_available">ዝማኔ አለ፦ %1$s</string>
+    <string name="update_check_failed">%1$s · ዝማኔዎችን መፈለግ አልተቻለም</string>
+    <string name="update_downloading">ዝማኔውን በማውረድ ላይ…</string>
+    <string name="update_development_status">%1$s፣ በሌላ የፊርማ ቁልፍ የተሠራ፦ ከኮምፒውተር በbuild-and-install.sh ያዘምኑት</string>
+    <string name="update_development">ይህ ግንባታ ሌላ የፊርማ ቁልፍ አለው፦ ከኮምፒውተር በbuild-and-install.sh ያዘምኑት</string>
+    <string name="update_allow_installs">Vibe Launcher መተግበሪያዎችን እንዲጭን ይፍቀዱ፣ ከዚያ እንደገና አዘምንን ይምረጡ</string>
+    <string name="update_no_installs">ይህ ቲቪ መተግበሪያዎች ዝማኔ እንዲጭኑ አይፈቅድም</string>
+    <string name="update_bad_download">ማውረዱ ከልቀቱ ጋር አልተዛመደም፣ ስለዚህ አልተጫነም</string>
+    <string name="update_failed">ዝማኔው አልተጫነም</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">RAM</string>
+    <string name="saved">ተቀምጧል</string>
+    <string name="scan_to_paste">ቁልፎቹን ለመለጠፍ በስልክዎ ይቃኙ</string>
+    <string name="tmdb_notice">ዳራዎቹ የTMDB APIን ይጠቀማሉ፣ ግን በTMDB የተደገፉ ወይም የተረጋገጡ አይደሉም።</string>
+    <string name="about_key">ስለዚህ ቁልፍ</string>
+    <string name="tmdb_info">በመተግበሪያዎችዎ የመነሻ ማያ ካርዶች ላይ ላሉ ፊልሞችና ትዕይንቶች፣ በራሳቸው ምስሎችና ተለጣፊዎች ፈንታ ንጹህ ዳራዎችና የርዕስ አርማዎች። ያለ ቁልፍም ይሠራል፣ ከStremio ነፃ ውሂብ፤ TMDB ኦፊሴላዊና ይበልጥ አስተማማኝ ምንጭ ነው።\n\nነፃ ቁልፍ፦ themoviedb.org → ቅንብሮች → API → የግል አጠቃቀም።</string>
+    <string name="youtube_info">ከYouTube ሰቅ ጀርባ በአገርዎ በጣም ተወዳጅ የሆኑ ቪዲዮዎችን ያሳያል።\n\nነፃ ቁልፍ፦ console.cloud.google.com → አዲስ ፕሮጀክት → YouTube Data API v3ን ያብሩ → ምስክርነቶች → የAPI ቁልፍ ፍጠር።\n\nSmartTube ከተጫነ፣ ዳራዎቹ ያለ ቁልፍ ከራስዎ የYouTube ምግብ ይመጣሉ።</string>
+    <string name="plex_info">ከራስዎ የPlex አገልጋይ የመጡ ዳራዎች፦ መመልከት ይቀጥሉ እና በቅርቡ የታከሉ።\n\nለማግኘት፦ app.plex.tv → ማንኛውንም ርዕስ ይክፈቱ → ⋯ → መረጃ አግኝ → XML አሳይ፣ በአድራሻው ውስጥ ከX-Plex-Token= በኋላ ያለውን ይቅዱ። እንደ የይለፍ ቃል በሚስጥር ይያዙት።</string>
+    <string name="saved_from_phone">ከስልክዎ ተቀምጧል</string>
+    <string name="not_available">በዚህ ቲቪ ላይ አይገኝም</string>
+    <string name="cant_open">%1$sን መክፈት አልተቻለም</string>
+</resources>

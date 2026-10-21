@@ -20,7 +20,7 @@ public class UpdateReceiver extends BroadcastReceiver {
             if (confirm != null) context.startActivity(confirm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         } else if (status != PackageInstaller.STATUS_SUCCESS && status != PackageInstaller.STATUS_FAILURE_ABORTED) {
             // Aborted is the user pressing Cancel: nothing to say.
-            Toast.makeText(context, R.string.update_failed, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, Lang.wrap(context).getString(R.string.update_failed), Toast.LENGTH_LONG).show();
         }
     }
 }

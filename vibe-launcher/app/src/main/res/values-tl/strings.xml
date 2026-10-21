@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">Mga poster ng Vibe Launcher</string>
+    <string name="inputs">Mga input</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">Mga setting</string>
+    <string name="connected">Nakakonekta</string>
+    <string name="not_connected">Walang device</string>
+    <string name="live_tv">Live TV</string>
+    <string name="no_inputs">Walang nahanap na input</string>
+    <string name="ethernet">Ethernet</string>
+    <string name="offline">Offline</string>
+    <string name="all_apps">Lahat ng app</string>
+    <string name="network_settings">Mga setting ng network</string>
+    <string name="network">Network</string>
+    <string name="vpn_connected">Nakakonekta ang VPN</string>
+    <string name="move">Ilipat</string>
+    <string name="move_hint">Ilipat gamit ang mga arrow, saka pindutin ang OK</string>
+    <string name="remove">Alisin</string>
+    <string name="hide">Itago</string>
+    <string name="app_info">Info ng app</string>
+    <string name="show_hidden">Ipakita ang mga nakatagong app</string>
+    <string name="vibe_settings">Mga setting ng Vibe Launcher</string>
+    <string name="android_settings">Mga setting ng Android</string>
+    <string name="make_home">Gawing Home ang Vibe Launcher</string>
+    <string name="home_not_changeable">Hindi pinapayagan ng TV na ito ang mga app na pumili ng Home app. Itakda ito mula sa computer: tingnan ang README ng Vibe Launcher</string>
+    <string name="tmdb_key">TMDB API key</string>
+    <string name="youtube_key">YouTube API key</string>
+    <string name="tiles_per_row">Tile bawat hanay</string>
+    <string name="language">Wika</string>
+    <string name="language_system">Gaya ng system</string>
+    <string name="plex_token">Plex token</string>
+    <string name="not_set">Hindi nakatakda</string>
+    <string name="save">I-save</string>
+    <string name="cancel">Kanselahin</string>
+    <string name="tab_general">Pangkalahatan</string>
+    <string name="tab_keys">Mga API key</string>
+    <string name="updates">Bersyon ng software</string>
+    <string name="check_updates">Tingnan kung may update</string>
+    <string name="checking_updates">Tinitingnan…</string>
+    <string name="update_to">I-update sa %1$s</string>
+    <string name="version_up_to_date">%1$s · Pinakabago</string>
+    <string name="update_available">May update: %1$s</string>
+    <string name="update_check_failed">%1$s · Hindi matingnan kung may update</string>
+    <string name="update_downloading">Dina-download ang update…</string>
+    <string name="update_development_status">%1$s, ginawa gamit ang ibang signing key: i-update mula sa computer gamit ang build-and-install.sh</string>
+    <string name="update_development">Iba ang signing key ng build na ito: i-update ito mula sa computer, gamit ang build-and-install.sh</string>
+    <string name="update_allow_installs">Payagan ang Vibe Launcher na mag-install ng app, saka piliin ulit ang I-update</string>
+    <string name="update_no_installs">Hindi pinapayagan ng TV na ito ang mga app na mag-install ng update</string>
+    <string name="update_bad_download">Hindi tugma ang download sa release, kaya hindi ito na-install</string>
+    <string name="update_failed">Hindi na-install ang update</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">RAM</string>
+    <string name="saved">Na-save</string>
+    <string name="scan_to_paste">I-scan gamit ang phone para i-paste ang mga key</string>
+    <string name="tmdb_notice">Gumagamit ang mga backdrop ng TMDB API pero hindi ito ini-endorse o sinertipika ng TMDB.</string>
+    <string name="about_key">Tungkol sa key na ito</string>
+    <string name="tmdb_info">Malinis na backdrop at logo ng pamagat para sa mga pelikula at palabas sa mga home screen card ng iyong mga app, kapalit ng sarili nilang larawan at sticker. Gumagana kahit walang key, mula sa libreng data ng Stremio; ang TMDB ang opisyal at mas maaasahang pinagmulan.\n\nLibreng key: themoviedb.org → Mga Setting → API → personal na gamit.</string>
+    <string name="youtube_info">Ipinapakita ang pinakasikat na mga video sa iyong bansa sa likod ng tile ng YouTube.\n\nLibreng key: console.cloud.google.com → bagong project → i-enable ang YouTube Data API v3 → Mga Kredensyal → Gumawa ng API key.\n\nKapag naka-install ang SmartTube, galing sa sarili mong YouTube feed ang mga backdrop, walang key.</string>
+    <string name="plex_info">Mga backdrop mula sa sarili mong Plex server: Ituloy ang panonood at mga bagong dagdag.\n\nPara makuha: app.plex.tv → buksan ang kahit anong pamagat → ⋯ → Kunin ang Impormasyon → Tingnan ang XML, at kopyahin ang kasunod ng X-Plex-Token= sa address. Ilihim ito, gaya ng password.</string>
+    <string name="saved_from_phone">Na-save mula sa iyong phone</string>
+    <string name="not_available">Hindi available sa TV na ito</string>
+    <string name="cant_open">Hindi mabuksan ang %1$s</string>
+</resources>

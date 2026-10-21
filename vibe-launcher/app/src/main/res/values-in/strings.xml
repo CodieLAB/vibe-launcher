@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">Poster Vibe Launcher</string>
+    <string name="inputs">Input</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">Setelan</string>
+    <string name="connected">Terhubung</string>
+    <string name="not_connected">Tidak ada perangkat</string>
+    <string name="live_tv">TV Langsung</string>
+    <string name="no_inputs">Tidak ada input</string>
+    <string name="ethernet">Ethernet</string>
+    <string name="offline">Offline</string>
+    <string name="all_apps">Semua aplikasi</string>
+    <string name="network_settings">Setelan jaringan</string>
+    <string name="network">Jaringan</string>
+    <string name="vpn_connected">VPN terhubung</string>
+    <string name="move">Pindahkan</string>
+    <string name="move_hint">Pindahkan dengan tombol panah, lalu tekan OK</string>
+    <string name="remove">Copot</string>
+    <string name="hide">Sembunyikan</string>
+    <string name="app_info">Info aplikasi</string>
+    <string name="show_hidden">Tampilkan aplikasi tersembunyi</string>
+    <string name="vibe_settings">Setelan Vibe Launcher</string>
+    <string name="android_settings">Setelan Android</string>
+    <string name="make_home">Jadikan Vibe Launcher layar utama</string>
+    <string name="home_not_changeable">TV ini tidak mengizinkan aplikasi memilih aplikasi layar utama. Atur dari komputer: lihat README Vibe Launcher</string>
+    <string name="tmdb_key">Kunci API TMDB</string>
+    <string name="youtube_key">Kunci API YouTube</string>
+    <string name="tiles_per_row">Ubin per baris</string>
+    <string name="language">Bahasa</string>
+    <string name="language_system">Sesuai sistem</string>
+    <string name="plex_token">Token Plex</string>
+    <string name="not_set">Belum diatur</string>
+    <string name="save">Simpan</string>
+    <string name="cancel">Batal</string>
+    <string name="tab_general">Umum</string>
+    <string name="tab_keys">Kunci API</string>
+    <string name="updates">Versi perangkat lunak</string>
+    <string name="check_updates">Periksa pembaruan</string>
+    <string name="checking_updates">Memeriksa…</string>
+    <string name="update_to">Perbarui ke %1$s</string>
+    <string name="version_up_to_date">%1$s · Terbaru</string>
+    <string name="update_available">Pembaruan tersedia: %1$s</string>
+    <string name="update_check_failed">%1$s · Tidak bisa memeriksa pembaruan</string>
+    <string name="update_downloading">Mengunduh pembaruan…</string>
+    <string name="update_development_status">%1$s, dibuat dengan kunci tanda tangan lain: perbarui dari komputer dengan build-and-install.sh</string>
+    <string name="update_development">Build ini memakai kunci tanda tangan lain: perbarui dari komputer, dengan build-and-install.sh</string>
+    <string name="update_allow_installs">Izinkan Vibe Launcher memasang aplikasi, lalu pilih Perbarui lagi</string>
+    <string name="update_no_installs">TV ini tidak mengizinkan aplikasi memasang pembaruan</string>
+    <string name="update_bad_download">Unduhan tidak cocok dengan rilisnya, jadi tidak dipasang</string>
+    <string name="update_failed">Pembaruan tidak terpasang</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">RAM</string>
+    <string name="saved">Tersimpan</string>
+    <string name="scan_to_paste">Pindai dengan ponsel untuk menempelkan kunci</string>
+    <string name="tmdb_notice">Latar memakai API TMDB tetapi tidak didukung atau disertifikasi oleh TMDB.</string>
+    <string name="about_key">Tentang kunci ini</string>
+    <string name="tmdb_info">Latar bersih dan logo judul untuk film dan acara di kartu layar utama aplikasi Anda, menggantikan gambar dan stiker bawaan aplikasi. Berfungsi tanpa kunci, dari data gratis Stremio; TMDB adalah sumber resmi yang lebih andal.\n\nKunci gratis: themoviedb.org → Pengaturan → API → penggunaan pribadi.</string>
+    <string name="youtube_info">Menampilkan video paling populer di negara Anda di balik ubin YouTube.\n\nKunci gratis: console.cloud.google.com → proyek baru → aktifkan YouTube Data API v3 → Kredensial → Buat kunci API.\n\nJika SmartTube terpasang, latar diambil dari feed YouTube Anda sendiri, tanpa kunci.</string>
+    <string name="plex_info">Latar dari server Plex Anda sendiri: Lanjutkan menonton dan yang baru ditambahkan.\n\nCara mendapatkannya: app.plex.tv → buka judul apa saja → ⋯ → Dapatkan Info → Lihat XML, lalu salin bagian setelah X-Plex-Token= di alamatnya. Rahasiakan seperti kata sandi.</string>
+    <string name="saved_from_phone">Tersimpan dari ponsel Anda</string>
+    <string name="not_available">Tidak tersedia di TV ini</string>
+    <string name="cant_open">Tidak dapat membuka %1$s</string>
+</resources>

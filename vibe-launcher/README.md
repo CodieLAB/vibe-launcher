@@ -101,6 +101,7 @@ their keys are set. No analytics, no accounts, nothing else.
 |---|---|
 | `MainActivity` | Home screen, dock and grid focus, top bar menus, the Inputs menu with its HDMI-CEC devices |
 | `SettingsDialog` | Vibe Launcher settings: General (tiles per row, software version) and API keys (the keys, their ⓘ, the QR code) |
+| `Lang` | The 50 languages and applying the one chosen in settings (or the TV's own) |
 | `Updater`, `UpdateReceiver` | Checks the GitHub releases, downloads and verifies the APK, hands it to Android's installer |
 | `AppAdapter`, `TileAnimator`, `DockDecoration` | Tiles, their animations and the dock band |
 | `GlassView`, `FrostView` | The glass focus highlight and the frosted top bar (software blur; Android 9 has no live blur) |

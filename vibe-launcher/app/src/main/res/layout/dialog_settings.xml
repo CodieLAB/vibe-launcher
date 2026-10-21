@@ -87,6 +87,26 @@
                         android:text="6" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/SettingsLabel"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="6dp"
+                        android:text="@string/language" />
+
+                    <!-- The language in use; opens the list (SettingsDialog), applied on Save. -->
+                    <TextView
+                        android:id="@+id/languageButton"
+                        style="@style/TopButton"
+                        android:paddingStart="20dp" />
+                </LinearLayout>
+
                 <TextView
                     style="@style/SettingsLabel"
                     android:layout_marginTop="28dp"
@@ -205,7 +225,7 @@
                 android:layout_marginStart="0dp"
                 android:layout_marginTop="12dp"
                 android:paddingStart="20dp"
-                android:text="@android:string/cancel" />
+                android:text="@string/cancel" />
 
             <!-- Scan to type the keys on a phone instead (PhoneLink). -->
             <LinearLayout

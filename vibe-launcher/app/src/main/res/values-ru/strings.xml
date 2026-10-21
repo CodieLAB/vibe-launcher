@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">Постеры Vibe Launcher</string>
+    <string name="inputs">Входы</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">Настройки</string>
+    <string name="connected">Подключено</string>
+    <string name="not_connected">Нет устройства</string>
+    <string name="live_tv">Эфирное ТВ</string>
+    <string name="no_inputs">Входы не найдены</string>
+    <string name="ethernet">Ethernet</string>
+    <string name="offline">Нет сети</string>
+    <string name="all_apps">Все приложения</string>
+    <string name="network_settings">Настройки сети</string>
+    <string name="network">Сеть</string>
+    <string name="vpn_connected">VPN подключён</string>
+    <string name="move">Переместить</string>
+    <string name="move_hint">Перемещайте стрелками, затем нажмите OK</string>
+    <string name="remove">Удалить</string>
+    <string name="hide">Скрыть</string>
+    <string name="app_info">О приложении</string>
+    <string name="show_hidden">Показать скрытые приложения</string>
+    <string name="vibe_settings">Настройки Vibe Launcher</string>
+    <string name="android_settings">Настройки Android</string>
+    <string name="make_home">Сделать Vibe Launcher главным экраном</string>
+    <string name="home_not_changeable">Этот телевизор не даёт приложениям выбирать главный экран. Настройте это с компьютера: см. README Vibe Launcher</string>
+    <string name="tmdb_key">Ключ API TMDB</string>
+    <string name="youtube_key">Ключ API YouTube</string>
+    <string name="tiles_per_row">Плиток в ряду</string>
+    <string name="language">Язык</string>
+    <string name="language_system">Как в системе</string>
+    <string name="plex_token">Токен Plex</string>
+    <string name="not_set">Не задан</string>
+    <string name="save">Сохранить</string>
+    <string name="cancel">Отмена</string>
+    <string name="tab_general">Общие</string>
+    <string name="tab_keys">Ключи API</string>
+    <string name="updates">Версия программы</string>
+    <string name="check_updates">Проверить обновления</string>
+    <string name="checking_updates">Проверка…</string>
+    <string name="update_to">Обновить до %1$s</string>
+    <string name="version_up_to_date">%1$s · Последняя версия</string>
+    <string name="update_available">Доступно обновление: %1$s</string>
+    <string name="update_check_failed">%1$s · Не удалось проверить обновления</string>
+    <string name="update_downloading">Загрузка обновления…</string>
+    <string name="update_development_status">%1$s, собрана с другим ключом подписи: обновляйте с компьютера через build-and-install.sh</string>
+    <string name="update_development">У этой сборки другой ключ подписи: обновляйте её с компьютера, через build-and-install.sh</string>
+    <string name="update_allow_installs">Разрешите Vibe Launcher устанавливать приложения, затем снова выберите «Обновить»</string>
+    <string name="update_no_installs">Этот телевизор не даёт приложениям устанавливать обновления</string>
+    <string name="update_bad_download">Загруженный файл не совпал с выпуском, поэтому он не установлен</string>
+    <string name="update_failed">Обновление не установлено</string>
+    <string name="cpu">ЦП</string>
+    <string name="ram">ОЗУ</string>
+    <string name="saved">Сохранено</string>
+    <string name="scan_to_paste">Отсканируйте телефоном, чтобы вставить ключи</string>
+    <string name="tmdb_notice">Фоны используют API TMDB, но не одобрены и не сертифицированы TMDB.</string>
+    <string name="about_key">Об этом ключе</string>
+    <string name="tmdb_info">Чистые фоны и логотипы названий для фильмов и сериалов с карточек главного экрана ваших приложений вместо их собственных картинок и наклеек. Работает без ключа, на бесплатных данных Stremio; TMDB — официальный и более надёжный источник.\n\nБесплатный ключ: themoviedb.org → Настройки → API → личное использование.</string>
+    <string name="youtube_info">Показывает самые популярные видео в вашей стране за плиткой YouTube.\n\nБесплатный ключ: console.cloud.google.com → новый проект → включите YouTube Data API v3 → Учётные данные → Создать ключ API.\n\nЕсли установлен SmartTube, фоны берутся из вашей собственной ленты YouTube, без ключа.</string>
+    <string name="plex_info">Фоны с вашего собственного сервера Plex: «Продолжить просмотр» и недавно добавленное.\n\nКак найти: app.plex.tv → откройте любой фильм → ⋯ → Информация → Просмотреть XML и скопируйте то, что идёт после X-Plex-Token= в адресе. Храните его в тайне, как пароль.</string>
+    <string name="saved_from_phone">Сохранено с телефона</string>
+    <string name="not_available">Недоступно на этом телевизоре</string>
+    <string name="cant_open">Не удаётся открыть %1$s</string>
+</resources>

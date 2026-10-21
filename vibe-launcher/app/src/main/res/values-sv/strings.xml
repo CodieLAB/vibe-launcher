@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">Vibe Launcher-affischer</string>
+    <string name="inputs">Ingångar</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">Inställningar</string>
+    <string name="connected">Ansluten</string>
+    <string name="not_connected">Ingen enhet</string>
+    <string name="live_tv">Live-tv</string>
+    <string name="no_inputs">Inga ingångar hittades</string>
+    <string name="ethernet">Ethernet</string>
+    <string name="offline">Offline</string>
+    <string name="all_apps">Alla appar</string>
+    <string name="network_settings">Nätverksinställningar</string>
+    <string name="network">Nätverk</string>
+    <string name="vpn_connected">VPN anslutet</string>
+    <string name="move">Flytta</string>
+    <string name="move_hint">Flytta med pilarna och tryck sedan på OK</string>
+    <string name="remove">Avinstallera</string>
+    <string name="hide">Dölj</string>
+    <string name="app_info">Appinfo</string>
+    <string name="show_hidden">Visa dolda appar</string>
+    <string name="vibe_settings">Inställningar för Vibe Launcher</string>
+    <string name="android_settings">Android-inställningar</string>
+    <string name="make_home">Använd Vibe Launcher som startskärm</string>
+    <string name="home_not_changeable">Den här tv:n låter inte appar välja startskärmsapp. Ställ in det från en dator: se Vibe Launchers README</string>
+    <string name="tmdb_key">TMDB API-nyckel</string>
+    <string name="youtube_key">YouTube API-nyckel</string>
+    <string name="tiles_per_row">Rutor per rad</string>
+    <string name="language">Språk</string>
+    <string name="language_system">Som systemet</string>
+    <string name="plex_token">Plex-token</string>
+    <string name="not_set">Inte angiven</string>
+    <string name="save">Spara</string>
+    <string name="cancel">Avbryt</string>
+    <string name="tab_general">Allmänt</string>
+    <string name="tab_keys">API-nycklar</string>
+    <string name="updates">Programversion</string>
+    <string name="check_updates">Sök efter uppdateringar</string>
+    <string name="checking_updates">Söker…</string>
+    <string name="update_to">Uppdatera till %1$s</string>
+    <string name="version_up_to_date">%1$s · Uppdaterad</string>
+    <string name="update_available">Uppdatering finns: %1$s</string>
+    <string name="update_check_failed">%1$s · Kunde inte söka efter uppdateringar</string>
+    <string name="update_downloading">Hämtar uppdateringen…</string>
+    <string name="update_development_status">%1$s, byggd med en annan signeringsnyckel: uppdatera från en dator med build-and-install.sh</string>
+    <string name="update_development">Den här versionen har en annan signeringsnyckel: uppdatera den från en dator, med build-and-install.sh</string>
+    <string name="update_allow_installs">Tillåt Vibe Launcher att installera appar och välj sedan Uppdatera igen</string>
+    <string name="update_no_installs">Den här tv:n låter inte appar installera uppdateringar</string>
+    <string name="update_bad_download">Nedladdningen stämde inte med versionen, så den installerades inte</string>
+    <string name="update_failed">Uppdateringen installerades inte</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">RAM</string>
+    <string name="saved">Sparat</string>
+    <string name="scan_to_paste">Skanna med mobilen för att klistra in nycklarna</string>
+    <string name="tmdb_notice">Bakgrunderna använder TMDB:s API men är inte godkända eller certifierade av TMDB.</string>
+    <string name="about_key">Om den här nyckeln</string>
+    <string name="tmdb_info">Rena bakgrunder och titellogotyper för filmerna och serierna på dina appars startskärmskort, i stället för deras egna bilder och etiketter. Fungerar utan nyckel, med Stremios gratisdata; TMDB är den officiella, mer pålitliga källan.\n\nGratis nyckel: themoviedb.org → Inställningar → API → privat bruk.</string>
+    <string name="youtube_info">Visar de populäraste videorna i ditt land bakom YouTube-rutan.\n\nGratis nyckel: console.cloud.google.com → nytt projekt → aktivera YouTube Data API v3 → Inloggningsuppgifter → Skapa API-nyckel.\n\nMed SmartTube installerat kommer bakgrunderna från ditt eget YouTube-flöde, utan nyckel.</string>
+    <string name="plex_info">Bakgrunder från din egen Plex-server: Fortsätt titta och nyligen tillagt.\n\nSå hittar du den: app.plex.tv → öppna valfri titel → ⋯ → Hämta info → Visa XML, och kopiera det som följer efter X-Plex-Token= i adressen. Håll den hemlig, som ett lösenord.</string>
+    <string name="saved_from_phone">Sparat från mobilen</string>
+    <string name="not_available">Inte tillgängligt på den här tv:n</string>
+    <string name="cant_open">Kan inte öppna %1$s</string>
+</resources>

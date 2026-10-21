@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Vibe Launcher</string>
+    <string name="app_name" translatable="false">Vibe Launcher</string>
     <string name="dream_name">Vibe Launcher posters</string>
     <string name="inputs">Inputs</string>
     <string name="wifi">Wi-Fi</string>
@@ -28,16 +28,19 @@
     <string name="tmdb_key">TMDB API key</string>
     <string name="youtube_key">YouTube API key</string>
     <string name="tiles_per_row">Tiles per row</string>
+    <string name="language">Language</string>
+    <string name="language_system">Match system</string>
     <string name="plex_token">Plex token</string>
     <string name="not_set">Not set</string>
     <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
     <string name="tab_general">General</string>
     <string name="tab_keys">API keys</string>
     <string name="updates">Software version</string>
     <string name="check_updates">Check for updates</string>
     <string name="checking_updates">Checking…</string>
     <string name="update_to">Update to %1$s</string>
-    <string name="version_current">%1$s</string>
+    <string name="version_current" translatable="false">%1$s</string>
     <string name="version_up_to_date">%1$s · Up to date</string>
     <string name="update_available">Update available: %1$s</string>
     <string name="update_check_failed">%1$s · Couldn\'t check for updates</string>
@@ -49,9 +52,9 @@
     <string name="update_bad_download">The download didn\'t match the release, so it wasn\'t installed</string>
     <string name="update_failed">The update didn\'t install</string>
     <string name="cpu">CPU</string>
-    <string name="percent">%1$d%%</string>
+    <string name="percent" translatable="false">%1$d%%</string>
     <string name="ram">RAM</string>
-    <string name="ram_value">%1$.1f / %2$.1f GB</string>
+    <string name="ram_value" translatable="false">%1$.1f / %2$.1f GB</string>
     <string name="saved">Saved</string>
     <string name="scan_to_paste">Scan with your phone to paste the keys</string>
     <string name="tmdb_notice">Backdrops use the TMDB API but are not endorsed or certified by TMDB.</string>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">Vibe Launcher 海报</string>
+    <string name="inputs">输入源</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">设置</string>
+    <string name="connected">已连接</string>
+    <string name="not_connected">无设备</string>
+    <string name="live_tv">电视直播</string>
+    <string name="no_inputs">未找到输入源</string>
+    <string name="ethernet">以太网</string>
+    <string name="offline">离线</string>
+    <string name="all_apps">所有应用</string>
+    <string name="network_settings">网络设置</string>
+    <string name="network">网络</string>
+    <string name="vpn_connected">VPN 已连接</string>
+    <string name="move">移动</string>
+    <string name="move_hint">用方向键移动，然后按确定</string>
+    <string name="remove">卸载</string>
+    <string name="hide">隐藏</string>
+    <string name="app_info">应用信息</string>
+    <string name="show_hidden">显示隐藏的应用</string>
+    <string name="vibe_settings">Vibe Launcher 设置</string>
+    <string name="android_settings">Android 设置</string>
+    <string name="make_home">将 Vibe Launcher 设为主屏幕</string>
+    <string name="home_not_changeable">这台电视不允许应用选择主屏幕应用。请用电脑设置：见 Vibe Launcher 的 README</string>
+    <string name="tmdb_key">TMDB API 密钥</string>
+    <string name="youtube_key">YouTube API 密钥</string>
+    <string name="tiles_per_row">每行图块数</string>
+    <string name="language">语言</string>
+    <string name="language_system">跟随系统</string>
+    <string name="plex_token">Plex 令牌</string>
+    <string name="not_set">未设置</string>
+    <string name="save">保存</string>
+    <string name="cancel">取消</string>
+    <string name="tab_general">常规</string>
+    <string name="tab_keys">API 密钥</string>
+    <string name="updates">软件版本</string>
+    <string name="check_updates">检查更新</string>
+    <string name="checking_updates">正在检查…</string>
+    <string name="update_to">更新到 %1$s</string>
+    <string name="version_up_to_date">%1$s · 已是最新</string>
+    <string name="update_available">有可用更新：%1$s</string>
+    <string name="update_check_failed">%1$s · 无法检查更新</string>
+    <string name="update_downloading">正在下载更新…</string>
+    <string name="update_development_status">%1$s，使用其他签名密钥构建：请用电脑通过 build-and-install.sh 更新</string>
+    <string name="update_development">此版本使用其他签名密钥：请用电脑通过 build-and-install.sh 更新</string>
+    <string name="update_allow_installs">请允许 Vibe Launcher 安装应用，然后再次选择更新</string>
+    <string name="update_no_installs">这台电视不允许应用安装更新</string>
+    <string name="update_bad_download">下载内容与发布版本不符，未安装</string>
+    <string name="update_failed">更新未能安装</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">内存</string>
+    <string name="saved">已保存</string>
+    <string name="scan_to_paste">用手机扫码粘贴密钥</string>
+    <string name="tmdb_notice">背景图使用 TMDB API，但未获得 TMDB 认可或认证。</string>
+    <string name="about_key">关于此密钥</string>
+    <string name="tmdb_info">为应用主屏卡片上的电影和剧集提供无文字的背景图和片名标志，取代应用自带的图片和标签。无需密钥也能使用（来自 Stremio 的免费数据）；TMDB 是官方的、更可靠的来源。\n\n免费密钥：themoviedb.org → 设置 → API → 个人用途。</string>
+    <string name="youtube_info">在 YouTube 图块后面显示你所在国家最热门的视频。\n\n免费密钥：console.cloud.google.com → 新建项目 → 启用 YouTube Data API v3 → 凭据 → 创建 API 密钥。\n\n安装了 SmartTube 时，背景图改为来自你自己的 YouTube 订阅，无需密钥。</string>
+    <string name="plex_info">来自你自己 Plex 服务器的背景图：继续观看和最近添加。\n\n获取方法：app.plex.tv → 打开任意影片 → ⋯ → 获取信息 → 查看 XML，复制地址中 X-Plex-Token= 后面的内容。请像密码一样保密。</string>
+    <string name="saved_from_phone">已从手机保存</string>
+    <string name="not_available">此电视不支持</string>
+    <string name="cant_open">无法打开 %1$s</string>
+</resources>

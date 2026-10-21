@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">Vibe Launcher plakátok</string>
+    <string name="inputs">Bemenetek</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">Beállítások</string>
+    <string name="connected">Csatlakoztatva</string>
+    <string name="not_connected">Nincs eszköz</string>
+    <string name="live_tv">Élő TV</string>
+    <string name="no_inputs">Nem található bemenet</string>
+    <string name="ethernet">Ethernet</string>
+    <string name="offline">Offline</string>
+    <string name="all_apps">Minden alkalmazás</string>
+    <string name="network_settings">Hálózati beállítások</string>
+    <string name="network">Hálózat</string>
+    <string name="vpn_connected">VPN csatlakoztatva</string>
+    <string name="move">Áthelyezés</string>
+    <string name="move_hint">Mozgasd a nyilakkal, majd nyomd meg az OK gombot</string>
+    <string name="remove">Eltávolítás</string>
+    <string name="hide">Elrejtés</string>
+    <string name="app_info">Alkalmazásinfó</string>
+    <string name="show_hidden">Rejtett alkalmazások mutatása</string>
+    <string name="vibe_settings">Vibe Launcher beállításai</string>
+    <string name="android_settings">Android beállításai</string>
+    <string name="make_home">A Vibe Launcher legyen a kezdőképernyő</string>
+    <string name="home_not_changeable">Ez a tévé nem engedi, hogy az alkalmazások kiválasszák a kezdőképernyőt. Állítsd be számítógépről: lásd a Vibe Launcher README-jét</string>
+    <string name="tmdb_key">TMDB API-kulcs</string>
+    <string name="youtube_key">YouTube API-kulcs</string>
+    <string name="tiles_per_row">Csempék soronként</string>
+    <string name="language">Nyelv</string>
+    <string name="language_system">Mint a rendszer</string>
+    <string name="plex_token">Plex token</string>
+    <string name="not_set">Nincs beállítva</string>
+    <string name="save">Mentés</string>
+    <string name="cancel">Mégse</string>
+    <string name="tab_general">Általános</string>
+    <string name="tab_keys">API-kulcsok</string>
+    <string name="updates">Szoftververzió</string>
+    <string name="check_updates">Frissítések keresése</string>
+    <string name="checking_updates">Keresés…</string>
+    <string name="update_to">Frissítés erre: %1$s</string>
+    <string name="version_up_to_date">%1$s · Naprakész</string>
+    <string name="update_available">Frissítés érhető el: %1$s</string>
+    <string name="update_check_failed">%1$s · Nem sikerült frissítést keresni</string>
+    <string name="update_downloading">A frissítés letöltése…</string>
+    <string name="update_development_status">%1$s, más aláírókulccsal készült: frissítsd számítógépről a build-and-install.sh segítségével</string>
+    <string name="update_development">Ennek a buildnek más az aláírókulcsa: frissítsd számítógépről, a build-and-install.sh segítségével</string>
+    <string name="update_allow_installs">Engedd, hogy a Vibe Launcher alkalmazásokat telepítsen, majd válaszd újra a Frissítést</string>
+    <string name="update_no_installs">Ez a tévé nem engedi, hogy az alkalmazások frissítéseket telepítsenek</string>
+    <string name="update_bad_download">A letöltés nem egyezett a kiadással, ezért nem lett telepítve</string>
+    <string name="update_failed">A frissítés nem települt</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">RAM</string>
+    <string name="saved">Mentve</string>
+    <string name="scan_to_paste">Olvasd be telefonnal a kulcsok beillesztéséhez</string>
+    <string name="tmdb_notice">A háttérképek a TMDB API-t használják, de a TMDB nem támogatja és nem tanúsítja őket.</string>
+    <string name="about_key">Erről a kulcsról</string>
+    <string name="tmdb_info">Tiszta háttérképek és címlogók az alkalmazásaid kezdőképernyő-kártyáin lévő filmekhez és sorozatokhoz, a saját képeik és matricáik helyett. Kulcs nélkül is működik, a Stremio ingyenes adataival; a TMDB a hivatalos, megbízhatóbb forrás.\n\nIngyenes kulcs: themoviedb.org → Beállítások → API → személyes használat.</string>
+    <string name="youtube_info">A YouTube csempe mögött az országod legnépszerűbb videóit mutatja.\n\nIngyenes kulcs: console.cloud.google.com → új projekt → YouTube Data API v3 engedélyezése → Hitelesítő adatok → API-kulcs létrehozása.\n\nHa a SmartTube telepítve van, a háttérképek a saját YouTube-hírfolyamodból jönnek, kulcs nélkül.</string>
+    <string name="plex_info">Háttérképek a saját Plex-szerveredről: Folytatás és nemrég hozzáadottak.\n\nÍgy találod meg: app.plex.tv → nyiss meg bármilyen címet → ⋯ → Információ → XML megtekintése, és másold ki, ami a címben az X-Plex-Token= után áll. Tartsd titokban, mint egy jelszót.</string>
+    <string name="saved_from_phone">Mentve a telefonról</string>
+    <string name="not_available">Ezen a tévén nem érhető el</string>
+    <string name="cant_open">Nem nyitható meg: %1$s</string>
+</resources>

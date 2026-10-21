@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">Vibe Launcher போஸ்டர்கள்</string>
+    <string name="inputs">உள்ளீடுகள்</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">அமைப்புகள்</string>
+    <string name="connected">இணைக்கப்பட்டது</string>
+    <string name="not_connected">சாதனம் இல்லை</string>
+    <string name="live_tv">நேரலை டிவி</string>
+    <string name="no_inputs">உள்ளீடுகள் எதுவும் இல்லை</string>
+    <string name="ethernet">ஈதர்நெட்</string>
+    <string name="offline">ஆஃப்லைன்</string>
+    <string name="all_apps">எல்லா ஆப்ஸும்</string>
+    <string name="network_settings">நெட்வொர்க் அமைப்புகள்</string>
+    <string name="network">நெட்வொர்க்</string>
+    <string name="vpn_connected">VPN இணைக்கப்பட்டது</string>
+    <string name="move">நகர்த்து</string>
+    <string name="move_hint">அம்புகளால் நகர்த்தி, பின் OK அழுத்தவும்</string>
+    <string name="remove">அகற்று</string>
+    <string name="hide">மறை</string>
+    <string name="app_info">ஆப் தகவல்</string>
+    <string name="show_hidden">மறைத்த ஆப்ஸைக் காட்டு</string>
+    <string name="vibe_settings">Vibe Launcher அமைப்புகள்</string>
+    <string name="android_settings">Android அமைப்புகள்</string>
+    <string name="make_home">Vibe Launcher-ஐ முகப்பாக்கு</string>
+    <string name="home_not_changeable">இந்த டிவி ஆப்ஸை முகப்பு ஆப்பைத் தேர்வுசெய்ய விடாது. கணினியில் அமைக்கவும்: Vibe Launcher README-ஐப் பார்க்கவும்</string>
+    <string name="tmdb_key">TMDB API சாவி</string>
+    <string name="youtube_key">YouTube API சாவி</string>
+    <string name="tiles_per_row">வரிசைக்கு டைல்கள்</string>
+    <string name="language">மொழி</string>
+    <string name="language_system">சிஸ்டம் போலவே</string>
+    <string name="plex_token">Plex டோக்கன்</string>
+    <string name="not_set">அமைக்கவில்லை</string>
+    <string name="save">சேமி</string>
+    <string name="cancel">ரத்துசெய்</string>
+    <string name="tab_general">பொது</string>
+    <string name="tab_keys">API சாவிகள்</string>
+    <string name="updates">மென்பொருள் பதிப்பு</string>
+    <string name="check_updates">புதுப்பிப்புகளைத் தேடு</string>
+    <string name="checking_updates">தேடுகிறது…</string>
+    <string name="update_to">%1$s க்குப் புதுப்பி</string>
+    <string name="version_up_to_date">%1$s · புதியது</string>
+    <string name="update_available">புதுப்பிப்பு உள்ளது: %1$s</string>
+    <string name="update_check_failed">%1$s · புதுப்பிப்புகளைத் தேட முடியவில்லை</string>
+    <string name="update_downloading">புதுப்பிப்பைப் பதிவிறக்குகிறது…</string>
+    <string name="update_development_status">%1$s, வேறு கையொப்பச் சாவியுடன் உருவானது: கணினியிலிருந்து build-and-install.sh மூலம் புதுப்பிக்கவும்</string>
+    <string name="update_development">இந்த பில்டுக்கு வேறு கையொப்பச் சாவி உள்ளது: கணினியிலிருந்து build-and-install.sh மூலம் புதுப்பிக்கவும்</string>
+    <string name="update_allow_installs">Vibe Launcher ஆப்ஸை நிறுவ அனுமதித்து, மீண்டும் புதுப்பி என்பதைத் தேர்வுசெய்யவும்</string>
+    <string name="update_no_installs">இந்த டிவி ஆப்ஸைப் புதுப்பிப்புகளை நிறுவ விடாது</string>
+    <string name="update_bad_download">பதிவிறக்கம் வெளியீட்டுடன் பொருந்தவில்லை, எனவே நிறுவப்படவில்லை</string>
+    <string name="update_failed">புதுப்பிப்பு நிறுவப்படவில்லை</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">RAM</string>
+    <string name="saved">சேமிக்கப்பட்டது</string>
+    <string name="scan_to_paste">சாவிகளை ஒட்ட ஃபோனால் ஸ்கேன் செய்யவும்</string>
+    <string name="tmdb_notice">பின்னணிகள் TMDB API-ஐப் பயன்படுத்துகின்றன, ஆனால் TMDB இவற்றை அங்கீகரிக்கவோ சான்றளிக்கவோ இல்லை.</string>
+    <string name="about_key">இந்தச் சாவியைப் பற்றி</string>
+    <string name="tmdb_info">உங்கள் ஆப்ஸின் முகப்புத் திரை அட்டைகளில் உள்ள படங்கள், நிகழ்ச்சிகளுக்கு, ஆப்ஸின் சொந்தப் படங்கள், ஸ்டிக்கர்களுக்குப் பதிலாக, சுத்தமான பின்னணிகளும் தலைப்பு லோகோக்களும். சாவி இல்லாமலும் Stremio-வின் இலவசத் தரவுடன் இயங்கும்; TMDB அதிகாரப்பூர்வமான, அதிக நம்பகமான மூலம்.\n\nஇலவசச் சாவி: themoviedb.org → அமைப்புகள் → API → தனிப்பட்ட பயன்பாடு.</string>
+    <string name="youtube_info">YouTube டைலின் பின்னால் உங்கள் நாட்டின் மிகப் பிரபலமான வீடியோக்களைக் காட்டுகிறது.\n\nஇலவசச் சாவி: console.cloud.google.com → புதிய புராஜெக்ட் → YouTube Data API v3-ஐ இயக்கு → நற்சான்றுகள் → API விசையை உருவாக்கு.\n\nSmartTube நிறுவியிருந்தால், பின்னணிகள் உங்கள் சொந்த YouTube ஃபீடிலிருந்து வரும், சாவி தேவையில்லை.</string>
+    <string name="plex_info">உங்கள் சொந்த Plex சர்வரிலிருந்து பின்னணிகள்: தொடர்ந்து பார், சமீபத்தில் சேர்த்தவை.\n\nபெற: app.plex.tv → ஏதேனும் தலைப்பைத் திற → ⋯ → தகவலைப் பெறு → XML-ஐக் காட்டு, முகவரியில் X-Plex-Token= க்குப் பின் உள்ளதை நகலெடுக்கவும். கடவுச்சொல் போல ரகசியமாக வைக்கவும்.</string>
+    <string name="saved_from_phone">உங்கள் ஃபோனிலிருந்து சேமிக்கப்பட்டது</string>
+    <string name="not_available">இந்த டிவியில் கிடைக்காது</string>
+    <string name="cant_open">%1$s திறக்க முடியவில்லை</string>
+</resources>

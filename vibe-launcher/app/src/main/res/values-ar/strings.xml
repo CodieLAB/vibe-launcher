@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">ملصقات Vibe Launcher</string>
+    <string name="inputs">المدخلات</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">الإعدادات</string>
+    <string name="connected">متصل</string>
+    <string name="not_connected">لا يوجد جهاز</string>
+    <string name="live_tv">البث المباشر</string>
+    <string name="no_inputs">لم يُعثر على مدخلات</string>
+    <string name="ethernet">إيثرنت</string>
+    <string name="offline">غير متصل</string>
+    <string name="all_apps">كل التطبيقات</string>
+    <string name="network_settings">إعدادات الشبكة</string>
+    <string name="network">الشبكة</string>
+    <string name="vpn_connected">VPN متصل</string>
+    <string name="move">نقل</string>
+    <string name="move_hint">استخدم الأسهم لنقله، ثم اضغط OK</string>
+    <string name="remove">إزالة</string>
+    <string name="hide">إخفاء</string>
+    <string name="app_info">معلومات التطبيق</string>
+    <string name="show_hidden">إظهار التطبيقات المخفية</string>
+    <string name="vibe_settings">إعدادات Vibe Launcher</string>
+    <string name="android_settings">إعدادات Android</string>
+    <string name="make_home">اجعل Vibe Launcher شاشتك الرئيسية</string>
+    <string name="home_not_changeable">لا يسمح هذا التلفزيون للتطبيقات باختيار تطبيق الشاشة الرئيسية. اضبطه من حاسوب: راجع ملف README الخاص بـ Vibe Launcher</string>
+    <string name="tmdb_key">مفتاح TMDB API</string>
+    <string name="youtube_key">مفتاح YouTube API</string>
+    <string name="tiles_per_row">المربعات في كل صف</string>
+    <string name="language">اللغة</string>
+    <string name="language_system">مثل النظام</string>
+    <string name="plex_token">رمز Plex</string>
+    <string name="not_set">غير مضبوط</string>
+    <string name="save">حفظ</string>
+    <string name="cancel">إلغاء</string>
+    <string name="tab_general">عام</string>
+    <string name="tab_keys">مفاتيح API</string>
+    <string name="updates">إصدار البرنامج</string>
+    <string name="check_updates">البحث عن تحديثات</string>
+    <string name="checking_updates">جارٍ البحث…</string>
+    <string name="update_to">التحديث إلى %1$s</string>
+    <string name="version_up_to_date">%1$s · محدَّث</string>
+    <string name="update_available">يتوفر تحديث: %1$s</string>
+    <string name="update_check_failed">%1$s · تعذّر البحث عن تحديثات</string>
+    <string name="update_downloading">جارٍ تنزيل التحديث…</string>
+    <string name="update_development_status">%1$s، مبني بمفتاح توقيع مختلف: حدّثه من حاسوب باستخدام build-and-install.sh</string>
+    <string name="update_development">هذا الإصدار بمفتاح توقيع مختلف: حدّثه من حاسوب باستخدام build-and-install.sh</string>
+    <string name="update_allow_installs">اسمح لـ Vibe Launcher بتثبيت التطبيقات، ثم اختر التحديث مرة أخرى</string>
+    <string name="update_no_installs">لا يسمح هذا التلفزيون للتطبيقات بتثبيت التحديثات</string>
+    <string name="update_bad_download">لم يطابق التنزيل الإصدار المنشور، لذا لم يُثبَّت</string>
+    <string name="update_failed">لم يُثبَّت التحديث</string>
+    <string name="cpu">المعالج</string>
+    <string name="ram">الذاكرة</string>
+    <string name="saved">تم الحفظ</string>
+    <string name="scan_to_paste">امسح بهاتفك للصق المفاتيح</string>
+    <string name="tmdb_notice">تستخدم الخلفيات واجهة TMDB API لكنها غير معتمدة أو مصدَّقة من TMDB.</string>
+    <string name="about_key">حول هذا المفتاح</string>
+    <string name="tmdb_info">خلفيات نظيفة وشعارات العناوين للأفلام والمسلسلات في بطاقات الشاشة الرئيسية لتطبيقاتك، بدل صورها وملصقاتها. يعمل دون مفتاح، من بيانات Stremio المجانية؛ وTMDB هو المصدر الرسمي والأكثر موثوقية.\n\nمفتاح مجاني: themoviedb.org ← الإعدادات ← API ← الاستخدام الشخصي.</string>
+    <string name="youtube_info">يعرض أكثر الفيديوهات رواجًا في بلدك خلف مربع YouTube.\n\nمفتاح مجاني: console.cloud.google.com ← مشروع جديد ← فعّل YouTube Data API v3 ← بيانات الاعتماد ← إنشاء مفتاح API.\n\nمع تثبيت SmartTube، تأتي الخلفيات من خلاصتك على YouTube بدلًا من ذلك، دون مفتاح.</string>
+    <string name="plex_info">خلفيات من خادم Plex الخاص بك: متابعة المشاهدة والمضاف حديثًا.\n\nللعثور عليه: app.plex.tv ← افتح أي عنوان ← ⋯ ← الحصول على المعلومات ← عرض XML، وانسخ ما يلي X-Plex-Token= في العنوان. احفظه سرًّا مثل كلمة المرور.</string>
+    <string name="saved_from_phone">تم الحفظ من هاتفك</string>
+    <string name="not_available">غير متاح على هذا التلفزيون</string>
+    <string name="cant_open">يتعذّر فتح %1$s</string>
+</resources>

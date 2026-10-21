@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">پوسترهای Vibe Launcher</string>
+    <string name="inputs">ورودی‌ها</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">تنظیمات</string>
+    <string name="connected">متصل</string>
+    <string name="not_connected">دستگاهی نیست</string>
+    <string name="live_tv">تلویزیون زنده</string>
+    <string name="no_inputs">ورودی‌ای پیدا نشد</string>
+    <string name="ethernet">اترنت</string>
+    <string name="offline">آفلاین</string>
+    <string name="all_apps">همه برنامه‌ها</string>
+    <string name="network_settings">تنظیمات شبکه</string>
+    <string name="network">شبکه</string>
+    <string name="vpn_connected">VPN وصل است</string>
+    <string name="move">جابه‌جایی</string>
+    <string name="move_hint">با دکمه‌های جهت جابه‌جا کنید، سپس OK را بزنید</string>
+    <string name="remove">حذف</string>
+    <string name="hide">پنهان کردن</string>
+    <string name="app_info">اطلاعات برنامه</string>
+    <string name="show_hidden">نمایش برنامه‌های پنهان</string>
+    <string name="vibe_settings">تنظیمات Vibe Launcher</string>
+    <string name="android_settings">تنظیمات Android</string>
+    <string name="make_home">Vibe Launcher را صفحه اصلی کنید</string>
+    <string name="home_not_changeable">این تلویزیون اجازه نمی‌دهد برنامه‌ها برنامه صفحه اصلی را انتخاب کنند. از رایانه تنظیمش کنید: README برنامه Vibe Launcher را ببینید</string>
+    <string name="tmdb_key">کلید API برای TMDB</string>
+    <string name="youtube_key">کلید API برای YouTube</string>
+    <string name="tiles_per_row">کاشی در هر ردیف</string>
+    <string name="language">زبان</string>
+    <string name="language_system">مثل سیستم</string>
+    <string name="plex_token">توکن Plex</string>
+    <string name="not_set">تنظیم نشده</string>
+    <string name="save">ذخیره</string>
+    <string name="cancel">لغو</string>
+    <string name="tab_general">عمومی</string>
+    <string name="tab_keys">کلیدهای API</string>
+    <string name="updates">نسخه نرم‌افزار</string>
+    <string name="check_updates">بررسی به‌روزرسانی</string>
+    <string name="checking_updates">در حال بررسی…</string>
+    <string name="update_to">به‌روزرسانی به %1$s</string>
+    <string name="version_up_to_date">%1$s · به‌روز</string>
+    <string name="update_available">به‌روزرسانی موجود است: %1$s</string>
+    <string name="update_check_failed">%1$s · بررسی به‌روزرسانی ممکن نشد</string>
+    <string name="update_downloading">در حال دانلود به‌روزرسانی…</string>
+    <string name="update_development_status">%1$s، ساخته‌شده با کلید امضای دیگری: از رایانه با build-and-install.sh به‌روزرسانی کنید</string>
+    <string name="update_development">این نسخه کلید امضای دیگری دارد: از رایانه با build-and-install.sh به‌روزرسانی کنید</string>
+    <string name="update_allow_installs">به Vibe Launcher اجازه نصب برنامه بدهید، سپس دوباره به‌روزرسانی را انتخاب کنید</string>
+    <string name="update_no_installs">این تلویزیون اجازه نمی‌دهد برنامه‌ها به‌روزرسانی نصب کنند</string>
+    <string name="update_bad_download">فایل دانلودشده با نسخه منتشرشده مطابقت نداشت، پس نصب نشد</string>
+    <string name="update_failed">به‌روزرسانی نصب نشد</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">RAM</string>
+    <string name="saved">ذخیره شد</string>
+    <string name="scan_to_paste">برای چسباندن کلیدها با گوشی اسکن کنید</string>
+    <string name="tmdb_notice">پس‌زمینه‌ها از API ‏TMDB استفاده می‌کنند، اما مورد تأیید یا گواهی TMDB نیستند.</string>
+    <string name="about_key">درباره این کلید</string>
+    <string name="tmdb_info">پس‌زمینه‌های تمیز و لوگوی عنوان برای فیلم‌ها و سریال‌های کارت‌های صفحه اصلی برنامه‌هایتان، به‌جای تصاویر و برچسب‌های خودشان. بدون کلید هم با داده‌های رایگان Stremio کار می‌کند؛ TMDB منبع رسمی و مطمئن‌تر است.\n\nکلید رایگان: themoviedb.org ← تنظیمات ← API ← استفاده شخصی.</string>
+    <string name="youtube_info">محبوب‌ترین ویدیوهای کشورتان را پشت کاشی YouTube نشان می‌دهد.\n\nکلید رایگان: console.cloud.google.com ← پروژه جدید ← فعال کردن YouTube Data API v3 ← اعتبارنامه‌ها ← ایجاد کلید API.\n\nاگر SmartTube نصب باشد، پس‌زمینه‌ها بدون کلید از فید YouTube خودتان می‌آیند.</string>
+    <string name="plex_info">پس‌زمینه‌ها از سرور Plex خودتان: ادامه تماشا و اخیراً اضافه‌شده‌ها.\n\nبرای یافتن آن: app.plex.tv ← یک عنوان را باز کنید ← ⋯ ← دریافت اطلاعات ← مشاهده XML، و بخش بعد از X-Plex-Token= را در نشانی کپی کنید. آن را مثل رمز عبور محرمانه نگه دارید.</string>
+    <string name="saved_from_phone">از گوشی شما ذخیره شد</string>
+    <string name="not_available">در این تلویزیون در دسترس نیست</string>
+    <string name="cant_open">%1$s باز نمی‌شود</string>
+</resources>

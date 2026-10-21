@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">Poster Vibe Launcher</string>
+    <string name="inputs">Input</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">Tetapan</string>
+    <string name="connected">Bersambung</string>
+    <string name="not_connected">Tiada peranti</string>
+    <string name="live_tv">TV Langsung</string>
+    <string name="no_inputs">Tiada input ditemui</string>
+    <string name="ethernet">Ethernet</string>
+    <string name="offline">Luar talian</string>
+    <string name="all_apps">Semua apl</string>
+    <string name="network_settings">Tetapan rangkaian</string>
+    <string name="network">Rangkaian</string>
+    <string name="vpn_connected">VPN bersambung</string>
+    <string name="move">Alih</string>
+    <string name="move_hint">Alihkan dengan anak panah, kemudian tekan OK</string>
+    <string name="remove">Nyahpasang</string>
+    <string name="hide">Sembunyikan</string>
+    <string name="app_info">Maklumat apl</string>
+    <string name="show_hidden">Tunjukkan apl tersembunyi</string>
+    <string name="vibe_settings">Tetapan Vibe Launcher</string>
+    <string name="android_settings">Tetapan Android</string>
+    <string name="make_home">Jadikan Vibe Launcher skrin utama</string>
+    <string name="home_not_changeable">TV ini tidak membenarkan apl memilih apl skrin utama. Tetapkan dari komputer: lihat README Vibe Launcher</string>
+    <string name="tmdb_key">Kunci API TMDB</string>
+    <string name="youtube_key">Kunci API YouTube</string>
+    <string name="tiles_per_row">Jubin setiap baris</string>
+    <string name="language">Bahasa</string>
+    <string name="language_system">Ikut sistem</string>
+    <string name="plex_token">Token Plex</string>
+    <string name="not_set">Belum ditetapkan</string>
+    <string name="save">Simpan</string>
+    <string name="cancel">Batal</string>
+    <string name="tab_general">Umum</string>
+    <string name="tab_keys">Kunci API</string>
+    <string name="updates">Versi perisian</string>
+    <string name="check_updates">Semak kemas kini</string>
+    <string name="checking_updates">Menyemak…</string>
+    <string name="update_to">Kemas kini ke %1$s</string>
+    <string name="version_up_to_date">%1$s · Terkini</string>
+    <string name="update_available">Kemas kini tersedia: %1$s</string>
+    <string name="update_check_failed">%1$s · Tidak dapat menyemak kemas kini</string>
+    <string name="update_downloading">Memuat turun kemas kini…</string>
+    <string name="update_development_status">%1$s, dibina dengan kunci tandatangan lain: kemas kini dari komputer dengan build-and-install.sh</string>
+    <string name="update_development">Binaan ini ada kunci tandatangan lain: kemas kini dari komputer, dengan build-and-install.sh</string>
+    <string name="update_allow_installs">Benarkan Vibe Launcher memasang apl, kemudian pilih Kemas kini sekali lagi</string>
+    <string name="update_no_installs">TV ini tidak membenarkan apl memasang kemas kini</string>
+    <string name="update_bad_download">Muat turun tidak sepadan dengan keluaran, jadi tidak dipasang</string>
+    <string name="update_failed">Kemas kini tidak dipasang</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">RAM</string>
+    <string name="saved">Disimpan</string>
+    <string name="scan_to_paste">Imbas dengan telefon untuk menampal kunci</string>
+    <string name="tmdb_notice">Latar menggunakan API TMDB tetapi tidak disokong atau diperakui oleh TMDB.</string>
+    <string name="about_key">Tentang kunci ini</string>
+    <string name="tmdb_info">Latar bersih dan logo tajuk untuk filem dan rancangan pada kad skrin utama apl anda, menggantikan gambar dan pelekat apl itu sendiri. Berfungsi tanpa kunci, daripada data percuma Stremio; TMDB ialah sumber rasmi yang lebih boleh dipercayai.\n\nKunci percuma: themoviedb.org → Tetapan → API → kegunaan peribadi.</string>
+    <string name="youtube_info">Menunjukkan video paling popular di negara anda di belakang jubin YouTube.\n\nKunci percuma: console.cloud.google.com → projek baharu → dayakan YouTube Data API v3 → Bukti kelayakan → Cipta kunci API.\n\nJika SmartTube dipasang, latar datang daripada suapan YouTube anda sendiri, tanpa kunci.</string>
+    <string name="plex_info">Latar daripada pelayan Plex anda sendiri: Teruskan menonton dan baru ditambah.\n\nCara mendapatkannya: app.plex.tv → buka mana-mana tajuk → ⋯ → Dapatkan Maklumat → Lihat XML, dan salin bahagian selepas X-Plex-Token= dalam alamat. Rahsiakan seperti kata laluan.</string>
+    <string name="saved_from_phone">Disimpan dari telefon anda</string>
+    <string name="not_available">Tidak tersedia pada TV ini</string>
+    <string name="cant_open">Tidak dapat membuka %1$s</string>
+</resources>

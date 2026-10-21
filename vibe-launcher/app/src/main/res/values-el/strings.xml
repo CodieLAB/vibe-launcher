@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">Αφίσες Vibe Launcher</string>
+    <string name="inputs">Είσοδοι</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">Ρυθμίσεις</string>
+    <string name="connected">Συνδεδεμένο</string>
+    <string name="not_connected">Καμία συσκευή</string>
+    <string name="live_tv">Ζωντανή TV</string>
+    <string name="no_inputs">Δεν βρέθηκαν είσοδοι</string>
+    <string name="ethernet">Ethernet</string>
+    <string name="offline">Εκτός σύνδεσης</string>
+    <string name="all_apps">Όλες οι εφαρμογές</string>
+    <string name="network_settings">Ρυθμίσεις δικτύου</string>
+    <string name="network">Δίκτυο</string>
+    <string name="vpn_connected">VPN συνδεδεμένο</string>
+    <string name="move">Μετακίνηση</string>
+    <string name="move_hint">Μετακινήστε με τα βέλη και πατήστε OK</string>
+    <string name="remove">Απεγκατάσταση</string>
+    <string name="hide">Απόκρυψη</string>
+    <string name="app_info">Πληροφορίες εφαρμογής</string>
+    <string name="show_hidden">Εμφάνιση κρυφών εφαρμογών</string>
+    <string name="vibe_settings">Ρυθμίσεις Vibe Launcher</string>
+    <string name="android_settings">Ρυθμίσεις Android</string>
+    <string name="make_home">Ορισμός του Vibe Launcher ως αρχικής οθόνης</string>
+    <string name="home_not_changeable">Αυτή η τηλεόραση δεν αφήνει τις εφαρμογές να επιλέξουν την εφαρμογή αρχικής οθόνης. Ορίστε τη από υπολογιστή: δείτε το README του Vibe Launcher</string>
+    <string name="tmdb_key">Κλειδί API του TMDB</string>
+    <string name="youtube_key">Κλειδί API του YouTube</string>
+    <string name="tiles_per_row">Πλακίδια ανά σειρά</string>
+    <string name="language">Γλώσσα</string>
+    <string name="language_system">Όπως το σύστημα</string>
+    <string name="plex_token">Διακριτικό Plex</string>
+    <string name="not_set">Δεν έχει οριστεί</string>
+    <string name="save">Αποθήκευση</string>
+    <string name="cancel">Ακύρωση</string>
+    <string name="tab_general">Γενικά</string>
+    <string name="tab_keys">Κλειδιά API</string>
+    <string name="updates">Έκδοση λογισμικού</string>
+    <string name="check_updates">Έλεγχος για ενημερώσεις</string>
+    <string name="checking_updates">Έλεγχος…</string>
+    <string name="update_to">Ενημέρωση σε %1$s</string>
+    <string name="version_up_to_date">%1$s · Ενημερωμένο</string>
+    <string name="update_available">Υπάρχει ενημέρωση: %1$s</string>
+    <string name="update_check_failed">%1$s · Δεν ήταν δυνατός ο έλεγχος για ενημερώσεις</string>
+    <string name="update_downloading">Λήψη της ενημέρωσης…</string>
+    <string name="update_development_status">%1$s, φτιαγμένη με άλλο κλειδί υπογραφής: ενημερώστε από υπολογιστή με το build-and-install.sh</string>
+    <string name="update_development">Αυτή η έκδοση έχει άλλο κλειδί υπογραφής: ενημερώστε την από υπολογιστή, με το build-and-install.sh</string>
+    <string name="update_allow_installs">Επιτρέψτε στο Vibe Launcher να εγκαθιστά εφαρμογές και επιλέξτε ξανά Ενημέρωση</string>
+    <string name="update_no_installs">Αυτή η τηλεόραση δεν αφήνει τις εφαρμογές να εγκαθιστούν ενημερώσεις</string>
+    <string name="update_bad_download">Η λήψη δεν ταίριαζε με την έκδοση, οπότε δεν εγκαταστάθηκε</string>
+    <string name="update_failed">Η ενημέρωση δεν εγκαταστάθηκε</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">RAM</string>
+    <string name="saved">Αποθηκεύτηκε</string>
+    <string name="scan_to_paste">Σαρώστε με το κινητό για να επικολλήσετε τα κλειδιά</string>
+    <string name="tmdb_notice">Τα φόντα χρησιμοποιούν το API του TMDB, αλλά δεν εγκρίνονται ούτε πιστοποιούνται από το TMDB.</string>
+    <string name="about_key">Σχετικά με αυτό το κλειδί</string>
+    <string name="tmdb_info">Καθαρά φόντα και λογότυπα τίτλων για τις ταινίες και τις σειρές στις κάρτες αρχικής οθόνης των εφαρμογών σας, αντί για τις δικές τους εικόνες και ετικέτες. Λειτουργεί και χωρίς κλειδί, με τα δωρεάν δεδομένα του Stremio· το TMDB είναι η επίσημη, πιο αξιόπιστη πηγή.\n\nΔωρεάν κλειδί: themoviedb.org → Ρυθμίσεις → API → προσωπική χρήση.</string>
+    <string name="youtube_info">Δείχνει τα πιο δημοφιλή βίντεο της χώρας σας πίσω από το πλακίδιο του YouTube.\n\nΔωρεάν κλειδί: console.cloud.google.com → νέο έργο → ενεργοποιήστε το YouTube Data API v3 → Διαπιστευτήρια → Δημιουργία κλειδιού API.\n\nΜε εγκατεστημένο το SmartTube, τα φόντα έρχονται από τη δική σας ροή YouTube, χωρίς κλειδί.</string>
+    <string name="plex_info">Φόντα από τον δικό σας διακομιστή Plex: Συνέχεια παρακολούθησης και προστέθηκαν πρόσφατα.\n\nΓια να το βρείτε: app.plex.tv → ανοίξτε έναν τίτλο → ⋯ → Λήψη πληροφοριών → Προβολή XML, και αντιγράψτε ό,τι ακολουθεί το X-Plex-Token= στη διεύθυνση. Κρατήστε το μυστικό, σαν κωδικό.</string>
+    <string name="saved_from_phone">Αποθηκεύτηκε από το κινητό</string>
+    <string name="not_available">Μη διαθέσιμο σε αυτή την τηλεόραση</string>
+    <string name="cant_open">Δεν είναι δυνατό το άνοιγμα του %1$s</string>
+</resources>

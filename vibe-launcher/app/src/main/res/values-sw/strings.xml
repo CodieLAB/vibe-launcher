@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">Mabango ya Vibe Launcher</string>
+    <string name="inputs">Viingizo</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">Mipangilio</string>
+    <string name="connected">Imeunganishwa</string>
+    <string name="not_connected">Hakuna kifaa</string>
+    <string name="live_tv">TV Mubashara</string>
+    <string name="no_inputs">Hakuna viingizo vilivyopatikana</string>
+    <string name="ethernet">Ethernet</string>
+    <string name="offline">Nje ya mtandao</string>
+    <string name="all_apps">Programu zote</string>
+    <string name="network_settings">Mipangilio ya mtandao</string>
+    <string name="network">Mtandao</string>
+    <string name="vpn_connected">VPN imeunganishwa</string>
+    <string name="move">Hamisha</string>
+    <string name="move_hint">Hamisha kwa vitufe vya mishale, kisha bonyeza OK</string>
+    <string name="remove">Ondoa</string>
+    <string name="hide">Ficha</string>
+    <string name="app_info">Maelezo ya programu</string>
+    <string name="show_hidden">Onyesha programu zilizofichwa</string>
+    <string name="vibe_settings">Mipangilio ya Vibe Launcher</string>
+    <string name="android_settings">Mipangilio ya Android</string>
+    <string name="make_home">Fanya Vibe Launcher iwe skrini kuu</string>
+    <string name="home_not_changeable">TV hii hairuhusu programu kuchagua programu ya skrini kuu. Weka kutoka kwenye kompyuta: angalia README ya Vibe Launcher</string>
+    <string name="tmdb_key">Ufunguo wa API wa TMDB</string>
+    <string name="youtube_key">Ufunguo wa API wa YouTube</string>
+    <string name="tiles_per_row">Vigae kwa kila safu</string>
+    <string name="language">Lugha</string>
+    <string name="language_system">Kama mfumo</string>
+    <string name="plex_token">Tokeni ya Plex</string>
+    <string name="not_set">Haijawekwa</string>
+    <string name="save">Hifadhi</string>
+    <string name="cancel">Ghairi</string>
+    <string name="tab_general">Jumla</string>
+    <string name="tab_keys">Funguo za API</string>
+    <string name="updates">Toleo la programu</string>
+    <string name="check_updates">Angalia masasisho</string>
+    <string name="checking_updates">Inaangalia…</string>
+    <string name="update_to">Sasisha hadi %1$s</string>
+    <string name="version_up_to_date">%1$s · Ni toleo jipya zaidi</string>
+    <string name="update_available">Sasisho lipo: %1$s</string>
+    <string name="update_check_failed">%1$s · Imeshindwa kuangalia masasisho</string>
+    <string name="update_downloading">Inapakua sasisho…</string>
+    <string name="update_development_status">%1$s, imejengwa kwa ufunguo mwingine wa sahihi: isasishe kutoka kwenye kompyuta kwa build-and-install.sh</string>
+    <string name="update_development">Toleo hili lina ufunguo mwingine wa sahihi: lisasishe kutoka kwenye kompyuta, kwa build-and-install.sh</string>
+    <string name="update_allow_installs">Ruhusu Vibe Launcher isakinishe programu, kisha uchague Sasisha tena</string>
+    <string name="update_no_installs">TV hii hairuhusu programu kusakinisha masasisho</string>
+    <string name="update_bad_download">Upakuaji haukulingana na toleo, kwa hiyo haukusakinishwa</string>
+    <string name="update_failed">Sasisho halikusakinishwa</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">RAM</string>
+    <string name="saved">Imehifadhiwa</string>
+    <string name="scan_to_paste">Changanua kwa simu ili kubandika funguo</string>
+    <string name="tmdb_notice">Mandhari hutumia API ya TMDB lakini hayajaidhinishwa wala kuthibitishwa na TMDB.</string>
+    <string name="about_key">Kuhusu ufunguo huu</string>
+    <string name="tmdb_info">Mandhari safi na nembo za mada kwa filamu na vipindi vilivyo kwenye kadi za skrini kuu za programu zako, badala ya picha na vibandiko vyao. Hufanya kazi bila ufunguo, kwa data ya bure ya Stremio; TMDB ndicho chanzo rasmi na cha kuaminika zaidi.\n\nUfunguo wa bure: themoviedb.org → Mipangilio → API → matumizi binafsi.</string>
+    <string name="youtube_info">Huonyesha video maarufu zaidi nchini kwako nyuma ya kigae cha YouTube.\n\nUfunguo wa bure: console.cloud.google.com → mradi mpya → washa YouTube Data API v3 → Vitambulisho → Unda ufunguo wa API.\n\nSmartTube ikiwa imesakinishwa, mandhari hutoka kwenye mpasho wako wa YouTube, bila ufunguo.</string>
+    <string name="plex_info">Mandhari kutoka kwenye seva yako ya Plex: Endelea kutazama na vilivyoongezwa hivi karibuni.\n\nKuupata: app.plex.tv → fungua mada yoyote → ⋯ → Pata Maelezo → Tazama XML, kisha nakili kinachofuata X-Plex-Token= kwenye anwani. Iweke siri kama nenosiri.</string>
+    <string name="saved_from_phone">Imehifadhiwa kutoka kwenye simu yako</string>
+    <string name="not_available">Haipatikani kwenye TV hii</string>
+    <string name="cant_open">Haiwezi kufungua %1$s</string>
+</resources>

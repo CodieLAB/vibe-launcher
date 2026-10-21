@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">Vibe Launcher పోస్టర్లు</string>
+    <string name="inputs">ఇన్‌పుట్‌లు</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">సెట్టింగ్‌లు</string>
+    <string name="connected">కనెక్ట్ అయింది</string>
+    <string name="not_connected">పరికరం లేదు</string>
+    <string name="live_tv">లైవ్ టీవీ</string>
+    <string name="no_inputs">ఇన్‌పుట్‌లు కనబడలేదు</string>
+    <string name="ethernet">ఈథర్‌నెట్</string>
+    <string name="offline">ఆఫ్‌లైన్</string>
+    <string name="all_apps">అన్ని యాప్‌లు</string>
+    <string name="network_settings">నెట్‌వర్క్ సెట్టింగ్‌లు</string>
+    <string name="network">నెట్‌వర్క్</string>
+    <string name="vpn_connected">VPN కనెక్ట్ అయింది</string>
+    <string name="move">తరలించు</string>
+    <string name="move_hint">బాణాలతో తరలించి, ఆపై OK నొక్కండి</string>
+    <string name="remove">తీసివేయి</string>
+    <string name="hide">దాచు</string>
+    <string name="app_info">యాప్ సమాచారం</string>
+    <string name="show_hidden">దాచిన యాప్‌లు చూపు</string>
+    <string name="vibe_settings">Vibe Launcher సెట్టింగ్‌లు</string>
+    <string name="android_settings">Android సెట్టింగ్‌లు</string>
+    <string name="make_home">Vibe Launcher‌ను హోమ్‌గా చేయండి</string>
+    <string name="home_not_changeable">ఈ టీవీ యాప్‌లను హోమ్ యాప్ ఎంచుకోనివ్వదు. కంప్యూటర్ నుండి సెట్ చేయండి: Vibe Launcher README చూడండి</string>
+    <string name="tmdb_key">TMDB API కీ</string>
+    <string name="youtube_key">YouTube API కీ</string>
+    <string name="tiles_per_row">వరుసకు టైల్స్</string>
+    <string name="language">భాష</string>
+    <string name="language_system">సిస్టమ్ లాగానే</string>
+    <string name="plex_token">Plex టోకెన్</string>
+    <string name="not_set">సెట్ చేయలేదు</string>
+    <string name="save">సేవ్ చేయి</string>
+    <string name="cancel">రద్దు చేయి</string>
+    <string name="tab_general">సాధారణం</string>
+    <string name="tab_keys">API కీలు</string>
+    <string name="updates">సాఫ్ట్‌వేర్ వెర్షన్</string>
+    <string name="check_updates">అప్‌డేట్‌ల కోసం చూడు</string>
+    <string name="checking_updates">చూస్తోంది…</string>
+    <string name="update_to">%1$s కు అప్‌డేట్ చేయి</string>
+    <string name="version_up_to_date">%1$s · తాజాది</string>
+    <string name="update_available">అప్‌డేట్ అందుబాటులో ఉంది: %1$s</string>
+    <string name="update_check_failed">%1$s · అప్‌డేట్‌లు చూడలేకపోయింది</string>
+    <string name="update_downloading">అప్‌డేట్ డౌన్‌లోడ్ అవుతోంది…</string>
+    <string name="update_development_status">%1$s, వేరే సైనింగ్ కీతో తయారైంది: కంప్యూటర్ నుండి build-and-install.sh తో అప్‌డేట్ చేయండి</string>
+    <string name="update_development">ఈ బిల్డ్‌కు వేరే సైనింగ్ కీ ఉంది: కంప్యూటర్ నుండి build-and-install.sh తో అప్‌డేట్ చేయండి</string>
+    <string name="update_allow_installs">Vibe Launcher‌కు యాప్‌లు ఇన్‌స్టాల్ చేసే అనుమతి ఇవ్వండి, ఆపై మళ్ళీ అప్‌డేట్ ఎంచుకోండి</string>
+    <string name="update_no_installs">ఈ టీవీ యాప్‌లను అప్‌డేట్‌లు ఇన్‌స్టాల్ చేయనివ్వదు</string>
+    <string name="update_bad_download">డౌన్‌లోడ్ రిలీజ్‌తో సరిపోలలేదు, కాబట్టి ఇన్‌స్టాల్ చేయలేదు</string>
+    <string name="update_failed">అప్‌డేట్ ఇన్‌స్టాల్ కాలేదు</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">RAM</string>
+    <string name="saved">సేవ్ చేయబడింది</string>
+    <string name="scan_to_paste">కీలను పేస్ట్ చేయడానికి ఫోన్‌తో స్కాన్ చేయండి</string>
+    <string name="tmdb_notice">బ్యాక్‌డ్రాప్‌లు TMDB API ని వాడతాయి, కానీ TMDB వీటిని ఆమోదించలేదు లేదా ధృవీకరించలేదు.</string>
+    <string name="about_key">ఈ కీ గురించి</string>
+    <string name="tmdb_info">మీ యాప్‌ల హోమ్ స్క్రీన్ కార్డ్‌లలోని సినిమాలు, షోలకు, యాప్‌ల సొంత చిత్రాలు, స్టిక్కర్ల బదులు శుభ్రమైన బ్యాక్‌డ్రాప్‌లు, టైటిల్ లోగోలు. కీ లేకుండానూ పనిచేస్తుంది, Stremio ఉచిత డేటాతో; TMDB అధికారిక, మరింత నమ్మదగిన మూలం.\n\nఉచిత కీ: themoviedb.org → సెట్టింగ్‌లు → API → వ్యక్తిగత ఉపయోగం.</string>
+    <string name="youtube_info">YouTube టైల్ వెనుక మీ దేశంలో అత్యంత ప్రజాదరణ పొందిన వీడియోలను చూపుతుంది.\n\nఉచిత కీ: console.cloud.google.com → కొత్త ప్రాజెక్ట్ → YouTube Data API v3 ఆన్ చేయండి → ఆధారాలు → API కీని సృష్టించండి.\n\nSmartTube ఉంటే బ్యాక్‌డ్రాప్‌లు మీ సొంత YouTube ఫీడ్ నుండి వస్తాయి, కీ అవసరం లేదు.</string>
+    <string name="plex_info">మీ సొంత Plex సర్వర్ నుండి బ్యాక్‌డ్రాప్‌లు: చూడటం కొనసాగించు, ఇటీవల జోడించినవి.\n\nపొందడానికి: app.plex.tv → ఏదైనా టైటిల్ తెరవండి → ⋯ → సమాచారం పొందండి → XML చూడండి, చిరునామాలో X-Plex-Token= తర్వాత ఉన్నదాన్ని కాపీ చేయండి. పాస్‌వర్డ్ లాగా గోప్యంగా ఉంచండి.</string>
+    <string name="saved_from_phone">మీ ఫోన్ నుండి సేవ్ అయింది</string>
+    <string name="not_available">ఈ టీవీలో అందుబాటులో లేదు</string>
+    <string name="cant_open">%1$s తెరవలేకపోయింది</string>
+</resources>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">Vibe Launcher پوسٹر</string>
+    <string name="inputs">ان پٹ</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">ترتیبات</string>
+    <string name="connected">منسلک</string>
+    <string name="not_connected">کوئی ڈیوائس نہیں</string>
+    <string name="live_tv">لائیو ٹی وی</string>
+    <string name="no_inputs">کوئی ان پٹ نہیں ملا</string>
+    <string name="ethernet">ایتھرنیٹ</string>
+    <string name="offline">آف لائن</string>
+    <string name="all_apps">تمام ایپس</string>
+    <string name="network_settings">نیٹ ورک کی ترتیبات</string>
+    <string name="network">نیٹ ورک</string>
+    <string name="vpn_connected">VPN منسلک</string>
+    <string name="move">منتقل کریں</string>
+    <string name="move_hint">تیر کے بٹنوں سے منتقل کریں، پھر OK دبائیں</string>
+    <string name="remove">ہٹائیں</string>
+    <string name="hide">چھپائیں</string>
+    <string name="app_info">ایپ کی معلومات</string>
+    <string name="show_hidden">چھپی ہوئی ایپس دکھائیں</string>
+    <string name="vibe_settings">Vibe Launcher کی ترتیبات</string>
+    <string name="android_settings">Android کی ترتیبات</string>
+    <string name="make_home">Vibe Launcher کو اپنا ہوم بنائیں</string>
+    <string name="home_not_changeable">یہ ٹی وی ایپس کو ہوم ایپ چننے نہیں دیتا۔ کمپیوٹر سے سیٹ کریں: Vibe Launcher کا README دیکھیں</string>
+    <string name="tmdb_key">TMDB API کلید</string>
+    <string name="youtube_key">YouTube API کلید</string>
+    <string name="tiles_per_row">ہر قطار میں ٹائلیں</string>
+    <string name="language">زبان</string>
+    <string name="language_system">سسٹم کے مطابق</string>
+    <string name="plex_token">Plex ٹوکن</string>
+    <string name="not_set">سیٹ نہیں</string>
+    <string name="save">محفوظ کریں</string>
+    <string name="cancel">منسوخ کریں</string>
+    <string name="tab_general">عمومی</string>
+    <string name="tab_keys">API کلیدیں</string>
+    <string name="updates">سافٹ ویئر ورژن</string>
+    <string name="check_updates">اپ ڈیٹس دیکھیں</string>
+    <string name="checking_updates">جانچ ہو رہی ہے…</string>
+    <string name="update_to">%1$s پر اپ ڈیٹ کریں</string>
+    <string name="version_up_to_date">%1$s · تازہ ترین</string>
+    <string name="update_available">اپ ڈیٹ دستیاب: %1$s</string>
+    <string name="update_check_failed">%1$s · اپ ڈیٹس نہیں دیکھی جا سکیں</string>
+    <string name="update_downloading">اپ ڈیٹ ڈاؤن لوڈ ہو رہی ہے…</string>
+    <string name="update_development_status">%1$s، کسی اور سائننگ کلید سے بنا: اسے کمپیوٹر سے build-and-install.sh کے ذریعے اپ ڈیٹ کریں</string>
+    <string name="update_development">یہ بلڈ کسی اور سائننگ کلید سے بنا ہے: اسے کمپیوٹر سے build-and-install.sh کے ذریعے اپ ڈیٹ کریں</string>
+    <string name="update_allow_installs">Vibe Launcher کو ایپس انسٹال کرنے کی اجازت دیں، پھر دوبارہ اپ ڈیٹ چنیں</string>
+    <string name="update_no_installs">یہ ٹی وی ایپس کو اپ ڈیٹس انسٹال کرنے نہیں دیتا</string>
+    <string name="update_bad_download">ڈاؤن لوڈ ریلیز سے میل نہیں کھایا، اس لیے انسٹال نہیں کیا گیا</string>
+    <string name="update_failed">اپ ڈیٹ انسٹال نہیں ہوئی</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">RAM</string>
+    <string name="saved">محفوظ ہو گیا</string>
+    <string name="scan_to_paste">کلیدیں پیسٹ کرنے کے لیے فون سے اسکین کریں</string>
+    <string name="tmdb_notice">پس منظر TMDB API استعمال کرتے ہیں مگر TMDB ان کی توثیق یا تصدیق نہیں کرتا۔</string>
+    <string name="about_key">اس کلید کے بارے میں</string>
+    <string name="tmdb_info">آپ کی ایپس کے ہوم اسکرین کارڈز پر موجود فلموں اور شوز کے لیے صاف پس منظر اور عنوان کے لوگو، ایپس کی اپنی تصویروں اور اسٹیکرز کی جگہ۔ یہ کلید کے بغیر بھی چلتا ہے، Stremio کے مفت ڈیٹا سے؛ TMDB سرکاری اور زیادہ قابلِ اعتماد ذریعہ ہے۔\n\nمفت کلید: themoviedb.org ← ترتیبات ← API ← ذاتی استعمال۔</string>
+    <string name="youtube_info">YouTube ٹائل کے پیچھے آپ کے ملک کی سب سے مقبول ویڈیوز دکھاتا ہے۔\n\nمفت کلید: console.cloud.google.com ← نیا پروجیکٹ ← YouTube Data API v3 فعال کریں ← اسناد ← API کلید بنائیں۔\n\nSmartTube انسٹال ہو تو پس منظر آپ کی اپنی YouTube فیڈ سے آتے ہیں، کلید کے بغیر۔</string>
+    <string name="plex_info">آپ کے اپنے Plex سرور سے پس منظر: دیکھنا جاری رکھیں اور حال ہی میں شامل۔\n\nحاصل کرنے کے لیے: app.plex.tv ← کوئی بھی عنوان کھولیں ← ⋯ ← معلومات حاصل کریں ← XML دیکھیں، اور پتے میں X-Plex-Token= کے بعد کا حصہ کاپی کریں۔ اسے پاس ورڈ کی طرح خفیہ رکھیں۔</string>
+    <string name="saved_from_phone">آپ کے فون سے محفوظ ہوا</string>
+    <string name="not_available">اس ٹی وی پر دستیاب نہیں</string>
+    <string name="cant_open">%1$s نہیں کھل سکا</string>
+</resources>

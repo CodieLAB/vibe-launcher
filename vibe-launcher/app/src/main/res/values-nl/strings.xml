@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">Posters van Vibe Launcher</string>
+    <string name="inputs">Ingangen</string>
+    <string name="wifi">Wifi</string>
+    <string name="settings">Instellingen</string>
+    <string name="connected">Verbonden</string>
+    <string name="not_connected">Geen apparaat</string>
+    <string name="live_tv">Live-tv</string>
+    <string name="no_inputs">Geen ingangen gevonden</string>
+    <string name="ethernet">Ethernet</string>
+    <string name="offline">Offline</string>
+    <string name="all_apps">Alle apps</string>
+    <string name="network_settings">Netwerkinstellingen</string>
+    <string name="network">Netwerk</string>
+    <string name="vpn_connected">VPN verbonden</string>
+    <string name="move">Verplaatsen</string>
+    <string name="move_hint">Verplaats met de pijltjes en druk dan op OK</string>
+    <string name="remove">Verwijderen</string>
+    <string name="hide">Verbergen</string>
+    <string name="app_info">App-info</string>
+    <string name="show_hidden">Verborgen apps tonen</string>
+    <string name="vibe_settings">Instellingen van Vibe Launcher</string>
+    <string name="android_settings">Android-instellingen</string>
+    <string name="make_home">Vibe Launcher als startscherm gebruiken</string>
+    <string name="home_not_changeable">Deze tv laat apps de startscherm-app niet kiezen. Stel het in vanaf een computer: zie de README van Vibe Launcher</string>
+    <string name="tmdb_key">TMDB-API-sleutel</string>
+    <string name="youtube_key">YouTube-API-sleutel</string>
+    <string name="tiles_per_row">Tegels per rij</string>
+    <string name="language">Taal</string>
+    <string name="language_system">Zoals het systeem</string>
+    <string name="plex_token">Plex-token</string>
+    <string name="not_set">Niet ingesteld</string>
+    <string name="save">Opslaan</string>
+    <string name="cancel">Annuleren</string>
+    <string name="tab_general">Algemeen</string>
+    <string name="tab_keys">API-sleutels</string>
+    <string name="updates">Softwareversie</string>
+    <string name="check_updates">Controleren op updates</string>
+    <string name="checking_updates">Bezig met controleren…</string>
+    <string name="update_to">Bijwerken naar %1$s</string>
+    <string name="version_up_to_date">%1$s · Up-to-date</string>
+    <string name="update_available">Update beschikbaar: %1$s</string>
+    <string name="update_check_failed">%1$s · Kon niet op updates controleren</string>
+    <string name="update_downloading">Update downloaden…</string>
+    <string name="update_development_status">%1$s, gebouwd met een andere ondertekeningssleutel: werk bij vanaf een computer met build-and-install.sh</string>
+    <string name="update_development">Deze build heeft een andere ondertekeningssleutel: werk hem bij vanaf een computer, met build-and-install.sh</string>
+    <string name="update_allow_installs">Sta Vibe Launcher toe apps te installeren en kies dan opnieuw Bijwerken</string>
+    <string name="update_no_installs">Deze tv laat apps geen updates installeren</string>
+    <string name="update_bad_download">De download kwam niet overeen met de release en is dus niet geïnstalleerd</string>
+    <string name="update_failed">De update is niet geïnstalleerd</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">RAM</string>
+    <string name="saved">Opgeslagen</string>
+    <string name="scan_to_paste">Scan met je telefoon om de sleutels te plakken</string>
+    <string name="tmdb_notice">Achtergronden gebruiken de TMDB-API, maar worden niet door TMDB onderschreven of gecertificeerd.</string>
+    <string name="about_key">Over deze sleutel</string>
+    <string name="tmdb_info">Schone achtergronden en titellogo’s voor de films en series op de startschermkaarten van je apps, in plaats van hun eigen afbeeldingen en stickers. Werkt ook zonder sleutel, met de gratis gegevens van Stremio; TMDB is de officiële, betrouwbaardere bron.\n\nGratis sleutel: themoviedb.org → Instellingen → API → persoonlijk gebruik.</string>
+    <string name="youtube_info">Toont de populairste video’s in je land achter de YouTube-tegel.\n\nGratis sleutel: console.cloud.google.com → nieuw project → YouTube Data API v3 inschakelen → Inloggegevens → API-sleutel maken.\n\nMet SmartTube geïnstalleerd komen de achtergronden uit je eigen YouTube-feed, zonder sleutel.</string>
+    <string name="plex_info">Achtergronden van je eigen Plex-server: Verder kijken en recent toegevoegd.\n\nZo vind je hem: app.plex.tv → open een titel → ⋯ → Info ophalen → XML bekijken, en kopieer wat na X-Plex-Token= in het adres staat. Houd hem geheim, als een wachtwoord.</string>
+    <string name="saved_from_phone">Opgeslagen vanaf je telefoon</string>
+    <string name="not_available">Niet beschikbaar op deze tv</string>
+    <string name="cant_open">Kan %1$s niet openen</string>
+</resources>

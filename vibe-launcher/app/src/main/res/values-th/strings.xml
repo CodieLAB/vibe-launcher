@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">โปสเตอร์ Vibe Launcher</string>
+    <string name="inputs">อินพุต</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">การตั้งค่า</string>
+    <string name="connected">เชื่อมต่อแล้ว</string>
+    <string name="not_connected">ไม่มีอุปกรณ์</string>
+    <string name="live_tv">ทีวีสด</string>
+    <string name="no_inputs">ไม่พบอินพุต</string>
+    <string name="ethernet">อีเทอร์เน็ต</string>
+    <string name="offline">ออฟไลน์</string>
+    <string name="all_apps">แอปทั้งหมด</string>
+    <string name="network_settings">การตั้งค่าเครือข่าย</string>
+    <string name="network">เครือข่าย</string>
+    <string name="vpn_connected">เชื่อมต่อ VPN แล้ว</string>
+    <string name="move">ย้าย</string>
+    <string name="move_hint">ใช้ปุ่มลูกศรย้าย แล้วกด OK</string>
+    <string name="remove">ถอนการติดตั้ง</string>
+    <string name="hide">ซ่อน</string>
+    <string name="app_info">ข้อมูลแอป</string>
+    <string name="show_hidden">แสดงแอปที่ซ่อน</string>
+    <string name="vibe_settings">การตั้งค่า Vibe Launcher</string>
+    <string name="android_settings">การตั้งค่า Android</string>
+    <string name="make_home">ใช้ Vibe Launcher เป็นหน้าหลัก</string>
+    <string name="home_not_changeable">ทีวีเครื่องนี้ไม่ให้แอปเลือกแอปหน้าหลัก ตั้งค่าจากคอมพิวเตอร์: ดู README ของ Vibe Launcher</string>
+    <string name="tmdb_key">คีย์ API ของ TMDB</string>
+    <string name="youtube_key">คีย์ API ของ YouTube</string>
+    <string name="tiles_per_row">ไทล์ต่อแถว</string>
+    <string name="language">ภาษา</string>
+    <string name="language_system">ตามระบบ</string>
+    <string name="plex_token">โทเค็น Plex</string>
+    <string name="not_set">ยังไม่ได้ตั้ง</string>
+    <string name="save">บันทึก</string>
+    <string name="cancel">ยกเลิก</string>
+    <string name="tab_general">ทั่วไป</string>
+    <string name="tab_keys">คีย์ API</string>
+    <string name="updates">เวอร์ชันซอฟต์แวร์</string>
+    <string name="check_updates">ตรวจหาอัปเดต</string>
+    <string name="checking_updates">กำลังตรวจ…</string>
+    <string name="update_to">อัปเดตเป็น %1$s</string>
+    <string name="version_up_to_date">%1$s · ล่าสุดแล้ว</string>
+    <string name="update_available">มีอัปเดต: %1$s</string>
+    <string name="update_check_failed">%1$s · ตรวจหาอัปเดตไม่ได้</string>
+    <string name="update_downloading">กำลังดาวน์โหลดอัปเดต…</string>
+    <string name="update_development_status">%1$s สร้างด้วยคีย์ลงนามอื่น: อัปเดตจากคอมพิวเตอร์ด้วย build-and-install.sh</string>
+    <string name="update_development">บิลด์นี้ใช้คีย์ลงนามอื่น: อัปเดตจากคอมพิวเตอร์ ด้วย build-and-install.sh</string>
+    <string name="update_allow_installs">อนุญาตให้ Vibe Launcher ติดตั้งแอป แล้วเลือกอัปเดตอีกครั้ง</string>
+    <string name="update_no_installs">ทีวีเครื่องนี้ไม่ให้แอปติดตั้งอัปเดต</string>
+    <string name="update_bad_download">ไฟล์ที่ดาวน์โหลดไม่ตรงกับรุ่นที่เผยแพร่ จึงไม่ได้ติดตั้ง</string>
+    <string name="update_failed">ติดตั้งอัปเดตไม่สำเร็จ</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">RAM</string>
+    <string name="saved">บันทึกแล้ว</string>
+    <string name="scan_to_paste">สแกนด้วยโทรศัพท์เพื่อวางคีย์</string>
+    <string name="tmdb_notice">ภาพพื้นหลังใช้ API ของ TMDB แต่ไม่ได้รับการรับรองหรือการรับรองมาตรฐานจาก TMDB</string>
+    <string name="about_key">เกี่ยวกับคีย์นี้</string>
+    <string name="tmdb_info">ภาพพื้นหลังสะอาดและโลโก้ชื่อเรื่องสำหรับภาพยนตร์และรายการในการ์ดหน้าหลักของแอป แทนภาพและสติกเกอร์ของแอปเอง ใช้ได้แม้ไม่มีคีย์ จากข้อมูลฟรีของ Stremio ส่วน TMDB เป็นแหล่งทางการที่เชื่อถือได้มากกว่า\n\nคีย์ฟรี: themoviedb.org → การตั้งค่า → API → ใช้ส่วนตัว</string>
+    <string name="youtube_info">แสดงวิดีโอยอดนิยมที่สุดในประเทศของคุณหลังไทล์ YouTube\n\nคีย์ฟรี: console.cloud.google.com → โปรเจ็กต์ใหม่ → เปิด YouTube Data API v3 → ข้อมูลเข้าสู่ระบบ → สร้างคีย์ API\n\nหากติดตั้ง SmartTube ภาพพื้นหลังจะมาจากฟีด YouTube ของคุณเอง โดยไม่ต้องใช้คีย์</string>
+    <string name="plex_info">ภาพพื้นหลังจากเซิร์ฟเวอร์ Plex ของคุณเอง: ดูต่อ และเพิ่มล่าสุด\n\nวิธีหา: app.plex.tv → เปิดเรื่องใดก็ได้ → ⋯ → ดูข้อมูล → ดู XML แล้วคัดลอกส่วนหลัง X-Plex-Token= ในที่อยู่ เก็บเป็นความลับเหมือนรหัสผ่าน</string>
+    <string name="saved_from_phone">บันทึกจากโทรศัพท์แล้ว</string>
+    <string name="not_available">ใช้ไม่ได้บนทีวีเครื่องนี้</string>
+    <string name="cant_open">เปิด %1$s ไม่ได้</string>
+</resources>

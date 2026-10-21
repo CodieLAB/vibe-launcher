@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">Vibe Launcher ポスター</string>
+    <string name="inputs">入力</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">設定</string>
+    <string name="connected">接続済み</string>
+    <string name="not_connected">機器なし</string>
+    <string name="live_tv">テレビ放送</string>
+    <string name="no_inputs">入力が見つかりません</string>
+    <string name="ethernet">イーサネット</string>
+    <string name="offline">オフライン</string>
+    <string name="all_apps">すべてのアプリ</string>
+    <string name="network_settings">ネットワーク設定</string>
+    <string name="network">ネットワーク</string>
+    <string name="vpn_connected">VPN 接続済み</string>
+    <string name="move">移動</string>
+    <string name="move_hint">矢印キーで移動して OK を押します</string>
+    <string name="remove">アンインストール</string>
+    <string name="hide">非表示</string>
+    <string name="app_info">アプリ情報</string>
+    <string name="show_hidden">非表示のアプリを表示</string>
+    <string name="vibe_settings">Vibe Launcher の設定</string>
+    <string name="android_settings">Android の設定</string>
+    <string name="make_home">Vibe Launcher をホームにする</string>
+    <string name="home_not_changeable">このテレビではアプリがホームアプリを選べません。パソコンから設定してください（Vibe Launcher の README を参照）</string>
+    <string name="tmdb_key">TMDB API キー</string>
+    <string name="youtube_key">YouTube API キー</string>
+    <string name="tiles_per_row">1 列のタイル数</string>
+    <string name="language">言語</string>
+    <string name="language_system">システムに合わせる</string>
+    <string name="plex_token">Plex トークン</string>
+    <string name="not_set">未設定</string>
+    <string name="save">保存</string>
+    <string name="cancel">キャンセル</string>
+    <string name="tab_general">一般</string>
+    <string name="tab_keys">API キー</string>
+    <string name="updates">ソフトウェアのバージョン</string>
+    <string name="check_updates">アップデートを確認</string>
+    <string name="checking_updates">確認中…</string>
+    <string name="update_to">%1$s にアップデート</string>
+    <string name="version_up_to_date">%1$s · 最新です</string>
+    <string name="update_available">アップデートがあります：%1$s</string>
+    <string name="update_check_failed">%1$s · アップデートを確認できませんでした</string>
+    <string name="update_downloading">アップデートをダウンロード中…</string>
+    <string name="update_development_status">%1$s、別の署名キーでビルド：パソコンから build-and-install.sh でアップデートしてください</string>
+    <string name="update_development">このビルドは署名キーが異なります：パソコンから build-and-install.sh でアップデートしてください</string>
+    <string name="update_allow_installs">Vibe Launcher にアプリのインストールを許可してから、もう一度アップデートを選んでください</string>
+    <string name="update_no_installs">このテレビではアプリがアップデートをインストールできません</string>
+    <string name="update_bad_download">ダウンロードがリリースと一致しなかったため、インストールしませんでした</string>
+    <string name="update_failed">アップデートをインストールできませんでした</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">メモリ</string>
+    <string name="saved">保存しました</string>
+    <string name="scan_to_paste">スマホでスキャンしてキーを貼り付け</string>
+    <string name="tmdb_notice">背景画像は TMDB API を使用していますが、TMDB の承認や認定を受けたものではありません。</string>
+    <string name="about_key">このキーについて</string>
+    <string name="tmdb_info">アプリのホーム画面カードにある映画や番組に、アプリ独自の画像やステッカーの代わりに、文字のない背景とタイトルロゴを表示します。キーなしでも Stremio の無料データで動きます。TMDB は公式で、より信頼できるソースです。\n\n無料キー：themoviedb.org → 設定 → API → 個人利用。</string>
+    <string name="youtube_info">YouTube タイルの背景に、お住まいの国で人気の動画を表示します。\n\n無料キー：console.cloud.google.com → 新しいプロジェクト → YouTube Data API v3 を有効化 → 認証情報 → API キーを作成。\n\nSmartTube を入れていれば、キーなしで自分の YouTube フィードから背景を表示します。</string>
+    <string name="plex_info">ご自分の Plex サーバーからの背景：視聴を続ける、最近追加。\n\n取得方法：app.plex.tv → 任意のタイトルを開く → ⋯ → 情報を取得 → XML を表示 → アドレスの X-Plex-Token= の後ろをコピー。パスワードのように秘密にしてください。</string>
+    <string name="saved_from_phone">スマホから保存しました</string>
+    <string name="not_available">このテレビでは使えません</string>
+    <string name="cant_open">%1$s を開けません</string>
+</resources>

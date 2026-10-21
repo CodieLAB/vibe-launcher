@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Machine translated; corrections welcome. Keep %1$s style placeholders as they are. -->
+<resources>
+    <string name="dream_name">Vibe Launcher afişleri</string>
+    <string name="inputs">Girişler</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">Ayarlar</string>
+    <string name="connected">Bağlı</string>
+    <string name="not_connected">Cihaz yok</string>
+    <string name="live_tv">Canlı TV</string>
+    <string name="no_inputs">Giriş bulunamadı</string>
+    <string name="ethernet">Ethernet</string>
+    <string name="offline">Çevrimdışı</string>
+    <string name="all_apps">Tüm uygulamalar</string>
+    <string name="network_settings">Ağ ayarları</string>
+    <string name="network">Ağ</string>
+    <string name="vpn_connected">VPN bağlı</string>
+    <string name="move">Taşı</string>
+    <string name="move_hint">Ok tuşlarıyla taşıyın, sonra OK\'a basın</string>
+    <string name="remove">Kaldır</string>
+    <string name="hide">Gizle</string>
+    <string name="app_info">Uygulama bilgisi</string>
+    <string name="show_hidden">Gizli uygulamaları göster</string>
+    <string name="vibe_settings">Vibe Launcher ayarları</string>
+    <string name="android_settings">Android ayarları</string>
+    <string name="make_home">Vibe Launcher\'ı ana ekran yap</string>
+    <string name="home_not_changeable">Bu TV, uygulamaların ana ekran uygulamasını seçmesine izin vermiyor. Bilgisayardan ayarlayın: Vibe Launcher\'ın README dosyasına bakın</string>
+    <string name="tmdb_key">TMDB API anahtarı</string>
+    <string name="youtube_key">YouTube API anahtarı</string>
+    <string name="tiles_per_row">Satır başına kutu</string>
+    <string name="language">Dil</string>
+    <string name="language_system">Sistemle aynı</string>
+    <string name="plex_token">Plex jetonu</string>
+    <string name="not_set">Ayarlanmadı</string>
+    <string name="save">Kaydet</string>
+    <string name="cancel">İptal</string>
+    <string name="tab_general">Genel</string>
+    <string name="tab_keys">API anahtarları</string>
+    <string name="updates">Yazılım sürümü</string>
+    <string name="check_updates">Güncellemeleri denetle</string>
+    <string name="checking_updates">Denetleniyor…</string>
+    <string name="update_to">%1$s sürümüne güncelle</string>
+    <string name="version_up_to_date">%1$s · Güncel</string>
+    <string name="update_available">Güncelleme var: %1$s</string>
+    <string name="update_check_failed">%1$s · Güncellemeler denetlenemedi</string>
+    <string name="update_downloading">Güncelleme indiriliyor…</string>
+    <string name="update_development_status">%1$s, farklı bir imza anahtarıyla derlendi: bilgisayardan build-and-install.sh ile güncelleyin</string>
+    <string name="update_development">Bu derlemenin imza anahtarı farklı: bilgisayardan build-and-install.sh ile güncelleyin</string>
+    <string name="update_allow_installs">Vibe Launcher\'ın uygulama yüklemesine izin verin, sonra yeniden Güncelle\'yi seçin</string>
+    <string name="update_no_installs">Bu TV, uygulamaların güncelleme yüklemesine izin vermiyor</string>
+    <string name="update_bad_download">İndirilen dosya sürümle eşleşmedi, bu yüzden yüklenmedi</string>
+    <string name="update_failed">Güncelleme yüklenemedi</string>
+    <string name="cpu">CPU</string>
+    <string name="ram">RAM</string>
+    <string name="saved">Kaydedildi</string>
+    <string name="scan_to_paste">Anahtarları yapıştırmak için telefonla tarayın</string>
+    <string name="tmdb_notice">Arka planlar TMDB API\'sini kullanır ancak TMDB tarafından onaylanmış veya sertifikalandırılmış değildir.</string>
+    <string name="about_key">Bu anahtar hakkında</string>
+    <string name="tmdb_info">Uygulamalarınızın ana ekran kartlarındaki film ve diziler için, uygulamaların kendi görselleri ve etiketleri yerine temiz arka planlar ve başlık logoları. Anahtarsız da çalışır, Stremio\'nun ücretsiz verileriyle; TMDB resmi ve daha güvenilir kaynaktır.\n\nÜcretsiz anahtar: themoviedb.org → Ayarlar → API → kişisel kullanım.</string>
+    <string name="youtube_info">YouTube kutusunun arkasında ülkenizdeki en popüler videoları gösterir.\n\nÜcretsiz anahtar: console.cloud.google.com → yeni proje → YouTube Data API v3\'ü etkinleştirin → Kimlik bilgileri → API anahtarı oluştur.\n\nSmartTube yüklüyse arka planlar anahtar gerekmeden kendi YouTube akışınızdan gelir.</string>
+    <string name="plex_info">Kendi Plex sunucunuzdan arka planlar: İzlemeye devam et ve son eklenenler.\n\nBulmak için: app.plex.tv → herhangi bir içeriği açın → ⋯ → Bilgi al → XML\'i görüntüle, ve adresteki X-Plex-Token= sonrasını kopyalayın. Şifre gibi gizli tutun.</string>
+    <string name="saved_from_phone">Telefonunuzdan kaydedildi</string>
+    <string name="not_available">Bu TV\'de kullanılamıyor</string>
+    <string name="cant_open">%1$s açılamıyor</string>
+</resources>
