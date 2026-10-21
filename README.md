@@ -10,7 +10,7 @@ and gets out of the way. It works well enough for us that I'd like to share it w
 ![Vibe Launcher: Netflix focused in the dock, with a film's backdrop and title logo filling the screen](vibe-launcher/docs/home.jpg)
 
 **[Download the latest APK](https://github.com/maydings/vibe-launcher/releases/latest/download/vibe-launcher.apk)**
-· Android TV and Google TV, Android 8.0 or newer · about 2 MB
+· Android TV and Google TV, Android 8.0 or newer · under 1 MB
 
 ## Highlights
 
@@ -21,8 +21,8 @@ and gets out of the way. It works well enough for us that I'd like to share it w
 - **A screensaver to match.** Your backdrops, full screen, with a large clock.
 - **50 languages.** Follows your TV, or pick one.
 - **Updates itself.** Shows what's new, checks the download, installs with one confirmation.
-- **Snappy and light.** Moving around feels instant, even on older TVs with 1 to 2 GB of RAM; no
-  background services.
+- **Snappy and light.** Moving around feels instant, even on older TVs with 1 to 2 GB of RAM. No
+  background services, and it lets go of its pictures while you're in another app.
 
 ## The home screen
 

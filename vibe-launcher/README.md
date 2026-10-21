@@ -1,7 +1,7 @@
 # Vibe Launcher
 
 A free and open-source (MIT), tvOS-inspired home screen for Android TV, with no ads, ever. Plain
-Java, about 2 MB, no background services; built for TVs with 1 to 2 GB of RAM. Android 8.0 (API 26) and newer, targets API 34 so Play Protect accepts it
+Java, under 1 MB, no background services; built for TVs with 1 to 2 GB of RAM. Android 8.0 (API 26) and newer, targets API 34 so Play Protect accepts it
 on Android 11+ devices such as the NVIDIA Shield.
 
 ![Vibe Launcher home with a backdrop behind the dock](docs/home.jpg)
@@ -48,9 +48,12 @@ releaseKeyAlias=vibe-launcher
 releaseKeyPassword=…
 ```
 
-then `./gradlew assembleRelease`. Without these the release APK is built unsigned. Keep the key backed
-up: APKs signed with a different key can't update an existing install. With the key set, debug builds
-are signed with it too, so a TV can move between your debug builds and the releases (and take in-app
+then `./gradlew assembleRelease`. Without these the release APK is built unsigned. Release builds are
+shrunk with R8 (rules in `app/proguard-rules.pro`); the name map for reading their stack traces is
+`app/build/outputs/mapping/release/mapping.txt`, attached to each GitHub release as `mapping-vX.txt`.
+
+Keep the key backed up: APKs signed with a different key can't update an existing install. With the key
+set, debug builds are signed with it too, so a TV can move between your debug builds and the releases (and take in-app
 updates) without uninstalling. Without it, debug builds use Android's debug key: switching to a release
 means uninstalling first, and the in-app updater says to update from a computer.
 
