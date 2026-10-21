@@ -197,6 +197,15 @@
                         style="@style/InfoButton" />
                 </LinearLayout>
 
+                <!-- SmartTube signed in beats a key (the user's own feed): offered first, Install or Open. -->
+                <TextView
+                    android:id="@+id/smartTubeButton"
+                    style="@style/TopButton"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:paddingStart="20dp" />
+
                 <EditText
                     android:id="@+id/youtubeKey"
                     style="@style/SettingsField" />

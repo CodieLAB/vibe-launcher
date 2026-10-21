@@ -61,9 +61,14 @@
     <string name="tmdb_notice">பின்னணிகள் TMDB API-ஐப் பயன்படுத்துகின்றன, ஆனால் TMDB இவற்றை அங்கீகரிக்கவோ சான்றளிக்கவோ இல்லை.</string>
     <string name="about_key">இந்தச் சாவியைப் பற்றி</string>
     <string name="tmdb_info">உங்கள் ஆப்ஸின் முகப்புத் திரை அட்டைகளில் உள்ள படங்கள், நிகழ்ச்சிகளுக்கு, ஆப்ஸின் சொந்தப் படங்கள், ஸ்டிக்கர்களுக்குப் பதிலாக, சுத்தமான பின்னணிகளும் தலைப்பு லோகோக்களும். சாவி இல்லாமலும் Stremio-வின் இலவசத் தரவுடன் இயங்கும்; TMDB அதிகாரப்பூர்வமான, அதிக நம்பகமான மூலம்.\n\nஇலவசச் சாவி: themoviedb.org → அமைப்புகள் → API → தனிப்பட்ட பயன்பாடு.</string>
-    <string name="youtube_info">YouTube டைலின் பின்னால் உங்கள் நாட்டின் மிகப் பிரபலமான வீடியோக்களைக் காட்டுகிறது.\n\nஇலவசச் சாவி: console.cloud.google.com → புதிய புராஜெக்ட் → YouTube Data API v3-ஐ இயக்கு → நற்சான்றுகள் → API விசையை உருவாக்கு.\n\nSmartTube நிறுவியிருந்தால், பின்னணிகள் உங்கள் சொந்த YouTube ஃபீடிலிருந்து வரும், சாவி தேவையில்லை.</string>
+    <string name="youtube_info">SmartTube இல் உள்நுழைந்திருந்தால், YouTube டைல் உங்கள் சொந்த YouTube ஃபீடிலிருந்து வீடியோக்களைக் காட்டும். விசை தேவையில்லை.\n\nஅது இல்லாவிட்டால், ஒரு விசை உங்கள் நாட்டின் மிகப் பிரபலமான வீடியோக்களைக் காட்டும். இலவசச் சாவி: console.cloud.google.com → புதிய புராஜெக்ட் → YouTube Data API v3-ஐ இயக்கு → நற்சான்றுகள் → API விசையை உருவாக்கு.\n\nஇரண்டும் இல்லாவிட்டால், பிரபல திரைப்படங்களின் டிரெய்லர்கள் காட்டப்படும்.</string>
     <string name="plex_info">உங்கள் சொந்த Plex சர்வரிலிருந்து பின்னணிகள்: தொடர்ந்து பார், சமீபத்தில் சேர்த்தவை.\n\nபெற: app.plex.tv → ஏதேனும் தலைப்பைத் திற → ⋯ → தகவலைப் பெறு → XML-ஐக் காட்டு, முகவரியில் X-Plex-Token= க்குப் பின் உள்ளதை நகலெடுக்கவும். கடவுச்சொல் போல ரகசியமாக வைக்கவும்.</string>
     <string name="saved_from_phone">உங்கள் ஃபோனிலிருந்து சேமிக்கப்பட்டது</string>
     <string name="not_available">இந்த டிவியில் கிடைக்காது</string>
     <string name="cant_open">%1$s திறக்க முடியவில்லை</string>
+    <string name="smarttube_install">SmartTube ஐ நிறுவு</string>
+    <string name="smarttube_open">உள்நுழைய SmartTube ஐத் திற</string>
+    <string name="smarttube_downloading">SmartTube பதிவிறக்கப்படுகிறது…</string>
+    <string name="smarttube_allow_installs">Vibe Launcher ஆப்ஸை நிறுவ அனுமதித்து, மீண்டும் SmartTube ஐ நிறுவு என்பதைத் தேர்வுசெய்யவும்</string>
+    <string name="smarttube_failed">SmartTube நிறுவப்படவில்லை</string>
 </resources>

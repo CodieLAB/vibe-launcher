@@ -61,9 +61,14 @@
     <string name="tmdb_notice">Pozadine koriste TMDB API, ali ih TMDB ne podržava niti certificira.</string>
     <string name="about_key">O ovom ključu</string>
     <string name="tmdb_info">Čiste pozadine i logotipi naslova za filmove i serije s kartica početnog zaslona vaših aplikacija, umjesto njihovih vlastitih slika i naljepnica. Radi i bez ključa, s besplatnim podacima Stremija; TMDB je službeni, pouzdaniji izvor.\n\nBesplatni ključ: themoviedb.org → Postavke → API → osobna upotreba.</string>
-    <string name="youtube_info">Prikazuje najpopularnije videozapise u vašoj zemlji iza pločice YouTubea.\n\nBesplatni ključ: console.cloud.google.com → novi projekt → omogućite YouTube Data API v3 → Vjerodajnice → Izradi API ključ.\n\nAko je SmartTube instaliran, pozadine dolaze iz vašeg vlastitog YouTube feeda, bez ključa.</string>
+    <string name="youtube_info">Kad ste prijavljeni u SmartTube, pločica YouTubea prikazuje videozapise iz vašeg vlastitog YouTube feeda. Ključ nije potreban.\n\nBez njega ključ prikazuje najpopularnije videozapise u vašoj zemlji. Besplatni ključ: console.cloud.google.com → novi projekt → omogućite YouTube Data API v3 → Vjerodajnice → Izradi API ključ.\n\nBez oboje prikazuje najave popularnih filmova.</string>
     <string name="plex_info">Pozadine s vašeg vlastitog Plex poslužitelja: Nastavi gledati i nedavno dodano.\n\nKako ga pronaći: app.plex.tv → otvorite bilo koji naslov → ⋯ → Dohvati informacije → Prikaži XML i kopirajte ono što slijedi nakon X-Plex-Token= u adresi. Čuvajte ga u tajnosti, kao lozinku.</string>
     <string name="saved_from_phone">Spremljeno s telefona</string>
     <string name="not_available">Nije dostupno na ovom televizoru</string>
     <string name="cant_open">Nije moguće otvoriti %1$s</string>
+    <string name="smarttube_install">Instaliraj SmartTube</string>
+    <string name="smarttube_open">Otvori SmartTube za prijavu</string>
+    <string name="smarttube_downloading">Preuzimanje SmartTubea…</string>
+    <string name="smarttube_allow_installs">Dopustite Vibe Launcheru da instalira aplikacije, a zatim ponovno odaberite Instaliraj SmartTube</string>
+    <string name="smarttube_failed">SmartTube se nije instalirao</string>
 </resources>

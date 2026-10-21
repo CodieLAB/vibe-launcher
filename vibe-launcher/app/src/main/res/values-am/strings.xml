@@ -61,9 +61,14 @@
     <string name="tmdb_notice">ዳራዎቹ የTMDB APIን ይጠቀማሉ፣ ግን በTMDB የተደገፉ ወይም የተረጋገጡ አይደሉም።</string>
     <string name="about_key">ስለዚህ ቁልፍ</string>
     <string name="tmdb_info">በመተግበሪያዎችዎ የመነሻ ማያ ካርዶች ላይ ላሉ ፊልሞችና ትዕይንቶች፣ በራሳቸው ምስሎችና ተለጣፊዎች ፈንታ ንጹህ ዳራዎችና የርዕስ አርማዎች። ያለ ቁልፍም ይሠራል፣ ከStremio ነፃ ውሂብ፤ TMDB ኦፊሴላዊና ይበልጥ አስተማማኝ ምንጭ ነው።\n\nነፃ ቁልፍ፦ themoviedb.org → ቅንብሮች → API → የግል አጠቃቀም።</string>
-    <string name="youtube_info">ከYouTube ሰቅ ጀርባ በአገርዎ በጣም ተወዳጅ የሆኑ ቪዲዮዎችን ያሳያል።\n\nነፃ ቁልፍ፦ console.cloud.google.com → አዲስ ፕሮጀክት → YouTube Data API v3ን ያብሩ → ምስክርነቶች → የAPI ቁልፍ ፍጠር።\n\nSmartTube ከተጫነ፣ ዳራዎቹ ያለ ቁልፍ ከራስዎ የYouTube ምግብ ይመጣሉ።</string>
+    <string name="youtube_info">ወደ SmartTube ሲገቡ የYouTube ሰሌዳው ከራስዎ የYouTube ምግብ ቪዲዮዎችን ያሳያል። ቁልፍ አያስፈልግም።\n\nያለ እሱ፣ ቁልፍ በአገርዎ በጣም ታዋቂ የሆኑ ቪዲዮዎችን ያሳያል። ነፃ ቁልፍ፦ console.cloud.google.com → አዲስ ፕሮጀክት → YouTube Data API v3ን ያብሩ → ምስክርነቶች → የAPI ቁልፍ ፍጠር።\n\nሁለቱም ከሌሉ፣ የታዋቂ ፊልሞችን ማስታወቂያዎች ያሳያል።</string>
     <string name="plex_info">ከራስዎ የPlex አገልጋይ የመጡ ዳራዎች፦ መመልከት ይቀጥሉ እና በቅርቡ የታከሉ።\n\nለማግኘት፦ app.plex.tv → ማንኛውንም ርዕስ ይክፈቱ → ⋯ → መረጃ አግኝ → XML አሳይ፣ በአድራሻው ውስጥ ከX-Plex-Token= በኋላ ያለውን ይቅዱ። እንደ የይለፍ ቃል በሚስጥር ይያዙት።</string>
     <string name="saved_from_phone">ከስልክዎ ተቀምጧል</string>
     <string name="not_available">በዚህ ቲቪ ላይ አይገኝም</string>
     <string name="cant_open">%1$sን መክፈት አልተቻለም</string>
+    <string name="smarttube_install">SmartTube ጫን</string>
+    <string name="smarttube_open">ለመግባት SmartTube ክፈት</string>
+    <string name="smarttube_downloading">SmartTube በመውረድ ላይ…</string>
+    <string name="smarttube_allow_installs">Vibe Launcher መተግበሪያዎችን እንዲጭን ይፍቀዱ፣ ከዚያ SmartTube ጫን የሚለውን እንደገና ይምረጡ</string>
+    <string name="smarttube_failed">SmartTube አልተጫነም</string>
 </resources>

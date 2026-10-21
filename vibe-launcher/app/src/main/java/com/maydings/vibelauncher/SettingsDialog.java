@@ -2,9 +2,13 @@ package com.maydings.vibelauncher;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -22,8 +26,9 @@ import android.widget.Toast;
 
 /**
  * Vibe Launcher settings on two tabs. General: tiles per row and updates (Updater). API keys: the TMDB,
- * YouTube and Plex keys, each with an (i) explaining it, and a QR code for pasting them from a phone
- * (PhoneLink). Save and Cancel serve both tabs.
+ * YouTube and Plex keys, each with an (i) explaining it, SmartTube to install or sign in to (the key-free
+ * way to YouTube backdrops), and a QR code for pasting the keys from a phone (PhoneLink). Save and Cancel
+ * serve both tabs.
  */
 final class SettingsDialog {
 
@@ -143,7 +148,8 @@ final class SettingsDialog {
         // of a page reaches its tab; Right from anything jumps to Save (and Cancel under it), and Left
         // comes back to where it left.
         View[] cameFrom = {columnsEntry};
-        View[] order = {tmdbInfo, tmdb, youtubeInfo, youtube, plexInfo, plex};
+        TextView smartTube = panel.findViewById(R.id.smartTubeButton);
+        View[] order = {tmdbInfo, tmdb, youtubeInfo, smartTube, youtube, plexInfo, plex};
         for (int i = 0; i < order.length; i++) {
             steer(order[i], i > 0 ? order[i - 1] : tabKeys, i < order.length - 1 ? order[i + 1] : null, save, cameFrom);
         }
@@ -218,9 +224,38 @@ final class SettingsDialog {
             ((TextView) panel.findViewById(R.id.phoneUrl)).setText(url.replace("http://", ""));
             phoneReady[0] = true;
         }
+        // Open SmartTube to sign in, or install it first. The label follows along: checked again when an app
+        // is installed or removed (the installer's screen closes before the install is done), and whenever
+        // the dialog gets the screen back.
+        Runnable showSmartTube = () -> smartTube.setText(SmartTube.launchIntent(activity) != null
+                ? R.string.smarttube_open : R.string.smarttube_install);
+        showSmartTube.run();
+        panel.getViewTreeObserver().addOnWindowFocusChangeListener(hasFocus -> { if (hasFocus) showSmartTube.run(); });
+        BroadcastReceiver packages = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                showSmartTube.run();
+            }
+        };
+        IntentFilter packageFilter = new IntentFilter(Intent.ACTION_PACKAGE_ADDED);
+        packageFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+        packageFilter.addDataScheme("package");
+        if (Build.VERSION.SDK_INT >= 33) activity.registerReceiver(packages, packageFilter, Context.RECEIVER_NOT_EXPORTED);
+        else activity.registerReceiver(packages, packageFilter);
+        smartTube.setOnClickListener(v -> {
+            Intent open = SmartTube.launchIntent(activity);
+            if (open != null) {
+                activity.startActivity(open);
+                return;
+            }
+            Toast.makeText(activity, R.string.smarttube_downloading, Toast.LENGTH_LONG).show();
+            SmartTube.install(activity, res -> Toast.makeText(activity,
+                    res == R.string.update_failed ? R.string.smarttube_failed : res, Toast.LENGTH_LONG).show());
+        });
         showGeneral.run();
         dialog.setOnDismissListener(d -> {
             link.stop();
+            activity.unregisterReceiver(packages);
             // An update found here shows on the Settings pill straight away, not at the next return to Home.
             if (activity instanceof MainActivity) ((MainActivity) activity).showUpdateReady();
         });

@@ -61,9 +61,14 @@
     <string name="tmdb_notice">Los fondos usan la API de TMDB, pero TMDB no los respalda ni certifica.</string>
     <string name="about_key">Sobre esta clave</string>
     <string name="tmdb_info">Fondos limpios y logotipos de título para las películas y series de las tarjetas de inicio de tus apps, en lugar de sus propias imágenes y etiquetas. Funciona sin clave, con los datos gratuitos de Stremio; TMDB es la fuente oficial y más fiable.\n\nClave gratuita: themoviedb.org → Configuración → API → uso personal.</string>
-    <string name="youtube_info">Muestra los vídeos más populares de tu país detrás del mosaico de YouTube.\n\nClave gratuita: console.cloud.google.com → proyecto nuevo → habilita YouTube Data API v3 → Credenciales → Crear clave de API.\n\nCon SmartTube instalado, los fondos salen de tu propio feed de YouTube, sin clave.</string>
+    <string name="youtube_info">Con SmartTube con la sesión iniciada, el mosaico de YouTube muestra vídeos de tu propio feed de YouTube. No hace falta clave.\n\nSin él, una clave muestra los vídeos más populares de tu país. Clave gratuita: console.cloud.google.com → proyecto nuevo → habilita YouTube Data API v3 → Credenciales → Crear clave de API.\n\nSin ninguno de los dos, muestra tráilers de películas populares.</string>
     <string name="plex_info">Fondos de tu propio servidor Plex: Seguir viendo y lo añadido recientemente.\n\nPara obtenerlo: app.plex.tv → abre cualquier título → ⋯ → Obtener información → Ver XML, y copia lo que sigue a X-Plex-Token= en la dirección. Mantenlo en privado, como una contraseña.</string>
     <string name="saved_from_phone">Guardado desde el móvil</string>
     <string name="not_available">No disponible en este televisor</string>
     <string name="cant_open">No se puede abrir %1$s</string>
+    <string name="smarttube_install">Instalar SmartTube</string>
+    <string name="smarttube_open">Abrir SmartTube para iniciar sesión</string>
+    <string name="smarttube_downloading">Descargando SmartTube…</string>
+    <string name="smarttube_allow_installs">Permite que Vibe Launcher instale aplicaciones y vuelve a elegir Instalar SmartTube</string>
+    <string name="smarttube_failed">SmartTube no se instaló</string>
 </resources>

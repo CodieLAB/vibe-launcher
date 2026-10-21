@@ -61,9 +61,14 @@
     <string name="tmdb_notice">पार्श्वभूमी TMDB API वापरतात, पण TMDB त्यांना मान्यता किंवा प्रमाणपत्र देत नाही.</string>
     <string name="about_key">या कीबद्दल</string>
     <string name="tmdb_info">तुमच्या अ‍ॅप्सच्या होम स्क्रीन कार्डवरील चित्रपट आणि शोसाठी स्वच्छ पार्श्वभूमी आणि शीर्षकाचे लोगो, अ‍ॅप्सच्या स्वतःच्या चित्रांऐवजी. की शिवायही चालते, Stremio च्या मोफत डेटामधून; TMDB अधिकृत आणि अधिक विश्वासार्ह स्रोत आहे.\n\nमोफत की: themoviedb.org → सेटिंग्ज → API → वैयक्तिक वापर.</string>
-    <string name="youtube_info">YouTube टाइलच्या मागे तुमच्या देशातील सर्वाधिक लोकप्रिय व्हिडिओ दाखवते.\n\nमोफत की: console.cloud.google.com → नवीन प्रोजेक्ट → YouTube Data API v3 सुरू करा → क्रेडेन्शियल्स → API की तयार करा.\n\nSmartTube असल्यास पार्श्वभूमी तुमच्या स्वतःच्या YouTube फीडमधून येते, की लागत नाही.</string>
+    <string name="youtube_info">SmartTube मध्ये साइन इन असल्यास YouTube टाइल तुमच्या स्वतःच्या YouTube फीडमधील व्हिडिओ दाखवते. कीची गरज नाही.\n\nत्याशिवाय, की तुमच्या देशातील सर्वात लोकप्रिय व्हिडिओ दाखवते. मोफत की: console.cloud.google.com → नवीन प्रोजेक्ट → YouTube Data API v3 सुरू करा → क्रेडेन्शियल्स → API की तयार करा.\n\nदोन्ही नसल्यास लोकप्रिय चित्रपटांचे ट्रेलर दिसतात.</string>
     <string name="plex_info">तुमच्या स्वतःच्या Plex सर्व्हरवरील पार्श्वभूमी: पाहणे सुरू ठेवा आणि अलीकडे जोडलेले.\n\nमिळवण्यासाठी: app.plex.tv → कोणतेही शीर्षक उघडा → ⋯ → माहिती मिळवा → XML पहा, आणि पत्त्यातील X-Plex-Token= नंतरचा भाग कॉपी करा. पासवर्डसारखा गुप्त ठेवा.</string>
     <string name="saved_from_phone">तुमच्या फोनवरून जतन केले</string>
     <string name="not_available">या टीव्हीवर उपलब्ध नाही</string>
     <string name="cant_open">%1$s उघडता येत नाही</string>
+    <string name="smarttube_install">SmartTube इंस्टॉल करा</string>
+    <string name="smarttube_open">साइन इनसाठी SmartTube उघडा</string>
+    <string name="smarttube_downloading">SmartTube डाउनलोड होत आहे…</string>
+    <string name="smarttube_allow_installs">Vibe Launcher ला अ‍ॅप्स इंस्टॉल करू द्या, नंतर पुन्हा SmartTube इंस्टॉल करा निवडा</string>
+    <string name="smarttube_failed">SmartTube इंस्टॉल झाले नाही</string>
 </resources>

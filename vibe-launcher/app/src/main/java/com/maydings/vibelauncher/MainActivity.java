@@ -939,7 +939,17 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         return ssid.isEmpty() || ssid.contains("unknown") || ssid.equals("0x") ? null : ssid;
     }
 
-    /** Dropdown under the network pill: each connected interface with its IPv4 address, then settings. */
+    /** The connected Wi-Fi's link speed in Mbps, or -1 when unknown. */
+    private int wifiLinkSpeed() {
+        WifiManager wm = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        WifiInfo info = wm != null ? wm.getConnectionInfo() : null;
+        return info != null ? info.getLinkSpeed() : -1;
+    }
+
+    /**
+     * Dropdown under the network pill: each connected interface with its IPv4 address (and Wi-Fi's link
+     * speed), then settings.
+     */
     private void showNetwork() {
         View panel = getLayoutInflater().inflate(R.layout.popup_inputs, root, false);
         LinearLayout rows = panel.findViewById(R.id.rows);
@@ -984,6 +994,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 } else if (caps.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
                     String ssid = wifiName();
                     type = ssid != null ? getString(R.string.wifi) + " \u00B7 " + ssid : getString(R.string.wifi);
+                    // The rate the Wi-Fi link runs at now. Ethernet's isn't readable by apps, so it shows none.
+                    int mbps = wifiLinkSpeed();
+                    if (mbps > 0) ip += " \u00B7 " + mbps + " Mbps";
                 } else {
                     type = getString(R.string.network);
                 }

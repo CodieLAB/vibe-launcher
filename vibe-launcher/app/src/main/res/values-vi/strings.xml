@@ -61,9 +61,14 @@
     <string name="tmdb_notice">Ảnh nền dùng API của TMDB nhưng không được TMDB xác nhận hay chứng nhận.</string>
     <string name="about_key">Về khóa này</string>
     <string name="tmdb_info">Ảnh nền sạch và logo tựa phim cho các phim và chương trình trên thẻ màn hình chính của ứng dụng, thay cho hình và nhãn dán riêng của chúng. Vẫn chạy khi không có khóa, nhờ dữ liệu miễn phí của Stremio; TMDB là nguồn chính thức, đáng tin cậy hơn.\n\nKhóa miễn phí: themoviedb.org → Cài đặt → API → dùng cá nhân.</string>
-    <string name="youtube_info">Hiện các video phổ biến nhất ở quốc gia của bạn phía sau ô YouTube.\n\nKhóa miễn phí: console.cloud.google.com → dự án mới → bật YouTube Data API v3 → Thông tin xác thực → Tạo khóa API.\n\nKhi đã cài SmartTube, ảnh nền lấy từ nguồn cấp YouTube của chính bạn, không cần khóa.</string>
+    <string name="youtube_info">Khi đã đăng nhập SmartTube, ô YouTube hiển thị video từ nguồn cấp YouTube của chính bạn. Không cần khóa.\n\nKhông có nó, một khóa sẽ hiển thị các video phổ biến nhất ở quốc gia của bạn. Khóa miễn phí: console.cloud.google.com → dự án mới → bật YouTube Data API v3 → Thông tin xác thực → Tạo khóa API.\n\nKhông có cả hai, ô hiển thị trailer của các phim nổi tiếng.</string>
     <string name="plex_info">Ảnh nền từ máy chủ Plex của bạn: Tiếp tục xem và mới thêm gần đây.\n\nCách lấy: app.plex.tv → mở một tựa bất kỳ → ⋯ → Xem thông tin → Xem XML, rồi sao chép phần sau X-Plex-Token= trong địa chỉ. Hãy giữ bí mật như mật khẩu.</string>
     <string name="saved_from_phone">Đã lưu từ điện thoại</string>
     <string name="not_available">Không có trên TV này</string>
     <string name="cant_open">Không mở được %1$s</string>
+    <string name="smarttube_install">Cài đặt SmartTube</string>
+    <string name="smarttube_open">Mở SmartTube để đăng nhập</string>
+    <string name="smarttube_downloading">Đang tải SmartTube…</string>
+    <string name="smarttube_allow_installs">Hãy cho phép Vibe Launcher cài đặt ứng dụng, rồi chọn lại Cài đặt SmartTube</string>
+    <string name="smarttube_failed">SmartTube chưa được cài đặt</string>
 </resources>

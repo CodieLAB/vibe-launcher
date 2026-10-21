@@ -61,9 +61,14 @@
     <string name="tmdb_notice">배경은 TMDB API를 사용하지만 TMDB의 보증이나 인증을 받지 않았습니다.</string>
     <string name="about_key">이 키에 대해</string>
     <string name="tmdb_info">앱 홈 화면 카드에 있는 영화와 프로그램에 앱 자체 이미지와 스티커 대신 깔끔한 배경과 제목 로고를 보여 줍니다. 키 없이도 Stremio의 무료 데이터로 작동하며, TMDB는 공식이자 더 믿을 수 있는 소스입니다.\n\n무료 키: themoviedb.org → 설정 → API → 개인 용도.</string>
-    <string name="youtube_info">YouTube 타일 뒤에 내 나라에서 가장 인기 있는 동영상을 보여 줍니다.\n\n무료 키: console.cloud.google.com → 새 프로젝트 → YouTube Data API v3 사용 → 사용자 인증 정보 → API 키 만들기.\n\nSmartTube가 설치되어 있으면 키 없이 내 YouTube 피드에서 배경을 가져옵니다.</string>
+    <string name="youtube_info">SmartTube에 로그인되어 있으면 YouTube 타일에 내 YouTube 피드의 동영상이 표시됩니다. 키가 필요 없습니다.\n\nSmartTube가 없으면 키로 내 국가의 인기 동영상을 표시합니다. 무료 키: console.cloud.google.com → 새 프로젝트 → YouTube Data API v3 사용 → 사용자 인증 정보 → API 키 만들기.\n\n둘 다 없으면 인기 영화의 예고편을 표시합니다.</string>
     <string name="plex_info">내 Plex 서버의 배경: 이어서 보기와 최근 추가 항목.\n\n찾는 방법: app.plex.tv → 아무 작품이나 열기 → ⋯ → 정보 가져오기 → XML 보기, 주소에서 X-Plex-Token= 뒤 부분을 복사하세요. 비밀번호처럼 비공개로 보관하세요.</string>
     <string name="saved_from_phone">휴대폰에서 저장됨</string>
     <string name="not_available">이 TV에서 사용할 수 없음</string>
     <string name="cant_open">%1$s을(를) 열 수 없습니다</string>
+    <string name="smarttube_install">SmartTube 설치</string>
+    <string name="smarttube_open">SmartTube를 열어 로그인</string>
+    <string name="smarttube_downloading">SmartTube 다운로드 중…</string>
+    <string name="smarttube_allow_installs">Vibe Launcher가 앱을 설치하도록 허용한 다음 SmartTube 설치를 다시 선택하세요</string>
+    <string name="smarttube_failed">SmartTube가 설치되지 않았습니다</string>
 </resources>

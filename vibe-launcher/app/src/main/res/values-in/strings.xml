@@ -61,9 +61,14 @@
     <string name="tmdb_notice">Latar memakai API TMDB tetapi tidak didukung atau disertifikasi oleh TMDB.</string>
     <string name="about_key">Tentang kunci ini</string>
     <string name="tmdb_info">Latar bersih dan logo judul untuk film dan acara di kartu layar utama aplikasi Anda, menggantikan gambar dan stiker bawaan aplikasi. Berfungsi tanpa kunci, dari data gratis Stremio; TMDB adalah sumber resmi yang lebih andal.\n\nKunci gratis: themoviedb.org → Pengaturan → API → penggunaan pribadi.</string>
-    <string name="youtube_info">Menampilkan video paling populer di negara Anda di balik ubin YouTube.\n\nKunci gratis: console.cloud.google.com → proyek baru → aktifkan YouTube Data API v3 → Kredensial → Buat kunci API.\n\nJika SmartTube terpasang, latar diambil dari feed YouTube Anda sendiri, tanpa kunci.</string>
+    <string name="youtube_info">Dengan SmartTube yang sudah masuk, ubin YouTube menampilkan video dari feed YouTube Anda sendiri. Tanpa kunci.\n\nTanpa itu, kunci menampilkan video terpopuler di negara Anda. Kunci gratis: console.cloud.google.com → proyek baru → aktifkan YouTube Data API v3 → Kredensial → Buat kunci API.\n\nTanpa keduanya, ditampilkan trailer film populer.</string>
     <string name="plex_info">Latar dari server Plex Anda sendiri: Lanjutkan menonton dan yang baru ditambahkan.\n\nCara mendapatkannya: app.plex.tv → buka judul apa saja → ⋯ → Dapatkan Info → Lihat XML, lalu salin bagian setelah X-Plex-Token= di alamatnya. Rahasiakan seperti kata sandi.</string>
     <string name="saved_from_phone">Tersimpan dari ponsel Anda</string>
     <string name="not_available">Tidak tersedia di TV ini</string>
     <string name="cant_open">Tidak dapat membuka %1$s</string>
+    <string name="smarttube_install">Instal SmartTube</string>
+    <string name="smarttube_open">Buka SmartTube untuk masuk</string>
+    <string name="smarttube_downloading">Mengunduh SmartTube…</string>
+    <string name="smarttube_allow_installs">Izinkan Vibe Launcher menginstal aplikasi, lalu pilih Instal SmartTube lagi</string>
+    <string name="smarttube_failed">SmartTube tidak terinstal</string>
 </resources>

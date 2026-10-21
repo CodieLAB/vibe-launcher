@@ -61,9 +61,14 @@
     <string name="tmdb_notice">背景圖使用 TMDB API，但未獲 TMDB 背書或認證。</string>
     <string name="about_key">關於此金鑰</string>
     <string name="tmdb_info">為應用程式主畫面卡片上的電影和影集提供無文字的背景圖與片名標誌，取代應用程式自帶的圖片和標籤。不用金鑰也能使用（來自 Stremio 的免費資料）；TMDB 是官方、更可靠的來源。\n\n免費金鑰：themoviedb.org → 設定 → API → 個人用途。</string>
-    <string name="youtube_info">在 YouTube 圖塊後方顯示你所在國家最熱門的影片。\n\n免費金鑰：console.cloud.google.com → 新增專案 → 啟用 YouTube Data API v3 → 憑證 → 建立 API 金鑰。\n\n安裝 SmartTube 後，背景圖改為來自你自己的 YouTube 動態，不需要金鑰。</string>
+    <string name="youtube_info">登入 SmartTube 後，YouTube 圖塊會顯示來自你自己 YouTube 動態的影片，不需要金鑰。\n\n沒有它時，可用金鑰顯示你所在國家最熱門的影片。 免費金鑰：console.cloud.google.com → 新增專案 → 啟用 YouTube Data API v3 → 憑證 → 建立 API 金鑰。\n\n兩者都沒有時，會顯示熱門電影的預告片。</string>
     <string name="plex_info">來自你自己 Plex 伺服器的背景圖：繼續觀看和最近新增。\n\n取得方式：app.plex.tv → 開啟任一影片 → ⋯ → 取得資訊 → 檢視 XML，複製網址中 X-Plex-Token= 後面的內容。請像密碼一樣保密。</string>
     <string name="saved_from_phone">已從手機儲存</string>
     <string name="not_available">這台電視不支援</string>
     <string name="cant_open">無法開啟 %1$s</string>
+    <string name="smarttube_install">安裝 SmartTube</string>
+    <string name="smarttube_open">開啟 SmartTube 登入</string>
+    <string name="smarttube_downloading">正在下載 SmartTube…</string>
+    <string name="smarttube_allow_installs">請允許 Vibe Launcher 安裝應用程式，然後再次選擇安裝 SmartTube</string>
+    <string name="smarttube_failed">SmartTube 未能安裝</string>
 </resources>

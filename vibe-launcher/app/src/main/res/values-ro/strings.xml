@@ -61,9 +61,14 @@
     <string name="tmdb_notice">Fundalurile folosesc API-ul TMDB, dar nu sunt aprobate sau certificate de TMDB.</string>
     <string name="about_key">Despre această cheie</string>
     <string name="tmdb_info">Fundaluri curate și sigle de titlu pentru filmele și serialele de pe cardurile ecranului de pornire ale aplicațiilor, în locul imaginilor și autocolantelor lor. Funcționează și fără cheie, cu datele gratuite Stremio; TMDB este sursa oficială, mai de încredere.\n\nCheie gratuită: themoviedb.org → Setări → API → uz personal.</string>
-    <string name="youtube_info">Arată cele mai populare videoclipuri din țara ta în spatele plăcii YouTube.\n\nCheie gratuită: console.cloud.google.com → proiect nou → activează YouTube Data API v3 → Date de conectare → Creează cheie API.\n\nCu SmartTube instalat, fundalurile vin din propriul tău feed YouTube, fără cheie.</string>
+    <string name="youtube_info">Cu SmartTube conectat, plăcuța YouTube arată videoclipuri din propriul tău feed YouTube. Nu e nevoie de cheie.\n\nFără el, o cheie arată cele mai populare videoclipuri din țara ta. Cheie gratuită: console.cloud.google.com → proiect nou → activează YouTube Data API v3 → Date de conectare → Creează cheie API.\n\nFără niciunul, arată trailere ale unor filme populare.</string>
     <string name="plex_info">Fundaluri de pe propriul tău server Plex: Continuă vizionarea și adăugate recent.\n\nCum îl găsești: app.plex.tv → deschide orice titlu → ⋯ → Obține informații → Vezi XML, apoi copiază ce urmează după X-Plex-Token= în adresă. Păstrează-l secret, ca pe o parolă.</string>
     <string name="saved_from_phone">Salvat de pe telefon</string>
     <string name="not_available">Indisponibil pe acest televizor</string>
     <string name="cant_open">Nu se poate deschide %1$s</string>
+    <string name="smarttube_install">Instalează SmartTube</string>
+    <string name="smarttube_open">Deschide SmartTube pentru conectare</string>
+    <string name="smarttube_downloading">Se descarcă SmartTube…</string>
+    <string name="smarttube_allow_installs">Permite-i lui Vibe Launcher să instaleze aplicații, apoi alege din nou Instalează SmartTube</string>
+    <string name="smarttube_failed">SmartTube nu s-a instalat</string>
 </resources>

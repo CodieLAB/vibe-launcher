@@ -61,9 +61,14 @@
     <string name="tmdb_notice">Tła korzystają z API TMDB, ale nie są zatwierdzone ani certyfikowane przez TMDB.</string>
     <string name="about_key">O tym kluczu</string>
     <string name="tmdb_info">Czyste tła i logo tytułów dla filmów i seriali z kart ekranu głównego Twoich aplikacji, zamiast ich własnych grafik i naklejek. Działa bez klucza, na darmowych danych Stremio; TMDB to oficjalne, pewniejsze źródło.\n\nDarmowy klucz: themoviedb.org → Ustawienia → API → użytek osobisty.</string>
-    <string name="youtube_info">Pokazuje najpopularniejsze filmy w Twoim kraju za kafelkiem YouTube.\n\nDarmowy klucz: console.cloud.google.com → nowy projekt → włącz YouTube Data API v3 → Dane logowania → Utwórz klucz API.\n\nZ zainstalowanym SmartTube tła pochodzą z Twojego własnego kanału YouTube, bez klucza.</string>
+    <string name="youtube_info">Gdy jesteś zalogowany w SmartTube, kafelek YouTube pokazuje filmy z Twojego własnego kanału YouTube. Klucz nie jest potrzebny.\n\nBez niego klucz pokazuje najpopularniejsze filmy w Twoim kraju. Darmowy klucz: console.cloud.google.com → nowy projekt → włącz YouTube Data API v3 → Dane logowania → Utwórz klucz API.\n\nBez obu pokazuje zwiastuny popularnych filmów.</string>
     <string name="plex_info">Tła z Twojego własnego serwera Plex: Kontynuuj oglądanie i ostatnio dodane.\n\nJak go znaleźć: app.plex.tv → otwórz dowolny tytuł → ⋯ → Pobierz informacje → Pokaż XML i skopiuj to, co następuje po X-Plex-Token= w adresie. Chroń go jak hasło.</string>
     <string name="saved_from_phone">Zapisano z telefonu</string>
     <string name="not_available">Niedostępne na tym telewizorze</string>
     <string name="cant_open">Nie można otworzyć %1$s</string>
+    <string name="smarttube_install">Zainstaluj SmartTube</string>
+    <string name="smarttube_open">Otwórz SmartTube, aby się zalogować</string>
+    <string name="smarttube_downloading">Pobieranie SmartTube…</string>
+    <string name="smarttube_allow_installs">Zezwól Vibe Launcher na instalowanie aplikacji, a potem ponownie wybierz Zainstaluj SmartTube</string>
+    <string name="smarttube_failed">Nie udało się zainstalować SmartTube</string>
 </resources>

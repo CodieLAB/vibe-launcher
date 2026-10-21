@@ -61,9 +61,14 @@
     <string name="tmdb_notice">બેકડ્રોપ TMDB API વાપરે છે, પણ TMDB દ્વારા સમર્થિત કે પ્રમાણિત નથી.</string>
     <string name="about_key">આ કી વિશે</string>
     <string name="tmdb_info">તમારી ઍપના હોમ સ્ક્રીન કાર્ડ પરની ફિલ્મો અને શો માટે સ્વચ્છ બેકડ્રોપ અને શીર્ષક લોગો, ઍપના પોતાના ચિત્રો અને સ્ટિકરને બદલે. કી વિના પણ ચાલે છે, Stremio ના મફત ડેટાથી; TMDB સત્તાવાર અને વધુ વિશ્વસનીય સ્રોત છે.\n\nમફત કી: themoviedb.org → સેટિંગ્સ → API → વ્યક્તિગત ઉપયોગ.</string>
-    <string name="youtube_info">YouTube ટાઇલ પાછળ તમારા દેશના સૌથી લોકપ્રિય વીડિયો બતાવે છે.\n\nમફત કી: console.cloud.google.com → નવો પ્રોજેક્ટ → YouTube Data API v3 ચાલુ કરો → ક્રેડેન્શિયલ્સ → API કી બનાવો.\n\nSmartTube હોય તો બેકડ્રોપ તમારી પોતાની YouTube ફીડમાંથી આવે છે, કી વગર.</string>
+    <string name="youtube_info">SmartTube માં સાઇન ઇન હોય ત્યારે YouTube ટાઇલ તમારી પોતાની YouTube ફીડના વીડિયો બતાવે છે. કોઈ કીની જરૂર નથી.\n\nતેના વિના, એક કી તમારા દેશના સૌથી લોકપ્રિય વીડિયો બતાવે છે. મફત કી: console.cloud.google.com → નવો પ્રોજેક્ટ → YouTube Data API v3 ચાલુ કરો → ક્રેડેન્શિયલ્સ → API કી બનાવો.\n\nબંનેમાંથી એક પણ ન હોય તો લોકપ્રિય ફિલ્મોના ટ્રેલર બતાવે છે.</string>
     <string name="plex_info">તમારા પોતાના Plex સર્વરમાંથી બેકડ્રોપ: જોવાનું ચાલુ રાખો અને તાજેતરમાં ઉમેરાયેલ.\n\nમેળવવા: app.plex.tv → કોઈ પણ શીર્ષક ખોલો → ⋯ → માહિતી મેળવો → XML જુઓ, અને સરનામામાં X-Plex-Token= પછીનો ભાગ કૉપિ કરો. પાસવર્ડની જેમ ખાનગી રાખો.</string>
     <string name="saved_from_phone">તમારા ફોનથી સાચવ્યું</string>
     <string name="not_available">આ ટીવી પર ઉપલબ્ધ નથી</string>
     <string name="cant_open">%1$s ખોલી શકાતું નથી</string>
+    <string name="smarttube_install">SmartTube ઇન્સ્ટોલ કરો</string>
+    <string name="smarttube_open">સાઇન ઇન માટે SmartTube ખોલો</string>
+    <string name="smarttube_downloading">SmartTube ડાઉનલોડ થઈ રહ્યું છે…</string>
+    <string name="smarttube_allow_installs">Vibe Launcher ને ઍપ ઇન્સ્ટોલ કરવા દો, પછી ફરીથી SmartTube ઇન્સ્ટોલ કરો પસંદ કરો</string>
+    <string name="smarttube_failed">SmartTube ઇન્સ્ટોલ થયું નહીં</string>
 </resources>

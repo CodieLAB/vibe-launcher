@@ -61,9 +61,14 @@
     <string name="tmdb_notice">ব্যাকড্রপে TMDB API ব্যবহার হয়, তবে TMDB এগুলি অনুমোদন বা প্রত্যয়ন করে না।</string>
     <string name="about_key">এই কী সম্পর্কে</string>
     <string name="tmdb_info">আপনার অ্যাপের হোম স্ক্রিন কার্ডের সিনেমা ও শোর জন্য পরিষ্কার ব্যাকড্রপ ও শিরোনামের লোগো, অ্যাপের নিজস্ব ছবি ও স্টিকারের বদলে। কী ছাড়াও চলে, Stremio-র বিনামূল্যের তথ্য থেকে; TMDB সরকারি ও বেশি নির্ভরযোগ্য উৎস।\n\nবিনামূল্যের কী: themoviedb.org → সেটিংস → API → ব্যক্তিগত ব্যবহার।</string>
-    <string name="youtube_info">YouTube টাইলের পেছনে আপনার দেশের সবচেয়ে জনপ্রিয় ভিডিও দেখায়।\n\nবিনামূল্যের কী: console.cloud.google.com → নতুন প্রজেক্ট → YouTube Data API v3 চালু করুন → ক্রেডেনশিয়াল → API কী তৈরি করুন।\n\nSmartTube ইনস্টল থাকলে ব্যাকড্রপ আসে আপনার নিজের YouTube ফিড থেকে, কী লাগে না।</string>
+    <string name="youtube_info">SmartTube-এ সাইন ইন থাকলে YouTube টাইলে আপনার নিজের YouTube ফিডের ভিডিও দেখায়। কোনো কী লাগে না।\n\nএটি না থাকলে, একটি কী আপনার দেশের সবচেয়ে জনপ্রিয় ভিডিও দেখায়। বিনামূল্যের কী: console.cloud.google.com → নতুন প্রজেক্ট → YouTube Data API v3 চালু করুন → ক্রেডেনশিয়াল → API কী তৈরি করুন।\n\nদুটির কোনোটি না থাকলে জনপ্রিয় সিনেমার ট্রেলার দেখায়।</string>
     <string name="plex_info">আপনার নিজের Plex সার্ভার থেকে ব্যাকড্রপ: দেখা চালিয়ে যান ও সম্প্রতি যোগ করা।\n\nপেতে: app.plex.tv → যেকোনো টাইটেল খুলুন → ⋯ → তথ্য দেখুন → XML দেখুন, এবং ঠিকানায় X-Plex-Token=-এর পরের অংশ কপি করুন। পাসওয়ার্ডের মতো গোপন রাখুন।</string>
     <string name="saved_from_phone">আপনার ফোন থেকে সংরক্ষিত</string>
     <string name="not_available">এই টিভিতে উপলব্ধ নয়</string>
     <string name="cant_open">%1$s খোলা যাচ্ছে না</string>
+    <string name="smarttube_install">SmartTube ইনস্টল করুন</string>
+    <string name="smarttube_open">সাইন ইন করতে SmartTube খুলুন</string>
+    <string name="smarttube_downloading">SmartTube ডাউনলোড হচ্ছে…</string>
+    <string name="smarttube_allow_installs">Vibe Launcher-কে অ্যাপ ইনস্টল করতে দিন, তারপর আবার SmartTube ইনস্টল করুন বেছে নিন</string>
+    <string name="smarttube_failed">SmartTube ইনস্টল হয়নি</string>
 </resources>

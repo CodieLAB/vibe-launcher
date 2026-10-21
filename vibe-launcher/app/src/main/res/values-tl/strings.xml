@@ -61,9 +61,14 @@
     <string name="tmdb_notice">Gumagamit ang mga backdrop ng TMDB API pero hindi ito ini-endorse o sinertipika ng TMDB.</string>
     <string name="about_key">Tungkol sa key na ito</string>
     <string name="tmdb_info">Malinis na backdrop at logo ng pamagat para sa mga pelikula at palabas sa mga home screen card ng iyong mga app, kapalit ng sarili nilang larawan at sticker. Gumagana kahit walang key, mula sa libreng data ng Stremio; ang TMDB ang opisyal at mas maaasahang pinagmulan.\n\nLibreng key: themoviedb.org → Mga Setting → API → personal na gamit.</string>
-    <string name="youtube_info">Ipinapakita ang pinakasikat na mga video sa iyong bansa sa likod ng tile ng YouTube.\n\nLibreng key: console.cloud.google.com → bagong project → i-enable ang YouTube Data API v3 → Mga Kredensyal → Gumawa ng API key.\n\nKapag naka-install ang SmartTube, galing sa sarili mong YouTube feed ang mga backdrop, walang key.</string>
+    <string name="youtube_info">Kapag naka-sign in ang SmartTube, ipinapakita ng YouTube tile ang mga video mula sa sarili mong YouTube feed. Walang key na kailangan.\n\nKung wala ito, ipinapakita ng isang key ang pinakasikat na video sa iyong bansa. Libreng key: console.cloud.google.com → bagong project → i-enable ang YouTube Data API v3 → Mga Kredensyal → Gumawa ng API key.\n\nKung wala ang dalawa, ipinapakita nito ang mga trailer ng mga sikat na pelikula.</string>
     <string name="plex_info">Mga backdrop mula sa sarili mong Plex server: Ituloy ang panonood at mga bagong dagdag.\n\nPara makuha: app.plex.tv → buksan ang kahit anong pamagat → ⋯ → Kunin ang Impormasyon → Tingnan ang XML, at kopyahin ang kasunod ng X-Plex-Token= sa address. Ilihim ito, gaya ng password.</string>
     <string name="saved_from_phone">Na-save mula sa iyong phone</string>
     <string name="not_available">Hindi available sa TV na ito</string>
     <string name="cant_open">Hindi mabuksan ang %1$s</string>
+    <string name="smarttube_install">I-install ang SmartTube</string>
+    <string name="smarttube_open">Buksan ang SmartTube para mag-sign in</string>
+    <string name="smarttube_downloading">Dina-download ang SmartTube…</string>
+    <string name="smarttube_allow_installs">Payagan ang Vibe Launcher na mag-install ng mga app, pagkatapos ay piliin muli ang I-install ang SmartTube</string>
+    <string name="smarttube_failed">Hindi na-install ang SmartTube</string>
 </resources>

@@ -40,9 +40,11 @@ As you move along the dock, the screen behind it fills with artwork from the foc
   or show each one is offering, shown as a clean full-size backdrop with the title's logo instead of
   the app's own art and stickers. Works out of the box, using Stremio's free film data.
 - **TMDB** for the most reliable artwork, with a free API key.
-- **YouTube**: your own feed through [SmartTube](https://github.com/yuliskov/SmartTube), or the
-  most popular videos in your country with a YouTube API key.
+- **YouTube**: your own feed through [SmartTube](https://github.com/yuliskov/SmartTube), which
+  Settings can install for you; or the most popular videos in your country with a YouTube API key;
+  or, with neither, trailers of the films everyone's watching.
 - **Plex**: Continue Watching and recently added from your own server, with your Plex token.
+- **HDHomeRun**: what's on your tuner right now, from SiliconDust's free guide. No setup.
 
 Low-resolution art becomes a 2×2 wall instead of one blurry still, and apps with nothing to show get
 a soft glow in their own colour.
@@ -63,7 +65,7 @@ A frosted bar with the clock and date, and three menus. Left and Right move betw
   that announce themselves over HDMI-CEC appear by name under their port, so an Apple TV and a
   PlayStation behind an HDMI switch each get their own row. Names and hidden inputs from the TV's own
   settings carry over.
-- **Network** shows each connection with its IP address, and VPNs.
+- **Network** shows each connection with its IP address (and the Wi-Fi link speed), and VPNs.
 - **Settings** shows live memory use and opens Vibe Launcher's settings or Android's.
 
 | ![The Inputs menu: HDMI 2 with a PlayStation 5 and an Apple TV behind it, both connected](vibe-launcher/docs/inputs-menu.jpg) | ![The Settings menu with live RAM use](vibe-launcher/docs/settings-menu.jpg) |
@@ -84,7 +86,8 @@ A frosted bar with the clock and date, and three menus. Left and Right move betw
 **API keys**: optional keys that unlock more backdrops: **TMDB**, **YouTube** and **Plex**. Each has
 an ⓘ that explains what it adds and where to get it, free. Typing a 32-character key with a remote
 is no fun, so the tab shows a **QR code**: scan it with your phone and paste the keys there. Saved
-keys stay on the TV and show only their last four characters.
+keys stay on the TV and show only their last four characters. Under YouTube, one button installs
+SmartTube (its latest release, checked against GitHub's checksum) or opens it to sign in.
 
 ![Vibe Launcher settings, API keys tab: TMDB, YouTube and Plex keys and a QR code for the phone](vibe-launcher/docs/settings-keys.jpg)
 
@@ -162,8 +165,8 @@ It should run on any Android TV or Google TV with Android 8.0 or newer.
 
 **No data collection and no ads, ever.** No accounts, no analytics, no tracking, and nothing is ever
 sent to me. Vibe Launcher goes online only to fetch artwork (looking up the titles on your apps' cards
-with TMDB or Stremio, and asking YouTube or your own Plex server) and to check this project's releases
-for updates. Your API keys stay on the TV.
+with TMDB or Stremio, and asking YouTube, your own Plex server or your HDHomeRun's guide) and to check
+this project's releases for updates. Your API keys stay on the TV.
 
 ## Build it yourself
 

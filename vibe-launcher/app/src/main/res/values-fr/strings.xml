@@ -61,9 +61,14 @@
     <string name="tmdb_notice">Les arrière-plans utilisent l\'API TMDB, sans être approuvés ni certifiés par TMDB.</string>
     <string name="about_key">À propos de cette clé</string>
     <string name="tmdb_info">Des arrière-plans propres et le logo du titre pour les films et séries des cartes d\'accueil de vos applis, à la place de leurs propres images et autocollants. Fonctionne sans clé, avec les données gratuites de Stremio ; TMDB est la source officielle, plus fiable.\n\nClé gratuite : themoviedb.org → Paramètres → API → usage personnel.</string>
-    <string name="youtube_info">Affiche les vidéos les plus populaires de votre pays derrière la vignette YouTube.\n\nClé gratuite : console.cloud.google.com → nouveau projet → activez YouTube Data API v3 → Identifiants → Créer une clé API.\n\nAvec SmartTube installé, les arrière-plans viennent de votre propre fil YouTube, sans clé.</string>
+    <string name="youtube_info">Avec SmartTube connecté, la vignette YouTube montre des vidéos de votre propre fil YouTube. Aucune clé nécessaire.\n\nSans lui, une clé affiche les vidéos les plus populaires de votre pays. Clé gratuite : console.cloud.google.com → nouveau projet → activez YouTube Data API v3 → Identifiants → Créer une clé API.\n\nSans l\'un ni l\'autre, elle montre des bandes-annonces de films populaires.</string>
     <string name="plex_info">Des arrière-plans de votre propre serveur Plex : Reprendre la lecture et les ajouts récents.\n\nPour le trouver : app.plex.tv → ouvrez un titre → ⋯ → Obtenir les infos → Voir le XML, puis copiez ce qui suit X-Plex-Token= dans l\'adresse. Gardez-le secret, comme un mot de passe.</string>
     <string name="saved_from_phone">Enregistré depuis votre téléphone</string>
     <string name="not_available">Non disponible sur ce téléviseur</string>
     <string name="cant_open">Impossible d\'ouvrir %1$s</string>
+    <string name="smarttube_install">Installer SmartTube</string>
+    <string name="smarttube_open">Ouvrir SmartTube pour se connecter</string>
+    <string name="smarttube_downloading">Téléchargement de SmartTube…</string>
+    <string name="smarttube_allow_installs">Autorisez Vibe Launcher à installer des applications, puis choisissez à nouveau Installer SmartTube</string>
+    <string name="smarttube_failed">SmartTube ne s\'est pas installé</string>
 </resources>

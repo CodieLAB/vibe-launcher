@@ -61,9 +61,14 @@
     <string name="tmdb_notice">ಹಿನ್ನೆಲೆಗಳು TMDB API ಬಳಸುತ್ತವೆ, ಆದರೆ TMDB ಇವನ್ನು ಅನುಮೋದಿಸಿಲ್ಲ ಅಥವಾ ಪ್ರಮಾಣೀಕರಿಸಿಲ್ಲ.</string>
     <string name="about_key">ಈ ಕೀ ಬಗ್ಗೆ</string>
     <string name="tmdb_info">ನಿಮ್ಮ ಆ್ಯಪ್‌ಗಳ ಹೋಮ್ ಸ್ಕ್ರೀನ್ ಕಾರ್ಡ್‌ಗಳಲ್ಲಿನ ಸಿನಿಮಾಗಳು ಮತ್ತು ಶೋಗಳಿಗೆ, ಆ್ಯಪ್‌ಗಳ ಸ್ವಂತ ಚಿತ್ರಗಳು ಮತ್ತು ಸ್ಟಿಕ್ಕರ್‌ಗಳ ಬದಲು ಸ್ವಚ್ಛ ಹಿನ್ನೆಲೆಗಳು ಮತ್ತು ಶೀರ್ಷಿಕೆ ಲೋಗೋಗಳು. ಕೀ ಇಲ್ಲದೆಯೂ Stremio ಉಚಿತ ಡೇಟಾದಿಂದ ಕೆಲಸ ಮಾಡುತ್ತದೆ; TMDB ಅಧಿಕೃತ ಮತ್ತು ಹೆಚ್ಚು ವಿಶ್ವಾಸಾರ್ಹ ಮೂಲ.\n\nಉಚಿತ ಕೀ: themoviedb.org → ಸೆಟ್ಟಿಂಗ್‌ಗಳು → API → ವೈಯಕ್ತಿಕ ಬಳಕೆ.</string>
-    <string name="youtube_info">YouTube ಟೈಲ್‌ನ ಹಿಂದೆ ನಿಮ್ಮ ದೇಶದ ಅತ್ಯಂತ ಜನಪ್ರಿಯ ವೀಡಿಯೊಗಳನ್ನು ತೋರಿಸುತ್ತದೆ.\n\nಉಚಿತ ಕೀ: console.cloud.google.com → ಹೊಸ ಪ್ರಾಜೆಕ್ಟ್ → YouTube Data API v3 ಆನ್ ಮಾಡಿ → ರುಜುವಾತುಗಳು → API ಕೀ ರಚಿಸಿ.\n\nSmartTube ಇದ್ದರೆ, ಹಿನ್ನೆಲೆಗಳು ನಿಮ್ಮದೇ YouTube ಫೀಡ್‌ನಿಂದ ಬರುತ್ತವೆ, ಕೀ ಬೇಕಿಲ್ಲ.</string>
+    <string name="youtube_info">SmartTube ನಲ್ಲಿ ಸೈನ್ ಇನ್ ಆಗಿದ್ದರೆ, YouTube ಟೈಲ್ ನಿಮ್ಮದೇ YouTube ಫೀಡ್‌ನ ವೀಡಿಯೊಗಳನ್ನು ತೋರಿಸುತ್ತದೆ. ಕೀ ಬೇಕಿಲ್ಲ.\n\nಅದು ಇಲ್ಲದಿದ್ದರೆ, ಕೀ ನಿಮ್ಮ ದೇಶದ ಅತ್ಯಂತ ಜನಪ್ರಿಯ ವೀಡಿಯೊಗಳನ್ನು ತೋರಿಸುತ್ತದೆ. ಉಚಿತ ಕೀ: console.cloud.google.com → ಹೊಸ ಪ್ರಾಜೆಕ್ಟ್ → YouTube Data API v3 ಆನ್ ಮಾಡಿ → ರುಜುವಾತುಗಳು → API ಕೀ ರಚಿಸಿ.\n\nಎರಡೂ ಇಲ್ಲದಿದ್ದರೆ, ಜನಪ್ರಿಯ ಚಲನಚಿತ್ರಗಳ ಟ್ರೇಲರ್‌ಗಳನ್ನು ತೋರಿಸುತ್ತದೆ.</string>
     <string name="plex_info">ನಿಮ್ಮದೇ Plex ಸರ್ವರ್‌ನಿಂದ ಹಿನ್ನೆಲೆಗಳು: ವೀಕ್ಷಣೆ ಮುಂದುವರಿಸಿ ಮತ್ತು ಇತ್ತೀಚೆಗೆ ಸೇರಿಸಿದವು.\n\nಪಡೆಯಲು: app.plex.tv → ಯಾವುದೇ ಶೀರ್ಷಿಕೆ ತೆರೆಯಿರಿ → ⋯ → ಮಾಹಿತಿ ಪಡೆಯಿರಿ → XML ವೀಕ್ಷಿಸಿ, ವಿಳಾಸದಲ್ಲಿ X-Plex-Token= ನಂತರದ ಭಾಗ ನಕಲಿಸಿ. ಪಾಸ್‌ವರ್ಡ್‌ನಂತೆ ಗೌಪ್ಯವಾಗಿಡಿ.</string>
     <string name="saved_from_phone">ನಿಮ್ಮ ಫೋನ್‌ನಿಂದ ಉಳಿಸಲಾಗಿದೆ</string>
     <string name="not_available">ಈ ಟಿವಿಯಲ್ಲಿ ಲಭ್ಯವಿಲ್ಲ</string>
     <string name="cant_open">%1$s ತೆರೆಯಲಾಗುತ್ತಿಲ್ಲ</string>
+    <string name="smarttube_install">SmartTube ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿ</string>
+    <string name="smarttube_open">ಸೈನ್ ಇನ್‌ಗಾಗಿ SmartTube ತೆರೆಯಿರಿ</string>
+    <string name="smarttube_downloading">SmartTube ಡೌನ್‌ಲೋಡ್ ಆಗುತ್ತಿದೆ…</string>
+    <string name="smarttube_allow_installs">Vibe Launcher ಗೆ ಆ್ಯಪ್‌ಗಳನ್ನು ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಲು ಅನುಮತಿಸಿ, ನಂತರ ಮತ್ತೆ SmartTube ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿ ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="smarttube_failed">SmartTube ಇನ್‌ಸ್ಟಾಲ್ ಆಗಲಿಲ್ಲ</string>
 </resources>

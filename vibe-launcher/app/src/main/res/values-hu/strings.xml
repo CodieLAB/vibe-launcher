@@ -61,9 +61,14 @@
     <string name="tmdb_notice">A háttérképek a TMDB API-t használják, de a TMDB nem támogatja és nem tanúsítja őket.</string>
     <string name="about_key">Erről a kulcsról</string>
     <string name="tmdb_info">Tiszta háttérképek és címlogók az alkalmazásaid kezdőképernyő-kártyáin lévő filmekhez és sorozatokhoz, a saját képeik és matricáik helyett. Kulcs nélkül is működik, a Stremio ingyenes adataival; a TMDB a hivatalos, megbízhatóbb forrás.\n\nIngyenes kulcs: themoviedb.org → Beállítások → API → személyes használat.</string>
-    <string name="youtube_info">A YouTube csempe mögött az országod legnépszerűbb videóit mutatja.\n\nIngyenes kulcs: console.cloud.google.com → új projekt → YouTube Data API v3 engedélyezése → Hitelesítő adatok → API-kulcs létrehozása.\n\nHa a SmartTube telepítve van, a háttérképek a saját YouTube-hírfolyamodból jönnek, kulcs nélkül.</string>
+    <string name="youtube_info">Ha be vagy jelentkezve a SmartTube-ba, a YouTube csempe a saját YouTube-hírfolyamod videóit mutatja. Nem kell kulcs.\n\nNélküle egy kulcs az országod legnépszerűbb videóit mutatja. Ingyenes kulcs: console.cloud.google.com → új projekt → YouTube Data API v3 engedélyezése → Hitelesítő adatok → API-kulcs létrehozása.\n\nHa egyik sincs, népszerű filmek előzeteseit mutatja.</string>
     <string name="plex_info">Háttérképek a saját Plex-szerveredről: Folytatás és nemrég hozzáadottak.\n\nÍgy találod meg: app.plex.tv → nyiss meg bármilyen címet → ⋯ → Információ → XML megtekintése, és másold ki, ami a címben az X-Plex-Token= után áll. Tartsd titokban, mint egy jelszót.</string>
     <string name="saved_from_phone">Mentve a telefonról</string>
     <string name="not_available">Ezen a tévén nem érhető el</string>
     <string name="cant_open">Nem nyitható meg: %1$s</string>
+    <string name="smarttube_install">SmartTube telepítése</string>
+    <string name="smarttube_open">SmartTube megnyitása a bejelentkezéshez</string>
+    <string name="smarttube_downloading">A SmartTube letöltése…</string>
+    <string name="smarttube_allow_installs">Engedélyezd a Vibe Launchernek az alkalmazások telepítését, majd válaszd újra a SmartTube telepítése lehetőséget</string>
+    <string name="smarttube_failed">A SmartTube nem települt</string>
 </resources>

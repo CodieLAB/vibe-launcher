@@ -61,9 +61,14 @@
     <string name="tmdb_notice">Bakgrunderna använder TMDB:s API men är inte godkända eller certifierade av TMDB.</string>
     <string name="about_key">Om den här nyckeln</string>
     <string name="tmdb_info">Rena bakgrunder och titellogotyper för filmerna och serierna på dina appars startskärmskort, i stället för deras egna bilder och etiketter. Fungerar utan nyckel, med Stremios gratisdata; TMDB är den officiella, mer pålitliga källan.\n\nGratis nyckel: themoviedb.org → Inställningar → API → privat bruk.</string>
-    <string name="youtube_info">Visar de populäraste videorna i ditt land bakom YouTube-rutan.\n\nGratis nyckel: console.cloud.google.com → nytt projekt → aktivera YouTube Data API v3 → Inloggningsuppgifter → Skapa API-nyckel.\n\nMed SmartTube installerat kommer bakgrunderna från ditt eget YouTube-flöde, utan nyckel.</string>
+    <string name="youtube_info">Med SmartTube inloggat visar YouTube-rutan videor från ditt eget YouTube-flöde. Ingen nyckel behövs.\n\nUtan det visar en nyckel de populäraste videorna i ditt land. Gratis nyckel: console.cloud.google.com → nytt projekt → aktivera YouTube Data API v3 → Inloggningsuppgifter → Skapa API-nyckel.\n\nUtan båda visar den trailers för populära filmer.</string>
     <string name="plex_info">Bakgrunder från din egen Plex-server: Fortsätt titta och nyligen tillagt.\n\nSå hittar du den: app.plex.tv → öppna valfri titel → ⋯ → Hämta info → Visa XML, och kopiera det som följer efter X-Plex-Token= i adressen. Håll den hemlig, som ett lösenord.</string>
     <string name="saved_from_phone">Sparat från mobilen</string>
     <string name="not_available">Inte tillgängligt på den här tv:n</string>
     <string name="cant_open">Kan inte öppna %1$s</string>
+    <string name="smarttube_install">Installera SmartTube</string>
+    <string name="smarttube_open">Öppna SmartTube för att logga in</string>
+    <string name="smarttube_downloading">Laddar ner SmartTube…</string>
+    <string name="smarttube_allow_installs">Tillåt Vibe Launcher att installera appar och välj sedan Installera SmartTube igen</string>
+    <string name="smarttube_failed">SmartTube installerades inte</string>
 </resources>

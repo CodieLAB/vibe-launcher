@@ -65,7 +65,12 @@
     <string name="tmdb_notice">Backdrops use the TMDB API but are not endorsed or certified by TMDB.</string>
     <string name="about_key">About this key</string>
     <string name="tmdb_info">Clean backdrops and title logos for the films and shows on your apps\' home screen cards, in place of their own art and stickers. It works without a key, from Stremio\'s free data; TMDB is the official, more reliable source.\n\nFree key: themoviedb.org → Settings → API → personal use.</string>
-    <string name="youtube_info">Shows the most popular videos in your country behind the YouTube tile.\n\nFree key: console.cloud.google.com → new project → enable YouTube Data API v3 → Credentials → Create API key.\n\nWith SmartTube installed, the backdrops come from your own YouTube feed instead, with no key needed.</string>
+    <string name="youtube_info">With SmartTube signed in, the YouTube tile shows videos from your own YouTube feed. No key needed.\n\nWithout it, a key shows the most popular videos in your country. Free key: console.cloud.google.com → new project → enable YouTube Data API v3 → Credentials → Create API key.\n\nWith neither, it shows trailers of popular films.</string>
+    <string name="smarttube_install">Install SmartTube</string>
+    <string name="smarttube_open">Open SmartTube to sign in</string>
+    <string name="smarttube_downloading">Downloading SmartTube…</string>
+    <string name="smarttube_allow_installs">Allow Vibe Launcher to install apps, then choose Install SmartTube again</string>
+    <string name="smarttube_failed">SmartTube didn\'t install</string>
     <string name="plex_info">Backdrops from your own Plex server: Continue Watching and recently added.\n\nTo find it: app.plex.tv → open any title → ⋯ → Get Info → View XML, and copy what follows X-Plex-Token= in the address. Keep it private, like a password.</string>
     <string name="saved_from_phone">Saved from your phone</string>
     <string name="not_available">Not available on this TV</string>

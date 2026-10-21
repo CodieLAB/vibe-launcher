@@ -71,7 +71,7 @@ final class Updater {
     private static final String RECENT = "https://api.github.com/repos/maydings/vibe-launcher/releases?per_page=30";
     private static final String APK = "vibe-launcher.apk";
     private static final long DAY_MS = 24L * 60 * 60 * 1000;
-    private static final int MAX_APK_BYTES = 30 * 1024 * 1024;
+    private static final int MAX_APK_BYTES = 40 * 1024 * 1024;   // room for SmartTube's (about 26 MB)
     private static final Pattern BODY_SHA = Pattern.compile("SHA-256\\s*`([0-9a-fA-F]{64})`");
     private static final ExecutorService worker = Executors.newSingleThreadExecutor();
     private static final Handler main = new Handler(Looper.getMainLooper());
@@ -209,11 +209,21 @@ final class Updater {
      * that switch instead.
      */
     static void install(Context context, Release release, InstallListener listener) {
-        Context app = context.getApplicationContext();
-        if (isDevelopmentBuild(app)) {
+        if (isDevelopmentBuild(context)) {
             listener.onProblem(R.string.update_development);
             return;
         }
+        installApk(context, release.apkUrl, release.sha256, context.getPackageName(), R.string.update_allow_installs,
+                listener);
+    }
+
+    /**
+     * Downloads an APK, checks its SHA-256 and hands it to Android's installer for the given package: this
+     * app's update, or another app (SmartTube). Without the "Install unknown apps" switch for Vibe Launcher,
+     * opens that switch instead and says so with allowRes.
+     */
+    static void installApk(Context context, String url, String sha, String pkg, int allowRes, InstallListener listener) {
+        Context app = context.getApplicationContext();
         if (!app.getPackageManager().canRequestPackageInstalls()) {
             try {
                 Intent allow = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
@@ -225,7 +235,7 @@ final class Updater {
                 ActivityManager am = (ActivityManager) app.getSystemService(Context.ACTIVITY_SERVICE);
                 if (settings != null && am != null) am.killBackgroundProcesses(settings.activityInfo.packageName);
                 app.startActivity(allow);
-                listener.onProblem(R.string.update_allow_installs);
+                listener.onProblem(allowRes);
             } catch (ActivityNotFoundException e) {
                 listener.onProblem(R.string.update_no_installs);
             }
@@ -235,15 +245,15 @@ final class Updater {
             int problem = 0;
             File apk = new File(new File(app.getCacheDir(), "update"), APK);
             try {
-                byte[] data = Http.get(release.apkUrl, MAX_APK_BYTES);
-                if (!sha256(data).equals(release.sha256)) {
+                byte[] data = Http.get(url, MAX_APK_BYTES);
+                if (!sha256(data).equals(sha)) {
                     problem = R.string.update_bad_download;   // corrupted or tampered with: never installed
                 } else {
                     apk.getParentFile().mkdirs();
                     try (FileOutputStream out = new FileOutputStream(apk)) {
                         out.write(data);
                     }
-                    commit(app, apk);
+                    commit(app, apk, pkg);
                 }
             } catch (IOException | RuntimeException e) {
                 problem = R.string.update_failed;
@@ -258,10 +268,11 @@ final class Updater {
     }
 
     /** Hands the APK to Android's installer; UpdateReceiver shows its confirmation. */
-    private static void commit(Context app, File apk) throws IOException {
+    private static void commit(Context app, File apk, String pkg) throws IOException {
+        boolean self = pkg.equals(app.getPackageName());
         PackageInstaller installer = app.getPackageManager().getPackageInstaller();
         PackageInstaller.SessionParams params = new PackageInstaller.SessionParams(PackageInstaller.SessionParams.MODE_FULL_INSTALL);
-        params.setAppPackageName(app.getPackageName());
+        params.setAppPackageName(pkg);
         int id = installer.createSession(params);
         try (PackageInstaller.Session session = installer.openSession(id)) {
             try (InputStream in = new java.io.FileInputStream(apk);
@@ -272,10 +283,11 @@ final class Updater {
                 session.fsync(out);
             }
             // Written now (not applied later): installing ends this process. UpdateReceiver reads it back.
-            prefs(app).edit().putLong("installing", System.currentTimeMillis()).commit();
+            if (self) prefs(app).edit().putLong("installing", System.currentTimeMillis()).commit();
             // Mutable: the installer adds the status and its confirmation screen to this intent.
             int flags = PendingIntent.FLAG_UPDATE_CURRENT | (Build.VERSION.SDK_INT >= 31 ? PendingIntent.FLAG_MUTABLE : 0);
-            PendingIntent status = PendingIntent.getBroadcast(app, id, new Intent(app, UpdateReceiver.class), flags);
+            Intent result = new Intent(app, UpdateReceiver.class).putExtra(UpdateReceiver.EXTRA_OTHER_APP, !self);
+            PendingIntent status = PendingIntent.getBroadcast(app, id, result, flags);
             session.commit(status.getIntentSender());
         }
     }

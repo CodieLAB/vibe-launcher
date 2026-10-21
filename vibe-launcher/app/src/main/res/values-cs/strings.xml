@@ -61,9 +61,14 @@
     <string name="tmdb_notice">Pozadí používají API TMDB, ale TMDB je neschvaluje ani necertifikuje.</string>
     <string name="about_key">O tomto klíči</string>
     <string name="tmdb_info">Čistá pozadí a loga titulů pro filmy a seriály z karet domovské obrazovky vašich aplikací, místo jejich vlastních obrázků a nálepek. Funguje i bez klíče, z bezplatných dat Stremio; TMDB je oficiální, spolehlivější zdroj.\n\nBezplatný klíč: themoviedb.org → Nastavení → API → osobní použití.</string>
-    <string name="youtube_info">Za dlaždicí YouTube zobrazuje nejpopulárnější videa ve vaší zemi.\n\nBezplatný klíč: console.cloud.google.com → nový projekt → zapněte YouTube Data API v3 → Přihlašovací údaje → Vytvořit klíč API.\n\nS nainstalovaným SmartTube pocházejí pozadí z vašeho vlastního kanálu YouTube, bez klíče.</string>
+    <string name="youtube_info">Když jste přihlášeni ve SmartTube, dlaždice YouTube ukazuje videa z vašeho vlastního kanálu YouTube. Klíč není potřeba.\n\nBez něj klíč ukazuje nejoblíbenější videa ve vaší zemi. Bezplatný klíč: console.cloud.google.com → nový projekt → zapněte YouTube Data API v3 → Přihlašovací údaje → Vytvořit klíč API.\n\nBez obojího ukazuje upoutávky na oblíbené filmy.</string>
     <string name="plex_info">Pozadí z vašeho vlastního serveru Plex: Pokračovat ve sledování a nedávno přidané.\n\nKde ho najít: app.plex.tv → otevřete libovolný titul → ⋯ → Získat informace → Zobrazit XML a zkopírujte, co je v adrese za X-Plex-Token=. Uchovejte ho v tajnosti jako heslo.</string>
     <string name="saved_from_phone">Uloženo z telefonu</string>
     <string name="not_available">Na této televizi není k dispozici</string>
     <string name="cant_open">%1$s nelze otevřít</string>
+    <string name="smarttube_install">Nainstalovat SmartTube</string>
+    <string name="smarttube_open">Otevřít SmartTube a přihlásit se</string>
+    <string name="smarttube_downloading">Stahování SmartTube…</string>
+    <string name="smarttube_allow_installs">Povolte aplikaci Vibe Launcher instalovat aplikace a pak znovu zvolte Nainstalovat SmartTube</string>
+    <string name="smarttube_failed">SmartTube se nenainstaloval</string>
 </resources>

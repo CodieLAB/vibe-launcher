@@ -61,9 +61,14 @@
     <string name="tmdb_notice">Τα φόντα χρησιμοποιούν το API του TMDB, αλλά δεν εγκρίνονται ούτε πιστοποιούνται από το TMDB.</string>
     <string name="about_key">Σχετικά με αυτό το κλειδί</string>
     <string name="tmdb_info">Καθαρά φόντα και λογότυπα τίτλων για τις ταινίες και τις σειρές στις κάρτες αρχικής οθόνης των εφαρμογών σας, αντί για τις δικές τους εικόνες και ετικέτες. Λειτουργεί και χωρίς κλειδί, με τα δωρεάν δεδομένα του Stremio· το TMDB είναι η επίσημη, πιο αξιόπιστη πηγή.\n\nΔωρεάν κλειδί: themoviedb.org → Ρυθμίσεις → API → προσωπική χρήση.</string>
-    <string name="youtube_info">Δείχνει τα πιο δημοφιλή βίντεο της χώρας σας πίσω από το πλακίδιο του YouTube.\n\nΔωρεάν κλειδί: console.cloud.google.com → νέο έργο → ενεργοποιήστε το YouTube Data API v3 → Διαπιστευτήρια → Δημιουργία κλειδιού API.\n\nΜε εγκατεστημένο το SmartTube, τα φόντα έρχονται από τη δική σας ροή YouTube, χωρίς κλειδί.</string>
+    <string name="youtube_info">Με συνδεδεμένο το SmartTube, το πλακίδιο του YouTube δείχνει βίντεο από τη δική σας ροή YouTube. Δεν χρειάζεται κλειδί.\n\nΧωρίς αυτό, ένα κλειδί δείχνει τα πιο δημοφιλή βίντεο στη χώρα σας. Δωρεάν κλειδί: console.cloud.google.com → νέο έργο → ενεργοποιήστε το YouTube Data API v3 → Διαπιστευτήρια → Δημιουργία κλειδιού API.\n\nΧωρίς κανένα από τα δύο, δείχνει τρέιλερ δημοφιλών ταινιών.</string>
     <string name="plex_info">Φόντα από τον δικό σας διακομιστή Plex: Συνέχεια παρακολούθησης και προστέθηκαν πρόσφατα.\n\nΓια να το βρείτε: app.plex.tv → ανοίξτε έναν τίτλο → ⋯ → Λήψη πληροφοριών → Προβολή XML, και αντιγράψτε ό,τι ακολουθεί το X-Plex-Token= στη διεύθυνση. Κρατήστε το μυστικό, σαν κωδικό.</string>
     <string name="saved_from_phone">Αποθηκεύτηκε από το κινητό</string>
     <string name="not_available">Μη διαθέσιμο σε αυτή την τηλεόραση</string>
     <string name="cant_open">Δεν είναι δυνατό το άνοιγμα του %1$s</string>
+    <string name="smarttube_install">Εγκατάσταση SmartTube</string>
+    <string name="smarttube_open">Άνοιγμα SmartTube για σύνδεση</string>
+    <string name="smarttube_downloading">Λήψη του SmartTube…</string>
+    <string name="smarttube_allow_installs">Επιτρέψτε στο Vibe Launcher να εγκαθιστά εφαρμογές και επιλέξτε ξανά Εγκατάσταση SmartTube</string>
+    <string name="smarttube_failed">Το SmartTube δεν εγκαταστάθηκε</string>
 </resources>

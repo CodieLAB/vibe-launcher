@@ -61,9 +61,14 @@
     <string name="tmdb_notice">Latar menggunakan API TMDB tetapi tidak disokong atau diperakui oleh TMDB.</string>
     <string name="about_key">Tentang kunci ini</string>
     <string name="tmdb_info">Latar bersih dan logo tajuk untuk filem dan rancangan pada kad skrin utama apl anda, menggantikan gambar dan pelekat apl itu sendiri. Berfungsi tanpa kunci, daripada data percuma Stremio; TMDB ialah sumber rasmi yang lebih boleh dipercayai.\n\nKunci percuma: themoviedb.org → Tetapan → API → kegunaan peribadi.</string>
-    <string name="youtube_info">Menunjukkan video paling popular di negara anda di belakang jubin YouTube.\n\nKunci percuma: console.cloud.google.com → projek baharu → dayakan YouTube Data API v3 → Bukti kelayakan → Cipta kunci API.\n\nJika SmartTube dipasang, latar datang daripada suapan YouTube anda sendiri, tanpa kunci.</string>
+    <string name="youtube_info">Dengan SmartTube dilog masuk, jubin YouTube menunjukkan video daripada suapan YouTube anda sendiri. Tiada kunci diperlukan.\n\nTanpanya, kunci menunjukkan video paling popular di negara anda. Kunci percuma: console.cloud.google.com → projek baharu → dayakan YouTube Data API v3 → Bukti kelayakan → Cipta kunci API.\n\nTanpa kedua-duanya, ia menunjukkan treler filem popular.</string>
     <string name="plex_info">Latar daripada pelayan Plex anda sendiri: Teruskan menonton dan baru ditambah.\n\nCara mendapatkannya: app.plex.tv → buka mana-mana tajuk → ⋯ → Dapatkan Maklumat → Lihat XML, dan salin bahagian selepas X-Plex-Token= dalam alamat. Rahsiakan seperti kata laluan.</string>
     <string name="saved_from_phone">Disimpan dari telefon anda</string>
     <string name="not_available">Tidak tersedia pada TV ini</string>
     <string name="cant_open">Tidak dapat membuka %1$s</string>
+    <string name="smarttube_install">Pasang SmartTube</string>
+    <string name="smarttube_open">Buka SmartTube untuk log masuk</string>
+    <string name="smarttube_downloading">Memuat turun SmartTube…</string>
+    <string name="smarttube_allow_installs">Benarkan Vibe Launcher memasang apl, kemudian pilih Pasang SmartTube sekali lagi</string>
+    <string name="smarttube_failed">SmartTube tidak dipasang</string>
 </resources>

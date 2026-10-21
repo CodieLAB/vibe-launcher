@@ -61,9 +61,14 @@
     <string name="tmdb_notice">Фони використовують API TMDB, але не схвалені й не сертифіковані TMDB.</string>
     <string name="about_key">Про цей ключ</string>
     <string name="tmdb_info">Чисті фони й логотипи назв для фільмів і серіалів з карток головного екрана ваших застосунків замість їхніх власних зображень і наліпок. Працює без ключа, на безкоштовних даних Stremio; TMDB — офіційне й надійніше джерело.\n\nБезкоштовний ключ: themoviedb.org → Налаштування → API → особисте використання.</string>
-    <string name="youtube_info">Показує найпопулярніші відео у вашій країні за плиткою YouTube.\n\nБезкоштовний ключ: console.cloud.google.com → новий проєкт → увімкніть YouTube Data API v3 → Облікові дані → Створити ключ API.\n\nЯкщо встановлено SmartTube, фони беруться з вашої власної стрічки YouTube, без ключа.</string>
+    <string name="youtube_info">Якщо ви ввійшли в SmartTube, плитка YouTube показує відео з вашої власної стрічки YouTube. Ключ не потрібен.\n\nБез нього ключ показує найпопулярніші відео у вашій країні. Безкоштовний ключ: console.cloud.google.com → новий проєкт → увімкніть YouTube Data API v3 → Облікові дані → Створити ключ API.\n\nЯкщо немає ні того, ні іншого, показуються трейлери популярних фільмів.</string>
     <string name="plex_info">Фони з вашого власного сервера Plex: «Продовжити перегляд» і нещодавно додане.\n\nЯк знайти: app.plex.tv → відкрийте будь-яку назву → ⋯ → Інформація → Переглянути XML і скопіюйте те, що йде після X-Plex-Token= в адресі. Тримайте його в таємниці, як пароль.</string>
     <string name="saved_from_phone">Збережено з телефона</string>
     <string name="not_available">Недоступно на цьому телевізорі</string>
     <string name="cant_open">Не вдається відкрити %1$s</string>
+    <string name="smarttube_install">Встановити SmartTube</string>
+    <string name="smarttube_open">Відкрити SmartTube для входу</string>
+    <string name="smarttube_downloading">Завантаження SmartTube…</string>
+    <string name="smarttube_allow_installs">Дозвольте Vibe Launcher встановлювати додатки, а потім знову виберіть «Встановити SmartTube»</string>
+    <string name="smarttube_failed">SmartTube не встановився</string>
 </resources>

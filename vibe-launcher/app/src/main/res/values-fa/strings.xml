@@ -61,9 +61,14 @@
     <string name="tmdb_notice">پس‌زمینه‌ها از API ‏TMDB استفاده می‌کنند، اما مورد تأیید یا گواهی TMDB نیستند.</string>
     <string name="about_key">درباره این کلید</string>
     <string name="tmdb_info">پس‌زمینه‌های تمیز و لوگوی عنوان برای فیلم‌ها و سریال‌های کارت‌های صفحه اصلی برنامه‌هایتان، به‌جای تصاویر و برچسب‌های خودشان. بدون کلید هم با داده‌های رایگان Stremio کار می‌کند؛ TMDB منبع رسمی و مطمئن‌تر است.\n\nکلید رایگان: themoviedb.org ← تنظیمات ← API ← استفاده شخصی.</string>
-    <string name="youtube_info">محبوب‌ترین ویدیوهای کشورتان را پشت کاشی YouTube نشان می‌دهد.\n\nکلید رایگان: console.cloud.google.com ← پروژه جدید ← فعال کردن YouTube Data API v3 ← اعتبارنامه‌ها ← ایجاد کلید API.\n\nاگر SmartTube نصب باشد، پس‌زمینه‌ها بدون کلید از فید YouTube خودتان می‌آیند.</string>
+    <string name="youtube_info">وقتی در SmartTube وارد شده باشید، کاشی YouTube ویدیوهای فید YouTube خودتان را نشان می‌دهد. نیازی به کلید نیست.\n\nبدون آن، یک کلید محبوب‌ترین ویدیوهای کشورتان را نشان می‌دهد. کلید رایگان: console.cloud.google.com ← پروژه جدید ← فعال کردن YouTube Data API v3 ← اعتبارنامه‌ها ← ایجاد کلید API.\n\nبدون هیچ‌کدام، تریلر فیلم‌های محبوب نشان داده می‌شود.</string>
     <string name="plex_info">پس‌زمینه‌ها از سرور Plex خودتان: ادامه تماشا و اخیراً اضافه‌شده‌ها.\n\nبرای یافتن آن: app.plex.tv ← یک عنوان را باز کنید ← ⋯ ← دریافت اطلاعات ← مشاهده XML، و بخش بعد از X-Plex-Token= را در نشانی کپی کنید. آن را مثل رمز عبور محرمانه نگه دارید.</string>
     <string name="saved_from_phone">از گوشی شما ذخیره شد</string>
     <string name="not_available">در این تلویزیون در دسترس نیست</string>
     <string name="cant_open">%1$s باز نمی‌شود</string>
+    <string name="smarttube_install">نصب SmartTube</string>
+    <string name="smarttube_open">باز کردن SmartTube برای ورود</string>
+    <string name="smarttube_downloading">در حال بارگیری SmartTube…</string>
+    <string name="smarttube_allow_installs">به Vibe Launcher اجازه نصب برنامه بدهید، سپس دوباره نصب SmartTube را انتخاب کنید</string>
+    <string name="smarttube_failed">SmartTube نصب نشد</string>
 </resources>

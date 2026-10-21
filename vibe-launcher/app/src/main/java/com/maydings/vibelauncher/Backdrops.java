@@ -45,7 +45,8 @@ import java.util.concurrent.TimeUnit;
  * from Stremio's free metadata without one. Otherwise only wide artwork is used, and low-res art
  * (Netflix's 853x480) becomes a 2x2 wall of four cards. YouTube publishes no cards, so its tile borrows
  * SmartTube's (the user's own feed), or without SmartTube shows popular videos via the YouTube Data API
- * key. Plex, with a Plex token, shows art from the user's own server. Apps with none keep the colour glow.
+ * key. Plex, with a Plex token, shows art from the user's own server, and HDHomeRun the shows on the
+ * user's tuner now (HdHomeRun). Apps with none keep the colour glow.
  *
  * Each app has a pool of up to {@link #POOL_SIZE} stills, rebuilt in the background when it is six
  * hours old. They are stored already cut to the screen and darkened, so showing one is a quick decode
@@ -107,9 +108,10 @@ final class Backdrops {
     private static final int FIRST_IMAGE = 3;   // COLUMNS from here on are image URIs
     private static final String YOUTUBE = "com.google.android.youtube.tv";
     private static final String PLEX = "com.plexapp.android";
+    private static final String HDHOMERUN = "com.silicondust.view";
+    private static final int GUIDE_WIDTH = 480;   // the HDHomeRun guide's images: only ever in a wall
     /** SmartTube builds (stable, beta, the old names): they publish the signed-in user's YouTube feed. */
-    private static final String[] SMARTTUBE = {"org.smarttube.stable", "org.smarttube.beta",
-            "com.liskovsoft.smarttubetv", "com.liskovsoft.smarttubetv.beta", "com.teamsmart.videomanager.tv"};
+    private static final String[] SMARTTUBE = SmartTube.PACKAGES;
     private static final int MIN_WIDTH = 800;   // Netflix publishes 853x480
     private static final float MIN_ASPECT = 1.45f, MAX_ASPECT = 2.4f;
     private static final int SHARP_WIDTH = 1280;  // narrower art goes into a 2x2 wall
@@ -118,6 +120,7 @@ final class Backdrops {
     private static final int MAX_TRIES = 12;      // lookups and downloads for one still before giving up
     private static final int POOL_SIZE = 8;
     private static final int POOL_TRIES = 40;     // lookups and downloads for a whole pool
+    private static final int GUIDE_IMAGES = POOL_SIZE * WALL;  // most fetched to fill the pool with walls
     static final long POOL_MS = 6L * 60 * 60 * 1000;
     /**
      * How stills are stored: lossless, since a second lossy save (JPEG) showed in the darkened gradients.
@@ -137,6 +140,7 @@ final class Backdrops {
     private final Stremio stremio;
     private final YouTubePopular youtubePopular;
     private final Plex plex;
+    private final HdHomeRun hdHomeRun;
     private final File root, poolRoot;
     /** Showing a still: the one on screen goes to the front, ahead of anything else waiting. */
     private final LinkedBlockingDeque<Runnable> queue = new LinkedBlockingDeque<>();
@@ -169,6 +173,7 @@ final class Backdrops {
         targetWidth = context.getResources().getDisplayMetrics().widthPixels;
         targetHeight = context.getResources().getDisplayMetrics().heightPixels;
         plex = new Plex(context, targetWidth, targetHeight);
+        hdHomeRun = new HdHomeRun(context);
         worker.prestartCoreThread();   // waiting on the queue, so jobs can go straight to its front
         builder.execute(this::prune);
     }
@@ -481,11 +486,15 @@ final class Backdrops {
         return out;
     }
 
-    /** One card from the provider: its title, whether its art carries a sticker, and its images. */
+    /**
+     * One card from the provider: its title, whether its art carries a sticker, and its images. Images
+     * narrower than minWidth aren't used.
+     */
     private static final class Card {
         final String title;
         final boolean badged;
         final List<String> images = new ArrayList<>();
+        int minWidth = MIN_WIDTH;
 
         Card(String title, boolean badged) {
             this.title = title;
@@ -497,6 +506,9 @@ final class Backdrops {
      * Up to max stills to make, in the order found: clean backdrops for the cards' titles and the
      * cards' own sharp, unbadged art. Only when there are none, walls of four low-res cards (which may
      * be badged: the sticker doesn't change the card's size), or else one low-res card on its own.
+     * HDHomeRun is the exception: what's on often has few titles to look up (news, talk shows), so its
+     * sharp stills are topped up to max with walls of the guide's small images, which aren't counted
+     * as tries.
      */
     private List<Choice> collect(String pkg, int max, int maxTries) {
         List<Card> cards = cards(pkg);
@@ -506,9 +518,10 @@ final class Backdrops {
         List<File> wall = new ArrayList<>();
         File plain = null;   // first unbadged low-res card, the fallback when there aren't enough for a wall
         Set<String> used = new HashSet<>();
-        int tries = 0;
+        int tries = 0, next = 0;
         for (Card card : cards) {
             if (sharp.size() >= max || tries >= maxTries) break;
+            next++;
             if (titleArt != null && card.title != null) {
                 tries++;
                 TitleArt.Art art = titleArt.lookup(card.title);
@@ -524,7 +537,7 @@ final class Backdrops {
             for (String url : card.images) {
                 if (unsuitable.contains(url) || !used.add(url)) continue;
                 if (tries++ >= maxTries) break;
-                File file = fetch(url, true);
+                File file = fetch(url, card.minWidth);
                 if (file == null) continue;
                 if (width(file) >= SHARP_WIDTH) {
                     if (!card.badged) sharp.add(new Choice(Collections.singletonList(file), null, null));
@@ -539,6 +552,27 @@ final class Backdrops {
                 break;   // one image per card
             }
         }
+        if (pkg.equals(HDHOMERUN)) {
+            // The rest of the shows, by their guide images alone, until the walls fill the pool.
+            int images = 0;
+            for (int i = next; i < cards.size() && sharp.size() + walls.size() < max && images < GUIDE_IMAGES; i++) {
+                String url = cards.get(i).images.get(0);
+                if (unsuitable.contains(url) || !used.add(url)) continue;
+                images++;
+                File file = fetch(url, GUIDE_WIDTH);
+                if (file == null) continue;
+                wall.add(file);
+                if (wall.size() == WALL) {
+                    walls.add(new Choice(new ArrayList<>(wall), null, null));
+                    wall.clear();
+                }
+            }
+            // Never one small guide image stretched over the screen: too few for a wall leaves the
+            // colour glow.
+            List<Choice> all = new ArrayList<>(sharp);
+            all.addAll(walls.subList(0, Math.min(walls.size(), max - Math.min(max, sharp.size()))));
+            return all;
+        }
         if (!sharp.isEmpty()) return sharp;
         if (!walls.isEmpty()) return walls.subList(0, Math.min(max, walls.size()));
         return plain != null ? Collections.singletonList(new Choice(Collections.singletonList(plain), null, null))
@@ -550,6 +584,18 @@ final class Backdrops {
      * permission or any cards.
      */
     private List<Card> cards(String pkg) {
+        if (pkg.equals(HDHOMERUN)) {
+            // What's on the user's tuner now: each title looked up for a sharp backdrop, else the guide's image.
+            List<Card> cards = new ArrayList<>();
+            for (HdHomeRun.Show show : hdHomeRun.onNow()) {
+                Card card = new Card(show.title, false);
+                card.images.add(show.image);
+                card.minWidth = GUIDE_WIDTH;
+                cards.add(card);
+            }
+            Collections.shuffle(cards, random);
+            return cards;
+        }
         if (pkg.equals(PLEX)) {
             // The server's own art; Plex's old cards point at a provider the new app no longer has.
             List<Card> cards = new ArrayList<>();
@@ -587,7 +633,7 @@ final class Backdrops {
             }
         }
         if (pkg.equals(YOUTUBE) && clean.isEmpty()) {
-            // No SmartTube: popular videos instead (needs the YouTube key; empty without it).
+            // No SmartTube cards: popular videos instead (with the YouTube key), else films' trailers.
             for (String id : youtubePopular.videoIds()) {
                 Card card = new Card(null, false);
                 card.images.add("https://i.ytimg.com/vi/" + id + "/maxresdefault.jpg");
@@ -631,13 +677,19 @@ final class Backdrops {
      * if it isn't wide and big enough.
      */
     private File fetch(String url, boolean backdrop) {
+        return fetch(url, backdrop ? MIN_WIDTH : 0);
+    }
+
+    /** As above, for a backdrop at least minWidth wide; 0 for any decodable image (a logo). */
+    private File fetch(String url, int minWidth) {
+        boolean backdrop = minWidth > 0;
         File file = new File(root, sha1(url) + ".img");
         if (file.exists()) {
             file.setLastModified(System.currentTimeMillis());
             return file;
         }
         byte[] data = read(url);
-        if (data == null || !(backdrop ? suitable(data) : decodable(data))) {
+        if (data == null || !(backdrop ? suitable(data, minWidth) : decodable(data))) {
             unsuitable.add(url);
             return null;
         }
@@ -687,11 +739,11 @@ final class Backdrops {
         return o.outWidth > 0 && o.outHeight > 0;
     }
 
-    private static boolean suitable(byte[] data) {
+    private static boolean suitable(byte[] data, int minWidth) {
         BitmapFactory.Options o = new BitmapFactory.Options();
         o.inJustDecodeBounds = true;
         BitmapFactory.decodeByteArray(data, 0, data.length, o);
-        if (o.outWidth < MIN_WIDTH || o.outHeight <= 0) return false;
+        if (o.outWidth < minWidth || o.outHeight <= 0) return false;
         float aspect = o.outWidth / (float) o.outHeight;
         return aspect >= MIN_ASPECT && aspect <= MAX_ASPECT;
     }

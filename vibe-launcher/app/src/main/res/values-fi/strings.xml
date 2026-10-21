@@ -61,9 +61,14 @@
     <string name="tmdb_notice">Taustakuvat käyttävät TMDB:n API:a, mutta TMDB ei ole hyväksynyt tai sertifioinut niitä.</string>
     <string name="about_key">Tietoa tästä avaimesta</string>
     <string name="tmdb_info">Siistit taustakuvat ja nimikelogot sovellustesi aloitusnäytön korttien elokuville ja sarjoille niiden omien kuvien ja tarrojen sijaan. Toimii ilman avaintakin, Stremion ilmaisilla tiedoilla; TMDB on virallinen, luotettavampi lähde.\n\nIlmainen avain: themoviedb.org → Asetukset → API → henkilökohtainen käyttö.</string>
-    <string name="youtube_info">Näyttää maasi suosituimmat videot YouTube-ruudun takana.\n\nIlmainen avain: console.cloud.google.com → uusi projekti → ota YouTube Data API v3 käyttöön → Kirjautumistiedot → Luo API-avain.\n\nKun SmartTube on asennettu, taustakuvat tulevat omasta YouTube-syötteestäsi ilman avainta.</string>
+    <string name="youtube_info">Kun SmartTubeen on kirjauduttu, YouTube-ruutu näyttää videoita omasta YouTube-syötteestäsi. Avainta ei tarvita.\n\nIlman sitä avain näyttää maasi suosituimmat videot. Ilmainen avain: console.cloud.google.com → uusi projekti → ota YouTube Data API v3 käyttöön → Kirjautumistiedot → Luo API-avain.\n\nIlman kumpaakaan se näyttää suosittujen elokuvien trailereita.</string>
     <string name="plex_info">Taustakuvat omalta Plex-palvelimeltasi: Jatka katselua ja äskettäin lisätyt.\n\nNäin löydät sen: app.plex.tv → avaa mikä tahansa nimike → ⋯ → Hae tiedot → Näytä XML, ja kopioi osoitteesta X-Plex-Token=-kohdan jälkeinen osa. Pidä se salassa kuin salasana.</string>
     <string name="saved_from_phone">Tallennettu puhelimesta</string>
     <string name="not_available">Ei käytettävissä tässä televisiossa</string>
     <string name="cant_open">%1$s ei aukea</string>
+    <string name="smarttube_install">Asenna SmartTube</string>
+    <string name="smarttube_open">Avaa SmartTube kirjautuaksesi</string>
+    <string name="smarttube_downloading">Ladataan SmartTubea…</string>
+    <string name="smarttube_allow_installs">Salli Vibe Launcherin asentaa sovelluksia ja valitse sitten uudelleen Asenna SmartTube</string>
+    <string name="smarttube_failed">SmartTube ei asentunut</string>
 </resources>

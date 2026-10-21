@@ -61,9 +61,14 @@
     <string name="tmdb_notice">Os fundos usam a API do TMDB, mas não são endossados nem certificados pelo TMDB.</string>
     <string name="about_key">Sobre esta chave</string>
     <string name="tmdb_info">Fundos limpos e logotipos de título para os filmes e séries dos cartões da tela inicial dos seus apps, no lugar das imagens e selos deles. Funciona sem chave, com os dados gratuitos do Stremio; o TMDB é a fonte oficial e mais confiável.\n\nChave gratuita: themoviedb.org → Configurações → API → uso pessoal.</string>
-    <string name="youtube_info">Mostra os vídeos mais populares do seu país atrás do bloco do YouTube.\n\nChave gratuita: console.cloud.google.com → novo projeto → ative YouTube Data API v3 → Credenciais → Criar chave de API.\n\nCom o SmartTube instalado, os fundos vêm do seu próprio feed do YouTube, sem chave.</string>
+    <string name="youtube_info">Com o SmartTube conectado, o bloco do YouTube mostra vídeos do seu próprio feed do YouTube. Sem precisar de chave.\n\nSem ele, uma chave mostra os vídeos mais populares do seu país. Chave gratuita: console.cloud.google.com → novo projeto → ative YouTube Data API v3 → Credenciais → Criar chave de API.\n\nSem nenhum dos dois, mostra trailers de filmes populares.</string>
     <string name="plex_info">Fundos do seu próprio servidor Plex: Continuar assistindo e adicionados recentemente.\n\nPara encontrar: app.plex.tv → abra qualquer título → ⋯ → Obter informações → Ver XML, e copie o que vem depois de X-Plex-Token= no endereço. Mantenha em sigilo, como uma senha.</string>
     <string name="saved_from_phone">Salvo pelo celular</string>
     <string name="not_available">Indisponível nesta TV</string>
     <string name="cant_open">Não foi possível abrir %1$s</string>
+    <string name="smarttube_install">Instalar SmartTube</string>
+    <string name="smarttube_open">Abrir o SmartTube para entrar</string>
+    <string name="smarttube_downloading">Baixando o SmartTube…</string>
+    <string name="smarttube_allow_installs">Permita que o Vibe Launcher instale apps e escolha Instalar SmartTube de novo</string>
+    <string name="smarttube_failed">O SmartTube não foi instalado</string>
 </resources>

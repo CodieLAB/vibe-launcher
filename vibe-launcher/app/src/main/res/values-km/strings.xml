@@ -61,9 +61,14 @@
     <string name="tmdb_notice">ផ្ទៃខាងក្រោយប្រើ API របស់ TMDB ប៉ុន្តែមិនត្រូវបាន TMDB គាំទ្រ ឬបញ្ជាក់ទេ។</string>
     <string name="about_key">អំពីសោនេះ</string>
     <string name="tmdb_info">ផ្ទៃខាងក្រោយស្អាត និងស្លាកចំណងជើង សម្រាប់ភាពយន្ត និងកម្មវិធីនៅលើកាតអេក្រង់ដើមនៃកម្មវិធីរបស់អ្នក ជំនួសរូបភាព និងស្ទីកឃ័ររបស់វា។ ដំណើរការបានដោយគ្មានសោ ពីទិន្នន័យឥតគិតថ្លៃរបស់ Stremio; TMDB ជាប្រភពផ្លូវការ និងគួរទុកចិត្តជាង។\n\nសោឥតគិតថ្លៃ៖ themoviedb.org → ការកំណត់ → API → ការប្រើប្រាស់ផ្ទាល់ខ្លួន។</string>
-    <string name="youtube_info">បង្ហាញវីដេអូពេញនិយមបំផុតក្នុងប្រទេសរបស់អ្នក នៅពីក្រោយប្រអប់ YouTube។\n\nសោឥតគិតថ្លៃ៖ console.cloud.google.com → គម្រោងថ្មី → បើក YouTube Data API v3 → អត្តសញ្ញាណ → បង្កើតកូនសោ API។\n\nបើបានដំឡើង SmartTube ផ្ទៃខាងក្រោយមកពីព័ត៌មានថ្មីៗ YouTube របស់អ្នកផ្ទាល់ ដោយគ្មានសោ។</string>
+    <string name="youtube_info">ពេលចូល SmartTube រួច ក្រឡា YouTube បង្ហាញវីដេអូពីព័ត៌មាន YouTube ផ្ទាល់ខ្លួនរបស់អ្នក។ មិនត្រូវការសោទេ។\n\nបើគ្មានវា សោមួយនឹងបង្ហាញវីដេអូពេញនិយមបំផុតក្នុងប្រទេសរបស់អ្នក។ សោឥតគិតថ្លៃ៖ console.cloud.google.com → គម្រោងថ្មី → បើក YouTube Data API v3 → អត្តសញ្ញាណ → បង្កើតកូនសោ API។\n\nបើគ្មានទាំងពីរ វាបង្ហាញឈុតខ្លីៗនៃភាពយន្តពេញនិយម។</string>
     <string name="plex_info">ផ្ទៃខាងក្រោយពីម៉ាស៊ីនមេ Plex របស់អ្នកផ្ទាល់៖ បន្តមើល និងបានបន្ថែមថ្មីៗ។\n\nរបៀបយក៖ app.plex.tv → បើកចំណងជើងណាមួយ → ⋯ → ទទួលព័ត៌មាន → មើល XML រួចចម្លងផ្នែកបន្ទាប់ពី X-Plex-Token= ក្នុងអាសយដ្ឋាន។ រក្សាវាជាការសម្ងាត់ ដូចពាក្យសម្ងាត់។</string>
     <string name="saved_from_phone">បានរក្សាទុកពីទូរសព្ទរបស់អ្នក</string>
     <string name="not_available">មិនមាននៅលើទូរទស្សន៍នេះទេ</string>
     <string name="cant_open">មិនអាចបើក %1$s បានទេ</string>
+    <string name="smarttube_install">ដំឡើង SmartTube</string>
+    <string name="smarttube_open">បើក SmartTube ដើម្បីចូល</string>
+    <string name="smarttube_downloading">កំពុងទាញយក SmartTube…</string>
+    <string name="smarttube_allow_installs">អនុញ្ញាតឱ្យ Vibe Launcher ដំឡើងកម្មវិធី រួចជ្រើសរើស ដំឡើង SmartTube ម្ដងទៀត</string>
+    <string name="smarttube_failed">SmartTube មិនបានដំឡើងទេ</string>
 </resources>

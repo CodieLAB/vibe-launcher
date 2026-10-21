@@ -66,6 +66,8 @@ time you come back to Home, never the same twice in a row):
 | Films and shows on those cards | The card's title looked up by exact match: a textless full-size backdrop plus the title's logo (or its name in Outfit when there is no logo). Otherwise the card's own art | Nothing: Stremio's free metadata (Cinemeta, metahub). With a TMDB key, TMDB instead |
 | YouTube | SmartTube's cards: your own feed, at 1280×720 | [SmartTube](https://github.com/yuliskov/SmartTube) installed and signed in |
 | YouTube without SmartTube | The most popular videos in the TV's country, refreshed every 4 hours (1 unit of the free 10,000 a day) | YouTube Data API key |
+| YouTube with neither | Trailers of the top films in Stremio's free catalog (Cinemeta), refreshed every 4 hours | Nothing |
+| HDHomeRun | What's on the tuner now, from SiliconDust's free guide: each show looked up like a card's title, the rest as 2×2 walls of the guide's 480×270 images. The tuner is found through SiliconDust's discovery and asked over plain HTTP, home-network addresses only | An HDHomeRun on the same network |
 | Plex | Art of Continue Watching and recently added on your server, found through plex.tv and scaled by the server | Plex token |
 
 Some apps (Prime Video) only publish their cards when the home screen asks them to, which the
@@ -93,7 +95,10 @@ last four characters.
 Only what the backdrops need: image downloads from the apps' own artwork servers; title art from
 Stremio (`v3-cinemeta.strem.io`, `images.metahub.space`) or, with a key, TMDB (`api.themoviedb.org`,
 `image.tmdb.org`); YouTube (`googleapis.com`, `i.ytimg.com`) and plex.tv plus your Plex server once
-their keys are set. No analytics, no accounts, nothing else.
+their keys are set; film trailers from Cinemeta (`v3-cinemeta.strem.io`) without a YouTube key; an
+HDHomeRun tuner on your network and SiliconDust's guide (`api.hdhomerun.com`, `img.hdhomerun.com`);
+and GitHub, for this project's updates and, when you ask, SmartTube. No analytics, no accounts,
+nothing else.
 
 ## Code map
 
@@ -110,8 +115,9 @@ their keys are set. No analytics, no accounts, nothing else.
 | `DefaultHome` | Offers to become the default Home through the TV's own dialog or chooser, where it has one |
 | `VibeDream` | The screensaver: the pooled backdrops with a clock |
 | `TitleArt`, `Tmdb`, `Stremio` | Clean backdrops and logos for films and shows by title: TMDB with a key, Stremio without |
-| `YouTubePopular`, `Plex` | The keyed YouTube and Plex backdrop sources |
-| `Http` | Plain GET requests for all of the above |
+| `YouTubePopular`, `Plex`, `HdHomeRun` | The YouTube (popular videos or film trailers), Plex and HDHomeRun backdrop sources |
+| `SmartTube` | Installs SmartTube from its GitHub releases, or opens it to sign in |
+| `Http` | Plain GET requests for all of the above, and the HDHomeRun's plain HTTP on the home network |
 | `VibeSettings`, `PhoneLink` | Stored keys and the phone page with its QR code |
 | `CpuInfo` | CPU use where the device allows it |
 | `CrashGuard` | Falls back to the stock launcher's App info after repeated crashes |

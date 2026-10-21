@@ -61,9 +61,14 @@
     <string name="tmdb_notice">Baggrundene bruger TMDB\'s API, men er ikke godkendt eller certificeret af TMDB.</string>
     <string name="about_key">Om denne nøgle</string>
     <string name="tmdb_info">Rene baggrunde og titellogoer til film og serier på dine apps\' startskærmskort i stedet for deres egne billeder og mærkater. Virker også uden nøgle, med Stremios gratis data; TMDB er den officielle, mere pålidelige kilde.\n\nGratis nøgle: themoviedb.org → Indstillinger → API → personlig brug.</string>
-    <string name="youtube_info">Viser de mest populære videoer i dit land bag YouTube-feltet.\n\nGratis nøgle: console.cloud.google.com → nyt projekt → aktivér YouTube Data API v3 → Loginoplysninger → Opret API-nøgle.\n\nMed SmartTube installeret kommer baggrundene fra dit eget YouTube-feed, uden nøgle.</string>
+    <string name="youtube_info">Med SmartTube logget ind viser YouTube-feltet videoer fra dit eget YouTube-feed. Ingen nøgle nødvendig.\n\nUden det viser en nøgle de mest populære videoer i dit land. Gratis nøgle: console.cloud.google.com → nyt projekt → aktivér YouTube Data API v3 → Loginoplysninger → Opret API-nøgle.\n\nUden begge viser det trailere til populære film.</string>
     <string name="plex_info">Baggrunde fra din egen Plex-server: Fortsæt med at se og senest tilføjet.\n\nSådan finder du den: app.plex.tv → åbn en titel → ⋯ → Hent info → Vis XML, og kopiér det, der står efter X-Plex-Token= i adressen. Hold den hemmelig som en adgangskode.</string>
     <string name="saved_from_phone">Gemt fra din telefon</string>
     <string name="not_available">Ikke tilgængelig på dette tv</string>
     <string name="cant_open">Kan ikke åbne %1$s</string>
+    <string name="smarttube_install">Installer SmartTube</string>
+    <string name="smarttube_open">Åbn SmartTube for at logge ind</string>
+    <string name="smarttube_downloading">Downloader SmartTube…</string>
+    <string name="smarttube_allow_installs">Tillad Vibe Launcher at installere apps, og vælg derefter Installer SmartTube igen</string>
+    <string name="smarttube_failed">SmartTube blev ikke installeret</string>
 </resources>

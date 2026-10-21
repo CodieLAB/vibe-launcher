@@ -61,9 +61,14 @@
     <string name="tmdb_notice">תמונות הרקע משתמשות ב-API של TMDB, אך אינן מאושרות או מוסמכות על ידי TMDB.</string>
     <string name="about_key">על המפתח הזה</string>
     <string name="tmdb_info">תמונות רקע נקיות ולוגו של הכותר לסרטים ולסדרות שבכרטיסי מסך הבית של האפליקציות שלכם, במקום התמונות והמדבקות שלהן. עובד גם בלי מפתח, עם הנתונים החינמיים של Stremio; TMDB הוא המקור הרשמי והאמין יותר.\n\nמפתח חינמי: themoviedb.org ← הגדרות ← API ← שימוש אישי.</string>
-    <string name="youtube_info">מציג את הסרטונים הפופולריים ביותר בארץ שלכם מאחורי אריח YouTube.\n\nמפתח חינמי: console.cloud.google.com ← פרויקט חדש ← הפעלת YouTube Data API v3 ← פרטי כניסה ← יצירת מפתח API.\n\nכש-SmartTube מותקן, תמונות הרקע מגיעות מהפיד שלכם ב-YouTube, בלי מפתח.</string>
+    <string name="youtube_info">כשאתם מחוברים ל-SmartTube, אריח YouTube מציג סרטונים מהפיד שלכם ב-YouTube. אין צורך במפתח.\n\nבלעדיו, מפתח מציג את הסרטונים הפופולריים ביותר במדינה שלכם. מפתח חינמי: console.cloud.google.com ← פרויקט חדש ← הפעלת YouTube Data API v3 ← פרטי כניסה ← יצירת מפתח API.\n\nבלי אף אחד מהם, מוצגים טריילרים של סרטים פופולריים.</string>
     <string name="plex_info">תמונות רקע משרת ה-Plex שלכם: המשך צפייה ונוספו לאחרונה.\n\nאיך למצוא: app.plex.tv ← פתחו כותר כלשהו ← ⋯ ← קבלת מידע ← הצגת XML, והעתיקו את מה שבא אחרי X-Plex-Token= בכתובת. שמרו עליו בסוד, כמו סיסמה.</string>
     <string name="saved_from_phone">נשמר מהטלפון</string>
     <string name="not_available">לא זמין בטלוויזיה הזו</string>
     <string name="cant_open">לא ניתן לפתוח את %1$s</string>
+    <string name="smarttube_install">התקנת SmartTube</string>
+    <string name="smarttube_open">פתיחת SmartTube להתחברות</string>
+    <string name="smarttube_downloading">מוריד את SmartTube…</string>
+    <string name="smarttube_allow_installs">אפשרו ל-Vibe Launcher להתקין אפליקציות, ואז בחרו שוב התקנת SmartTube</string>
+    <string name="smarttube_failed">SmartTube לא הותקן</string>
 </resources>

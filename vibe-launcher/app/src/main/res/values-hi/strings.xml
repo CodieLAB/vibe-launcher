@@ -61,9 +61,14 @@
     <string name="tmdb_notice">बैकड्रॉप TMDB API का उपयोग करते हैं, पर TMDB द्वारा समर्थित या प्रमाणित नहीं हैं।</string>
     <string name="about_key">इस कुंजी के बारे में</string>
     <string name="tmdb_info">आपके ऐप्स के होम स्क्रीन कार्ड पर दिखने वाली फ़िल्मों और शो के लिए साफ़ बैकड्रॉप और शीर्षक लोगो, ऐप्स की अपनी तस्वीरों और स्टिकर की जगह। यह बिना कुंजी के भी चलता है, Stremio के मुफ़्त डेटा से; TMDB आधिकारिक और ज़्यादा भरोसेमंद स्रोत है।\n\nमुफ़्त कुंजी: themoviedb.org → सेटिंग्स → API → निजी उपयोग।</string>
-    <string name="youtube_info">YouTube टाइल के पीछे आपके देश के सबसे लोकप्रिय वीडियो दिखाता है।\n\nमुफ़्त कुंजी: console.cloud.google.com → नया प्रोजेक्ट → YouTube Data API v3 चालू करें → क्रेडेंशियल → API कुंजी बनाएँ।\n\nSmartTube इंस्टॉल होने पर बैकड्रॉप आपकी अपनी YouTube फ़ीड से आते हैं, बिना कुंजी के।</string>
+    <string name="youtube_info">SmartTube में साइन इन होने पर YouTube टाइल आपकी अपनी YouTube फ़ीड के वीडियो दिखाती है। कोई कुंजी नहीं चाहिए।\n\nइसके बिना, एक कुंजी आपके देश के सबसे लोकप्रिय वीडियो दिखाती है। मुफ़्त कुंजी: console.cloud.google.com → नया प्रोजेक्ट → YouTube Data API v3 चालू करें → क्रेडेंशियल → API कुंजी बनाएँ।\n\nदोनों न हों तो लोकप्रिय फ़िल्मों के ट्रेलर दिखते हैं।</string>
     <string name="plex_info">आपके अपने Plex सर्वर से बैकड्रॉप: देखना जारी रखें और हाल में जोड़े गए।\n\nपाने के लिए: app.plex.tv → कोई भी टाइटल खोलें → ⋯ → जानकारी पाएँ → XML देखें, और पते में X-Plex-Token= के बाद का हिस्सा कॉपी करें। इसे पासवर्ड की तरह निजी रखें।</string>
     <string name="saved_from_phone">आपके फ़ोन से सहेजा गया</string>
     <string name="not_available">इस टीवी पर उपलब्ध नहीं</string>
     <string name="cant_open">%1$s नहीं खुल सका</string>
+    <string name="smarttube_install">SmartTube इंस्टॉल करें</string>
+    <string name="smarttube_open">साइन इन के लिए SmartTube खोलें</string>
+    <string name="smarttube_downloading">SmartTube डाउनलोड हो रहा है…</string>
+    <string name="smarttube_allow_installs">Vibe Launcher को ऐप इंस्टॉल करने दें, फिर SmartTube इंस्टॉल करें दोबारा चुनें</string>
+    <string name="smarttube_failed">SmartTube इंस्टॉल नहीं हुआ</string>
 </resources>

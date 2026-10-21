@@ -61,9 +61,14 @@
     <string name="tmdb_notice">പശ്ചാത്തലങ്ങൾ TMDB API ഉപയോഗിക്കുന്നു, പക്ഷേ TMDB ഇവ അംഗീകരിക്കുകയോ സാക്ഷ്യപ്പെടുത്തുകയോ ചെയ്തിട്ടില്ല.</string>
     <string name="about_key">ഈ കീയെക്കുറിച്ച്</string>
     <string name="tmdb_info">നിങ്ങളുടെ ആപ്പുകളുടെ ഹോം സ്ക്രീൻ കാർഡുകളിലെ സിനിമകൾക്കും ഷോകൾക്കും, ആപ്പുകളുടെ സ്വന്തം ചിത്രങ്ങൾക്കും സ്റ്റിക്കറുകൾക്കും പകരം വൃത്തിയുള്ള പശ്ചാത്തലങ്ങളും ടൈറ്റിൽ ലോഗോകളും. കീ ഇല്ലാതെയും Stremio-യുടെ സൗജന്യ ഡാറ്റ ഉപയോഗിച്ച് പ്രവർത്തിക്കും; TMDB ഔദ്യോഗികവും കൂടുതൽ വിശ്വസനീയവുമായ ഉറവിടമാണ്.\n\nസൗജന്യ കീ: themoviedb.org → ക്രമീകരണങ്ങൾ → API → വ്യക്തിഗത ഉപയോഗം.</string>
-    <string name="youtube_info">YouTube ടൈലിന് പിന്നിൽ നിങ്ങളുടെ രാജ്യത്തെ ഏറ്റവും ജനപ്രിയ വീഡിയോകൾ കാണിക്കുന്നു.\n\nസൗജന്യ കീ: console.cloud.google.com → പുതിയ പ്രോജക്റ്റ് → YouTube Data API v3 ഓണാക്കുക → ക്രെഡൻഷ്യലുകൾ → API കീ സൃഷ്ടിക്കുക.\n\nSmartTube ഉണ്ടെങ്കിൽ, പശ്ചാത്തലങ്ങൾ നിങ്ങളുടെ സ്വന്തം YouTube ഫീഡിൽ നിന്ന് വരും, കീ വേണ്ട.</string>
+    <string name="youtube_info">SmartTube-ൽ സൈൻ ഇൻ ചെയ്തിട്ടുണ്ടെങ്കിൽ, YouTube ടൈൽ നിങ്ങളുടെ സ്വന്തം YouTube ഫീഡിലെ വീഡിയോകൾ കാണിക്കും. കീ വേണ്ട.\n\nഅതില്ലെങ്കിൽ, ഒരു കീ നിങ്ങളുടെ രാജ്യത്തെ ഏറ്റവും ജനപ്രിയ വീഡിയോകൾ കാണിക്കും. സൗജന്യ കീ: console.cloud.google.com → പുതിയ പ്രോജക്റ്റ് → YouTube Data API v3 ഓണാക്കുക → ക്രെഡൻഷ്യലുകൾ → API കീ സൃഷ്ടിക്കുക.\n\nരണ്ടുമില്ലെങ്കിൽ, ജനപ്രിയ സിനിമകളുടെ ട്രെയിലറുകൾ കാണിക്കും.</string>
     <string name="plex_info">നിങ്ങളുടെ സ്വന്തം Plex സെർവറിൽ നിന്നുള്ള പശ്ചാത്തലങ്ങൾ: കാണുന്നത് തുടരുക, അടുത്തിടെ ചേർത്തവ.\n\nലഭിക്കാൻ: app.plex.tv → ഏതെങ്കിലും ടൈറ്റിൽ തുറക്കുക → ⋯ → വിവരങ്ങൾ നേടുക → XML കാണുക, വിലാസത്തിൽ X-Plex-Token= ന് ശേഷമുള്ളത് പകർത്തുക. പാസ്‌വേഡ് പോലെ രഹസ്യമായി സൂക്ഷിക്കുക.</string>
     <string name="saved_from_phone">നിങ്ങളുടെ ഫോണിൽ നിന്ന് സംരക്ഷിച്ചു</string>
     <string name="not_available">ഈ ടിവിയിൽ ലഭ്യമല്ല</string>
     <string name="cant_open">%1$s തുറക്കാനാകുന്നില്ല</string>
+    <string name="smarttube_install">SmartTube ഇൻസ്റ്റാൾ ചെയ്യുക</string>
+    <string name="smarttube_open">സൈൻ ഇൻ ചെയ്യാൻ SmartTube തുറക്കുക</string>
+    <string name="smarttube_downloading">SmartTube ഡൗൺലോഡ് ചെയ്യുന്നു…</string>
+    <string name="smarttube_allow_installs">ആപ്പുകൾ ഇൻസ്റ്റാൾ ചെയ്യാൻ Vibe Launcher-നെ അനുവദിക്കുക, തുടർന്ന് വീണ്ടും SmartTube ഇൻസ്റ്റാൾ ചെയ്യുക തിരഞ്ഞെടുക്കുക</string>
+    <string name="smarttube_failed">SmartTube ഇൻസ്റ്റാൾ ആയില്ല</string>
 </resources>

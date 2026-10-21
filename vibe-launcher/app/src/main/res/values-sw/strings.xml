@@ -61,9 +61,14 @@
     <string name="tmdb_notice">Mandhari hutumia API ya TMDB lakini hayajaidhinishwa wala kuthibitishwa na TMDB.</string>
     <string name="about_key">Kuhusu ufunguo huu</string>
     <string name="tmdb_info">Mandhari safi na nembo za mada kwa filamu na vipindi vilivyo kwenye kadi za skrini kuu za programu zako, badala ya picha na vibandiko vyao. Hufanya kazi bila ufunguo, kwa data ya bure ya Stremio; TMDB ndicho chanzo rasmi na cha kuaminika zaidi.\n\nUfunguo wa bure: themoviedb.org → Mipangilio → API → matumizi binafsi.</string>
-    <string name="youtube_info">Huonyesha video maarufu zaidi nchini kwako nyuma ya kigae cha YouTube.\n\nUfunguo wa bure: console.cloud.google.com → mradi mpya → washa YouTube Data API v3 → Vitambulisho → Unda ufunguo wa API.\n\nSmartTube ikiwa imesakinishwa, mandhari hutoka kwenye mpasho wako wa YouTube, bila ufunguo.</string>
+    <string name="youtube_info">Ukiwa umeingia kwenye SmartTube, kigae cha YouTube huonyesha video kutoka kwenye mlisho wako wa YouTube. Hakuna ufunguo unaohitajika.\n\nBila hiyo, ufunguo huonyesha video maarufu zaidi nchini mwako. Ufunguo wa bure: console.cloud.google.com → mradi mpya → washa YouTube Data API v3 → Vitambulisho → Unda ufunguo wa API.\n\nBila vyote viwili, huonyesha trela za filamu maarufu.</string>
     <string name="plex_info">Mandhari kutoka kwenye seva yako ya Plex: Endelea kutazama na vilivyoongezwa hivi karibuni.\n\nKuupata: app.plex.tv → fungua mada yoyote → ⋯ → Pata Maelezo → Tazama XML, kisha nakili kinachofuata X-Plex-Token= kwenye anwani. Iweke siri kama nenosiri.</string>
     <string name="saved_from_phone">Imehifadhiwa kutoka kwenye simu yako</string>
     <string name="not_available">Haipatikani kwenye TV hii</string>
     <string name="cant_open">Haiwezi kufungua %1$s</string>
+    <string name="smarttube_install">Sakinisha SmartTube</string>
+    <string name="smarttube_open">Fungua SmartTube ili uingie</string>
+    <string name="smarttube_downloading">Inapakua SmartTube…</string>
+    <string name="smarttube_allow_installs">Ruhusu Vibe Launcher isakinishe programu, kisha uchague Sakinisha SmartTube tena</string>
+    <string name="smarttube_failed">SmartTube haikusakinishwa</string>
 </resources>

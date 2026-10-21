@@ -61,9 +61,14 @@
     <string name="tmdb_notice">နောက်ခံပုံများသည် TMDB API ကို သုံးသော်လည်း TMDB ၏ ထောက်ခံမှု သို့မဟုတ် အသိအမှတ်ပြုမှု မရှိပါ။</string>
     <string name="about_key">ဤကီး အကြောင်း</string>
     <string name="tmdb_info">သင့်အက်ပ်များ၏ ပင်မမျက်နှာပြင် ကတ်များပေါ်ရှိ ရုပ်ရှင်နှင့် ရုပ်သံအစီအစဉ်များအတွက် အက်ပ်၏ ကိုယ်ပိုင်ပုံနှင့် စတစ်ကာများအစား သန့်ရှင်းသော နောက်ခံပုံနှင့် ခေါင်းစဉ်လိုဂို။ ကီးမပါဘဲလည်း Stremio ၏ အခမဲ့ဒေတာဖြင့် အလုပ်လုပ်သည်။ TMDB သည် တရားဝင်ပြီး ပိုယုံကြည်ရသော ရင်းမြစ်ဖြစ်သည်။\n\nအခမဲ့ကီး- themoviedb.org → ဆက်တင်များ → API → ကိုယ်ပိုင်သုံး။</string>
-    <string name="youtube_info">YouTube အကွက်နောက်တွင် သင့်နိုင်ငံ၏ လူကြိုက်အများဆုံး ဗီဒီယိုများကို ပြသည်။\n\nအခမဲ့ကီး- console.cloud.google.com → ပရောဂျက်အသစ် → YouTube Data API v3 ဖွင့်ပါ → အထောက်အထားများ → API ကီး ဖန်တီးရန်။\n\nSmartTube ထည့်ထားလျှင် နောက်ခံပုံများကို သင့်ကိုယ်ပိုင် YouTube ဖိဒ်မှ ယူမည်ဖြစ်ပြီး ကီး မလိုပါ။</string>
+    <string name="youtube_info">SmartTube သို့ ဝင်ထားလျှင် YouTube အကွက်သည် သင့်ကိုယ်ပိုင် YouTube ဖိဒ်မှ ဗီဒီယိုများကို ပြသည်။ ကီး မလိုပါ။\n\n၎င်းမရှိလျှင် ကီးတစ်ခုက သင့်နိုင်ငံရှိ လူကြိုက်အများဆုံး ဗီဒီယိုများကို ပြသည်။ အခမဲ့ကီး- console.cloud.google.com → ပရောဂျက်အသစ် → YouTube Data API v3 ဖွင့်ပါ → အထောက်အထားများ → API ကီး ဖန်တီးရန်။\n\nနှစ်ခုစလုံး မရှိလျှင် လူကြိုက်များသော ရုပ်ရှင်များ၏ ကြော်ငြာများကို ပြသည်။</string>
     <string name="plex_info">သင့်ကိုယ်ပိုင် Plex ဆာဗာမှ နောက်ခံပုံများ- ဆက်ကြည့်ရန်နှင့် မကြာသေးမီက ထည့်ထားသည်များ။\n\nရယူရန်- app.plex.tv → မည်သည့်ခေါင်းစဉ်မဆို ဖွင့်ပါ → ⋯ → အချက်အလက် ရယူရန် → XML ကြည့်ရန်၊ လိပ်စာထဲရှိ X-Plex-Token= နောက်ကအပိုင်းကို ကူးပါ။ စကားဝှက်ကဲ့သို့ လျှို့ဝှက်ထားပါ။</string>
     <string name="saved_from_phone">သင့်ဖုန်းမှ သိမ်းပြီး</string>
     <string name="not_available">ဤ TV တွင် မရနိုင်ပါ</string>
     <string name="cant_open">%1$s ကို ဖွင့်၍ မရပါ</string>
+    <string name="smarttube_install">SmartTube ထည့်သွင်းရန်</string>
+    <string name="smarttube_open">ဝင်ရန် SmartTube ကိုဖွင့်ပါ</string>
+    <string name="smarttube_downloading">SmartTube ဒေါင်းလုဒ်လုပ်နေသည်…</string>
+    <string name="smarttube_allow_installs">Vibe Launcher ကို အက်ပ်များ ထည့်သွင်းခွင့်ပြုပြီး SmartTube ထည့်သွင်းရန် ကို ထပ်ရွေးပါ</string>
+    <string name="smarttube_failed">SmartTube မထည့်သွင်းနိုင်ပါ</string>
 </resources>

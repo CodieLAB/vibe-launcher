@@ -61,9 +61,14 @@
     <string name="tmdb_notice">ภาพพื้นหลังใช้ API ของ TMDB แต่ไม่ได้รับการรับรองหรือการรับรองมาตรฐานจาก TMDB</string>
     <string name="about_key">เกี่ยวกับคีย์นี้</string>
     <string name="tmdb_info">ภาพพื้นหลังสะอาดและโลโก้ชื่อเรื่องสำหรับภาพยนตร์และรายการในการ์ดหน้าหลักของแอป แทนภาพและสติกเกอร์ของแอปเอง ใช้ได้แม้ไม่มีคีย์ จากข้อมูลฟรีของ Stremio ส่วน TMDB เป็นแหล่งทางการที่เชื่อถือได้มากกว่า\n\nคีย์ฟรี: themoviedb.org → การตั้งค่า → API → ใช้ส่วนตัว</string>
-    <string name="youtube_info">แสดงวิดีโอยอดนิยมที่สุดในประเทศของคุณหลังไทล์ YouTube\n\nคีย์ฟรี: console.cloud.google.com → โปรเจ็กต์ใหม่ → เปิด YouTube Data API v3 → ข้อมูลเข้าสู่ระบบ → สร้างคีย์ API\n\nหากติดตั้ง SmartTube ภาพพื้นหลังจะมาจากฟีด YouTube ของคุณเอง โดยไม่ต้องใช้คีย์</string>
+    <string name="youtube_info">เมื่อลงชื่อเข้าใช้ SmartTube แล้ว ไทล์ YouTube จะแสดงวิดีโอจากฟีด YouTube ของคุณเอง ไม่ต้องใช้คีย์\n\nหากไม่มี คีย์จะแสดงวิดีโอยอดนิยมในประเทศของคุณ คีย์ฟรี: console.cloud.google.com → โปรเจ็กต์ใหม่ → เปิด YouTube Data API v3 → ข้อมูลเข้าสู่ระบบ → สร้างคีย์ API\n\nหากไม่มีทั้งสองอย่าง จะแสดงตัวอย่างภาพยนตร์ยอดนิยม</string>
     <string name="plex_info">ภาพพื้นหลังจากเซิร์ฟเวอร์ Plex ของคุณเอง: ดูต่อ และเพิ่มล่าสุด\n\nวิธีหา: app.plex.tv → เปิดเรื่องใดก็ได้ → ⋯ → ดูข้อมูล → ดู XML แล้วคัดลอกส่วนหลัง X-Plex-Token= ในที่อยู่ เก็บเป็นความลับเหมือนรหัสผ่าน</string>
     <string name="saved_from_phone">บันทึกจากโทรศัพท์แล้ว</string>
     <string name="not_available">ใช้ไม่ได้บนทีวีเครื่องนี้</string>
     <string name="cant_open">เปิด %1$s ไม่ได้</string>
+    <string name="smarttube_install">ติดตั้ง SmartTube</string>
+    <string name="smarttube_open">เปิด SmartTube เพื่อลงชื่อเข้าใช้</string>
+    <string name="smarttube_downloading">กำลังดาวน์โหลด SmartTube…</string>
+    <string name="smarttube_allow_installs">อนุญาตให้ Vibe Launcher ติดตั้งแอป แล้วเลือกติดตั้ง SmartTube อีกครั้ง</string>
+    <string name="smarttube_failed">ติดตั้ง SmartTube ไม่สำเร็จ</string>
 </resources>

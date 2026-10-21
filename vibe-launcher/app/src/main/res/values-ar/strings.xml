@@ -61,9 +61,14 @@
     <string name="tmdb_notice">تستخدم الخلفيات واجهة TMDB API لكنها غير معتمدة أو مصدَّقة من TMDB.</string>
     <string name="about_key">حول هذا المفتاح</string>
     <string name="tmdb_info">خلفيات نظيفة وشعارات العناوين للأفلام والمسلسلات في بطاقات الشاشة الرئيسية لتطبيقاتك، بدل صورها وملصقاتها. يعمل دون مفتاح، من بيانات Stremio المجانية؛ وTMDB هو المصدر الرسمي والأكثر موثوقية.\n\nمفتاح مجاني: themoviedb.org ← الإعدادات ← API ← الاستخدام الشخصي.</string>
-    <string name="youtube_info">يعرض أكثر الفيديوهات رواجًا في بلدك خلف مربع YouTube.\n\nمفتاح مجاني: console.cloud.google.com ← مشروع جديد ← فعّل YouTube Data API v3 ← بيانات الاعتماد ← إنشاء مفتاح API.\n\nمع تثبيت SmartTube، تأتي الخلفيات من خلاصتك على YouTube بدلًا من ذلك، دون مفتاح.</string>
+    <string name="youtube_info">عند تسجيل الدخول إلى SmartTube، تعرض لوحة YouTube فيديوهات من خلاصتك الخاصة على YouTube. لا حاجة إلى مفتاح.\n\nبدونه، يعرض المفتاح أكثر الفيديوهات شعبية في بلدك. مفتاح مجاني: console.cloud.google.com ← مشروع جديد ← فعّل YouTube Data API v3 ← بيانات الاعتماد ← إنشاء مفتاح API.\n\nبدون أي منهما، تُعرض إعلانات أفلام شائعة.</string>
     <string name="plex_info">خلفيات من خادم Plex الخاص بك: متابعة المشاهدة والمضاف حديثًا.\n\nللعثور عليه: app.plex.tv ← افتح أي عنوان ← ⋯ ← الحصول على المعلومات ← عرض XML، وانسخ ما يلي X-Plex-Token= في العنوان. احفظه سرًّا مثل كلمة المرور.</string>
     <string name="saved_from_phone">تم الحفظ من هاتفك</string>
     <string name="not_available">غير متاح على هذا التلفزيون</string>
     <string name="cant_open">يتعذّر فتح %1$s</string>
+    <string name="smarttube_install">تثبيت SmartTube</string>
+    <string name="smarttube_open">فتح SmartTube لتسجيل الدخول</string>
+    <string name="smarttube_downloading">جارٍ تنزيل SmartTube…</string>
+    <string name="smarttube_allow_installs">اسمح لـ Vibe Launcher بتثبيت التطبيقات، ثم اختر تثبيت SmartTube مرة أخرى</string>
+    <string name="smarttube_failed">لم يتم تثبيت SmartTube</string>
 </resources>

@@ -61,9 +61,14 @@
     <string name="tmdb_notice">Arka planlar TMDB API\'sini kullanır ancak TMDB tarafından onaylanmış veya sertifikalandırılmış değildir.</string>
     <string name="about_key">Bu anahtar hakkında</string>
     <string name="tmdb_info">Uygulamalarınızın ana ekran kartlarındaki film ve diziler için, uygulamaların kendi görselleri ve etiketleri yerine temiz arka planlar ve başlık logoları. Anahtarsız da çalışır, Stremio\'nun ücretsiz verileriyle; TMDB resmi ve daha güvenilir kaynaktır.\n\nÜcretsiz anahtar: themoviedb.org → Ayarlar → API → kişisel kullanım.</string>
-    <string name="youtube_info">YouTube kutusunun arkasında ülkenizdeki en popüler videoları gösterir.\n\nÜcretsiz anahtar: console.cloud.google.com → yeni proje → YouTube Data API v3\'ü etkinleştirin → Kimlik bilgileri → API anahtarı oluştur.\n\nSmartTube yüklüyse arka planlar anahtar gerekmeden kendi YouTube akışınızdan gelir.</string>
+    <string name="youtube_info">SmartTube\'da oturum açıksa YouTube kutusu kendi YouTube akışınızdaki videoları gösterir. Anahtar gerekmez.\n\nO yoksa, bir anahtar ülkenizdeki en popüler videoları gösterir. Ücretsiz anahtar: console.cloud.google.com → yeni proje → YouTube Data API v3\'ü etkinleştirin → Kimlik bilgileri → API anahtarı oluştur.\n\nİkisi de yoksa popüler filmlerin fragmanlarını gösterir.</string>
     <string name="plex_info">Kendi Plex sunucunuzdan arka planlar: İzlemeye devam et ve son eklenenler.\n\nBulmak için: app.plex.tv → herhangi bir içeriği açın → ⋯ → Bilgi al → XML\'i görüntüle, ve adresteki X-Plex-Token= sonrasını kopyalayın. Şifre gibi gizli tutun.</string>
     <string name="saved_from_phone">Telefonunuzdan kaydedildi</string>
     <string name="not_available">Bu TV\'de kullanılamıyor</string>
     <string name="cant_open">%1$s açılamıyor</string>
+    <string name="smarttube_install">SmartTube\'u yükle</string>
+    <string name="smarttube_open">Oturum açmak için SmartTube\'u aç</string>
+    <string name="smarttube_downloading">SmartTube indiriliyor…</string>
+    <string name="smarttube_allow_installs">Vibe Launcher\'ın uygulama yüklemesine izin verin, sonra yeniden SmartTube\'u yükle\'yi seçin</string>
+    <string name="smarttube_failed">SmartTube yüklenmedi</string>
 </resources>
