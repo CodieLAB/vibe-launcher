@@ -30,6 +30,9 @@
     <string name="tiles_per_row">வரிசைக்கு டைல்கள்</string>
     <string name="language">மொழி</string>
     <string name="language_system">சிஸ்டம் போலவே</string>
+    <string name="hide_inactive_inputs">செயலற்ற உள்ளீடுகளை மறை</string>
+    <string name="off">முடக்கு</string>
+    <string name="on">இயக்கு</string>
     <string name="plex_token">Plex டோக்கன்</string>
     <string name="not_set">அமைக்கவில்லை</string>
     <string name="save">சேமி</string>

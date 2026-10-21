@@ -30,6 +30,9 @@
     <string name="tiles_per_row">Ubin per baris</string>
     <string name="language">Bahasa</string>
     <string name="language_system">Sesuai sistem</string>
+    <string name="hide_inactive_inputs">Sembunyikan input tidak aktif</string>
+    <string name="off">Mati</string>
+    <string name="on">Aktif</string>
     <string name="plex_token">Token Plex</string>
     <string name="not_set">Belum diatur</string>
     <string name="save">Simpan</string>

@@ -30,6 +30,9 @@
     <string name="tiles_per_row">每列圖塊數</string>
     <string name="language">語言</string>
     <string name="language_system">跟隨系統</string>
+    <string name="hide_inactive_inputs">隱藏未使用的輸入</string>
+    <string name="off">關</string>
+    <string name="on">開</string>
     <string name="plex_token">Plex 權杖</string>
     <string name="not_set">未設定</string>
     <string name="save">儲存</string>

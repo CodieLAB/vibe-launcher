@@ -30,6 +30,9 @@
     <string name="tiles_per_row">በአንድ ረድፍ ያሉ ሰቆች</string>
     <string name="language">ቋንቋ</string>
     <string name="language_system">እንደ ሥርዓቱ</string>
+    <string name="hide_inactive_inputs">ንቁ ያልሆኑ ግብዓቶችን ደብቅ</string>
+    <string name="off">አጥፋ</string>
+    <string name="on">አብራ</string>
     <string name="plex_token">የPlex ቶከን</string>
     <string name="not_set">አልተቀናበረም</string>
     <string name="save">አስቀምጥ</string>

@@ -30,6 +30,9 @@
     <string name="tiles_per_row">ไทล์ต่อแถว</string>
     <string name="language">ภาษา</string>
     <string name="language_system">ตามระบบ</string>
+    <string name="hide_inactive_inputs">ซ่อนอินพุตที่ไม่ได้ใช้งาน</string>
+    <string name="off">ปิด</string>
+    <string name="on">เปิด</string>
     <string name="plex_token">โทเค็น Plex</string>
     <string name="not_set">ยังไม่ได้ตั้ง</string>
     <string name="save">บันทึก</string>

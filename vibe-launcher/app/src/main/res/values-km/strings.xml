@@ -30,6 +30,9 @@
     <string name="tiles_per_row">ប្រអប់ក្នុងមួយជួរ</string>
     <string name="language">ភាសា</string>
     <string name="language_system">តាមប្រព័ន្ធ</string>
+    <string name="hide_inactive_inputs">លាក់ការបញ្ចូលដែលមិនសកម្ម</string>
+    <string name="off">បិទ</string>
+    <string name="on">បើក</string>
     <string name="plex_token">ថូខឹន Plex</string>
     <string name="not_set">មិនទាន់កំណត់</string>
     <string name="save">រក្សាទុក</string>

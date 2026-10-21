@@ -30,6 +30,9 @@
     <string name="tiles_per_row">Csempék soronként</string>
     <string name="language">Nyelv</string>
     <string name="language_system">Mint a rendszer</string>
+    <string name="hide_inactive_inputs">Inaktív bemenetek elrejtése</string>
+    <string name="off">Ki</string>
+    <string name="on">Be</string>
     <string name="plex_token">Plex token</string>
     <string name="not_set">Nincs beállítva</string>
     <string name="save">Mentés</string>

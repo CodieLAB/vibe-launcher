@@ -30,6 +30,9 @@
     <string name="tiles_per_row">ഓരോ വരിയിലും ടൈലുകൾ</string>
     <string name="language">ഭാഷ</string>
     <string name="language_system">സിസ്റ്റം പോലെ</string>
+    <string name="hide_inactive_inputs">നിഷ്‌ക്രിയ ഇൻപുട്ടുകൾ മറയ്ക്കുക</string>
+    <string name="off">ഓഫ്</string>
+    <string name="on">ഓൺ</string>
     <string name="plex_token">Plex ടോക്കൺ</string>
     <string name="not_set">സജ്ജമാക്കിയിട്ടില്ല</string>
     <string name="save">സംരക്ഷിക്കുക</string>

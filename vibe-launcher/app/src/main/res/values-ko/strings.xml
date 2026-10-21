@@ -30,6 +30,9 @@
     <string name="tiles_per_row">한 줄 타일 수</string>
     <string name="language">언어</string>
     <string name="language_system">시스템과 같게</string>
+    <string name="hide_inactive_inputs">비활성 입력 숨기기</string>
+    <string name="off">끔</string>
+    <string name="on">켬</string>
     <string name="plex_token">Plex 토큰</string>
     <string name="not_set">설정 안 됨</string>
     <string name="save">저장</string>

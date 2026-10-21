@@ -30,6 +30,9 @@
     <string name="tiles_per_row">کاشی در هر ردیف</string>
     <string name="language">زبان</string>
     <string name="language_system">مثل سیستم</string>
+    <string name="hide_inactive_inputs">پنهان کردن ورودی‌های غیرفعال</string>
+    <string name="off">خاموش</string>
+    <string name="on">روشن</string>
     <string name="plex_token">توکن Plex</string>
     <string name="not_set">تنظیم نشده</string>
     <string name="save">ذخیره</string>

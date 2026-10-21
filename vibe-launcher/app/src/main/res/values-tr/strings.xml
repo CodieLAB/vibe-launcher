@@ -30,6 +30,9 @@
     <string name="tiles_per_row">Satır başına kutu</string>
     <string name="language">Dil</string>
     <string name="language_system">Sistemle aynı</string>
+    <string name="hide_inactive_inputs">Etkin olmayan girişleri gizle</string>
+    <string name="off">Kapalı</string>
+    <string name="on">Açık</string>
     <string name="plex_token">Plex jetonu</string>
     <string name="not_set">Ayarlanmadı</string>
     <string name="save">Kaydet</string>

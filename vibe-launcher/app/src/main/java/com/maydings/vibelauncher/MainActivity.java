@@ -1150,6 +1150,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
         TvInputManager tim = (TvInputManager) getSystemService(TV_INPUT_SERVICE);
         boolean sawNonHdmi = false;
+        // Settings → General: leave out inputs that say nothing is connected. Ones whose state the TV doesn't
+        // know stay, so nothing usable disappears.
+        boolean hideInactive = new VibeSettings(this).hideInactiveInputs();
         if (tim != null) {
             List<TvInputInfo> inputs = new ArrayList<>(tim.getTvInputList());
             // HDMI ports first in port order, then AV and the rest.
@@ -1176,6 +1179,16 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             for (TvInputInfo info : inputs) {
                 // Inputs hidden in the TV's Settings > Inputs stay out of the menu too.
                 if (!info.isPassthroughInput() || info.isHidden(this) || info.getParentId() != null) continue;
+                List<TvInputInfo> children = devices.get(info.getId());
+                if (hideInactive) {
+                    if (children != null) {
+                        List<TvInputInfo> active = new ArrayList<>();
+                        for (TvInputInfo child : children) if (!inactive(tim, child.getId())) active.add(child);
+                        children = active.isEmpty() ? null : active;
+                    }
+                    // A port stays while any device behind it is connected.
+                    if (children == null && inactive(tim, info.getId())) continue;
+                }
                 CharSequence l = info.loadLabel(this);
                 String label = l == null ? info.getId() : l.toString();
                 boolean hdmi = info.getType() == TvInputInfo.TYPE_HDMI;
@@ -1185,7 +1198,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 if (custom != null && custom.length() > 0 && !custom.toString().equals(label)) label = label + " · " + custom;
                 if (!hdmi && rows.getChildCount() > 0 && !sawNonHdmi) addSeparator(rows);
                 if (!hdmi) sawNonHdmi = true;
-                List<TvInputInfo> children = devices.get(info.getId());
                 if (children == null) {
                     addPassthroughRow(rows, popup, hdmi, label, info.getId(), tim);
                 } else if (children.size() == 1) {
@@ -1370,6 +1382,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             if (!card.hasFocus()) card.requestFocus();
             onTileFocused(position, card);
         });
+    }
+
+    /** An input that reports nothing connected (not one whose state the TV doesn't know). */
+    private static boolean inactive(TvInputManager tim, String id) {
+        return tim.getInputState(id) == TvInputManager.INPUT_STATE_DISCONNECTED;
     }
 
     /** A device's name as the TV reports it over CEC, or the port's when it has none. */

@@ -30,6 +30,9 @@
     <string name="tiles_per_row">প্রতি সারিতে টাইল</string>
     <string name="language">ভাষা</string>
     <string name="language_system">সিস্টেমের মতো</string>
+    <string name="hide_inactive_inputs">নিষ্ক্রিয় ইনপুট লুকান</string>
+    <string name="off">বন্ধ</string>
+    <string name="on">চালু</string>
     <string name="plex_token">Plex টোকেন</string>
     <string name="not_set">সেট করা নেই</string>
     <string name="save">সংরক্ষণ</string>

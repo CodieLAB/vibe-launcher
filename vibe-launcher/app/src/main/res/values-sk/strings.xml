@@ -30,6 +30,9 @@
     <string name="tiles_per_row">Dlaždíc v rade</string>
     <string name="language">Jazyk</string>
     <string name="language_system">Podľa systému</string>
+    <string name="hide_inactive_inputs">Skryť neaktívne vstupy</string>
+    <string name="off">Vyp.</string>
+    <string name="on">Zap.</string>
     <string name="plex_token">Token Plex</string>
     <string name="not_set">Nenastavené</string>
     <string name="save">Uložiť</string>

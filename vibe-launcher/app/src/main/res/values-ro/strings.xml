@@ -30,6 +30,9 @@
     <string name="tiles_per_row">Plăci pe rând</string>
     <string name="language">Limbă</string>
     <string name="language_system">Ca sistemul</string>
+    <string name="hide_inactive_inputs">Ascunde intrările inactive</string>
+    <string name="off">Nu</string>
+    <string name="on">Da</string>
     <string name="plex_token">Token Plex</string>
     <string name="not_set">Nesetat</string>
     <string name="save">Salvează</string>

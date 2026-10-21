@@ -12,6 +12,7 @@ final class VibeSettings {
     private static final String PLEX_TOKEN = "plexToken";
     private static final String COLUMNS = "columns";
     private static final String LANGUAGE = "language";
+    private static final String HIDE_INACTIVE_INPUTS = "hideInactiveInputs";
 
     private final SharedPreferences prefs;
 
@@ -52,6 +53,15 @@ final class VibeSettings {
     /** Saved at once (commit): Home is recreated in the new language straight after. */
     void setLanguage(String tag) {
         prefs.edit().putString(LANGUAGE, tag).commit();
+    }
+
+    /** Whether the Inputs menu leaves out inputs with nothing connected. */
+    boolean hideInactiveInputs() {
+        return prefs.getBoolean(HIDE_INACTIVE_INPUTS, false);
+    }
+
+    void setHideInactiveInputs(boolean hide) {
+        prefs.edit().putBoolean(HIDE_INACTIVE_INPUTS, hide).apply();
     }
 
     void save(String tmdbKey, String youtubeKey, String plexToken) {

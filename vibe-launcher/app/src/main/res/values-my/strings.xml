@@ -30,6 +30,9 @@
     <string name="tiles_per_row">တစ်တန်းလျှင် အကွက်</string>
     <string name="language">ဘာသာစကား</string>
     <string name="language_system">စနစ်အတိုင်း</string>
+    <string name="hide_inactive_inputs">အသုံးမပြုသော အဝင်များကို ဖျောက်ရန်</string>
+    <string name="off">ပိတ်</string>
+    <string name="on">ဖွင့်</string>
     <string name="plex_token">Plex တိုကင်</string>
     <string name="not_set">မသတ်မှတ်ရသေး</string>
     <string name="save">သိမ်းရန်</string>

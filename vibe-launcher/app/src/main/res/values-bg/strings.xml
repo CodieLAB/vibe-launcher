@@ -30,6 +30,9 @@
     <string name="tiles_per_row">Плочки на ред</string>
     <string name="language">Език</string>
     <string name="language_system">Като системата</string>
+    <string name="hide_inactive_inputs">Скриване на неактивните входове</string>
+    <string name="off">Изкл.</string>
+    <string name="on">Вкл.</string>
     <string name="plex_token">Токен за Plex</string>
     <string name="not_set">Не е зададен</string>
     <string name="save">Запазване</string>

@@ -30,6 +30,9 @@
     <string name="tiles_per_row">Vigae kwa kila safu</string>
     <string name="language">Lugha</string>
     <string name="language_system">Kama mfumo</string>
+    <string name="hide_inactive_inputs">Ficha viingizo visivyotumika</string>
+    <string name="off">Zima</string>
+    <string name="on">Washa</string>
     <string name="plex_token">Tokeni ya Plex</string>
     <string name="not_set">Haijawekwa</string>
     <string name="save">Hifadhi</string>

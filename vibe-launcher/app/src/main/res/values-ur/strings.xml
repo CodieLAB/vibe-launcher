@@ -30,6 +30,9 @@
     <string name="tiles_per_row">ہر قطار میں ٹائلیں</string>
     <string name="language">زبان</string>
     <string name="language_system">سسٹم کے مطابق</string>
+    <string name="hide_inactive_inputs">غیر فعال ان پٹ چھپائیں</string>
+    <string name="off">بند</string>
+    <string name="on">آن</string>
     <string name="plex_token">Plex ٹوکن</string>
     <string name="not_set">سیٹ نہیں</string>
     <string name="save">محفوظ کریں</string>

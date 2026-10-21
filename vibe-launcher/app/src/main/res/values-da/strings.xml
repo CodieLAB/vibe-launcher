@@ -30,6 +30,9 @@
     <string name="tiles_per_row">Felter pr. række</string>
     <string name="language">Sprog</string>
     <string name="language_system">Som systemet</string>
+    <string name="hide_inactive_inputs">Skjul inaktive indgange</string>
+    <string name="off">Fra</string>
+    <string name="on">Til</string>
     <string name="plex_token">Plex-token</string>
     <string name="not_set">Ikke angivet</string>
     <string name="save">Gem</string>

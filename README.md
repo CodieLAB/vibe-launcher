@@ -71,12 +71,13 @@ A frosted bar with the clock and date, and three menus. Left and Right move betw
 
 ## Settings
 
-**General**: tiles per row, language and the software version.
+**General**: tiles per row, hiding inactive inputs, language and the software version.
 
 | ![Vibe Launcher settings, General tab: tiles per row, language and software version](vibe-launcher/docs/settings-general.jpg) | ![The language list, each language in its own name](vibe-launcher/docs/language.jpg) |
 |---|---|
 
 - **Tiles per row**: 4, 5 or 6. Tiles shrink to fit and the dock holds as many apps.
+- **Hide inactive inputs**: the Inputs menu lists only what's connected.
 - **Language**: Match system (the default), or any of 50 languages, each listed in its own name. The
   clock and date follow it.
 

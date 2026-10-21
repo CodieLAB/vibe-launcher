@@ -30,6 +30,9 @@
     <string name="tiles_per_row">પ્રતિ પંક્તિ ટાઇલ</string>
     <string name="language">ભાષા</string>
     <string name="language_system">સિસ્ટમ મુજબ</string>
+    <string name="hide_inactive_inputs">નિષ્ક્રિય ઇનપુટ છુપાવો</string>
+    <string name="off">બંધ</string>
+    <string name="on">ચાલુ</string>
     <string name="plex_token">Plex ટોકન</string>
     <string name="not_set">સેટ નથી</string>
     <string name="save">સાચવો</string>

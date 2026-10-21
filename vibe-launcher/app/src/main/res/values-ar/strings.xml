@@ -30,6 +30,9 @@
     <string name="tiles_per_row">المربعات في كل صف</string>
     <string name="language">اللغة</string>
     <string name="language_system">مثل النظام</string>
+    <string name="hide_inactive_inputs">إخفاء المداخل غير النشطة</string>
+    <string name="off">إيقاف</string>
+    <string name="on">تشغيل</string>
     <string name="plex_token">رمز Plex</string>
     <string name="not_set">غير مضبوط</string>
     <string name="save">حفظ</string>

@@ -30,6 +30,9 @@
     <string name="tiles_per_row">Riquadri per riga</string>
     <string name="language">Lingua</string>
     <string name="language_system">Come il sistema</string>
+    <string name="hide_inactive_inputs">Nascondi ingressi inattivi</string>
+    <string name="off">No</string>
+    <string name="on">Sì</string>
     <string name="plex_token">Token Plex</string>
     <string name="not_set">Non impostato</string>
     <string name="save">Salva</string>

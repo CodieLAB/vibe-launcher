@@ -30,6 +30,9 @@
     <string name="tiles_per_row">Tegels per rij</string>
     <string name="language">Taal</string>
     <string name="language_system">Zoals het systeem</string>
+    <string name="hide_inactive_inputs">Inactieve ingangen verbergen</string>
+    <string name="off">Uit</string>
+    <string name="on">Aan</string>
     <string name="plex_token">Plex-token</string>
     <string name="not_set">Niet ingesteld</string>
     <string name="save">Opslaan</string>

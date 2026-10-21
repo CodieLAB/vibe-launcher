@@ -97,6 +97,19 @@ final class SettingsDialog {
             showLanguage.run();
             languageButton.requestFocus();
         }));
+        // Hide inactive inputs: Off or On, the choice marked; applied on Save.
+        boolean savedHideInputs = settings.hideInactiveInputs();
+        boolean[] hideInputs = {savedHideInputs};
+        View[] hidePills = {panel.findViewById(R.id.hideInputsOff), panel.findViewById(R.id.hideInputsOn)};
+        for (int i = 0; i < hidePills.length; i++) {
+            boolean value = i == 1;
+            hidePills[i].setSelected(value == savedHideInputs);
+            hidePills[i].setOnClickListener(v -> {
+                hideInputs[0] = value;
+                for (View p : hidePills) p.setSelected(p == v);
+            });
+        }
+        View hideEntry = hidePills[savedHideInputs ? 1 : 0];
         TextView updateStatus = panel.findViewById(R.id.updateStatus);
         View tabGeneral = panel.findViewById(R.id.tabGeneral), tabKeys = panel.findViewById(R.id.tabKeys);
         View pageGeneral = panel.findViewById(R.id.pageGeneral), pageKeys = panel.findViewById(R.id.pageKeys);
@@ -154,7 +167,7 @@ final class SettingsDialog {
             pill.setOnKeyListener((v, keyCode, event) -> {
                 if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
                 if (keyCode == KeyEvent.KEYCODE_DPAD_UP) return tabGeneral.requestFocus();
-                if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) return languageButton.requestFocus();
+                if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) return hideEntry.requestFocus();
                 if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT && v == columnPills[2]) {
                     cameFrom[0] = v;
                     return save.requestFocus();
@@ -162,7 +175,19 @@ final class SettingsDialog {
                 return false;   // Left/Right move between the pills
             });
         }
-        steer(languageButton, columnsEntry, updateButton.getVisibility() == View.VISIBLE ? updateButton : null, save, cameFrom);
+        steer(languageButton, hideEntry, updateButton.getVisibility() == View.VISIBLE ? updateButton : null, save, cameFrom);
+        for (View pill : hidePills) {
+            pill.setOnKeyListener((v, keyCode, event) -> {
+                if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
+                if (keyCode == KeyEvent.KEYCODE_DPAD_UP) return columnsEntry.requestFocus();
+                if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) return languageButton.requestFocus();
+                if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT && v == hidePills[1]) {
+                    cameFrom[0] = v;
+                    return save.requestFocus();
+                }
+                return false;   // Left/Right move between the pills
+            });
+        }
         steer(updateButton, languageButton, null, save, cameFrom);
         showUpdates(activity, updateStatus, updateButton);
         View.OnKeyListener back = (v, keyCode, event) -> event.getAction() == KeyEvent.ACTION_DOWN
@@ -207,6 +232,7 @@ final class SettingsDialog {
             boolean rebuild = chosen[0] != current || !chosenLanguage[0].equals(savedLanguage);
             if (chosen[0] != current) settings.setColumns(chosen[0]);
             if (!chosenLanguage[0].equals(savedLanguage)) settings.setLanguage(chosenLanguage[0]);
+            if (hideInputs[0] != savedHideInputs) settings.setHideInactiveInputs(hideInputs[0]);   // read when Inputs opens
             if (rebuild) activity.recreate();   // rebuild Home with the new grid or language
         });
         dialog.show();

@@ -30,6 +30,9 @@
     <string name="tiles_per_row">వరుసకు టైల్స్</string>
     <string name="language">భాష</string>
     <string name="language_system">సిస్టమ్ లాగానే</string>
+    <string name="hide_inactive_inputs">నిష్క్రియ ఇన్‌పుట్‌లను దాచు</string>
+    <string name="off">ఆఫ్</string>
+    <string name="on">ఆన్</string>
     <string name="plex_token">Plex టోకెన్</string>
     <string name="not_set">సెట్ చేయలేదు</string>
     <string name="save">సేవ్ చేయి</string>

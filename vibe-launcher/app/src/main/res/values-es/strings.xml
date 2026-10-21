@@ -30,6 +30,9 @@
     <string name="tiles_per_row">Mosaicos por fila</string>
     <string name="language">Idioma</string>
     <string name="language_system">Igual que el sistema</string>
+    <string name="hide_inactive_inputs">Ocultar entradas inactivas</string>
+    <string name="off">No</string>
+    <string name="on">Sí</string>
     <string name="plex_token">Token de Plex</string>
     <string name="not_set">Sin configurar</string>
     <string name="save">Guardar</string>

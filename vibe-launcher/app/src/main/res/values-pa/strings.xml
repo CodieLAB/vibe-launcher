@@ -30,6 +30,9 @@
     <string name="tiles_per_row">ਹਰ ਕਤਾਰ ਵਿੱਚ ਟਾਈਲਾਂ</string>
     <string name="language">ਭਾਸ਼ਾ</string>
     <string name="language_system">ਸਿਸਟਮ ਵਾਂਗ</string>
+    <string name="hide_inactive_inputs">ਅਕਿਰਿਆਸ਼ੀਲ ਇਨਪੁੱਟ ਲੁਕਾਓ</string>
+    <string name="off">ਬੰਦ</string>
+    <string name="on">ਚਾਲੂ</string>
     <string name="plex_token">Plex ਟੋਕਨ</string>
     <string name="not_set">ਸੈੱਟ ਨਹੀਂ</string>
     <string name="save">ਸੰਭਾਲੋ</string>

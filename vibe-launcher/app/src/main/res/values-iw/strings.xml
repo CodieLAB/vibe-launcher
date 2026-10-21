@@ -30,6 +30,9 @@
     <string name="tiles_per_row">אריחים בשורה</string>
     <string name="language">שפה</string>
     <string name="language_system">כמו במערכת</string>
+    <string name="hide_inactive_inputs">הסתרת כניסות לא פעילות</string>
+    <string name="off">כבוי</string>
+    <string name="on">פועל</string>
     <string name="plex_token">אסימון Plex</string>
     <string name="not_set">לא הוגדר</string>
     <string name="save">שמירה</string>

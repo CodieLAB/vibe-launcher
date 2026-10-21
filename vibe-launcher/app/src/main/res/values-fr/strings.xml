@@ -30,6 +30,9 @@
     <string name="tiles_per_row">Vignettes par ligne</string>
     <string name="language">Langue</string>
     <string name="language_system">Comme le système</string>
+    <string name="hide_inactive_inputs">Masquer les entrées inactives</string>
+    <string name="off">Non</string>
+    <string name="on">Oui</string>
     <string name="plex_token">Jeton Plex</string>
     <string name="not_set">Non défini</string>
     <string name="save">Enregistrer</string>

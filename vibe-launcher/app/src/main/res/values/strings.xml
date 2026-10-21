@@ -31,6 +31,9 @@
     <string name="tiles_per_row">Tiles per row</string>
     <string name="language">Language</string>
     <string name="language_system">Match system</string>
+    <string name="hide_inactive_inputs">Hide inactive inputs</string>
+    <string name="off">Off</string>
+    <string name="on">On</string>
     <string name="plex_token">Plex token</string>
     <string name="not_set">Not set</string>
     <string name="save">Save</string>

@@ -30,6 +30,9 @@
     <string name="tiles_per_row">प्रत्येक ओळीतील टाइल</string>
     <string name="language">भाषा</string>
     <string name="language_system">सिस्टमप्रमाणे</string>
+    <string name="hide_inactive_inputs">निष्क्रिय इनपुट लपवा</string>
+    <string name="off">बंद</string>
+    <string name="on">चालू</string>
     <string name="plex_token">Plex टोकन</string>
     <string name="not_set">सेट केलेले नाही</string>
     <string name="save">जतन करा</string>

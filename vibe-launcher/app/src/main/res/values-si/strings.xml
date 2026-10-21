@@ -30,6 +30,9 @@
     <string name="tiles_per_row">පේළියකට ටයිල්</string>
     <string name="language">භාෂාව</string>
     <string name="language_system">පද්ධතියට අනුව</string>
+    <string name="hide_inactive_inputs">අක්‍රිය ආදාන සඟවන්න</string>
+    <string name="off">අක්‍රිය</string>
+    <string name="on">සක්‍රිය</string>
     <string name="plex_token">Plex ටෝකනය</string>
     <string name="not_set">සකසා නැත</string>
     <string name="save">සුරකින්න</string>

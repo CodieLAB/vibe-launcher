@@ -30,6 +30,9 @@
     <string name="tiles_per_row">ಸಾಲಿಗೆ ಟೈಲ್‌ಗಳು</string>
     <string name="language">ಭಾಷೆ</string>
     <string name="language_system">ಸಿಸ್ಟಂನಂತೆ</string>
+    <string name="hide_inactive_inputs">ನಿಷ್ಕ್ರಿಯ ಇನ್‌ಪುಟ್‌ಗಳನ್ನು ಮರೆಮಾಡಿ</string>
+    <string name="off">ಆಫ್</string>
+    <string name="on">ಆನ್</string>
     <string name="plex_token">Plex ಟೋಕನ್</string>
     <string name="not_set">ಹೊಂದಿಸಿಲ್ಲ</string>
     <string name="save">ಉಳಿಸು</string>

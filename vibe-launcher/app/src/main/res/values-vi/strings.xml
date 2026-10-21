@@ -30,6 +30,9 @@
     <string name="tiles_per_row">Số ô mỗi hàng</string>
     <string name="language">Ngôn ngữ</string>
     <string name="language_system">Giống hệ thống</string>
+    <string name="hide_inactive_inputs">Ẩn đầu vào không hoạt động</string>
+    <string name="off">Tắt</string>
+    <string name="on">Bật</string>
     <string name="plex_token">Mã Plex</string>
     <string name="not_set">Chưa đặt</string>
     <string name="save">Lưu</string>

@@ -30,6 +30,9 @@
     <string name="tiles_per_row">Rutor per rad</string>
     <string name="language">Språk</string>
     <string name="language_system">Som systemet</string>
+    <string name="hide_inactive_inputs">Dölj inaktiva ingångar</string>
+    <string name="off">Av</string>
+    <string name="on">På</string>
     <string name="plex_token">Plex-token</string>
     <string name="not_set">Inte angiven</string>
     <string name="save">Spara</string>

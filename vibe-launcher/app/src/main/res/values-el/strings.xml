@@ -30,6 +30,9 @@
     <string name="tiles_per_row">Πλακίδια ανά σειρά</string>
     <string name="language">Γλώσσα</string>
     <string name="language_system">Όπως το σύστημα</string>
+    <string name="hide_inactive_inputs">Απόκρυψη ανενεργών εισόδων</string>
+    <string name="off">Όχι</string>
+    <string name="on">Ναι</string>
     <string name="plex_token">Διακριτικό Plex</string>
     <string name="not_set">Δεν έχει οριστεί</string>
     <string name="save">Αποθήκευση</string>

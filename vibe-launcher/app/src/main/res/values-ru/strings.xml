@@ -30,6 +30,9 @@
     <string name="tiles_per_row">Плиток в ряду</string>
     <string name="language">Язык</string>
     <string name="language_system">Как в системе</string>
+    <string name="hide_inactive_inputs">Скрывать неактивные входы</string>
+    <string name="off">Выкл.</string>
+    <string name="on">Вкл.</string>
     <string name="plex_token">Токен Plex</string>
     <string name="not_set">Не задан</string>
     <string name="save">Сохранить</string>
