@@ -33,6 +33,7 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.Layout;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.view.Gravity;
@@ -102,6 +103,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     /** The dock app whose backdrop is showing or loading, or null. */
     private String backdropPkg;
     private TextView btnWifi;
+    /** The network pill's icon as last set (updateWifiLabel). */
+    private int wifiIcon;
+    /** The pills have been filled in once; later resumes refresh them after the first frame. */
+    private boolean pillsShown;
     private SpringAnimation springX, springY;
     private float glassTargetX, glassTargetY;
     /** Scroll the glass target already accounts for, so it heads (mostly) to where the row will settle. */
@@ -381,7 +386,17 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         showUpdateReady();
         Updater.checkIfDue(this, (newer, failed) -> showUpdateReady());   // at most once a day
         sizeTimeBox();   // the 12/24-hour setting may have changed meanwhile
-        updateWifiLabel();
+        // The pills keep their state while Home is away, and the network callback updates the network one, so
+        // this only catches anything missed. Its binder calls (the Wi-Fi name, the TV's inputs) would hold up
+        // the first frame back on Home, so after the first resume they run once that frame is drawn.
+        boolean rebuild = rebuildOnResume;
+        if (pillsShown) {
+            refreshPillsAfterNextDraw(rebuild);
+        } else {
+            updateWifiLabel();
+            updateInputsButton();
+            pillsShown = true;
+        }
         handler.postDelayed(minuteTick, MINUTE_MS);
         refreshPools.run();
         if (homeToTop) {
@@ -392,7 +407,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         }
         if (!rebuildOnResume) return;   // back from a side panel: Home is as it was
         rebuildOnResume = false;
-        updateInputsButton();
         glassShown = false;
         glass.setAlpha(0f);
         heroShown = false;
@@ -855,6 +869,25 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     }
 
     /** Shows the Wi-Fi network name on the button when we can read it, otherwise the connection type. */
+    /** Runs the pill refresh just after the next frame is drawn; the Inputs pill only when Home rebuilds. */
+    private void refreshPillsAfterNextDraw(boolean inputs) {
+        root.getViewTreeObserver().addOnPreDrawListener(new android.view.ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                root.getViewTreeObserver().removeOnPreDrawListener(this);
+                // Posted from inside the frame's traversal, so it runs after that frame. A post straight from
+                // onResume would run first: the frame is only scheduled once onResume returns.
+                handler.post(() -> {
+                    if (isDestroyed()) return;
+                    updateWifiLabel();
+                    if (inputs) updateInputsButton();
+                });
+                return true;
+            }
+        });
+        root.invalidate();   // a resume that changes nothing on screen still draws once, so the refresh runs
+    }
+
     private void updateWifiLabel() {
         String text = getString(R.string.wifi);
         int icon = R.drawable.ic_wifi;
@@ -875,9 +908,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             }
         } catch (Exception ignored) {
         }
-        btnWifi.setText(text);
-        // The style's drawableTint also applies to an icon swapped in here.
-        btnWifi.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, 0, 0, 0);
+        // Only what changed: setting the same text or icon again lays the top bar out again.
+        if (!TextUtils.equals(btnWifi.getText(), text)) btnWifi.setText(text);
+        if (icon != wifiIcon) {
+            wifiIcon = icon;
+            // The style's drawableTint also applies to an icon swapped in here.
+            btnWifi.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, 0, 0, 0);
+        }
     }
 
     /** The Ethernet (preferred) or Wi-Fi connection under a VPN, or null. */
