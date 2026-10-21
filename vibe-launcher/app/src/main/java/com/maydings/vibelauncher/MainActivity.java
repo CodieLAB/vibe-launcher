@@ -508,9 +508,19 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                     : (bottom > parentBottom ? Math.min(bottom - parentBottom, top - parentTop) : 0);
         }
         // The grid can't scroll past its ends (the bottom row), so only plan what is actually left.
-        if (dy > 0) dy = Math.min(dy, grid.computeVerticalScrollRange()
-                - grid.computeVerticalScrollExtent() - grid.computeVerticalScrollOffset());
-        else if (dy < 0) dy = Math.max(dy, -grid.computeVerticalScrollOffset());
+        // Measured from the first or last tile when it's laid out: RecyclerView's scroll range is only an
+        // estimate for a grid, and with a short last row it came out too small, stopping the scroll with
+        // the bottom row cut off.
+        RecyclerView.LayoutManager lm = grid.getLayoutManager();
+        if (dy > 0 && lm != null) {
+            View last = lm.findViewByPosition(adapter.getItemCount() - 1);
+            if (last != null) {
+                dy = Math.min(dy, Math.max(0, lm.getDecoratedBottom(last) + grid.getPaddingBottom() - grid.getHeight()));
+            }
+        } else if (dy < 0 && lm != null) {
+            View first = lm.findViewByPosition(0);
+            if (first != null) dy = Math.max(dy, Math.min(0, lm.getDecoratedTop(first) - grid.getPaddingTop()));
+        }
         if (Math.abs(dy) <= 1) dy = 0;
         plannedScroll = Math.round(dy * (1f - GLASS_LEAD));
         y -= plannedScroll;
