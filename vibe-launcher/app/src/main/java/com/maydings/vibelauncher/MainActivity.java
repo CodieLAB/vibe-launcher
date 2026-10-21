@@ -726,10 +726,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     // ---- top bar ---------------------------------------------------------------------------------
 
     /**
-     * Other languages put the weekday, day, month and year in their own order ("2026年10月20日 星期二");
-     * English keeps the launcher's own "TUESDAY  20 OCTOBER 2026".
-     */
-    /**
      * TVs without a clock battery start in 1970 until network time arrives, and Home showed that date. The
      * clock and date stay hidden (keeping their space) until the time is plausible, checked once a second.
      */
@@ -742,6 +738,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         handler.postDelayed(() -> showClockOnceTimeIsSet(clockRow), 1000);
     }
 
+    /**
+     * Other languages put the weekday, day, month and year in their own order ("2026年10月20日 星期二");
+     * English keeps the launcher's own "TUESDAY  20 OCTOBER 2026".
+     */
     static void localDate(TextClock date, String skeleton) {
         Locale locale = Locale.getDefault();
         if (locale.getLanguage().equals("en")) return;
@@ -868,7 +868,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         askHomeOnce();
     }
 
-    /** Shows the Wi-Fi network name on the button when we can read it, otherwise the connection type. */
     /** Runs the pill refresh just after the next frame is drawn; the Inputs pill only when Home rebuilds. */
     private void refreshPillsAfterNextDraw(boolean inputs) {
         root.getViewTreeObserver().addOnPreDrawListener(new android.view.ViewTreeObserver.OnPreDrawListener() {
@@ -888,6 +887,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         root.invalidate();   // a resume that changes nothing on screen still draws once, so the refresh runs
     }
 
+    /** Shows the Wi-Fi network name on the button when we can read it, otherwise the connection type. */
     private void updateWifiLabel() {
         String text = getString(R.string.wifi);
         int icon = R.drawable.ic_wifi;
@@ -1012,29 +1012,29 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         View cpu = cpuLive ? addMeterRow(rows, getString(R.string.cpu)) : null;
         View ram = addMeterRow(rows, getString(R.string.ram));
         addSeparator(rows);
-        // The daily check's answer at once, then ask GitHub again: a release out since then replaces it in
-        // this row, or adds the row. Settings → General, opened from here, shows the same answer.
+        // The last check's answer at once, then ask GitHub again: a release out since then replaces it in
+        // this row, or shows the row. Settings → General, opened from here, shows the same answer. The row is
+        // always there (hidden without an update) so showMenu gives it the menu bar's Left and Right.
         Updater.Release[] update = {Updater.available(this)};
-        Runnable startUpdate = () -> SettingsDialog.startUpdate(this, update[0]);
-        View updateRow = update[0] == null ? null : addInputRow(rows, popup, R.drawable.ic_update,
-                getString(R.string.update_to, update[0].version), -1, startUpdate);
-        View settingsRow = addInputRow(rows, popup, R.drawable.ic_all_apps, getString(R.string.vibe_settings), -1,
+        View updateRow = addInputRow(rows, popup, R.drawable.ic_update, "", -1,
+                () -> SettingsDialog.startUpdate(this, update[0]));
+        Runnable showUpdate = () -> {
+            updateRow.setVisibility(update[0] != null ? View.VISIBLE : View.GONE);
+            if (update[0] != null) {
+                ((TextView) updateRow.findViewById(R.id.title)).setText(getString(R.string.update_to, update[0].version));
+            }
+        };
+        showUpdate.run();
+        addInputRow(rows, popup, R.drawable.ic_all_apps, getString(R.string.vibe_settings), -1,
                 () -> SettingsDialog.show(this, root));
-        if (!Updater.isDevelopmentBuild(this)) {
-            Updater.check(this, (newer, failed) -> {
-                showUpdateReady();
-                if (newer == null || !popup.isShowing()) return;
-                update[0] = newer;
-                if (updateRow != null) {
-                    ((TextView) updateRow.findViewById(R.id.title)).setText(getString(R.string.update_to, newer.version));
-                } else {
-                    View row = addInputRow(rows, popup, R.drawable.ic_update, getString(R.string.update_to, newer.version), -1,
-                            startUpdate);
-                    rows.removeView(row);
-                    rows.addView(row, rows.indexOfChild(settingsRow));
-                }
-            });
-        }
+        // At most every few minutes: GitHub allows 60 unsigned API calls an hour per address, shared by every
+        // TV in the house, and this menu is opened often (it shows the memory meter).
+        Updater.checkIfOlderThan(this, 5 * 60 * 1000L, (newer, failed) -> {
+            showUpdateReady();
+            if (newer == null || !popup.isShowing()) return;
+            update[0] = newer;
+            showUpdate.run();
+        });
         addInputRow(rows, popup, R.drawable.ic_settings, getString(R.string.android_settings), -1,
                 () -> open(new Intent(Settings.ACTION_SETTINGS)));
         if (!DefaultHome.isHome(this)) {
@@ -1270,8 +1270,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         panel.animate().alpha(1f).scaleY(1f).translationY(0f).setDuration(220)
                 .setInterpolator(new android.view.animation.DecelerateInterpolator(1.6f)).start();
         for (int i = 0; i < rows.getChildCount(); i++) {
-            if (rows.getChildAt(i).isFocusable()) {
-                rows.getChildAt(i).requestFocus();
+            View row = rows.getChildAt(i);
+            if (row.isFocusable() && row.getVisibility() == View.VISIBLE) {
+                row.requestFocus();
                 break;
             }
         }

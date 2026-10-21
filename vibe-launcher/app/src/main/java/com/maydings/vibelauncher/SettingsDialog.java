@@ -428,8 +428,8 @@ final class SettingsDialog {
 
     /**
      * The release notes as shown before installing: "## 1.4.3" lines as version headings, **bold** in white
-     * Outfit Medium (Outfit has no bold), "- " items as bullets, and the download link and checksum (for
-     * people downloading by hand) left out.
+     * Outfit Medium (Outfit has no bold), "- " items as bullets, links as their text, and the download link
+     * and checksum (for people downloading by hand) left out.
      */
     private static CharSequence changes(Context context, String markdown) {
         android.text.SpannableStringBuilder out = new android.text.SpannableStringBuilder();
@@ -437,6 +437,8 @@ final class SettingsDialog {
         for (String line : markdown.replace("\r", "").split("\n")) {
             String l = line.trim();
             if (l.startsWith("Latest APK") || l.startsWith("SHA-256")) continue;
+            // A link shows as its text (a TV can't follow it), inline code without its backticks.
+            l = l.replaceAll("\\[([^\\]]+)\\]\\([^)]*\\)", "$1").replaceAll("`([^`]*)`", "$1");
             if (l.startsWith("- ") || l.startsWith("* ")) l = "• " + l.substring(2);
             if (l.isEmpty() && (out.length() == 0 || endsWithBlankLine(out))) continue;
             if (l.startsWith("#")) {

@@ -126,8 +126,13 @@ final class Updater {
 
     /** Checks in the background if the last check is a day old; then tells the listener, on the main thread. */
     static void checkIfDue(Context context, CheckListener listener) {
+        checkIfOlderThan(context, DAY_MS, listener);
+    }
+
+    /** Checks in the background if the last check is older than this; the listener only hears of a check made. */
+    static void checkIfOlderThan(Context context, long ms, CheckListener listener) {
         if (isDevelopmentBuild(context)) return;
-        if (System.currentTimeMillis() - prefs(context).getLong("checked", 0) < DAY_MS) return;
+        if (System.currentTimeMillis() - prefs(context).getLong("checked", 0) < ms) return;
         check(context, listener);
     }
 
@@ -242,6 +247,8 @@ final class Updater {
                 }
             } catch (IOException | RuntimeException e) {
                 problem = R.string.update_failed;
+            } finally {
+                apk.delete();   // the installer has its own copy by now
             }
             if (problem != 0) {
                 int p = problem;

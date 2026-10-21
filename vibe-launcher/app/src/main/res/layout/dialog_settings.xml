@@ -51,7 +51,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Label and choices on one line, so the dialog still fits a 1080p screen. -->
+                <!-- Label and choices on one line, so the dialog still fits a 1080p screen. Each label has a
+                     maxWidth: a long translation wraps onto two lines instead of pushing its choices off the
+                     column's edge (about 332dp wide). -->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -63,6 +65,7 @@
                         style="@style/SettingsLabel"
                         android:layout_marginTop="0dp"
                         android:layout_marginEnd="6dp"
+                        android:maxWidth="130dp"
                         android:text="@string/tiles_per_row" />
 
                     <TextView
@@ -99,6 +102,7 @@
                         style="@style/SettingsLabel"
                         android:layout_marginTop="0dp"
                         android:layout_marginEnd="6dp"
+                        android:maxWidth="150dp"
                         android:text="@string/hide_inactive_inputs" />
 
                     <TextView
@@ -125,6 +129,7 @@
                         style="@style/SettingsLabel"
                         android:layout_marginTop="0dp"
                         android:layout_marginEnd="6dp"
+                        android:maxWidth="150dp"
                         android:text="@string/language" />
 
                     <!-- The language in use; opens the list (SettingsDialog), applied on Save. -->
