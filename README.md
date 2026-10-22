@@ -123,7 +123,7 @@ SHA-256 before Android asks you to confirm, and Home comes back by itself afterw
 
 ## Managing apps
 
-Long-press OK on any tile to **move** it (into or out of the dock), **hide** it, **uninstall** it or
+Long-press OK (or press the remote's Menu key, if it has one) on any tile to **move** it (into or out of the dock), **hide** it, **uninstall** it or
 open **App info**. Hidden apps come back from the same menu.
 
 ## Install

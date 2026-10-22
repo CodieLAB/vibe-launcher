@@ -553,6 +553,12 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
                     swallowOkUp = false;
                     return true;
                 }
+                // The remote's Menu key, when the TV passes it to Home (a TV that opens its own menu with it
+                // never does): the same menu as holding OK.
+                if (keyCode == KeyEvent.KEYCODE_MENU && !adapter.isMoving()) {
+                    if (event.getAction() == KeyEvent.ACTION_UP && !event.isCanceled()) view.performLongClick();
+                    return true;
+                }
                 if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
                 // Held OK: remotes send repeats flagged as a long press. Open the menu from that too
                 // (cancelling the touch-style timer so it can't fire a second time).

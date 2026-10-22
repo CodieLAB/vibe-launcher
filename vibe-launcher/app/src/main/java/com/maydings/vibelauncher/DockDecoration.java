@@ -40,6 +40,7 @@ public class DockDecoration extends RecyclerView.ItemDecoration {
     @Override
     public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         boolean any = false;
+        int tileW = 0;
         for (int i = 0; i < parent.getChildCount(); i++) {
             View child = parent.getChildAt(i);
             int pos = parent.getChildAdapterPosition(child);
@@ -52,6 +53,7 @@ public class DockDecoration extends RecyclerView.ItemDecoration {
             float t = child.getTop() + card.getTop() + child.getTranslationY();
             float r = l + card.getWidth();
             float b = t + card.getHeight();
+            tileW = card.getWidth();
             if (!any) {
                 rect.set(l, t, r, b);
                 any = true;
@@ -62,7 +64,8 @@ public class DockDecoration extends RecyclerView.ItemDecoration {
         if (!any) return;
         float pad = 14 * density;
         rect.inset(-pad, -pad);
-        float radius = 26 * density;
+        // Concentric with the tiles' corners: their radius plus the band's padding, for any tiles per row.
+        float radius = AppAdapter.cornerRadius(tileW, density) + pad;
         c.drawRoundRect(rect, radius, radius, band);
         c.drawRoundRect(rect, radius, radius, edge);
     }

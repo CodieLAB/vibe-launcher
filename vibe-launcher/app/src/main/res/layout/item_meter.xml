@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:textColor="#B3FFFFFF"
         android:textSize="12sp"
-        android:fontFamily="@font/outfit"
+        android:fontFamily="@string/font_regular"
         android:letterSpacing="0.06" />
 
     <ProgressBar
@@ -35,5 +35,5 @@
         android:gravity="end"
         android:textColor="#B3FFFFFF"
         android:textSize="12sp"
-        android:fontFamily="@font/outfit" />
+        android:fontFamily="@string/font_regular" />
 </LinearLayout>

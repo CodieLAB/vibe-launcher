@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:textColor="#FFFFFFFF"
         android:textSize="22sp"
-        android:fontFamily="@font/outfit" />
+        android:fontFamily="@string/font_regular" />
 
     <!-- Capped in height (SettingsDialog); long notes scroll. -->
     <ScrollView
@@ -29,7 +29,7 @@
             android:textColor="#BFFFFFFF"
             android:textSize="15sp"
             android:lineSpacingMultiplier="1.15"
-            android:fontFamily="@font/outfit" />
+            android:fontFamily="@string/font_regular" />
     </ScrollView>
 
     <LinearLayout

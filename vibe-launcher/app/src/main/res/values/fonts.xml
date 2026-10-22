@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The fonts the layouts use, by name: Outfit, except where a language needs letters it lacks
+     (values-vi). -->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ReferenceType,MissingTranslation">
+    <string name="font_regular">@font/outfit</string>
+    <string name="font_medium">@font/outfit_medium</string>
+</resources>

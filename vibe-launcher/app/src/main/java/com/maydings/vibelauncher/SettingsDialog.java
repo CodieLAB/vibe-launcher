@@ -412,7 +412,7 @@ final class SettingsDialog {
         text.setTextColor(0xE6FFFFFF);
         text.setTextSize(15);
         text.setLineSpacing(0, 1.15f);
-        text.setTypeface(activity.getResources().getFont(R.font.outfit));
+        text.setTypeface(UiFont.get(activity, R.string.font_regular));
         int pad = (int) (18 * density);
         text.setPadding(pad, pad, pad, pad);
         text.setFocusable(true);
@@ -536,7 +536,7 @@ final class SettingsDialog {
      */
     private static CharSequence changes(Context context, String markdown) {
         android.text.SpannableStringBuilder out = new android.text.SpannableStringBuilder();
-        android.graphics.Typeface medium = context.getResources().getFont(R.font.outfit_medium);
+        android.graphics.Typeface medium = UiFont.get(context, R.string.font_medium);
         for (String line : markdown.replace("\r", "").split("\n")) {
             String l = line.trim();
             if (l.startsWith("Latest APK") || l.startsWith("SHA-256")) continue;

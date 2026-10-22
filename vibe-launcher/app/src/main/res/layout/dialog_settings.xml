@@ -278,7 +278,7 @@
                     android:text="@string/tmdb_notice"
                     android:textColor="#66FFFFFF"
                     android:textSize="11sp"
-                    android:fontFamily="@font/outfit" />
+                    android:fontFamily="@string/font_regular" />
             </LinearLayout>
         </FrameLayout>
 
@@ -330,7 +330,7 @@
                     android:layout_marginTop="6dp"
                     android:textColor="#B3FFFFFF"
                     android:textSize="15sp"
-                    android:fontFamily="@font/outfit" />
+                    android:fontFamily="@string/font_regular" />
 
                 <TextView
                     android:id="@+id/updateButton"
@@ -368,7 +368,7 @@
                     android:text="@string/scan_to_paste"
                     android:textColor="#B3FFFFFF"
                     android:textSize="13sp"
-                    android:fontFamily="@font/outfit" />
+                    android:fontFamily="@string/font_regular" />
 
                 <TextView
                     android:id="@+id/phoneUrl"
@@ -378,7 +378,7 @@
                     android:gravity="center"
                     android:textColor="#80FFFFFF"
                     android:textSize="11sp"
-                    android:fontFamily="@font/outfit" />
+                    android:fontFamily="@string/font_regular" />
             </LinearLayout>
 
             <!-- The project's home, bottom right of General (SettingsDialog). Plain text: TVs rarely have a
@@ -396,7 +396,7 @@
                 android:text="@string/project_link"
                 android:textColor="#80FFFFFF"
                 android:textSize="12sp"
-                android:fontFamily="@font/outfit" />
+                android:fontFamily="@string/font_regular" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

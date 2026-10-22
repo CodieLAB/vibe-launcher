@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Outfit has no glyphs for 96 of the 134 Vietnamese accented letters, so a word was drawn in two fonts:
+     the TV's own font instead, which has them all. -->
+<resources>
+    <string name="font_regular">sans-serif</string>
+    <string name="font_medium">sans-serif-medium</string>
+</resources>
