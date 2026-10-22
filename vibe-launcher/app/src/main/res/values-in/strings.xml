@@ -71,4 +71,8 @@
     <string name="smarttube_downloading">Mengunduh SmartTube…</string>
     <string name="smarttube_allow_installs">Izinkan Vibe Launcher menginstal aplikasi, lalu pilih Instal SmartTube lagi</string>
     <string name="smarttube_failed">SmartTube tidak terinstal</string>
+    <string name="play">Putar</string>
+    <string name="backdrops">Latar</string>
+    <string name="reload_backdrops">Muat ulang latar</string>
+    <string name="backdrops_reloading">Mengunduh latar baru…</string>
 </resources>

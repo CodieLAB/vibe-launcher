@@ -93,6 +93,7 @@
     <!-- The wrapper clips at its edge; the grid itself must not clip so scaled tiles can overflow their
          cells. The grid runs the full height so tiles scroll up under the top bar, which frosts them. -->
     <FrameLayout
+        android:id="@+id/rows"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="50dp"
@@ -113,6 +114,7 @@
 
     <!-- Top bar over the grid, on a frosted copy of whatever has scrolled beneath it. -->
     <FrameLayout
+        android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -258,6 +260,81 @@
             </LinearLayout>
         </RelativeLayout>
     </FrameLayout>
+
+    <!-- Where the remote goes: up from the dock to the picture alone (right above the dock, placed in
+         code), and with the picture alone all four ways (see MainActivity.updateCarets). -->
+    <ImageView
+        android:id="@+id/caretDock"
+        android:layout_width="36dp"
+        android:layout_height="18dp"
+        android:layout_gravity="top|center_horizontal"
+        android:src="@drawable/ic_caret"
+        android:alpha="0"
+        android:importantForAccessibility="no" />
+
+    <!-- Down from the top bar, to the picture alone: just under the bar while it has focus (placed in code). -->
+    <ImageView
+        android:id="@+id/caretBar"
+        android:layout_width="36dp"
+        android:layout_height="18dp"
+        android:layout_gravity="top|center_horizontal"
+        android:rotation="180"
+        android:src="@drawable/ic_caret"
+        android:alpha="0"
+        android:importantForAccessibility="no" />
+
+    <ImageView
+        android:id="@+id/caretUp"
+        android:layout_width="36dp"
+        android:layout_height="18dp"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="14dp"
+        android:src="@drawable/ic_caret"
+        android:alpha="0"
+        android:importantForAccessibility="no" />
+
+    <ImageView
+        android:id="@+id/caretDown"
+        android:layout_width="36dp"
+        android:layout_height="18dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="14dp"
+        android:rotation="180"
+        android:src="@drawable/ic_caret"
+        android:alpha="0"
+        android:importantForAccessibility="no" />
+
+    <ImageView
+        android:id="@+id/caretLeft"
+        android:layout_width="36dp"
+        android:layout_height="18dp"
+        android:layout_gravity="start|center_vertical"
+        android:layout_marginStart="6dp"
+        android:rotation="-90"
+        android:src="@drawable/ic_caret"
+        android:alpha="0"
+        android:importantForAccessibility="no" />
+
+    <ImageView
+        android:id="@+id/caretRight"
+        android:layout_width="36dp"
+        android:layout_height="18dp"
+        android:layout_gravity="end|center_vertical"
+        android:layout_marginEnd="6dp"
+        android:rotation="90"
+        android:src="@drawable/ic_caret"
+        android:alpha="0"
+        android:importantForAccessibility="no" />
+
+    <!-- With the picture alone: the play button, a tile in the selected app's place and size under the
+         glass (placed and sized in code). Holding OK fills it, then opens the picture's title. -->
+    <com.maydings.vibelauncher.PlayTileView
+        android:id="@+id/holdPlay"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:layout_gravity="top|start"
+        android:alpha="0"
+        android:contentDescription="@string/play" />
 
     <!-- The single floating glass highlight that springs between tiles. -->
     <com.maydings.vibelauncher.GlassView

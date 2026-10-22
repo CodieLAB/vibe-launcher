@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A chevron pointing up, white on a soft dark edge so it reads on bright pictures too. Turned in code
+     for the other directions. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="36dp" android:height="18dp"
+    android:viewportWidth="36" android:viewportHeight="18">
+    <path android:strokeColor="#59000000" android:strokeWidth="5"
+        android:strokeLineCap="round" android:strokeLineJoin="round"
+        android:pathData="M5,14 L18,5 L31,14" />
+    <path android:strokeColor="#FFFFFFFF" android:strokeWidth="2.6"
+        android:strokeLineCap="round" android:strokeLineJoin="round"
+        android:pathData="M5,14 L18,5 L31,14" />
+</vector>

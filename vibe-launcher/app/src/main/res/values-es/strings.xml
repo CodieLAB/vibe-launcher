@@ -71,4 +71,8 @@
     <string name="smarttube_downloading">Descargando SmartTube…</string>
     <string name="smarttube_allow_installs">Permite que Vibe Launcher instale aplicaciones y vuelve a elegir Instalar SmartTube</string>
     <string name="smarttube_failed">SmartTube no se instaló</string>
+    <string name="play">Reproducir</string>
+    <string name="backdrops">Fondos</string>
+    <string name="reload_backdrops">Volver a cargar fondos</string>
+    <string name="backdrops_reloading">Descargando fondos nuevos…</string>
 </resources>

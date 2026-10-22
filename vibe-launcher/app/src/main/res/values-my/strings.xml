@@ -71,4 +71,8 @@
     <string name="smarttube_downloading">SmartTube ဒေါင်းလုဒ်လုပ်နေသည်…</string>
     <string name="smarttube_allow_installs">Vibe Launcher ကို အက်ပ်များ ထည့်သွင်းခွင့်ပြုပြီး SmartTube ထည့်သွင်းရန် ကို ထပ်ရွေးပါ</string>
     <string name="smarttube_failed">SmartTube မထည့်သွင်းနိုင်ပါ</string>
+    <string name="play">ဖွင့်ရန်</string>
+    <string name="backdrops">နောက်ခံပုံများ</string>
+    <string name="reload_backdrops">နောက်ခံပုံများကို ပြန်ဖွင့်ရန်</string>
+    <string name="backdrops_reloading">နောက်ခံပုံအသစ်များ ဒေါင်းလုဒ်လုပ်နေသည်…</string>
 </resources>

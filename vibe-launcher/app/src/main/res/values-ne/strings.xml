@@ -71,4 +71,8 @@
     <string name="smarttube_downloading">SmartTube डाउनलोड हुँदैछ…</string>
     <string name="smarttube_allow_installs">Vibe Launcher लाई एप इन्स्टल गर्न दिनुहोस्, अनि फेरि SmartTube इन्स्टल गर्नुहोस् रोज्नुहोस्</string>
     <string name="smarttube_failed">SmartTube इन्स्टल भएन</string>
+    <string name="play">प्ले गर्नुहोस्</string>
+    <string name="backdrops">पृष्ठभूमिहरू</string>
+    <string name="reload_backdrops">पृष्ठभूमिहरू फेरि लोड गर्नुहोस्</string>
+    <string name="backdrops_reloading">नयाँ पृष्ठभूमिहरू डाउनलोड हुँदैछन्…</string>
 </resources>

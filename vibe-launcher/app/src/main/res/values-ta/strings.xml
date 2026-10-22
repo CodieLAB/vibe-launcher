@@ -71,4 +71,8 @@
     <string name="smarttube_downloading">SmartTube பதிவிறக்கப்படுகிறது…</string>
     <string name="smarttube_allow_installs">Vibe Launcher ஆப்ஸை நிறுவ அனுமதித்து, மீண்டும் SmartTube ஐ நிறுவு என்பதைத் தேர்வுசெய்யவும்</string>
     <string name="smarttube_failed">SmartTube நிறுவப்படவில்லை</string>
+    <string name="play">இயக்கு</string>
+    <string name="backdrops">பின்னணிகள்</string>
+    <string name="reload_backdrops">பின்னணிகளை மீண்டும் ஏற்று</string>
+    <string name="backdrops_reloading">புதிய பின்னணிகள் பதிவிறக்கப்படுகின்றன…</string>
 </resources>

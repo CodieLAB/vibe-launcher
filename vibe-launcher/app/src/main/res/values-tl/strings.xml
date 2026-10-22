@@ -71,4 +71,8 @@
     <string name="smarttube_downloading">Dina-download ang SmartTube…</string>
     <string name="smarttube_allow_installs">Payagan ang Vibe Launcher na mag-install ng mga app, pagkatapos ay piliin muli ang I-install ang SmartTube</string>
     <string name="smarttube_failed">Hindi na-install ang SmartTube</string>
+    <string name="play">I-play</string>
+    <string name="backdrops">Mga backdrop</string>
+    <string name="reload_backdrops">I-reload ang mga backdrop</string>
+    <string name="backdrops_reloading">Nagda-download ng mga bagong backdrop…</string>
 </resources>

@@ -71,4 +71,8 @@
     <string name="smarttube_downloading">Téléchargement de SmartTube…</string>
     <string name="smarttube_allow_installs">Autorisez Vibe Launcher à installer des applications, puis choisissez à nouveau Installer SmartTube</string>
     <string name="smarttube_failed">SmartTube ne s\'est pas installé</string>
+    <string name="play">Lire</string>
+    <string name="backdrops">Arrière-plans</string>
+    <string name="reload_backdrops">Recharger les arrière-plans</string>
+    <string name="backdrops_reloading">Téléchargement de nouveaux arrière-plans…</string>
 </resources>

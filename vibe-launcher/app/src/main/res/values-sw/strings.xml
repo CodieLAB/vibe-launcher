@@ -71,4 +71,8 @@
     <string name="smarttube_downloading">Inapakua SmartTube…</string>
     <string name="smarttube_allow_installs">Ruhusu Vibe Launcher isakinishe programu, kisha uchague Sakinisha SmartTube tena</string>
     <string name="smarttube_failed">SmartTube haikusakinishwa</string>
+    <string name="play">Cheza</string>
+    <string name="backdrops">Mandhari</string>
+    <string name="reload_backdrops">Pakia upya mandhari</string>
+    <string name="backdrops_reloading">Inapakua mandhari mapya…</string>
 </resources>

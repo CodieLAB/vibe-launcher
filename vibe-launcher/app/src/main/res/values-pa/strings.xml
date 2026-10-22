@@ -71,4 +71,8 @@
     <string name="smarttube_downloading">SmartTube ਡਾਊਨਲੋਡ ਹੋ ਰਿਹਾ ਹੈ…</string>
     <string name="smarttube_allow_installs">Vibe Launcher ਨੂੰ ਐਪਾਂ ਇੰਸਟਾਲ ਕਰਨ ਦਿਓ, ਫਿਰ ਦੁਬਾਰਾ SmartTube ਇੰਸਟਾਲ ਕਰੋ ਚੁਣੋ</string>
     <string name="smarttube_failed">SmartTube ਇੰਸਟਾਲ ਨਹੀਂ ਹੋਇਆ</string>
+    <string name="play">ਚਲਾਓ</string>
+    <string name="backdrops">ਪਿਛੋਕੜ</string>
+    <string name="reload_backdrops">ਪਿਛੋਕੜ ਮੁੜ ਲੋਡ ਕਰੋ</string>
+    <string name="backdrops_reloading">ਨਵੇਂ ਪਿਛੋਕੜ ਡਾਊਨਲੋਡ ਹੋ ਰਹੇ ਹਨ…</string>
 </resources>

@@ -59,12 +59,9 @@ final class SettingsDialog {
         Window window = dialog.getWindow();
         if (window != null) {
             window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            // Near the top, so the on-screen keyboard (bottom half on TVs) doesn't cover the fields,
-            // and the keyboard only comes up once a field is picked.
-            window.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
-            WindowManager.LayoutParams lp = window.getAttributes();
-            lp.y = (int) (24 * density);
-            window.setAttributes(lp);
+            // Centred, one size for both tabs (see pages below). The keyboard only comes up once a field
+            // is picked.
+            window.setGravity(Gravity.CENTER);
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
             // The dialog theme caps the width; the fields and the QR code sit side by side.
             window.setLayout((int) (620 * density), ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -122,8 +119,6 @@ final class SettingsDialog {
         boolean[] phoneReady = {false};
         // A tab shows its page as soon as it has focus, like the tabs in the TV's own apps.
         Runnable showGeneral = () -> {
-            // Each tab is as tall as it needs: the dialog is pinned to the top of the screen, so the title,
-            // tabs, Save and Cancel stay put and only the bottom edge moves.
             pageGeneral.setVisibility(View.VISIBLE);
             pageKeys.setVisibility(View.GONE);
             phone.setVisibility(View.GONE);
@@ -139,6 +134,15 @@ final class SettingsDialog {
             tabGeneral.setSelected(false);
             tabKeys.setSelected(true);
         };
+        // One height for both tabs: the frame as tall as the taller page, once it has its width.
+        View pages = panel.findViewById(R.id.pages);
+        pages.post(() -> {
+            int width = View.MeasureSpec.makeMeasureSpec(pages.getWidth(), View.MeasureSpec.EXACTLY);
+            int any = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+            pageGeneral.measure(width, any);
+            pageKeys.measure(width, any);
+            pages.setMinimumHeight(Math.max(pageGeneral.getMeasuredHeight(), pageKeys.getMeasuredHeight()));
+        });
         tabGeneral.setOnFocusChangeListener((v, focused) -> { if (focused) showGeneral.run(); });
         tabKeys.setOnFocusChangeListener((v, focused) -> { if (focused) showKeys.run(); });
         tabGeneral.setOnClickListener(v -> columnsEntry.requestFocus());
@@ -181,7 +185,15 @@ final class SettingsDialog {
                 return false;   // Left/Right move between the pills
             });
         }
-        steer(languageButton, hideEntry, updateButton.getVisibility() == View.VISIBLE ? updateButton : null, save, cameFrom);
+        // Reload backdrops: at once, like checking for updates; Home shows each app's first new one as it comes.
+        View reloadBackdrops = panel.findViewById(R.id.reloadBackdrops);
+        reloadBackdrops.setOnClickListener(v -> {
+            if (activity instanceof MainActivity) ((MainActivity) activity).reloadBackdrops();
+            Toast.makeText(activity, R.string.backdrops_reloading, Toast.LENGTH_SHORT).show();
+        });
+        steer(languageButton, hideEntry, reloadBackdrops, save, cameFrom);
+        steer(reloadBackdrops, languageButton, updateButton.getVisibility() == View.VISIBLE ? updateButton : null,
+                save, cameFrom);
         for (View pill : hidePills) {
             pill.setOnKeyListener((v, keyCode, event) -> {
                 if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
@@ -194,7 +206,7 @@ final class SettingsDialog {
                 return false;   // Left/Right move between the pills
             });
         }
-        steer(updateButton, languageButton, null, save, cameFrom);
+        steer(updateButton, reloadBackdrops, null, save, cameFrom);
         showUpdates(activity, updateStatus, updateButton);
         View.OnKeyListener back = (v, keyCode, event) -> event.getAction() == KeyEvent.ACTION_DOWN
                 && keyCode == KeyEvent.KEYCODE_DPAD_LEFT && cameFrom[0].requestFocus();

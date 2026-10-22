@@ -1,10 +1,14 @@
 package com.maydings.vibelauncher;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -41,7 +45,9 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.SoundEffectConstants;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.FrameLayout;
@@ -61,6 +67,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.net.Inet4Address;
+import java.net.URISyntaxException;
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -79,6 +86,15 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     /** Tiles per row and dock slots: Vibe Launcher settings (4, 5 or 6), else config.xml. Set in onCreate. */
     static int COLUMNS = 4;
+    /** How long the rows take to slide out of sight; the top bar moves at the same speed. */
+    private static final long PICTURE_SLIDE_MS = 450;
+    private static final long CARET_FADE_MS = 150;   // the carets go before the menus move
+    /**
+     * Up on the dock waits this long before the picture shows alone: another Up meanwhile (scrolling up
+     * quickly) goes straight on to the top bar, and any other key stays, with no slide started and undone.
+     */
+    private static final long PICTURE_DELAY_MS = 400;
+    private static final long HOLD_FINISH_MS = 250;   // an empty Play pill to full, once the long press comes
     private static final long MINUTE_MS = 60_000L;
     /** 2025-01-01: a clock before this hasn't been set yet. */
     private static final long TIME_SET_AFTER = 1_735_689_600_000L;
@@ -86,6 +102,33 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     private AppAdapter adapter;
     private RecyclerView grid;
+    /** The app rows' frame and the top bar: slid away to leave the focused app's picture alone. */
+    private View rows, topBar;
+    private boolean pictureOnly;
+    /** While the menus move to or from the picture alone: no carets (see transition). */
+    private boolean caretsHeld;
+    private Runnable moveMenus = () -> { };
+    private final Runnable caretsBack = this::menusMoved;
+    private final Runnable nameBack = this::showName;
+    /**
+     * Up pressed on the dock, or Down on the top bar: the picture shows alone after PICTURE_DELAY_MS,
+     * unless pictureSoonKey comes again meanwhile (scrolling on) or another key does.
+     */
+    private boolean pictureSoon;
+    private int pictureSoonKey;
+    private int focusAfterSlide = -1;   // from the top bar: the dock tile to focus once the rows are gone
+    private final Runnable showPictureSoon = () -> {
+        pictureSoon = false;
+        showPictureOnly(SoundEffectConstants.NAVIGATION_UP);
+    };
+    private final Runnable showPictureFromBar = this::showPictureFromBar;
+    private float dockPanelTop;   // the dock's panel top on screen: how far the rows slide to leave it
+    private View caretDock, caretBar, caretUp, caretDown, caretLeft, caretRight;
+    /** Hold OK with the picture alone: the Play pill fills, and a long press opens backdropLink. */
+    private PlayTileView holdPlay;
+    private ValueAnimator holdFill;
+    private boolean holdOpened;   // this press already opened the title: its release changes nothing
+    private String backdropLink;   // what opens the picture on screen's title; null for none
     private FrameLayout root;
     private GlassView glass;
     private View ambient;
@@ -277,6 +320,16 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         date.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> centreTwoLineDate(clock, date));
 
         grid = findViewById(R.id.grid);
+        rows = findViewById(R.id.rows);
+        topBar = findViewById(R.id.topBar);
+        caretDock = findViewById(R.id.caretDock);
+        caretBar = findViewById(R.id.caretBar);
+        caretUp = findViewById(R.id.caretUp);
+        caretDown = findViewById(R.id.caretDown);
+        caretLeft = findViewById(R.id.caretLeft);
+        caretRight = findViewById(R.id.caretRight);
+        holdPlay = findViewById(R.id.holdPlay);
+        setHoldFill(0f);
         grid.setLayoutManager(new GridLayoutManager(this, COLUMNS));
         grid.setHasFixedSize(true);
         grid.setItemAnimator(new TileAnimator());
@@ -363,8 +416,16 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
             if (keyCode == KeyEvent.KEYCODE_DPAD_UP) return true;
             if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
-                // Back to the dock tile Up came from, not whichever tile the focus finder picks.
-                focusTile(lastFocused % COLUMNS);
+                if (pictureSoon) {   // Down again straight away: scrolling down, to the dock
+                    cancelPictureSoon();
+                    // Back to the dock tile Up came from, not whichever tile the focus finder picks.
+                    focusTile(lastFocused % COLUMNS);
+                    return true;
+                }
+                // The picture alone, as Up from the dock, after the same wait.
+                pictureSoon = true;
+                pictureSoonKey = KeyEvent.KEYCODE_DPAD_DOWN;
+                handler.postDelayed(showPictureFromBar, PICTURE_DELAY_MS);
                 return true;
             }
             if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT && (v.getId() == R.id.btnInputs
@@ -379,6 +440,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         getWindow().getDecorView().getViewTreeObserver().addOnGlobalFocusChangeListener((oldF, newF) -> {
             boolean onTile = newF != null && newF.getId() == R.id.card;
             if (!onTile) hideGlass();
+            updateCarets();
         });
     }
 
@@ -386,6 +448,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     protected void onStart() {
         super.onStart();
         started = true;
+        // Back to the rows for this visit. Here rather than in onStop: Home can still be on screen while
+        // the app it opened animates in, and the rows jumping back would show.
+        showRows(false, false);
         // Registered while Home is visible, side panels included, so no change is missed under one.
         IntentFilter packages = new IntentFilter();
         packages.addAction(Intent.ACTION_PACKAGE_ADDED);
@@ -467,6 +532,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         super.onPause();
         handler.removeCallbacks(minuteTick);
         handler.removeCallbacks(refreshPools);
+        cancelPictureSoon();
     }
 
     @Override
@@ -638,6 +704,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     // ---- top shelf -------------------------------------------------------------------------------
 
     private void showHero(int position, float dockTopInRoot) {
+        // Centred just above the dock's panel, which starts 14dp above its tiles.
+        dockPanelTop = dockTopInRoot - 14 * density;
+        caretDock.setY(dockPanelTop - 6 * density - caretDock.getLayoutParams().height);
         String label = adapter.labelAt(position);
         int color = adapter.ambientColorAt(position);
         float y = dockTopInRoot - 14 * density - 26 * density - heroName.getHeight();
@@ -676,9 +745,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         if (pkg.equals(backdropPkg)) return;
         backdropPkg = pkg;
         backdropColor = color;
-        backdrops.load(pkg, (loaded, bitmap, logo, title) -> {
+        backdrops.load(pkg, (loaded, bitmap, logo, title, link) -> {
             if (!heroShown || !loaded.equals(backdropPkg)) return;   // moved on while it loaded
+            backdropLink = bitmap != null ? link : null;
             fadeBackdrop(bitmap, logo, title, color);
+            if (pictureOnly) updateCarets();   // its first pictures may have come in meanwhile
         });
     }
 
@@ -766,7 +837,16 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         int count = adapter.getItemCount();
         int target;
         if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
-            if (position < COLUMNS) return false;          // dock row: let focus move to the top bar
+            if (position < COLUMNS) {                      // dock row: the picture alone, then the top bar
+                if (pictureSoon) {                         // Up again straight away: scrolling up, to the top bar
+                    cancelPictureSoon();
+                    return false;
+                }
+                pictureSoon = true;
+                pictureSoonKey = KeyEvent.KEYCODE_DPAD_UP;
+                handler.postDelayed(showPictureSoon, PICTURE_DELAY_MS);
+                return true;
+            }
             target = position - COLUMNS;
         } else {
             int lastRowStart = ((count - 1) / COLUMNS) * COLUMNS;
@@ -778,6 +858,364 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         grid.playSoundEffect(keyCode == KeyEvent.KEYCODE_DPAD_UP
                 ? SoundEffectConstants.NAVIGATION_UP : SoundEffectConstants.NAVIGATION_DOWN);
         return true;
+    }
+
+    // ---- the picture alone ---------------------------------------------------------------------------
+
+    /**
+     * Up from the dock: the app rows slide down out of sight and the top bar up, leaving the focused app's
+     * picture (and its title's logo) alone on screen. Focus stays on the tile meanwhile; the keys are
+     * handled in dispatchKeyEvent.
+     */
+    private void showPictureOnly(int sound) {
+        if (pictureOnly || rows.getHeight() == 0) return;
+        pictureOnly = true;
+        grid.playSoundEffect(sound);
+        transition(() -> {
+            long ms = Math.max(slide(rows, rowsDistance()), slide(topBar, -topBar.getHeight()));
+            heroName.animate().alpha(0f).setDuration(200).start();
+            if (focusAfterSlide < 0) placePlayTile();   // the glass stays: the play button shows under it later
+            return ms;
+        });
+    }
+
+    /**
+     * Brings the rows and the top bar back, sliding unless animate is false. To the top bar (Up again, as
+     * Up from the dock used to go), else back on the tile (Down, Back).
+     */
+    private void showRows(boolean animate, boolean toTopBar) {
+        if (!pictureOnly) return;
+        pictureOnly = false;
+        cancelHold();
+        if (focusAfterSlide >= 0) {   // left before the tile was focused: back on it, unless going up again
+            if (!toTopBar) focusTile(focusAfterSlide);
+            focusAfterSlide = -1;
+        }
+        if (!animate) {
+            handler.removeCallbacks(moveMenus);
+            handler.removeCallbacks(caretsBack);
+            handler.removeCallbacks(nameBack);
+            caretsHeld = false;
+            rows.animate().cancel();
+            topBar.animate().cancel();
+            rows.setTranslationY(0f);
+            topBar.setTranslationY(0f);
+            if (heroShown) heroName.setAlpha(1f);
+            if (glassShown) glass.setAlpha(1f);
+            updateCarets();
+            return;
+        }
+        grid.playSoundEffect(toTopBar ? SoundEffectConstants.NAVIGATION_UP : SoundEffectConstants.NAVIGATION_DOWN);
+        transition(() -> {
+            long ms = Math.max(slide(rows, 0f), slide(topBar, 0f));
+            if (toTopBar) {
+                View card = getCurrentFocus();
+                View above = card != null ? card.focusSearch(View.FOCUS_UP) : null;
+                if (above != null) above.requestFocus();   // its highlight comes down with the top bar
+            }
+            // The app's name stays where it is; it shows once the rows are back.
+            handler.postDelayed(nameBack, ms);
+            return ms;
+        });
+    }
+
+    /** The last step of a transition: the carets (and play button) for the new view, and a held-back glass. */
+    private void menusMoved() {
+        if (pictureOnly && focusAfterSlide >= 0) {   // from the top bar: the tile, now out of sight
+            focusTile(focusAfterSlide);
+            focusAfterSlide = -1;
+            heroName.animate().cancel();
+            heroName.setAlpha(0f);
+            placePlayTile();
+        }
+        caretsHeld = false;
+        updateCarets();
+        if (pictureOnly && glassShown && glass.getAlpha() < 1f) glass.animate().alpha(1f).setDuration(300).start();
+    }
+
+    /** Back from the picture alone, once the rows are in place: the app's name. */
+    private void showName() {
+        if (pictureOnly) return;   // gone back to the picture meanwhile
+        if (heroShown) heroName.animate().alpha(1f).setDuration(250).start();
+    }
+
+    /**
+     * Puts the play button where the selected tile is, at its focused size and with its corners: exactly
+     * the slab inside the glass, which stays put while the rows slide away.
+     */
+    private void placePlayTile() {
+        if (glassCardW == 0) return;
+        float pad = 6f * density;   // the glass's glow inset (onTileFocused)
+        ViewGroup.LayoutParams glassLp = glass.getLayoutParams();
+        ViewGroup.LayoutParams lp = holdPlay.getLayoutParams();
+        int w = Math.round(glassLp.width - 2 * pad), h = Math.round(glassLp.height - 2 * pad);
+        if (lp.width != w || lp.height != h) {
+            lp.width = w;
+            lp.height = h;
+            holdPlay.setLayoutParams(lp);
+        }
+        holdPlay.setRadius(AppAdapter.cornerRadius(glassCardW, density) * AppAdapter.FOCUS_SCALE);
+        holdPlay.setTranslationX(glassTargetX + pad);
+        holdPlay.setTranslationY(glassTargetY + pad);
+    }
+
+    /** The menus' part of a transition: starts their movement and says how long it lasts. */
+    private interface MenuMove {
+        long start();
+    }
+
+    /**
+     * Going to or from the picture alone, in three steps: the carets (and the Play pill) fade out first,
+     * then the menus move, and only once they're out of the way do the carets for the new view fade in.
+     */
+    private void transition(MenuMove move) {
+        caretsHeld = true;
+        updateCarets();   // all out
+        handler.removeCallbacks(moveMenus);
+        handler.removeCallbacks(caretsBack);
+        moveMenus = () -> handler.postDelayed(caretsBack, move.start());
+        handler.postDelayed(moveMenus, CARET_FADE_MS);
+    }
+
+    /**
+     * While the picture is alone: Up brings the rows back and goes to the top bar, Down and Back back to
+     * the tile. Left and Right go through the app's pictures, round and back to the first. Holding OK fills
+     * the Play pill and a long press opens the picture's title, and the remote's Play key the same; other
+     * keys (volume, Home) as usual.
+     */
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (pictureSoon && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() != pictureSoonKey) {
+            cancelPictureSoon();   // another key before the picture showed alone: it doesn't
+        }
+        if (!pictureOnly) return super.dispatchKeyEvent(event);
+        switch (event.getKeyCode()) {
+            case KeyEvent.KEYCODE_DPAD_UP:
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+            case KeyEvent.KEYCODE_BACK:
+                if (event.getAction() == KeyEvent.ACTION_DOWN && event.getRepeatCount() == 0) {
+                    showRows(true, event.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP);
+                }
+                return true;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    stepPicture(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT ? 1 : -1);
+                }
+                return true;
+            case KeyEvent.KEYCODE_DPAD_CENTER:
+            case KeyEvent.KEYCODE_ENTER:
+            case KeyEvent.KEYCODE_NUMPAD_ENTER:
+            case KeyEvent.KEYCODE_MEDIA_PLAY:
+            case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (event.getRepeatCount() == 0) startHold();
+                    else if (event.isLongPress()) openHeldTitle();
+                } else if (event.getAction() == KeyEvent.ACTION_UP) {
+                    releaseHold();
+                }
+                return true;
+            default:
+                return super.dispatchKeyEvent(event);
+        }
+    }
+
+    /** From the top bar: back on the dock tile Up came from, which the picture and play button go with. */
+    private void showPictureFromBar() {
+        pictureSoon = false;
+        // Focus goes to the tile once the rows are out of sight (menusMoved): focused now, it would be seen
+        // growing to its focused size on the way out.
+        focusAfterSlide = lastFocused % COLUMNS;
+        showPictureOnly(SoundEffectConstants.NAVIGATION_DOWN);
+    }
+
+    private void cancelPictureSoon() {
+        pictureSoon = false;
+        handler.removeCallbacks(showPictureSoon);
+        handler.removeCallbacks(showPictureFromBar);
+    }
+
+    /**
+     * Settings → Reload backdrops: every pool and download goes, and the dock's pools are built again
+     * from scratch, each app's first picture first. Until then the focused app shows its glow.
+     */
+    void reloadBackdrops() {
+        backdrops.reload();
+        backdropPkg = null;
+        backdropLink = null;
+        fadeBackdrop(null, null, null, backdropColor);
+        refreshPools.run();
+    }
+
+    /** Just far enough down for the dock's panel, the rows' top, to leave the screen. */
+    private float rowsDistance() {
+        float d = rows.getHeight() - dockPanelTop;
+        return d > 0 && dockPanelTop > 0 ? d : rows.getHeight();
+    }
+
+    /**
+     * Slides the rows or the top bar to this offset. Both move at the same speed (the rows' distance in
+     * PICTURE_SLIDE_MS), so the top bar, with less far to go, gets there sooner.
+     */
+    private long slide(View v, float to) {
+        float speed = rowsDistance() / PICTURE_SLIDE_MS;   // px per ms
+        long ms = Math.max(150, (long) (Math.abs(to - v.getTranslationY()) / speed));
+        v.animate().translationY(to).setDuration(ms).setInterpolator(new AccelerateDecelerateInterpolator())
+                .withLayer().start();
+        return ms;
+    }
+
+    /**
+     * The carets that show where the remote goes. With the picture alone, on the screen's edges: up (the
+     * top bar), down (back to the apps), and left and right when the app has another picture. Otherwise
+     * one right above the dock while on it, and one just under the top bar while on it: both lead to the
+     * picture alone. None on the lower rows.
+     */
+    private void updateCarets() {
+        boolean on = !caretsHeld;   // none while the menus move
+        boolean more = on && pictureOnly && backdropPkg != null && backdrops.stillCount(backdropPkg) > 1;
+        showCaret(caretDock, on && !pictureOnly && onDock());
+        caretBar.setY(topBar.getHeight() + 4 * density);   // just under the bar
+        showCaret(caretBar, on && !pictureOnly && onTopBar());
+        showCaret(caretUp, on && pictureOnly);
+        showCaret(caretDown, on && pictureOnly);
+        showCaret(caretLeft, more);
+        showCaret(caretRight, more);
+        boolean play = on && pictureOnly;
+        holdPlay.animate().alpha(play ? 1f : 0f).setDuration(play ? 300 : CARET_FADE_MS).start();
+    }
+
+    private static void showCaret(View caret, boolean show) {
+        caret.animate().alpha(show ? 0.5f : 0f).setDuration(show ? 300 : CARET_FADE_MS).start();
+    }
+
+    private boolean onTopBar() {
+        View focused = getCurrentFocus();
+        if (focused == null) return false;
+        int id = focused.getId();
+        return id == R.id.btnInputs || id == R.id.btnWifi || id == R.id.btnSettings;
+    }
+
+    private boolean onDock() {
+        View focused = getCurrentFocus();
+        if (focused == null || focused.getId() != R.id.card) return false;
+        RecyclerView.ViewHolder holder = grid.findContainingViewHolder(focused);
+        int position = holder != null ? holder.getBindingAdapterPosition() : RecyclerView.NO_POSITION;
+        return position != RecyclerView.NO_POSITION && position < COLUMNS;
+    }
+
+    /**
+     * OK pressed with the picture alone: the Play pill fills over Android's long-press time. Held that
+     * long, the long press opens the title (see openHeldTitle); let go sooner, it drains.
+     */
+    private void startHold() {
+        if (holdFill != null) return;
+        holdOpened = false;
+        holdFill = ValueAnimator.ofFloat(0f, 1f);
+        holdFill.setDuration(ViewConfiguration.getLongPressTimeout());
+        holdFill.setInterpolator(null);   // linear: an even fill shows how long is left
+        holdFill.addUpdateListener(a -> setHoldFill((float) a.getAnimatedValue()));
+        holdFill.start();
+    }
+
+    /**
+     * OK held for a long press: the pill fills the rest of the way, then the picture's title opens. The
+     * long press can come before the fill has drawn (a remote that sends it at once), so it always shows.
+     */
+    private void openHeldTitle() {
+        if (holdOpened) return;
+        holdOpened = true;
+        float at = holdFill != null ? (float) holdFill.getAnimatedValue() : 0f;
+        if (holdFill != null) {
+            holdFill.cancel();
+            holdFill = null;
+        }
+        String link = backdropLink, pkg = backdropPkg;
+        ValueAnimator finish = ValueAnimator.ofFloat(at, 1f);
+        finish.setDuration((long) (HOLD_FINISH_MS * (1f - at)));
+        finish.addUpdateListener(a -> setHoldFill((float) a.getAnimatedValue()));
+        finish.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                if (pictureOnly) openTitle(link, pkg);   // still there: not left with Home meanwhile
+            }
+        });
+        finish.start();
+    }
+
+    /**
+     * How much of the Play pill shows its focused look, from 0 to 1: revealed from the side the
+     * language reads from (the right for Arabic, Hebrew, Persian and Urdu).
+     */
+    private void setHoldFill(float fill) {
+        Locale locale = getResources().getConfiguration().getLocales().get(0);
+        holdPlay.setFill(fill, TextUtils.getLayoutDirectionFromLocale(locale) == View.LAYOUT_DIRECTION_RTL);
+    }
+
+    /** OK let go before the button is full: it drains, and nothing opens. */
+    private void releaseHold() {
+        if (holdFill == null) return;
+        float at = (float) holdFill.getAnimatedValue();
+        holdFill.cancel();
+        holdFill = null;
+        ValueAnimator drain = ValueAnimator.ofFloat(at, 0f);
+        drain.setDuration((long) (250 * at));
+        drain.addUpdateListener(a -> setHoldFill((float) a.getAnimatedValue()));
+        drain.start();
+    }
+
+    private void cancelHold() {
+        if (holdFill != null) {
+            holdFill.cancel();
+            holdFill = null;
+        }
+        setHoldFill(0f);
+    }
+
+    /**
+     * Opens the picture's title in the app that was selected (pkg): its card's own link, as the stock
+     * launcher opens it, or a YouTube video's address. A link made for another app (YouTube's pictures
+     * come from SmartTube's feed) goes to the selected app instead, by its address. Without a link (a wall,
+     * Plex, HDHomeRun), or if the selected app can't open it, the app itself opens; never a different one.
+     */
+    private void openTitle(String link, String pkg) {
+        try {
+            if (link == null) throw new ActivityNotFoundException();   // no title to open: the app
+            Intent i = Intent.parseUri(link, Intent.URI_INTENT_SCHEME);
+            if (pkg != null) {
+                ComponentName target = i.getComponent();
+                String to = target != null ? target.getPackageName() : i.getPackage();
+                if (!pkg.equals(to)) {
+                    i.setComponent(null);
+                    i.setSelector(null);
+                    i.setPackage(pkg);
+                    if (i.getAction() == null) i.setAction(Intent.ACTION_VIEW);
+                }
+            }
+            if (i.resolveActivity(getPackageManager()) == null) throw new ActivityNotFoundException();
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
+        } catch (URISyntaxException | ActivityNotFoundException | SecurityException e) {
+            Intent app = pkg == null ? null : getPackageManager().getLeanbackLaunchIntentForPackage(pkg);
+            if (app == null && pkg != null) app = getPackageManager().getLaunchIntentForPackage(pkg);
+            if (app != null) open(app);
+            else Toast.makeText(this, R.string.not_available, Toast.LENGTH_SHORT).show();
+        }
+        // The pill stays full while the title opens; it empties on the way back (onStart, showRows).
+    }
+
+    /** The focused app's next or previous picture, cross-faded in. */
+    private void stepPicture(int direction) {
+        if (backdropPkg == null) return;
+        backdrops.step(backdropPkg, direction, (loaded, bitmap, logo, title, link) -> {
+            if (!pictureOnly || !loaded.equals(backdropPkg)) return;   // back to the rows meanwhile
+            cancelHold();
+            backdropLink = link;
+            fadeBackdrop(bitmap, logo, title, backdropColor);
+            updateCarets();
+        });
+        grid.playSoundEffect(direction > 0
+                ? SoundEffectConstants.NAVIGATION_RIGHT : SoundEffectConstants.NAVIGATION_LEFT);
     }
 
     private void focusTile(int position) {

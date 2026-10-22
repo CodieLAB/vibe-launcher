@@ -71,4 +71,8 @@
     <string name="smarttube_downloading">SmartTube indiriliyor…</string>
     <string name="smarttube_allow_installs">Vibe Launcher\'ın uygulama yüklemesine izin verin, sonra yeniden SmartTube\'u yükle\'yi seçin</string>
     <string name="smarttube_failed">SmartTube yüklenmedi</string>
+    <string name="play">Oynat</string>
+    <string name="backdrops">Arka planlar</string>
+    <string name="reload_backdrops">Arka planları yeniden yükle</string>
+    <string name="backdrops_reloading">Yeni arka planlar indiriliyor…</string>
 </resources>

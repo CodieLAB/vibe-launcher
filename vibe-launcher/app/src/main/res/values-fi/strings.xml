@@ -71,4 +71,8 @@
     <string name="smarttube_downloading">Ladataan SmartTubea…</string>
     <string name="smarttube_allow_installs">Salli Vibe Launcherin asentaa sovelluksia ja valitse sitten uudelleen Asenna SmartTube</string>
     <string name="smarttube_failed">SmartTube ei asentunut</string>
+    <string name="play">Toista</string>
+    <string name="backdrops">Taustakuvat</string>
+    <string name="reload_backdrops">Lataa taustakuvat uudelleen</string>
+    <string name="backdrops_reloading">Ladataan uusia taustakuvia…</string>
 </resources>

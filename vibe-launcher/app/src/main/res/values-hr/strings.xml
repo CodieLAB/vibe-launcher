@@ -71,4 +71,8 @@
     <string name="smarttube_downloading">Preuzimanje SmartTubea…</string>
     <string name="smarttube_allow_installs">Dopustite Vibe Launcheru da instalira aplikacije, a zatim ponovno odaberite Instaliraj SmartTube</string>
     <string name="smarttube_failed">SmartTube se nije instalirao</string>
+    <string name="play">Reproduciraj</string>
+    <string name="backdrops">Pozadine</string>
+    <string name="reload_backdrops">Ponovno učitaj pozadine</string>
+    <string name="backdrops_reloading">Preuzimanje novih pozadina…</string>
 </resources>

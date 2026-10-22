@@ -71,4 +71,8 @@
     <string name="smarttube_downloading">Λήψη του SmartTube…</string>
     <string name="smarttube_allow_installs">Επιτρέψτε στο Vibe Launcher να εγκαθιστά εφαρμογές και επιλέξτε ξανά Εγκατάσταση SmartTube</string>
     <string name="smarttube_failed">Το SmartTube δεν εγκαταστάθηκε</string>
+    <string name="play">Αναπαραγωγή</string>
+    <string name="backdrops">Φόντα</string>
+    <string name="reload_backdrops">Επαναφόρτωση φόντων</string>
+    <string name="backdrops_reloading">Λήψη νέων φόντων…</string>
 </resources>

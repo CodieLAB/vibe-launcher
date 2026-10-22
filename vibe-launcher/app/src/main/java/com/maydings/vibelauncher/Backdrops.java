@@ -38,6 +38,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Backdrop stills from the cards apps publish for the TV home screen (their channels and Watch Next
@@ -61,7 +62,7 @@ final class Backdrops {
          * The still for the app (null for none). For a film or show found by its title, also that title
          * and its logo (null when it has none, and then the title is shown as text).
          */
-        void onBackdrop(String pkg, Bitmap bitmap, Bitmap logo, String title);
+        void onBackdrop(String pkg, Bitmap bitmap, Bitmap logo, String title, String link);
     }
 
     interface FirstStillListener {
@@ -145,6 +146,11 @@ final class Backdrops {
      * Part of the pool's fingerprint, so changing it rebuilds every pool.
      */
     private static final String STILL_FORMAT = "png";
+    /**
+     * What a pool's index holds, also part of the fingerprint: 2 added each still's link, so pools from
+     * before refresh once to get them.
+     */
+    private static final int POOL_VERSION = 2;
     private static final long EMPTY_RETRY_MS = 2L * 60 * 1000;   // an empty pool (offline?) is retried sooner
     private static final long RETRY_MS = 10L * 60 * 1000;        // after a round that found nothing
     private static final int MAX_IMAGE_BYTES = 6 * 1024 * 1024;
@@ -173,6 +179,8 @@ final class Backdrops {
     });
     private final ConcurrentLinkedQueue<Build> incoming = new ConcurrentLinkedQueue<>();
     private final List<Build> active = new ArrayList<>();   // pool thread only
+    /** Bumped by reload: builds from before it are dropped, and put nothing into the new pools. */
+    private final AtomicInteger generation = new AtomicInteger();
     private int turn;                                       // pool thread only
     private final FirstStillListener firstStill;
     private final Handler main = new Handler(Looper.getMainLooper());
@@ -211,6 +219,24 @@ final class Backdrops {
     void close() {
         worker.shutdownNow();
         builder.shutdown();
+    }
+
+    /**
+     * Empties every pool and the downloads, for building them all again from scratch (Settings → Reload
+     * backdrops): the next refresh of each app finds it with none. Builds under way are dropped.
+     */
+    void reload() {
+        synchronized (this) {
+            generation.incrementAndGet();
+            pools.clear();
+            shown.clear();
+            before.clear();
+            deleteTree(poolRoot);
+            deleteTree(root);
+        }
+        building.clear();
+        attempted.clear();
+        unsuitable.clear();
     }
 
     /** Pick a fresh still per app next time each is shown (called when Home comes back). */
@@ -263,13 +289,14 @@ final class Backdrops {
     void load(String pkg, Callback callback) {
         queue.offerFirst(() -> {
             Bitmap bitmap = null, logo = null;
-            String title = null;
+            String title = null, link = null;
             try {
                 Entry e = choose(pkg);
                 if (e != null) {
                     bitmap = BitmapFactory.decodeFile(e.still.getPath());
                     logo = e.logo != null ? decodeLogo(e.logo) : null;
                     title = e.title;
+                    link = e.link;
                 }
                 // None yet: the glow, until the pool's first still is in (see FirstStillListener).
             } catch (RuntimeException | OutOfMemoryError e) {
@@ -278,12 +305,51 @@ final class Backdrops {
                 bitmap = null;
                 logo = null;
                 title = null;
+                link = null;
             }
             Bitmap b = bitmap, l = logo;
-            String t = title;
-            main.post(() -> callback.onBackdrop(pkg, b, l, t));
+            String t = title, k = link;
+            main.post(() -> callback.onBackdrop(pkg, b, l, t, k));
             refresh(pkg);
         });   // ahead of anything else: this is the one on screen
+    }
+
+    /**
+     * The app's next (+1) or previous (-1) still in its pool, going round, for looking through them; it
+     * becomes this visit's. Delivered on the main thread as load's; nothing when there's no other.
+     */
+    void step(String pkg, int direction, Callback callback) {
+        queue.offerFirst(() -> {
+            Entry e = next(pkg, direction);
+            if (e == null) return;
+            Bitmap bitmap, logo;
+            try {
+                bitmap = BitmapFactory.decodeFile(e.still.getPath());
+                logo = e.logo != null ? decodeLogo(e.logo) : null;
+            } catch (RuntimeException | OutOfMemoryError x) {
+                return;   // a bad file or no memory: stay on the one showing
+            }
+            if (bitmap == null) return;
+            Bitmap l = logo;
+            main.post(() -> callback.onBackdrop(pkg, bitmap, l, e.title, e.link));
+        });
+    }
+
+    private synchronized Entry next(String pkg, int direction) {
+        Pool p = pool(pkg);
+        if (p == null || p.entries.size() < 2) return null;
+        int n = p.entries.size();
+        int at = p.entries.indexOf(shown.get(pkg));
+        if (at < 0) at = direction > 0 ? -1 : 0;   // none shown, or replaced since: start at an end
+        Entry e = p.entries.get(((at + direction) % n + n) % n);
+        shown.put(pkg, e);
+        return e;
+    }
+
+    /** How many stills the app's pool has now. */
+    synchronized int stillCount(String pkg) {
+        Pool p = pool(pkg);
+        return p == null ? 0 : p.entries.size();
     }
 
     /** This visit's still from the app's pool: kept for the visit, and not the one shown last time. */
@@ -321,7 +387,7 @@ final class Backdrops {
     private String fingerprint() {
         boolean cards = context.checkSelfPermission(PERMISSION) == PackageManager.PERMISSION_GRANTED;
         return sha1(settings.tmdbKey() + "|" + settings.youtubeKey() + "|" + settings.plexToken() + "|" + cards
-                + "|" + STILL_FORMAT);
+                + "|" + STILL_FORMAT + "|" + POOL_VERSION);
     }
 
     /** When the app's pool should next be refreshed (in the past when it's due now). */
@@ -406,6 +472,7 @@ final class Backdrops {
     /** A round of refreshing an app's pool: its cards gone through one at a time. */
     private final class Build {
         final String pkg;
+        final int generation = Backdrops.this.generation.get();
         long built;
         String fingerprint;
         Collector collector;
@@ -443,6 +510,9 @@ final class Backdrops {
     private void pump() {
         while (!builder.isShutdown()) {
             for (Build b; (b = incoming.poll()) != null; ) active.add(b);
+            for (int i = active.size() - 1; i >= 0; i--) {
+                if (active.get(i).generation != generation.get()) active.remove(i);   // from before a reload
+            }
             if (active.isEmpty()) return;
             List<Build> first = new ArrayList<>();
             for (Build b : active) if (!hasStill(b.pkg)) first.add(b);
@@ -462,7 +532,7 @@ final class Backdrops {
             } catch (IOException | RuntimeException | OutOfMemoryError e) {
                 // What's in the pool stays; the next refresh tries again.
             } finally {
-                building.remove(b.pkg);
+                if (b.generation == generation.get()) building.remove(b.pkg);   // else a newer build's
             }
         }
     }
@@ -475,6 +545,7 @@ final class Backdrops {
      * Home (see {@link #sweep}). Pool thread. False when it wasn't put in.
      */
     private boolean put(Build b, Choice c) {
+        if (b.generation != generation.get()) return false;   // reloaded since
         String pkg = b.pkg;
         File dir = poolDir(pkg);
         dir.mkdirs();
@@ -483,6 +554,10 @@ final class Backdrops {
         Entry gone = null;
         boolean first;
         synchronized (this) {
+            if (b.generation != generation.get()) {   // reloaded while it rendered
+                deleteStill(e);
+                return false;
+            }
             Pool p = pool(pkg);
             if (p == null) {
                 p = new Pool(0, b.fingerprint, new ArrayList<>());   // built 0: the round in progress sets it
@@ -523,6 +598,7 @@ final class Backdrops {
      * the round are made with the old ones and go, once the round found at least one.
      */
     private void finish(Build b) throws IOException {
+        if (b.generation != generation.get()) return;   // reloaded since
         String pkg = b.pkg;
         File dir = poolDir(pkg);
         synchronized (this) {

@@ -49,6 +49,12 @@ As you move along the dock, the screen behind it fills with artwork from the foc
 Low-resolution art becomes a 2×2 wall instead of one blurry still, and apps with nothing to show get
 a soft glow in their own colour.
 
+**Just the picture**: press Up on the dock (or Down from the top bar) and the apps and the top bar
+slide away, leaving the backdrop on its own. Left and Right go through all of that app's pictures.
+A play button sits under the glass in the app's place: hold OK (or press and hold Play) and it fills
+up, then opens the film, show or video in that app, or the app itself when there's no single title.
+Small arrows at the screen's edges show where the remote goes; scroll quickly and the rows stay put.
+
 ### Screensaver
 
 **Vibe Launcher posters** shows the same backdrops full screen, slowly drifting and cross-fading,
@@ -73,7 +79,8 @@ A frosted bar with the clock and date, and three menus. Left and Right move betw
 
 ## Settings
 
-**General**: tiles per row, hiding inactive inputs, language and the software version.
+**General**: tiles per row, hiding inactive inputs, language, reloading the backdrops and the software
+version.
 
 | ![Vibe Launcher settings, General tab: tiles per row, language and software version](vibe-launcher/docs/settings-general.jpg) | ![The language list, each language in its own name](vibe-launcher/docs/language.jpg) |
 |---|---|
@@ -85,6 +92,8 @@ A frosted bar with the clock and date, and three menus. Left and Right move betw
   always stay: TVs can't tell whether anything is plugged into them.
 - **Language**: Match system (the default), or any of 50 languages, each listed in its own name. The
   clock and date follow it.
+- **Backdrops → Reload backdrops**: empties the saved pictures and downloads them all again, each
+  app's first one first.
 
 **API keys**: optional keys that unlock more backdrops: **TMDB**, **YouTube** and **Plex**. Each has
 an ⓘ that explains what it adds and where to get it, free. Typing a 32-character key with a remote

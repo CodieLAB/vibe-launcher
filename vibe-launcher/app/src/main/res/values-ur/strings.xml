@@ -71,4 +71,8 @@
     <string name="smarttube_downloading">SmartTube ڈاؤن لوڈ ہو رہا ہے…</string>
     <string name="smarttube_allow_installs">Vibe Launcher کو ایپس انسٹال کرنے دیں، پھر دوبارہ SmartTube انسٹال کریں منتخب کریں</string>
     <string name="smarttube_failed">SmartTube انسٹال نہیں ہوا</string>
+    <string name="play">چلائیں</string>
+    <string name="backdrops">پس منظر</string>
+    <string name="reload_backdrops">پس منظر دوبارہ لوڈ کریں</string>
+    <string name="backdrops_reloading">نئے پس منظر ڈاؤن لوڈ ہو رہے ہیں…</string>
 </resources>

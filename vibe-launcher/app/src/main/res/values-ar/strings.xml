@@ -71,4 +71,8 @@
     <string name="smarttube_downloading">جارٍ تنزيل SmartTube…</string>
     <string name="smarttube_allow_installs">اسمح لـ Vibe Launcher بتثبيت التطبيقات، ثم اختر تثبيت SmartTube مرة أخرى</string>
     <string name="smarttube_failed">لم يتم تثبيت SmartTube</string>
+    <string name="play">تشغيل</string>
+    <string name="backdrops">الخلفيات</string>
+    <string name="reload_backdrops">إعادة تحميل الخلفيات</string>
+    <string name="backdrops_reloading">جارٍ تنزيل خلفيات جديدة…</string>
 </resources>

@@ -71,4 +71,8 @@
     <string name="smarttube_downloading">กำลังดาวน์โหลด SmartTube…</string>
     <string name="smarttube_allow_installs">อนุญาตให้ Vibe Launcher ติดตั้งแอป แล้วเลือกติดตั้ง SmartTube อีกครั้ง</string>
     <string name="smarttube_failed">ติดตั้ง SmartTube ไม่สำเร็จ</string>
+    <string name="play">เล่น</string>
+    <string name="backdrops">ภาพพื้นหลัง</string>
+    <string name="reload_backdrops">โหลดภาพพื้นหลังใหม่</string>
+    <string name="backdrops_reloading">กำลังดาวน์โหลดภาพพื้นหลังใหม่…</string>
 </resources>

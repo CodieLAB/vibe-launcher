@@ -71,4 +71,8 @@
     <string name="smarttube_downloading">در حال بارگیری SmartTube…</string>
     <string name="smarttube_allow_installs">به Vibe Launcher اجازه نصب برنامه بدهید، سپس دوباره نصب SmartTube را انتخاب کنید</string>
     <string name="smarttube_failed">SmartTube نصب نشد</string>
+    <string name="play">پخش</string>
+    <string name="backdrops">پس‌زمینه‌ها</string>
+    <string name="reload_backdrops">بارگذاری دوبارهٔ پس‌زمینه‌ها</string>
+    <string name="backdrops_reloading">در حال دانلود پس‌زمینه‌های تازه…</string>
 </resources>

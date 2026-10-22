@@ -71,4 +71,8 @@
     <string name="smarttube_downloading">SmartTube බාගත වෙමින්…</string>
     <string name="smarttube_allow_installs">Vibe Launcher හට යෙදුම් ස්ථාපනයට ඉඩ දී, නැවත SmartTube ස්ථාපනය කරන්න තෝරන්න</string>
     <string name="smarttube_failed">SmartTube ස්ථාපනය නොවීය</string>
+    <string name="play">වාදනය කරන්න</string>
+    <string name="backdrops">පසුබිම්</string>
+    <string name="reload_backdrops">පසුබිම් නැවත පූරණය කරන්න</string>
+    <string name="backdrops_reloading">නව පසුබිම් බාගත වෙමින්…</string>
 </resources>

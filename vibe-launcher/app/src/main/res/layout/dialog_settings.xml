@@ -9,18 +9,9 @@
     android:background="@drawable/glass_panel"
     android:padding="28dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/vibe_settings"
-        android:textColor="#FFFFFFFF"
-        android:textSize="22sp"
-        android:fontFamily="@font/outfit" />
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
         android:orientation="horizontal">
 
         <TextView
@@ -41,8 +32,10 @@
         android:orientation="horizontal"
         android:baselineAligned="false">
 
-        <!-- Both pages in one frame; only the chosen tab's page is there (SettingsDialog). -->
+        <!-- Both pages in one frame; only the chosen tab's page is there, the frame as tall as the taller
+             page so the dialog keeps one height (SettingsDialog). -->
         <FrameLayout
+            android:id="@+id/pages"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1">
@@ -142,6 +135,28 @@
                         android:id="@+id/languageButton"
                         style="@style/TopButton"
                         android:paddingStart="20dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/SettingsLabel"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="6dp"
+                        android:maxWidth="150dp"
+                        android:text="@string/backdrops" />
+
+                    <!-- Empties the backdrop pools and downloads, and builds them again (at once, not on Save). -->
+                    <TextView
+                        android:id="@+id/reloadBackdrops"
+                        style="@style/TopButton"
+                        android:paddingStart="20dp"
+                        android:text="@string/reload_backdrops" />
                 </LinearLayout>
 
                 <TextView

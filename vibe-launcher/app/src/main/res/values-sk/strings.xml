@@ -71,4 +71,8 @@
     <string name="smarttube_downloading">Sťahuje sa SmartTube…</string>
     <string name="smarttube_allow_installs">Povoľte aplikácii Vibe Launcher inštalovať aplikácie a potom znova zvoľte Nainštalovať SmartTube</string>
     <string name="smarttube_failed">SmartTube sa nenainštaloval</string>
+    <string name="play">Prehrať</string>
+    <string name="backdrops">Pozadia</string>
+    <string name="reload_backdrops">Znova načítať pozadia</string>
+    <string name="backdrops_reloading">Sťahujú sa nové pozadia…</string>
 </resources>

@@ -71,4 +71,8 @@
     <string name="smarttube_downloading">Завантаження SmartTube…</string>
     <string name="smarttube_allow_installs">Дозвольте Vibe Launcher встановлювати додатки, а потім знову виберіть «Встановити SmartTube»</string>
     <string name="smarttube_failed">SmartTube не встановився</string>
+    <string name="play">Дивитися</string>
+    <string name="backdrops">Фони</string>
+    <string name="reload_backdrops">Оновити фони</string>
+    <string name="backdrops_reloading">Завантаження нових фонів…</string>
 </resources>

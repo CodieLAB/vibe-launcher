@@ -71,4 +71,8 @@
     <string name="smarttube_downloading">Se descarcă SmartTube…</string>
     <string name="smarttube_allow_installs">Permite-i lui Vibe Launcher să instaleze aplicații, apoi alege din nou Instalează SmartTube</string>
     <string name="smarttube_failed">SmartTube nu s-a instalat</string>
+    <string name="play">Redă</string>
+    <string name="backdrops">Fundaluri</string>
+    <string name="reload_backdrops">Reîncarcă fundalurile</string>
+    <string name="backdrops_reloading">Se descarcă fundaluri noi…</string>
 </resources>

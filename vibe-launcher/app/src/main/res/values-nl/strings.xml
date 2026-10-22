@@ -71,4 +71,8 @@
     <string name="smarttube_downloading">SmartTube downloaden…</string>
     <string name="smarttube_allow_installs">Sta Vibe Launcher toe apps te installeren en kies daarna opnieuw SmartTube installeren</string>
     <string name="smarttube_failed">SmartTube is niet geïnstalleerd</string>
+    <string name="play">Afspelen</string>
+    <string name="backdrops">Achtergronden</string>
+    <string name="reload_backdrops">Achtergronden opnieuw laden</string>
+    <string name="backdrops_reloading">Nieuwe achtergronden downloaden…</string>
 </resources>
