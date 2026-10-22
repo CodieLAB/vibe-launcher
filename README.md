@@ -7,7 +7,7 @@ accounts. Free and open source.
 I built Vibe Launcher for my own TVs at home, because I wanted a home screen that just shows my apps
 and gets out of the way. It works well enough for us that I'd like to share it with everyone else.
 
-![Vibe Launcher: Netflix focused in the dock, with a film's backdrop and title logo filling the screen](vibe-launcher/docs/home.jpg)
+![Vibe Launcher: Netflix focused in the dock, with The Rip's backdrop and title logo filling the screen](vibe-launcher/docs/home.jpg)
 
 **[Download the latest APK](https://github.com/maydings/vibe-launcher/releases/latest/download/vibe-launcher.apk)**
 · Android TV and Google TV, Android 8.0 or newer · under 1 MB
@@ -55,6 +55,8 @@ A play button sits under the glass in the app's place: hold OK (or press and hol
 up, then opens the film, show or video in that app, or the app itself when there's no single title.
 Small arrows at the screen's edges show where the remote goes; scroll quickly and the rows stay put.
 
+![Just the picture: The Rip's backdrop on its own, with the play button in Netflix's place and arrows at the edges](vibe-launcher/docs/picture.jpg)
+
 ### Slideshow
 
 Leave Home alone for a minute and the apps and the top bar slide away: the backdrops of every app in
@@ -83,7 +85,7 @@ A frosted bar with the clock and date, and three menus. Left and Right move betw
 **General**: tiles per row, hiding inactive inputs, language, reloading the backdrops and the software
 version.
 
-| ![Vibe Launcher settings, General tab: tiles per row, language and software version](vibe-launcher/docs/settings-general.jpg) | ![The language list, each language in its own name](vibe-launcher/docs/language.jpg) |
+| ![Vibe Launcher settings, General tab: tiles per row, hide inactive inputs, language, reload backdrops and software version](vibe-launcher/docs/settings-general.jpg) | ![The language list, each language in its own name](vibe-launcher/docs/language.jpg) |
 |---|---|
 
 - **Tiles per row**: 4, 5 or 6. Tiles shrink to fit and the dock holds as many apps. Until you pick,

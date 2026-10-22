@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.ChangedPackages;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
@@ -186,10 +187,16 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private int lastFocused = 0;
     private float density;
     /**
-     * Rebuild Home on resume: an app covered it (or it is starting). Not after a side panel such as the
-     * TV's Settings, which only pauses Home: nothing changed underneath, so Home stays as it was.
+     * Rebuild the tiles on resume: Home is starting, or let go of them for memory (onTrimMemory), or a
+     * permission came in. Coming back from an app rebuilds them only if apps changed meanwhile.
      */
     private boolean rebuildOnResume = true;
+    /** Home was covered by an app (stopped) since the last resume: a new picture for this visit. */
+    private boolean backFromApp;
+    /** An app was installed, updated, removed, enabled or disabled while Home was stopped. */
+    private boolean appsChanged;
+    /** PackageManager's change counter at the last rebuild, for a change whose broadcast never came. */
+    private int packageSequence;
     /** Home was pressed while Home was in front: go back to the first dock tile. */
     private boolean homeToTop;
     /** Between onStart and onStop: Home is (at least partly) on screen. */
@@ -235,7 +242,12 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         public void onReceive(Context context, Intent intent) {
             if (Intent.ACTION_PACKAGE_REMOVED.equals(intent.getAction())
                     && intent.getBooleanExtra(Intent.EXTRA_REPLACING, false)) return;
+            if (!started) {   // behind an app: the tiles are rebuilt once, on the way back
+                appsChanged = true;
+                return;
+            }
             adapter.reload();
+            appsChangedUnseen();   // shown already: no rebuild for it on the next return
             // Tiles may have moved: once they settle, bring the glass to wherever focus went.
             grid.postOnAnimation(() -> {
                 RecyclerView.ItemAnimator animator = grid.getItemAnimator();
@@ -260,13 +272,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             handler.removeCallbacks(this);
             // Builds just started count as fresh, so this lands on the next pool to fall due.
             handler.postDelayed(this, Math.max(MINUTE_MS, backdrops.untilDue(dock)));
-        }
-    };
-    private final Runnable minuteTick = new Runnable() {
-        @Override
-        public void run() {
-            updateWifiLabel();
-            handler.postDelayed(this, MINUTE_MS);
         }
     };
 
@@ -304,6 +309,15 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         if (!askPermissionsOnce()) askHomeOnce();
         ConnectivityManager cm = getSystemService(ConnectivityManager.class);
         if (cm != null) cm.registerDefaultNetworkCallback(networkCallback);
+        // For Home's whole life: on screen a change shows at once; behind an app it only marks the tiles out of
+        // date, so coming back rebuilds them only when apps changed.
+        IntentFilter packages = new IntentFilter();
+        packages.addAction(Intent.ACTION_PACKAGE_ADDED);
+        packages.addAction(Intent.ACTION_PACKAGE_REMOVED);
+        packages.addAction(Intent.ACTION_PACKAGE_CHANGED);   // enabled or disabled
+        packages.addDataScheme("package");
+        if (Build.VERSION.SDK_INT >= 33) registerReceiver(packageReceiver, packages, Context.RECEIVER_NOT_EXPORTED);
+        else registerReceiver(packageReceiver, packages);
         IntentFilter screenOn = new IntentFilter(Intent.ACTION_SCREEN_ON);
         if (Build.VERSION.SDK_INT >= 33) registerReceiver(screenReceiver, screenOn, Context.RECEIVER_NOT_EXPORTED);
         else registerReceiver(screenReceiver, screenOn);
@@ -458,6 +472,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         getWindow().getDecorView().getViewTreeObserver().addOnGlobalFocusChangeListener((oldF, newF) -> {
             boolean onTile = newF != null && newF.getId() == R.id.card;
             if (!onTile) hideGlass();
+            // Arriving on the top bar: the network pill as it is now (it otherwise follows the network
+            // callbacks and each return to Home).
+            if (isPill(newF) && !isPill(oldF)) updateWifiLabel();
             updateCarets();
         });
     }
@@ -469,14 +486,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         // Back to the rows for this visit. Here rather than in onStop: Home can still be on screen while
         // the app it opened animates in, and the rows jumping back would show.
         showRows(false, false);
-        // Registered while Home is visible, side panels included, so no change is missed under one.
-        IntentFilter packages = new IntentFilter();
-        packages.addAction(Intent.ACTION_PACKAGE_ADDED);
-        packages.addAction(Intent.ACTION_PACKAGE_REMOVED);
-        packages.addAction(Intent.ACTION_PACKAGE_CHANGED);   // enabled or disabled
-        packages.addDataScheme("package");
-        if (Build.VERSION.SDK_INT >= 33) registerReceiver(packageReceiver, packages, Context.RECEIVER_NOT_EXPORTED);
-        else registerReceiver(packageReceiver, packages);
     }
 
     /**
@@ -487,7 +496,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if (intent != null && intent.hasCategory(Intent.CATEGORY_HOME) && !rebuildOnResume) homeToTop = true;
+        if (intent != null && intent.hasCategory(Intent.CATEGORY_HOME) && !rebuildOnResume && !backFromApp) {
+            homeToTop = true;   // pressed with Home already in front
+        }
     }
 
     @Override
@@ -502,26 +513,40 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         // The pills keep their state while Home is away, and the network callback updates the network one, so
         // this only catches anything missed. Its binder calls (the Wi-Fi name, the TV's inputs) would hold up
         // the first frame back on Home, so after the first resume they run once that frame is drawn.
-        boolean rebuild = rebuildOnResume;
+        boolean rebuild = rebuildOnResume || appsChanged || appsChangedUnseen();
+        boolean returning = backFromApp;
+        appsChanged = false;
+        backFromApp = false;
         if (pillsShown) {
-            refreshPillsAfterNextDraw(rebuild);
+            refreshPillsAfterNextDraw(rebuild || returning);
         } else {
             updateWifiLabel();
             updateInputsButton();
             pillsShown = true;
         }
-        handler.postDelayed(minuteTick, MINUTE_MS);
         if (homeToTop) {
             homeToTop = false;
             lastFocused = 0;
             grid.scrollToPosition(0);
             grid.post(() -> focusTile(0));
         }
-        if (!rebuildOnResume) {   // back from a side panel: Home is as it was
+        if (!rebuild) {
+            if (returning) {
+                // Back from an app with the same apps: the tiles stay as they were (no entrance replayed), and
+                // the focused app gets this visit's picture.
+                backdrops.reshuffle();
+                backdropPkg = null;
+                // Loaded here: the tile usually kept its focus, so no focus change would load it.
+                if (heroShown && lastFocused < COLUMNS) {
+                    showBackdrop(adapter.packageAt(lastFocused), adapter.ambientColorAt(lastFocused));
+                }
+            }
+            // Else back from a side panel, such as the TV's Settings: Home is as it was.
             refreshPools.run();
             return;
         }
         rebuildOnResume = false;
+        appsChangedUnseen();   // caught up: count from here
         glassShown = false;
         glass.setAlpha(0f);
         heroShown = false;
@@ -550,7 +575,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     @Override
     protected void onPause() {
         super.onPause();
-        handler.removeCallbacks(minuteTick);
         handler.removeCallbacks(refreshPools);
         cancelPictureSoon();
         handler.removeCallbacks(startSlideshow);
@@ -560,9 +584,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     @Override
     protected void onStop() {
         super.onStop();
-        unregisterReceiver(packageReceiver);
         started = false;
-        rebuildOnResume = true;
+        backFromApp = true;
     }
 
     /**
@@ -583,6 +606,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     @Override
     protected void onDestroy() {
         unregisterReceiver(screenReceiver);
+        unregisterReceiver(packageReceiver);
         backdrops.close();
         handler.removeCallbacksAndMessages(null);
         ConnectivityManager cm = getSystemService(ConnectivityManager.class);
@@ -621,6 +645,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         backdropLogo.setImageDrawable(null);
         backdropPkg = null;
         rebuildOnResume = true;
+    }
+
+    /** A menu or dialog opened or closed over Home: its carets go or come back. */
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        updateCarets();
     }
 
     @Override
@@ -1125,7 +1156,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
      * picture alone. None on the lower rows.
      */
     private void updateCarets() {
-        boolean on = !caretsHeld && !slideshow;   // none while the menus move, or in the slideshow
+        // None while the menus move, in the slideshow, or under a menu or dialog (Home hasn't the focus).
+        boolean on = !caretsHeld && !slideshow && hasWindowFocus();
         boolean more = on && pictureOnly && backdropPkg != null && backdrops.stillCount(backdropPkg) > 1;
         showCaret(caretDock, on && !pictureOnly && onDock());
         caretBar.setY(topBar.getHeight() + 4 * density);   // just under the bar
@@ -1143,9 +1175,12 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     }
 
     private boolean onTopBar() {
-        View focused = getCurrentFocus();
-        if (focused == null) return false;
-        int id = focused.getId();
+        return isPill(getCurrentFocus());
+    }
+
+    private static boolean isPill(View v) {
+        if (v == null) return false;
+        int id = v.getId();
         return id == R.id.btnInputs || id == R.id.btnWifi || id == R.id.btnSettings;
     }
 
@@ -1548,7 +1583,18 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         askHomeOnce();
     }
 
-    /** Runs the pill refresh just after the next frame is drawn; the Inputs pill only when Home rebuilds. */
+    /**
+     * Whether any app changed since the last check, by PackageManager's change counter (one binder call): a
+     * package broadcast can be missed, e.g. while Home's process was frozen. Moves the counter on.
+     */
+    private boolean appsChangedUnseen() {
+        ChangedPackages changed = getPackageManager().getChangedPackages(packageSequence);
+        if (changed == null) return false;
+        packageSequence = changed.getSequenceNumber();
+        return true;
+    }
+
+    /** Runs the pill refresh just after the next frame is drawn; the Inputs pill only back from an app. */
     private void refreshPillsAfterNextDraw(boolean inputs) {
         root.getViewTreeObserver().addOnPreDrawListener(new android.view.ViewTreeObserver.OnPreDrawListener() {
             @Override
