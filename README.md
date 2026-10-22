@@ -78,7 +78,9 @@ A frosted bar with the clock and date, and three menus. Left and Right move betw
 | ![Vibe Launcher settings, General tab: tiles per row, language and software version](vibe-launcher/docs/settings-general.jpg) | ![The language list, each language in its own name](vibe-launcher/docs/language.jpg) |
 |---|---|
 
-- **Tiles per row**: 4, 5 or 6. Tiles shrink to fit and the dock holds as many apps.
+- **Tiles per row**: 4, 5 or 6. Tiles shrink to fit and the dock holds as many apps. Until you pick,
+  it follows the TV's size: 4 under 51", 5 up to 74", 6 from 74" up. A streaming box can't tell
+  the size of the TV it's plugged into, so it starts at 4.
 - **Hide inactive inputs**: the Inputs menu leaves out HDMI inputs with nothing connected. AV inputs
   always stay: TVs can't tell whether anything is plugged into them.
 - **Language**: Match system (the default), or any of 50 languages, each listed in its own name. The

@@ -18,7 +18,7 @@ page covers configuring, building and how the backdrops work.
 | `dock_apps` | Package names for the dock, in order. Missing apps are skipped. Can also be changed on the TV with long-press → Move. |
 | `hidden_apps` | Packages never shown as tiles (e.g. the Live TV app, which the Inputs menu already offers). |
 | `live_tv_package` | The TV's tuner app, offered at the end of the Inputs menu. Empty to omit. |
-| `columns` | Default tiles per row (the dock has this many slots). On the TV, Vibe Launcher settings offers 4, 5 or 6, which overrides it. |
+| `columns` | Default tiles per row (the dock has this many slots) when the screen's size isn't known, as on a box over HDMI. Otherwise the default comes from the size: 4 under 51", 5 up to 74", 6 from 74". On the TV, Vibe Launcher settings offers 4, 5 or 6, which overrides both. |
 
 ## Build
 

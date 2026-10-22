@@ -36,6 +36,7 @@ import android.text.Layout;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.SoundEffectConstants;
@@ -219,8 +220,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         CrashGuard.install(this);
         setContentView(R.layout.activity_main);
         density = getResources().getDisplayMetrics().density;
-        // Tiles per row: chosen in Vibe Launcher settings (4, 5 or 6), else config.xml.
-        COLUMNS = new VibeSettings(this).columns(Math.max(1, getResources().getInteger(R.integer.columns)));
+        // Tiles per row: chosen in Vibe Launcher settings (4, 5 or 6), else by the screen's size.
+        COLUMNS = new VibeSettings(this).columns(defaultColumns());
         liveTvPkg = getString(R.string.live_tv_package).trim();
 
         root = findViewById(R.id.root);
@@ -895,6 +896,31 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
      * listings (the apps' home screen cards, for backdrops) and location (Android only reveals the
      * Wi-Fi network's name with it). Refused, the launcher keeps the colour glow and shows "Wi-Fi".
      */
+    /**
+     * Tiles per row when none was chosen in Settings: 4 on screens under 51", 5 up to 74", 6 from there.
+     * config.xml's when the size isn't known.
+     */
+    private int defaultColumns() {
+        double inches = screenInches();
+        if (inches == 0) return Math.max(1, getResources().getInteger(R.integer.columns));
+        return inches < 51 ? 4 : inches < 74 ? 5 : 6;
+    }
+
+    /**
+     * The screen's diagonal in inches, from the physical dots per inch the TV reports (a 75" Sony: 29.6),
+     * or 0 when that isn't believable. A box over HDMI can't measure the TV and reports a made-up figure
+     * (the Shield: 213 dpi, which would make any TV 21").
+     */
+    @SuppressWarnings("deprecation")
+    private double screenInches() {
+        DisplayMetrics m = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getRealMetrics(m);
+        if (m.xdpi < 10 || m.xdpi > 100 || m.ydpi < 10 || m.ydpi > 100) return 0;   // TVs are about 15 to 70
+        double w = m.widthPixels / m.xdpi, h = m.heightPixels / m.ydpi;
+        double inches = Math.sqrt(w * w + h * h);
+        return inches >= 20 && inches <= 150 ? inches : 0;
+    }
+
     private boolean askPermissionsOnce() {
         if (getPreferences(MODE_PRIVATE).getBoolean("askedPermissions", false)) return false;
         List<String> missing = new ArrayList<>();
