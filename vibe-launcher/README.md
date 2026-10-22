@@ -97,7 +97,7 @@ art is used.
 
 Up on the dock slides the rows down out of sight (and the top bar up, if it shows), leaving the
 backdrop. The glass and the app's name fade with the carets before anything moves; then a Play pill
-slides in from the left where the name was. The carousel reads the TV provider's Watch Next table afresh
+slides in from off the screen's left edge, level with the first tile and 12dp above the dock's band. The carousel reads the TV provider's Watch Next table afresh
 (rows of type CONTINUE or NEXT, not dismissed) and opens on the pool's stills whose link is one of
 them, the last engaged first, then the rest of the pool; Left and Right step through that order. Under
 the pill, the time left (duration minus last playback position, formatted with ICU's MeasureFormat in

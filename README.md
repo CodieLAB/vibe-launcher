@@ -50,7 +50,7 @@ Low-resolution art becomes a 2×2 wall instead of one blurry still, and apps wit
 a soft glow in their own colour.
 
 **Just the picture**: press Up on the dock and the apps slide away, leaving the backdrop on its own,
-and a **Play** button slides in where the app's name was. It opens on what you've started watching
+and a **Play** button slides in from the left, just above where the apps were. It opens on what you've started watching
 (the last one first), with the time left under the button, such as "2 hours, 5 minutes remaining";
 Left and Right then go through everything else of that app's. Hold OK (or press and hold Play) and the
 button fills up, then opens the film, show or video in that app, or the app itself when there's no

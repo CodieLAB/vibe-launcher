@@ -54,6 +54,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LayoutAnimationController;
@@ -1215,22 +1216,48 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     /**
      * The Play pill with the picture alone: where the app's name was (its name fades out first), sliding in
-     * from the left as the name does; on the way out it fades where it is.
+     * from off the screen's left edge, and back out the same way.
      */
     private void showPlay(boolean show) {
         if (show == playShown) return;
         playShown = show;
+        if (show) placePlay();
+        // Just off the screen's left edge: from there it slides right into place, and back out the same way.
+        // No fade: it's solid all the way.
+        float offScreen = -(((ViewGroup.MarginLayoutParams) holdPlay.getLayoutParams()).leftMargin
+                + holdPlay.getWidth());
+        holdPlay.animate().cancel();
+        holdPlay.setAlpha(1f);
         if (show) {
-            // The pill's line centred on the name's line; the time left, if any, goes under it.
-            View pill = (View) holdPlayFill.getParent();
-            holdPlay.setY(heroName.getY() + (heroName.getHeight() - pill.getHeight()) / 2f);
-            holdPlay.animate().cancel();
-            holdPlay.setTranslationX(-24 * density);
-            holdPlay.setAlpha(0f);
-            holdPlay.animate().translationX(0f).alpha(1f).setDuration(PLAY_SLIDE_MS)
+            // From off screen, or from wherever a slide out has got to.
+            if (holdPlay.getTranslationX() == 0f) holdPlay.setTranslationX(offScreen);
+            holdPlay.animate().translationX(0f).setDuration(PLAY_SLIDE_MS)
                     .setInterpolator(new DecelerateInterpolator(2f)).start();
         } else {
-            holdPlay.animate().alpha(0f).setDuration(CARET_FADE_MS).start();
+            holdPlay.animate().translationX(offScreen).setDuration(PLAY_SLIDE_MS)
+                    .setInterpolator(new AccelerateInterpolator(2f)).start();
+        }
+    }
+
+    /**
+     * Where the Play pill goes: its left edge level with the first tile's, its bottom edge 12dp above where
+     * the dock's band is when the rows show. Both from the rows' resting place, so it's the same however the
+     * picture alone was reached (from the dock, or down from the top bar while the rows were still away).
+     */
+    private void placePlay() {
+        View pill = (View) holdPlayFill.getParent();
+        if (dockPanelTop > 0) holdPlay.setY(dockPanelTop - 12 * density - pill.getHeight());
+        RecyclerView.ViewHolder first = grid.findViewHolderForAdapterPosition(0);
+        if (first instanceof AppAdapter.Holder) {
+            View card = ((AppAdapter.Holder) first).card;
+            Rect r = new Rect(0, 0, card.getWidth(), card.getHeight());
+            root.offsetDescendantRectToMyCoords(card, r);
+            ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) holdPlay.getLayoutParams();
+            if (lp.leftMargin != r.left) {
+                lp.leftMargin = r.left;
+                lp.setMarginStart(r.left);
+                holdPlay.setLayoutParams(lp);
+            }
         }
     }
 
