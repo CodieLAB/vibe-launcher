@@ -73,12 +73,13 @@ final class Backdrops {
     private static final class Choice {
         final List<File> files;
         final File logo;
-        final String title;
+        final String title, link;
 
-        Choice(List<File> files, File logo, String title) {
+        Choice(List<File> files, File logo, String title, String link) {
             this.files = files;
             this.logo = logo;
             this.title = title;
+            this.link = link;
         }
     }
 
@@ -86,12 +87,18 @@ final class Backdrops {
     static final class Entry {
         final File still, logo;
         final String title;
+        /**
+         * What opens the still's title: the card's own link (an intent URI, as the stock launcher opens
+         * it), or a YouTube video's address. Null for a wall of four, and for Plex and HDHomeRun.
+         */
+        final String link;
         final long made;   // when it went into the pool: the oldest is replaced first
 
-        Entry(File still, File logo, String title, long made) {
+        Entry(File still, File logo, String title, String link, long made) {
             this.still = still;
             this.logo = logo;
             this.title = title;
+            this.link = link;
             this.made = made;
         }
     }
@@ -359,9 +366,14 @@ final class Backdrops {
             String[] f = lines[i].split("\t", -1);
             if (f.length < 3 || f[0].isEmpty()) continue;
             entries.add(new Entry(new File(dir, base + f[0]), f[1].isEmpty() ? null : new File(dir, base + f[1]),
-                    f[2].isEmpty() ? null : f[2], f.length > 3 ? Long.parseLong(f[3]) : built));
+                    f[2].isEmpty() ? null : f[2], f.length > 4 && !f[4].isEmpty() ? f[4] : null,
+                    f.length > 3 ? Long.parseLong(f[3]) : built));
         }
         return new Pool(built, head[1], entries);
+    }
+
+    private static String oneLine(String s) {
+        return s == null ? "" : s.replace('\t', ' ').replace('\n', ' ').replace('\r', ' ');
     }
 
     /**
@@ -372,10 +384,10 @@ final class Backdrops {
         StringBuilder index = new StringBuilder().append(p.built).append('\t').append(p.fingerprint).append('\n');
         int skip = dir.getPath().length() + 1;
         for (Entry e : p.entries) {
-            String title = e.title == null ? "" : e.title.replace('\t', ' ').replace('\n', ' ');
             index.append(e.still.getPath().substring(skip)).append('\t')
                     .append(e.logo == null ? "" : e.logo.getPath().substring(skip)).append('\t')
-                    .append(title).append('\t').append(e.made).append('\n');
+                    .append(oneLine(e.title)).append('\t').append(e.made).append('\t')
+                    .append(oneLine(e.link)).append('\n');
         }
         File tmp = new File(dir, "index.tmp");
         try (FileOutputStream out = new FileOutputStream(tmp)) {
@@ -561,7 +573,7 @@ final class Backdrops {
                 logo = new File(dir, name + ".logo");
                 copy(c.logo, logo);
             }
-            return new Entry(still, logo, c.title, made);
+            return new Entry(still, logo, c.title, c.link, made);
         } catch (IOException | RuntimeException | OutOfMemoryError e) {
             still.delete();
             if (logo != null) logo.delete();
@@ -671,6 +683,7 @@ final class Backdrops {
         final boolean badged;
         final List<String> images = new ArrayList<>();
         int minWidth = MIN_WIDTH;
+        String link;   // what opens the card's title (see Entry.link)
 
         Card(String title, boolean badged) {
             this.title = title;
@@ -694,6 +707,7 @@ final class Backdrops {
         final List<Choice> sharp = new ArrayList<>(), walls = new ArrayList<>();
         final List<File> wall = new ArrayList<>();
         File plain;   // first unbadged low-res card, the fallback when there aren't enough for a wall
+        String plainLink;
         final Set<String> used = new HashSet<>();
         int tries, next, images;
         int sharpTaken, wallsTaken;
@@ -734,7 +748,7 @@ final class Backdrops {
                     File file = fetch(art.backdrop, true);
                     if (file != null) {
                         File logo = art.logo != null && !unsuitable.contains(art.logo) ? fetch(art.logo, false) : null;
-                        sharp.add(new Choice(Collections.singletonList(file), logo, card.title));
+                        sharp.add(new Choice(Collections.singletonList(file), logo, card.title, card.link));
                         return;
                     }
                 }
@@ -745,9 +759,12 @@ final class Backdrops {
                 File file = fetch(url, card.minWidth);
                 if (file == null) continue;
                 if (width(file) >= SHARP_WIDTH) {
-                    if (!card.badged) sharp.add(new Choice(Collections.singletonList(file), null, null));
+                    if (!card.badged) sharp.add(new Choice(Collections.singletonList(file), null, null, card.link));
                 } else {
-                    if (plain == null && !card.badged) plain = file;
+                    if (plain == null && !card.badged) {
+                        plain = file;
+                        plainLink = card.link;
+                    }
                     addToWall(file);
                 }
                 break;   // one image per card
@@ -757,7 +774,7 @@ final class Backdrops {
         private void addToWall(File file) {
             wall.add(file);
             if (wall.size() == WALL) {
-                walls.add(new Choice(new ArrayList<>(wall), null, null));
+                walls.add(new Choice(new ArrayList<>(wall), null, null, null));
                 wall.clear();
             }
         }
@@ -774,7 +791,7 @@ final class Backdrops {
             boolean wallsNow = pkg.equals(HDHOMERUN) || (done && sharpTaken == 0);
             while (wallsNow && wallsTaken < walls.size() && given() < max) out.add(walls.get(wallsTaken++));
             if (done && !pkg.equals(HDHOMERUN) && given() == 0 && plain != null) {
-                out.add(new Choice(Collections.singletonList(plain), null, null));
+                out.add(new Choice(Collections.singletonList(plain), null, null, plainLink));
                 plain = null;
             }
             return out;
@@ -825,6 +842,7 @@ final class Backdrops {
                 while (c != null && c.moveToNext()) {
                     if (!sources.contains(c.getString(0))) continue;
                     Card card = new Card(c.getString(2), badged(c.getString(1)));
+                    card.link = c.getString(1);
                     for (int i = FIRST_IMAGE; i < COLUMNS.length; i++) {
                         String url = c.getString(i);
                         if (url == null || url.isEmpty() || !seen.add(url)) continue;
@@ -842,6 +860,7 @@ final class Backdrops {
             // No SmartTube cards: popular videos instead (with the YouTube key), else films' trailers.
             for (String id : youtubePopular.videoIds()) {
                 Card card = new Card(null, false);
+                card.link = "https://www.youtube.com/watch?v=" + id;
                 card.images.add("https://i.ytimg.com/vi/" + id + "/maxresdefault.jpg");
                 card.images.add("https://i.ytimg.com/vi/" + id + "/hq720.jpg");
                 clean.add(card);
