@@ -94,7 +94,8 @@ SmartTube (its latest release, checked against GitHub's checksum) or opens it to
 
 ## Updates
 
-Vibe Launcher checks for new versions once a day, and whenever you open the Settings menu. When one is
+Vibe Launcher checks for new versions when the TV is turned on or wakes from sleep, once a day, and
+whenever you open the Settings menu. When one is
 out, a green dot appears in the Settings gear and the menu offers **Update to** it. You see what's
 new in every version since yours, then **Install**: the download is checked against the release's
 SHA-256 before Android asks you to confirm, and Home comes back by itself afterwards.

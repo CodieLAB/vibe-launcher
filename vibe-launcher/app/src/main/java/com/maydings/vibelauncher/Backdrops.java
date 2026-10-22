@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -48,9 +49,10 @@ import java.util.concurrent.TimeUnit;
  * key. Plex, with a Plex token, shows art from the user's own server, and HDHomeRun the shows on the
  * user's tuner now (HdHomeRun). Apps with none keep the colour glow.
  *
- * Each app has a pool of up to {@link #POOL_SIZE} stills, rebuilt in the background when it is six
- * hours old. They are stored already cut to the screen and darkened, so showing one is a quick decode
- * of a small file with no network: each visit to Home picks one at random.
+ * Each app has a pool of up to {@link #POOL_SIZE} stills, refreshed in the background when it is six
+ * hours old: each new still found replaces the oldest, one at a time, so there is never a second set
+ * on disk. They are stored already cut to the screen and darkened, so showing one is a quick decode of
+ * a small file with no network: each visit to Home picks one at random.
  */
 final class Backdrops {
 
@@ -60,6 +62,11 @@ final class Backdrops {
          * and its logo (null when it has none, and then the title is shown as text).
          */
         void onBackdrop(String pkg, Bitmap bitmap, Bitmap logo, String title);
+    }
+
+    interface FirstStillListener {
+        /** The app had no stills and now has its first (main thread): Home shows it if that app is focused. */
+        void onFirstStill(String pkg);
     }
 
     /** A still to make: one image or a wall of four, and for a known title its logo. */
@@ -79,18 +86,23 @@ final class Backdrops {
     static final class Entry {
         final File still, logo;
         final String title;
+        final long made;   // when it went into the pool: the oldest is replaced first
 
-        Entry(File still, File logo, String title) {
+        Entry(File still, File logo, String title, long made) {
             this.still = still;
             this.logo = logo;
             this.title = title;
+            this.made = made;
         }
     }
 
-    /** An app's pool, when it was built and for which keys and permission. */
+    /**
+     * An app's pool: when its last round of replacing began, the keys and permission it was made with,
+     * and its stills, oldest first. Changed only under the Backdrops lock.
+     */
     private static final class Pool {
-        final long built;
-        final String fingerprint;
+        long built;
+        String fingerprint;
         final List<Entry> entries;
 
         Pool(long built, String fingerprint, List<Entry> entries) {
@@ -117,7 +129,6 @@ final class Backdrops {
     private static final int SHARP_WIDTH = 1280;  // narrower art goes into a 2x2 wall
     private static final int WALL = 4;
     private static final int WALL_GAP = 6;        // px between the wall's cards
-    private static final int MAX_TRIES = 12;      // lookups and downloads for one still before giving up
     private static final int POOL_SIZE = 8;
     private static final int POOL_TRIES = 40;     // lookups and downloads for a whole pool
     private static final int GUIDE_IMAGES = POOL_SIZE * WALL;  // most fetched to fill the pool with walls
@@ -128,8 +139,7 @@ final class Backdrops {
      */
     private static final String STILL_FORMAT = "png";
     private static final long EMPTY_RETRY_MS = 2L * 60 * 1000;   // an empty pool (offline?) is retried sooner
-    private static final long RETRY_MS = 10L * 60 * 1000;        // after a build that wasn't kept
-    private static final long SHRINK_MS = 24L * 60 * 60 * 1000;  // a smaller pool is accepted after a day
+    private static final long RETRY_MS = 10L * 60 * 1000;        // after a round that found nothing
     private static final int MAX_IMAGE_BYTES = 6 * 1024 * 1024;
     private static final long CACHE_MS = 2L * 24 * 60 * 60 * 1000;   // downloads, reused by the next rebuilds
 
@@ -145,24 +155,32 @@ final class Backdrops {
     /** Showing a still: the one on screen goes to the front, ahead of anything else waiting. */
     private final LinkedBlockingDeque<Runnable> queue = new LinkedBlockingDeque<>();
     private final ThreadPoolExecutor worker = new ThreadPoolExecutor(1, 1, 0, TimeUnit.MILLISECONDS, queue);
-    /** Building pools, at low priority so it never slows down what's on screen. */
+    /**
+     * Filling the pools: every app's on this one thread, at low priority so it never slows down what's on
+     * screen. The pools being built take turns a card at a time (see {@link #pump}).
+     */
     private final ExecutorService builder = Executors.newSingleThreadExecutor(r -> {
         Thread t = new Thread(r, "BackdropPools");
         t.setPriority(Thread.MIN_PRIORITY);
         return t;
     });
+    private final ConcurrentLinkedQueue<Build> incoming = new ConcurrentLinkedQueue<>();
+    private final List<Build> active = new ArrayList<>();   // pool thread only
+    private int turn;                                       // pool thread only
+    private final FirstStillListener firstStill;
     private final Handler main = new Handler(Looper.getMainLooper());
     private final Map<String, Pool> pools = new HashMap<>();
     private final Map<String, Entry> shown = new HashMap<>();   // this visit's still per app
     private final Map<String, Entry> before = new HashMap<>();  // the last visit's, not repeated next
     private final Set<String> building = Collections.synchronizedSet(new HashSet<>());
-    private final Map<String, Long> attempted = Collections.synchronizedMap(new HashMap<>());   // builds not kept
+    private final Map<String, Long> attempted = Collections.synchronizedMap(new HashMap<>());   // rounds that found nothing
     private final Set<String> unsuitable = Collections.synchronizedSet(new HashSet<>());
     private final Random random = new Random();
     private final int targetWidth, targetHeight;
 
-    Backdrops(Context context) {
+    Backdrops(Context context, FirstStillListener firstStill) {
         this.context = context.getApplicationContext();
+        this.firstStill = firstStill;
         settings = new VibeSettings(context);
         resolver = context.getContentResolver();
         tmdb = new Tmdb(context);
@@ -180,8 +198,8 @@ final class Backdrops {
 
     /**
      * Home is gone (recreated for a new tiles-per-row choice or language): stop this instance's threads,
-     * or each recreation leaves two behind and the old and new one rebuild the same pools at once. A pool
-     * being built finishes first; the new instance picks it up from disk.
+     * or each recreation leaves two behind and the old and new one rebuild the same pools at once. The
+     * pools being built are dropped (the new instance builds them); their stills so far are kept.
      */
     void close() {
         worker.shutdownNow();
@@ -192,11 +210,11 @@ final class Backdrops {
     synchronized void reshuffle() {
         before.putAll(shown);
         shown.clear();
-        // Pools replaced since the last visit can go now: nothing from them is picked any more. And the
-        // old downloads: the launcher can run for weeks, so starting up isn't often enough.
+        // Stills replaced since the last visit can go now: nothing picks them any more. And the old
+        // downloads: the launcher can run for weeks, so starting up isn't often enough.
         try {
             builder.execute(() -> {
-                dropReplaced();
+                sweep();
                 prune();
             });
         } catch (RejectedExecutionException closed) {
@@ -204,21 +222,18 @@ final class Backdrops {
         }
     }
 
-    /** Rebuilds the app's pool in the background if it is due (six hours old, or the keys changed). */
+    /**
+     * Rebuilds the app's pool in the background if it is due: six hours old, the keys changed, or it has
+     * none yet (just moved to the top row, first run, or offline until now).
+     */
     void refresh(String pkg) {
         if (!due(pkg) || !building.add(pkg)) return;
+        incoming.offer(new Build(pkg));
         try {
-            builder.execute(() -> {
-                try {
-                    build(pkg);
-                } catch (RuntimeException | OutOfMemoryError e) {
-                    // Keep the old pool; the next refresh tries again.
-                } finally {
-                    building.remove(pkg);
-                }
-            });
+            builder.execute(this::pump);   // ends at once when another pump already took it
         } catch (RejectedExecutionException closed) {
             // Closed (Home was rebuilt), maybe from a load still finishing: the new instance builds it.
+            incoming.clear();
             building.remove(pkg);
         }
     }
@@ -234,7 +249,10 @@ final class Backdrops {
         return Math.max(0, next);
     }
 
-    /** Delivers this visit's still for the app on the main thread, or null when it has none. */
+    /**
+     * Delivers this visit's still for the app on the main thread, or null when its pool has none yet.
+     * Only ever reads the pool: filling it is the pool threads' job, so nothing here waits on the network.
+     */
     void load(String pkg, Callback callback) {
         queue.offerFirst(() -> {
             Bitmap bitmap = null, logo = null;
@@ -245,16 +263,8 @@ final class Backdrops {
                     bitmap = BitmapFactory.decodeFile(e.still.getPath());
                     logo = e.logo != null ? decodeLogo(e.logo) : null;
                     title = e.title;
-                } else {
-                    // No pool yet (first run, or offline until now): make one still the old way.
-                    List<Choice> one = collect(pkg, 1, MAX_TRIES);
-                    if (!one.isEmpty()) {
-                        Choice c = one.get(0);
-                        bitmap = render(c);
-                        logo = c.logo != null ? decodeLogo(c.logo) : null;
-                        title = c.title;
-                    }
                 }
+                // None yet: the glow, until the pool's first still is in (see FirstStillListener).
             } catch (RuntimeException | OutOfMemoryError e) {
                 // A bad image or cache entry, or no memory left on a small TV: the colour glow instead
                 // of taking the launcher down (an error here would crash the whole app).
@@ -292,7 +302,10 @@ final class Backdrops {
 
     // ---- pools ----------------------------------------------------------------------------------------
 
-    /** pools/<app>/ holds one folder per build and current.txt, naming the build in use. */
+    /**
+     * pools/<app>/ holds the app's stills and index.txt, listing them. (1.5.2 and before kept a folder per
+     * build and current.txt naming the one in use: still read, and cleared away as its stills are replaced.)
+     */
     private File poolDir(String pkg) {
         return new File(poolRoot, sha1(pkg));
     }
@@ -304,8 +317,8 @@ final class Backdrops {
                 + "|" + STILL_FORMAT);
     }
 
-    /** When the app's pool should next be rebuilt (in the past when it's due now). */
-    private long dueAt(String pkg) {
+    /** When the app's pool should next be refreshed (in the past when it's due now). */
+    private synchronized long dueAt(String pkg) {
         Pool p = pool(pkg);
         long at = p == null || !p.fingerprint.equals(fingerprint()) ? 0
                 : p.built + (p.entries.isEmpty() ? EMPTY_RETRY_MS : POOL_MS);
@@ -322,8 +335,7 @@ final class Backdrops {
         if (pools.containsKey(pkg)) return pools.get(pkg);
         Pool p = null;
         try {
-            String current = readText(new File(poolDir(pkg), "current.txt")).trim();
-            p = readPool(new File(poolDir(pkg), current));
+            p = readPool(poolDir(pkg));
         } catch (IOException | RuntimeException e) {
             // None yet, or unreadable: built afresh.
         }
@@ -331,17 +343,46 @@ final class Backdrops {
         return p;
     }
 
-    private static Pool readPool(File gen) throws IOException {
-        String[] lines = readText(new File(gen, "index.txt")).split("\n");
+    /** Reads an app's pool from its folder. Its index lists file names relative to the folder. */
+    private static Pool readPool(File dir) throws IOException {
+        File index = new File(dir, "index.txt");
+        String base = "";
+        if (!index.exists()) {   // 1.5.2 and before: the build in use, in its own folder
+            base = readText(new File(dir, "current.txt")).trim() + "/";
+            index = new File(dir, base + "index.txt");
+        }
+        String[] lines = readText(index).split("\n");
         String[] head = lines[0].split("\t", -1);
+        long built = Long.parseLong(head[0]);
         List<Entry> entries = new ArrayList<>();
         for (int i = 1; i < lines.length; i++) {
             String[] f = lines[i].split("\t", -1);
             if (f.length < 3 || f[0].isEmpty()) continue;
-            entries.add(new Entry(new File(gen, f[0]), f[1].isEmpty() ? null : new File(gen, f[1]),
-                    f[2].isEmpty() ? null : f[2]));
+            entries.add(new Entry(new File(dir, base + f[0]), f[1].isEmpty() ? null : new File(dir, base + f[1]),
+                    f[2].isEmpty() ? null : f[2], f.length > 3 ? Long.parseLong(f[3]) : built));
         }
-        return new Pool(Long.parseLong(head[0]), head[1], entries);
+        return new Pool(built, head[1], entries);
+    }
+
+    /**
+     * Saves the pool's index: written beside it and renamed over it, so a reader never sees half of one.
+     * Under the Backdrops lock.
+     */
+    private static void writeIndex(File dir, Pool p) throws IOException {
+        StringBuilder index = new StringBuilder().append(p.built).append('\t').append(p.fingerprint).append('\n');
+        int skip = dir.getPath().length() + 1;
+        for (Entry e : p.entries) {
+            String title = e.title == null ? "" : e.title.replace('\t', ' ').replace('\n', ' ');
+            index.append(e.still.getPath().substring(skip)).append('\t')
+                    .append(e.logo == null ? "" : e.logo.getPath().substring(skip)).append('\t')
+                    .append(title).append('\t').append(e.made).append('\n');
+        }
+        File tmp = new File(dir, "index.tmp");
+        try (FileOutputStream out = new FileOutputStream(tmp)) {
+            out.write(index.toString().getBytes(StandardCharsets.UTF_8));
+        }
+        if (!tmp.renameTo(new File(dir, "index.txt"))) throw new IOException("rename");
+        new File(dir, "current.txt").delete();   // 1.5.2's pointer: the index above is the pool now
     }
 
     private static String readText(File f) throws IOException {
@@ -350,71 +391,187 @@ final class Backdrops {
         }
     }
 
+    /** A round of refreshing an app's pool: its cards gone through one at a time. */
+    private final class Build {
+        final String pkg;
+        long built;
+        String fingerprint;
+        Collector collector;
+        int taken;   // stills this round put into the pool
+
+        Build(String pkg) {
+            this.pkg = pkg;
+        }
+
+        /** One card (the first turn reads the cards). False when the pool has all it will get. */
+        boolean step() {
+            if (collector == null) {
+                built = System.currentTimeMillis();
+                fingerprint = fingerprint();
+                collector = new Collector(pkg, POOL_SIZE, POOL_TRIES);
+                return true;
+            }
+            boolean more = collector.step();
+            for (Choice c : collector.take(!more)) if (put(this, c)) taken++;
+            return more;
+        }
+    }
+
+    private boolean hasStill(String pkg) {
+        Pool p = pool(pkg);
+        return p != null && !p.entries.isEmpty();
+    }
+
     /**
-     * Makes up to POOL_SIZE stills for the app in a folder of their own, and switches to them only once
-     * the new pool is as full as the one in use (or that one is over a day old): until then the old
-     * pool keeps serving, so there is always a picture rather than the colour glow. The replaced pool is
-     * deleted on the next visit to Home, see {@link #dropReplaced}.
+     * Refreshes the pools waiting, breadth first: they take turns a card at a time, so no app waits
+     * behind another's whole pool. Apps with no still at all go first, until each has one (or has run out
+     * of cards): showing something for every app beats more choice for some. Runs on the pool thread
+     * until none are left.
      */
-    private void build(String pkg) {
-        long built = System.currentTimeMillis();
-        String fingerprint = fingerprint();
-        List<Choice> choices = collect(pkg, POOL_SIZE, POOL_TRIES);
-        File gen = new File(poolDir(pkg), String.valueOf(built));
-        gen.mkdirs();
-        StringBuilder index = new StringBuilder().append(built).append('\t').append(fingerprint).append('\n');
-        List<Entry> entries = new ArrayList<>();
-        for (int i = 0; i < choices.size(); i++) {
-            Choice c = choices.get(i);
+    private void pump() {
+        while (!builder.isShutdown()) {
+            for (Build b; (b = incoming.poll()) != null; ) active.add(b);
+            if (active.isEmpty()) return;
+            List<Build> first = new ArrayList<>();
+            for (Build b : active) if (!hasStill(b.pkg)) first.add(b);
+            List<Build> turns = first.isEmpty() ? active : first;
+            Build b = turns.get(turn++ % turns.size());
+            boolean more;
             try {
-                Bitmap b = render(c);
-                if (b == null) continue;
-                File still = new File(gen, i + ".png");
-                b.setHasAlpha(false);   // opaque: stored as RGB, a quarter smaller than RGBA
-                try (FileOutputStream out = new FileOutputStream(still)) {
-                    b.compress(Bitmap.CompressFormat.PNG, 100, out);
-                } finally {
-                    b.recycle();
-                }
-                File logo = null;
-                if (c.logo != null) {
-                    logo = new File(gen, i + ".logo");
-                    copy(c.logo, logo);
-                }
-                String title = c.title == null ? "" : c.title.replace('\t', ' ').replace('\n', ' ');
-                index.append(still.getName()).append('\t').append(logo == null ? "" : logo.getName())
-                        .append('\t').append(title).append('\n');
-                entries.add(new Entry(still, logo, c.title));
+                more = b.step();
+            } catch (RuntimeException | OutOfMemoryError e) {
+                more = false;
+                b.collector = null;   // what's in the pool stays; the next refresh tries again
+            }
+            if (more) continue;
+            active.remove(b);
+            try {
+                if (b.collector != null) finish(b);
             } catch (IOException | RuntimeException | OutOfMemoryError e) {
-                // Leave this one out.
+                // What's in the pool stays; the next refresh tries again.
+            } finally {
+                building.remove(b.pkg);
             }
         }
-        Pool old = pool(pkg);
-        boolean keys = old == null || !old.fingerprint.equals(fingerprint);   // new keys: the old pool is wrong
-        int want = old == null || keys ? 1 : Math.max(1, Math.min(POOL_SIZE, old.entries.size()));
-        boolean stale = old != null && built - old.built > SHRINK_MS;
-        if (entries.size() < want && !(stale && !entries.isEmpty()) && !keys) {
-            deleteTree(gen);   // not as good as what's in use: keep that, try again later
-            attempted.put(pkg, built);
-            return;
+    }
+
+    /**
+     * Puts a new still into the app's pool: added while it has fewer than POOL_SIZE, else in place of its
+     * oldest from before this round. The new still is written in full before it joins the pool, and the
+     * one it replaces leaves the pool in the same step, so a pick never sees either half-way. The replaced
+     * still's files are deleted, unless it's the one this visit shows: that goes on the next visit to
+     * Home (see {@link #sweep}). Pool thread. False when it wasn't put in.
+     */
+    private boolean put(Build b, Choice c) {
+        String pkg = b.pkg;
+        File dir = poolDir(pkg);
+        dir.mkdirs();
+        Entry e = renderStill(c, dir);
+        if (e == null) return false;
+        Entry gone = null;
+        boolean first;
+        synchronized (this) {
+            Pool p = pool(pkg);
+            if (p == null) {
+                p = new Pool(0, b.fingerprint, new ArrayList<>());   // built 0: the round in progress sets it
+                pools.put(pkg, p);
+            }
+            first = p.entries.isEmpty();
+            if (p.entries.size() >= POOL_SIZE) {
+                for (Entry old : p.entries) {
+                    if (old.made < b.built) {
+                        gone = old;
+                        break;
+                    }
+                }
+                if (gone == null) {   // all new this round already
+                    deleteStill(e);
+                    return false;
+                }
+                p.entries.remove(gone);
+            }
+            p.entries.add(e);
+            try {
+                writeIndex(dir, p);
+            } catch (IOException x) {
+                p.entries.remove(e);
+                if (gone != null) p.entries.add(0, gone);
+                deleteStill(e);
+                return false;
+            }
+            if (gone != null && gone != shown.get(pkg)) deleteStill(gone);
         }
-        try {
-            try (FileOutputStream out = new FileOutputStream(new File(gen, "index.txt"))) {
-                out.write(index.toString().getBytes(StandardCharsets.UTF_8));
+        if (first) main.post(() -> firstStill.onFirstStill(pkg));
+        return true;
+    }
+
+    /**
+     * Ends a round. Nothing found leaves the pool as it is and tries again sooner; an app with no stills
+     * at all gets an empty pool, retried after a couple of minutes. With new keys, the stills from before
+     * the round are made with the old ones and go, once the round found at least one.
+     */
+    private void finish(Build b) throws IOException {
+        String pkg = b.pkg;
+        File dir = poolDir(pkg);
+        synchronized (this) {
+            Pool p = pool(pkg);
+            if (b.taken == 0) {
+                if (p != null && !p.entries.isEmpty()) {
+                    attempted.put(pkg, b.built);   // keep what's there, try again later
+                    return;
+                }
+                p = new Pool(b.built, b.fingerprint, new ArrayList<>());
+                pools.put(pkg, p);
+                dir.mkdirs();
+                writeIndex(dir, p);
+                return;
             }
-            File tmp = new File(poolDir(pkg), "current.tmp");
-            try (FileOutputStream out = new FileOutputStream(tmp)) {
-                out.write(String.valueOf(built).getBytes(StandardCharsets.UTF_8));
+            if (!p.fingerprint.equals(b.fingerprint)) {
+                Entry on = shown.get(pkg);
+                for (int i = p.entries.size() - 1; i >= 0; i--) {
+                    Entry old = p.entries.get(i);
+                    if (old.made >= b.built) continue;
+                    p.entries.remove(i);
+                    if (old != on) deleteStill(old);
+                }
             }
-            synchronized (this) {
-                if (!tmp.renameTo(new File(poolDir(pkg), "current.txt"))) throw new IOException("rename");
-                pools.put(pkg, new Pool(built, fingerprint, entries));
-            }
+            p.built = b.built;
+            p.fingerprint = b.fingerprint;
+            writeIndex(dir, p);
             attempted.remove(pkg);
-        } catch (IOException e) {
-            deleteTree(gen);
-            attempted.put(pkg, built);
         }
+    }
+
+    /** Renders a choice into new files in the app's folder: its still, and the title's logo if any. Null if it fails. */
+    private Entry renderStill(Choice c, File dir) {
+        long made = System.currentTimeMillis();
+        String name = String.valueOf(made);
+        for (int n = 1; new File(dir, name + ".png").exists(); n++) name = made + "-" + n;
+        File still = new File(dir, name + ".png"), logo = null;
+        try {
+            Bitmap b = render(c);
+            if (b == null) return null;
+            b.setHasAlpha(false);   // opaque: stored as RGB, a quarter smaller than RGBA
+            try (FileOutputStream out = new FileOutputStream(still)) {
+                b.compress(Bitmap.CompressFormat.PNG, 100, out);
+            } finally {
+                b.recycle();
+            }
+            if (c.logo != null) {
+                logo = new File(dir, name + ".logo");
+                copy(c.logo, logo);
+            }
+            return new Entry(still, logo, c.title, made);
+        } catch (IOException | RuntimeException | OutOfMemoryError e) {
+            still.delete();
+            if (logo != null) logo.delete();
+            return null;
+        }
+    }
+
+    private static void deleteStill(Entry e) {
+        e.still.delete();
+        if (e.logo != null) e.logo.delete();
     }
 
     /**
@@ -432,8 +589,7 @@ final class Backdrops {
         for (File app : apps) {
             if (videoSites.contains(app.getName())) continue;
             try {
-                String current = readText(new File(app, "current.txt")).trim();
-                for (Entry e : readPool(new File(app, current)).entries) if (e.still.exists()) stills.add(e);
+                for (Entry e : readPool(app).entries) if (e.still.exists()) stills.add(e);
             } catch (IOException | RuntimeException e) {
                 // No pool for this app yet.
             }
@@ -441,20 +597,40 @@ final class Backdrops {
         return stills;
     }
 
-    /** Deletes every app's builds other than the one in use. Runs on the builder thread. */
-    private void dropReplaced() {
+    /**
+     * Deletes the files no pool lists: stills replaced while on screen, and 1.5.2's folders per build once
+     * their stills are all replaced. Only pools in the current form (index.txt): an old one still in use
+     * is left as it is. Pool thread.
+     */
+    private void sweep() {
         File[] apps = poolRoot.listFiles();
         if (apps == null) return;
         for (File app : apps) {
-            String current;
+            if (!new File(app, "index.txt").exists()) continue;
+            Set<String> used = new HashSet<>();
+            used.add(new File(app, "index.txt").getPath());
             try {
-                current = readText(new File(app, "current.txt")).trim();
-            } catch (IOException e) {
+                for (Entry e : readPool(app).entries) {
+                    used.add(e.still.getPath());
+                    if (e.logo != null) used.add(e.logo.getPath());
+                }
+            } catch (IOException | RuntimeException e) {
                 continue;
             }
-            File[] gens = app.listFiles();
-            if (gens == null) continue;
-            for (File g : gens) if (g.isDirectory() && !g.getName().equals(current)) deleteTree(g);
+            sweep(app, used);
+        }
+    }
+
+    private static void sweep(File dir, Set<String> used) {
+        File[] files = dir.listFiles();
+        if (files == null) return;
+        for (File f : files) {
+            if (f.isDirectory()) {
+                sweep(f, used);
+                f.delete();   // only goes once empty
+            } else if (!used.contains(f.getPath())) {
+                f.delete();
+            }
         }
     }
 
@@ -508,20 +684,49 @@ final class Backdrops {
      * be badged: the sticker doesn't change the card's size), or else one low-res card on its own.
      * HDHomeRun is the exception: what's on often has few titles to look up (news, talk shows), so its
      * sharp stills are topped up to max with walls of the guide's small images, which aren't counted
-     * as tries.
+     * as tries. Gone through a card at a time (step), so pools can take turns.
      */
-    private List<Choice> collect(String pkg, int max, int maxTries) {
-        List<Card> cards = cards(pkg);
-        // Films and shows by title: TMDB with a key, Stremio without. Not for video sites' video names.
-        TitleArt titleArt = isVideoSite(pkg) ? null : tmdb.enabled() ? tmdb : stremio;
-        List<Choice> sharp = new ArrayList<>(), walls = new ArrayList<>();
-        List<File> wall = new ArrayList<>();
-        File plain = null;   // first unbadged low-res card, the fallback when there aren't enough for a wall
-        Set<String> used = new HashSet<>();
-        int tries = 0, next = 0;
-        for (Card card : cards) {
-            if (sharp.size() >= max || tries >= maxTries) break;
-            next++;
+    private final class Collector {
+        final String pkg;
+        final int max, maxTries;
+        final List<Card> cards;
+        final TitleArt titleArt;
+        final List<Choice> sharp = new ArrayList<>(), walls = new ArrayList<>();
+        final List<File> wall = new ArrayList<>();
+        File plain;   // first unbadged low-res card, the fallback when there aren't enough for a wall
+        final Set<String> used = new HashSet<>();
+        int tries, next, images;
+        int sharpTaken, wallsTaken;
+
+        Collector(String pkg, int max, int maxTries) {
+            this.pkg = pkg;
+            this.max = max;
+            this.maxTries = maxTries;
+            cards = cards(pkg);
+            // Films and shows by title: TMDB with a key, Stremio without. Not for video sites' video names.
+            titleArt = isVideoSite(pkg) ? null : tmdb.enabled() ? tmdb : stremio;
+        }
+
+        /** The next card. False when done. */
+        boolean step() {
+            if (next < cards.size() && sharp.size() < max && tries < maxTries) {
+                card(cards.get(next++));
+                return true;
+            }
+            if (!pkg.equals(HDHOMERUN)) return false;
+            // The rest of the shows, by their guide images alone, until the walls fill the pool.
+            while (next < cards.size() && sharp.size() + walls.size() < max && images < GUIDE_IMAGES) {
+                String url = cards.get(next++).images.get(0);
+                if (unsuitable.contains(url) || !used.add(url)) continue;
+                images++;
+                File file = fetch(url, GUIDE_WIDTH);
+                if (file != null) addToWall(file);
+                return true;
+            }
+            return false;
+        }
+
+        private void card(Card card) {
             if (titleArt != null && card.title != null) {
                 tries++;
                 TitleArt.Art art = titleArt.lookup(card.title);
@@ -530,7 +735,7 @@ final class Backdrops {
                     if (file != null) {
                         File logo = art.logo != null && !unsuitable.contains(art.logo) ? fetch(art.logo, false) : null;
                         sharp.add(new Choice(Collections.singletonList(file), logo, card.title));
-                        continue;
+                        return;
                     }
                 }
             }
@@ -543,40 +748,41 @@ final class Backdrops {
                     if (!card.badged) sharp.add(new Choice(Collections.singletonList(file), null, null));
                 } else {
                     if (plain == null && !card.badged) plain = file;
-                    wall.add(file);
-                    if (wall.size() == WALL) {
-                        walls.add(new Choice(new ArrayList<>(wall), null, null));
-                        wall.clear();
-                    }
+                    addToWall(file);
                 }
                 break;   // one image per card
             }
         }
-        if (pkg.equals(HDHOMERUN)) {
-            // The rest of the shows, by their guide images alone, until the walls fill the pool.
-            int images = 0;
-            for (int i = next; i < cards.size() && sharp.size() + walls.size() < max && images < GUIDE_IMAGES; i++) {
-                String url = cards.get(i).images.get(0);
-                if (unsuitable.contains(url) || !used.add(url)) continue;
-                images++;
-                File file = fetch(url, GUIDE_WIDTH);
-                if (file == null) continue;
-                wall.add(file);
-                if (wall.size() == WALL) {
-                    walls.add(new Choice(new ArrayList<>(wall), null, null));
-                    wall.clear();
-                }
+
+        private void addToWall(File file) {
+            wall.add(file);
+            if (wall.size() == WALL) {
+                walls.add(new Choice(new ArrayList<>(wall), null, null));
+                wall.clear();
             }
-            // Never one small guide image stretched over the screen: too few for a wall leaves the
-            // colour glow.
-            List<Choice> all = new ArrayList<>(sharp);
-            all.addAll(walls.subList(0, Math.min(walls.size(), max - Math.min(max, sharp.size()))));
-            return all;
         }
-        if (!sharp.isEmpty()) return sharp;
-        if (!walls.isEmpty()) return walls.subList(0, Math.min(max, walls.size()));
-        return plain != null ? Collections.singletonList(new Choice(Collections.singletonList(plain), null, null))
-                : Collections.emptyList();
+
+        /**
+         * The stills found since the last call, to go into the pool: sharp ones as they're found (and
+         * HDHomeRun's walls too, as its sharp stills are topped up with them). For the others, walls or a
+         * lone low-res card only once done, and only when no sharp one turned up. Never more than max.
+         */
+        List<Choice> take(boolean done) {
+            List<Choice> out = new ArrayList<>();
+            while (sharpTaken < sharp.size() && given() < max) out.add(sharp.get(sharpTaken++));
+            // HDHomeRun: never one small guide image stretched over the screen, so no lone card.
+            boolean wallsNow = pkg.equals(HDHOMERUN) || (done && sharpTaken == 0);
+            while (wallsNow && wallsTaken < walls.size() && given() < max) out.add(walls.get(wallsTaken++));
+            if (done && !pkg.equals(HDHOMERUN) && given() == 0 && plain != null) {
+                out.add(new Choice(Collections.singletonList(plain), null, null));
+                plain = null;
+            }
+            return out;
+        }
+
+        private int given() {
+            return sharpTaken + wallsTaken;
+        }
     }
 
     /**
@@ -824,8 +1030,8 @@ final class Backdrops {
 
     /**
      * Drops downloads not used for two days: the pools keep their own finished copies, so no picture is
-     * lost. A pool is never dropped for its age, only once a newer one replaced it (dropReplaced), so
-     * there is always a picture to show. The exception: the pool of an app that can't be a tile any more,
+     * lost. A still is never dropped for its age, only once a newer one replaced it, so there is always a
+     * picture to show. The exception: the pool of an app that can't be a tile any more,
      * because it was uninstalled, disabled or hidden. Brought back, it has no pool and gets a fresh one.
      */
     private void prune() {

@@ -80,11 +80,16 @@ Art narrower than 1280 px (Netflix publishes 853×480) is shown as a 2×2 wall o
 with stickers baked in (Netflix's "Recently added", "Top 10") are only used in the wall. Apps with
 nothing usable get an ambient glow in their icon's colour.
 
-The pools are rebuilt every six hours while the TV is on (when Home opens, or on a timer set for when
-the next one is due while Home is on screen). A new pool is made in a folder of its own and only
-replaces the old one once it is as full, so a failed or partial refresh (offline, a service down)
-never leaves an app without a picture; the replaced pool is deleted on the next visit to Home.
-Changing a key rebuilds an app's pool the next time it is shown. Downloads are kept for two days, title matches for a
+The pools are refreshed every six hours while the TV is on (when Home opens, or on a timer set for
+when the next one is due while Home is on screen). Showing and filling are separate: focusing an app
+only ever picks a picture already in its pool, while one background thread fills every app's pool,
+breadth first: the apps take turns a card at a time, and apps with no picture yet (just moved to the
+top row, say) go first until each has one. Each new picture replaces that app's oldest one as it
+arrives, so there is never a second set on disk, and a failed or partial refresh (offline, a service
+down) leaves the rest in place. A picture joins the pool only once it is written in full, and the
+one it replaces leaves at the same moment (or, if it is on screen, at the next visit to Home).
+Changing a key refreshes an app's pool the next time it is shown, and the pictures made with the old
+key go once a new one is in. Downloads are kept for two days, title matches for a
 month. Stremio's metadata is not an official public API; if it stops answering, the cards' own
 art is used.
 

@@ -129,11 +129,15 @@ final class Updater {
         checkIfOlderThan(context, DAY_MS, listener);
     }
 
-    /** Checks in the background if the last check is older than this; the listener only hears of a check made. */
-    static void checkIfOlderThan(Context context, long ms, CheckListener listener) {
-        if (isDevelopmentBuild(context)) return;
-        if (System.currentTimeMillis() - prefs(context).getLong("checked", 0) < ms) return;
+    /**
+     * Checks in the background if the last check is older than this; the listener only hears of a check
+     * made. False when none was started (checked recently enough, or a development build).
+     */
+    static boolean checkIfOlderThan(Context context, long ms, CheckListener listener) {
+        if (isDevelopmentBuild(context)) return false;
+        if (System.currentTimeMillis() - prefs(context).getLong("checked", 0) < ms) return false;
         check(context, listener);
+        return true;
     }
 
     /** Asks GitHub for the latest release now. */

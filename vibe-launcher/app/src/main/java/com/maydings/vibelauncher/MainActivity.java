@@ -91,6 +91,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private TextView heroName;
     private GradientDrawable ambientGlow;
     private int ambientColor;
+    private int backdropColor;   // the focused app's glow colour, for showing its still once it's in
     private boolean heroShown;
     private View backdrop;
     private ImageView backdropImage;
@@ -142,11 +143,25 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         @Override
         public void onAvailable(@NonNull Network network) {
             handler.post(MainActivity.this::updateWifiLabel);
+            handler.post(MainActivity.this::wakeUpdateCheck);   // waiting for the network after waking
         }
 
         @Override
         public void onLost(@NonNull Network network) {
             handler.post(MainActivity.this::updateWifiLabel);
+        }
+    };
+    /**
+     * The TV was just turned on (Home starts with it) or woken from sleep: check for an update once the
+     * network is up, so a new version is offered at the start of an evening's viewing.
+     */
+    private boolean wakeCheck = true;
+    private boolean wakeChecking;   // one on its way: a network change meanwhile doesn't start another
+    private final BroadcastReceiver screenReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            wakeCheck = true;
+            wakeUpdateCheck();
         }
     };
     /**
@@ -218,10 +233,18 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         backdropTitleBox = findViewById(R.id.backdropTitleBox);
         backdropLogo = findViewById(R.id.backdropLogo);
         backdropTitle = findViewById(R.id.backdropTitle);
-        backdrops = new Backdrops(this);
+        backdrops = new Backdrops(this, pkg -> {
+            // The focused app was on its glow, waiting for its first still: show it now.
+            if (!heroShown || !pkg.equals(backdropPkg)) return;
+            backdropPkg = null;
+            showBackdrop(pkg, backdropColor);
+        });
         if (!askPermissionsOnce()) askHomeOnce();
         ConnectivityManager cm = getSystemService(ConnectivityManager.class);
         if (cm != null) cm.registerDefaultNetworkCallback(networkCallback);
+        IntentFilter screenOn = new IntentFilter(Intent.ACTION_SCREEN_ON);
+        if (Build.VERSION.SDK_INT >= 33) registerReceiver(screenReceiver, screenOn, Context.RECEIVER_NOT_EXPORTED);
+        else registerReceiver(screenReceiver, screenOn);
         ambientGlow = new GradientDrawable();
         ambientGlow.setGradientType(GradientDrawable.RADIAL_GRADIENT);
         ambientGlow.setGradientCenter(0.32f, 0.42f);
@@ -387,7 +410,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     protected void onResume() {
         super.onResume();
         showUpdateReady();
-        Updater.checkIfDue(this, (newer, failed) -> showUpdateReady());   // at most once a day
+        if (wakeCheck) wakeUpdateCheck();
+        else Updater.checkIfDue(this, (newer, failed) -> showUpdateReady());   // at most once a day
         sizeTimeBox();   // the 12/24-hour setting may have changed meanwhile
         // The pills keep their state while Home is away, and the network callback updates the network one, so
         // this only catches anything missed. Its binder calls (the Wi-Fi name, the TV's inputs) would hold up
@@ -452,8 +476,24 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         rebuildOnResume = true;
     }
 
+    /**
+     * The check after turning on or waking. At most every few minutes (GitHub's limit on unsigned calls is
+     * shared by every TV in the house). If it fails, as when Wi-Fi is still reconnecting after sleep, it
+     * runs again once the network is back.
+     */
+    private void wakeUpdateCheck() {
+        if (!wakeCheck || wakeChecking) return;
+        wakeChecking = Updater.checkIfOlderThan(this, 5 * 60 * 1000L, (newer, failed) -> {
+            wakeChecking = false;
+            if (!failed) wakeCheck = false;
+            showUpdateReady();
+        });
+        if (!wakeChecking) wakeCheck = false;   // checked just now anyway
+    }
+
     @Override
     protected void onDestroy() {
+        unregisterReceiver(screenReceiver);
         backdrops.close();
         handler.removeCallbacksAndMessages(null);
         ConnectivityManager cm = getSystemService(ConnectivityManager.class);
@@ -634,6 +674,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         }
         if (pkg.equals(backdropPkg)) return;
         backdropPkg = pkg;
+        backdropColor = color;
         backdrops.load(pkg, (loaded, bitmap, logo, title) -> {
             if (!heroShown || !loaded.equals(backdropPkg)) return;   // moved on while it loaded
             fadeBackdrop(bitmap, logo, title, color);
