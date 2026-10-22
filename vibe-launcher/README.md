@@ -59,7 +59,7 @@ means uninstalling first, and the in-app updater says to update from a computer.
 
 ## Backdrops
 
-Each dock app has a pool of up to eight backdrops, prepared in the background and stored already cut
+Each dock app has a pool of up to twelve backdrops, prepared in the background and stored already cut
 to the screen and darkened, so one shows almost at once when you focus the app (a different one each
 time you come back to Home, never the same twice in a row):
 

@@ -129,8 +129,8 @@ final class Backdrops {
     private static final int SHARP_WIDTH = 1280;  // narrower art goes into a 2x2 wall
     private static final int WALL = 4;
     private static final int WALL_GAP = 6;        // px between the wall's cards
-    private static final int POOL_SIZE = 8;
-    private static final int POOL_TRIES = 40;     // lookups and downloads for a whole pool
+    private static final int POOL_SIZE = 12;
+    private static final int POOL_TRIES = 60;     // lookups and downloads for a whole pool (5 a still)
     private static final int GUIDE_IMAGES = POOL_SIZE * WALL;  // most fetched to fill the pool with walls
     static final long POOL_MS = 6L * 60 * 60 * 1000;
     /**
