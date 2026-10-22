@@ -326,15 +326,59 @@
         android:alpha="0"
         android:importantForAccessibility="no" />
 
-    <!-- With the picture alone: the round play button, coming down from the top to the middle (in code).
-         Holding OK fills it, then opens the picture's title. -->
-    <com.maydings.vibelauncher.PlayTileView
+    <!-- With the picture alone: a Play pill where the app's name was, sliding in from the left (placed in
+         code), and under it the time left on something you're watching. Holding OK fills the pill with
+         the focused look from the reading side (holdPlayFill, revealed in code), then opens the title. -->
+    <LinearLayout
         android:id="@+id/holdPlay"
-        android:layout_width="104dp"
-        android:layout_height="104dp"
-        android:layout_gravity="top|center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:layout_marginStart="62dp"
+        android:orientation="vertical"
         android:alpha="0"
-        android:contentDescription="@string/play" />
+        android:importantForAccessibility="no">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/TopButton"
+                android:layout_marginStart="0dp"
+                android:text="@string/play"
+                android:drawableStart="@drawable/ic_play"
+                android:textAllCaps="true"
+                android:focusable="false"
+                android:clickable="false" />
+
+            <TextView
+                android:id="@+id/holdPlayFill"
+                style="@style/TopButton"
+                android:layout_marginStart="0dp"
+                android:text="@string/play"
+                android:drawableStart="@drawable/ic_play"
+                android:textAllCaps="true"
+                android:background="@drawable/pill_filled"
+                android:textColor="#FF111111"
+                android:drawableTint="#FF111111"
+                android:focusable="false"
+                android:clickable="false" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/playInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="10dp"
+            android:textColor="#CCFFFFFF"
+            android:textSize="16sp"
+            android:fontFamily="@string/font_regular"
+            android:shadowColor="#99000000"
+            android:shadowRadius="6"
+            android:visibility="gone" />
+    </LinearLayout>
 
     <!-- The single floating glass highlight that springs between tiles. -->
     <com.maydings.vibelauncher.GlassView

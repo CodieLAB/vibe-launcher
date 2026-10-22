@@ -75,4 +75,5 @@
     <string name="reload_backdrops">Volver a cargar fondos</string>
     <string name="backdrops_reloading">Descargando fondos nuevos…</string>
     <string name="auto_hide_bar">Ocultar automáticamente</string>
+    <string name="time_remaining">Quedan %1$s</string>
 </resources>

@@ -75,4 +75,5 @@
     <string name="reload_backdrops">പശ്ചാത്തലങ്ങൾ വീണ്ടും ലോഡ് ചെയ്യുക</string>
     <string name="backdrops_reloading">പുതിയ പശ്ചാത്തലങ്ങൾ ഡൗൺലോഡ് ചെയ്യുന്നു…</string>
     <string name="auto_hide_bar">സ്വയം മറയ്ക്കുക</string>
+    <string name="time_remaining">%1$s ശേഷിക്കുന്നു</string>
 </resources>

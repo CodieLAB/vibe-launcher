@@ -75,4 +75,5 @@
     <string name="reload_backdrops">ಹಿನ್ನೆಲೆಗಳನ್ನು ಮರುಲೋಡ್ ಮಾಡಿ</string>
     <string name="backdrops_reloading">ಹೊಸ ಹಿನ್ನೆಲೆಗಳನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ…</string>
     <string name="auto_hide_bar">ಸ್ವಯಂ ಮರೆಮಾಡು</string>
+    <string name="time_remaining">%1$s ಉಳಿದಿದೆ</string>
 </resources>

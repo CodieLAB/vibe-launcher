@@ -126,6 +126,11 @@ final class Backdrops {
     private static final Uri WATCH_NEXT = Uri.parse("content://android.media.tv/watch_next_program");
     private static final String[] COLUMNS = {"package_name", "intent_uri", "title", "poster_art_uri", "thumbnail_uri"};
     private static final int FIRST_IMAGE = 3;   // COLUMNS from here on are image URIs
+    /** Watch Next rows also say whether you're watching it, and when you last did. */
+    private static final String[] WATCH_NEXT_COLUMNS = {"package_name", "intent_uri", "title", "poster_art_uri",
+            "thumbnail_uri", "watch_next_type", "last_engagement_time_utc_millis"};
+    /** Watch Next types for something started: part-way through (CONTINUE), or the next episode (NEXT). */
+    private static final int CONTINUE = 0, NEXT = 1;
     private static final String YOUTUBE = "com.google.android.youtube.tv";
     private static final String PLEX = "com.plexapp.android";
     private static final String HDHOMERUN = "com.silicondust.view";
@@ -338,12 +343,107 @@ final class Backdrops {
     private synchronized Entry next(String pkg, int direction) {
         Pool p = pool(pkg);
         if (p == null || p.entries.size() < 2) return null;
-        int n = p.entries.size();
-        int at = p.entries.indexOf(shown.get(pkg));
+        // The carousel's order when it was opened for this app (what you're watching first), else the pool's.
+        List<Entry> order = pkg.equals(carouselPkg) && carousel.size() == p.entries.size() ? carousel : p.entries;
+        int n = order.size();
+        int at = order.indexOf(shown.get(pkg));
         if (at < 0) at = direction > 0 ? -1 : 0;   // none shown, or replaced since: start at an end
-        Entry e = p.entries.get(((at + direction) % n + n) % n);
+        Entry e = order.get(((at + direction) % n + n) % n);
         shown.put(pkg, e);
         return e;
+    }
+
+    /** Something you're watching, from Watch Next: when you last did, and how far in you are. */
+    static final class Watching {
+        final long engaged, durationMs, positionMs;
+
+        Watching(long engaged, long durationMs, long positionMs) {
+            this.engaged = engaged;
+            this.durationMs = durationMs;
+            this.positionMs = positionMs;
+        }
+
+        /** The time left, or 0 when the app didn't say how long it is or how far in you are. */
+        long remainingMs() {
+            return durationMs > 0 && positionMs > 0 ? Math.max(0, durationMs - positionMs) : 0;
+        }
+    }
+
+    private List<Entry> carousel = Collections.emptyList();
+    private String carouselPkg;
+    private volatile Map<String, Watching> watching = Collections.emptyMap();
+
+    /**
+     * What you're watching now, by each Watch Next row's link (the link a pool entry keeps): read fresh, as
+     * the pool is up to six hours old and you may have watched more since. Worker thread.
+     */
+    private Map<String, Watching> readWatching() {
+        Map<String, Watching> found = new HashMap<>();
+        String[] columns = {"intent_uri", "watch_next_type", "last_engagement_time_utc_millis", "duration_millis",
+                "last_playback_position_millis", "browsable"};
+        try (Cursor c = resolver.query(WATCH_NEXT, columns, null, null, null)) {
+            while (c != null && c.moveToNext()) {
+                String link = c.getString(0);
+                if (link == null || !isStarted(c, 1)) continue;
+                if (!c.isNull(5) && c.getInt(5) == 0) continue;   // removed from Continue watching
+                found.put(link, new Watching(c.isNull(2) ? 0 : c.getLong(2), c.isNull(3) ? 0 : c.getLong(3),
+                        c.isNull(4) ? 0 : c.getLong(4)));
+            }
+        } catch (RuntimeException e) {
+            // No permission or no provider: nothing known to be watched.
+        }
+        return found;
+    }
+
+    /** The time left on what this link opens, as of the last openCarousel; 0 when not known. */
+    long remainingMs(String link) {
+        Watching w = link == null ? null : watching.get(link);
+        return w == null ? 0 : w.remainingMs();
+    }
+
+    /** Whether this link opens something you've started, as of the last openCarousel. */
+    boolean isWatching(String link) {
+        return link != null && watching.containsKey(link);
+    }
+
+    /**
+     * Opening the picture alone for this app: reads what you're watching, puts it first in the carousel (the
+     * last watched first), then the rest of the pool. With jump, and something watched in the pool, delivers
+     * the first of them to show (unless it is showing already); otherwise delivers a null bitmap, just to say
+     * the watching info is in.
+     */
+    void openCarousel(String pkg, boolean jump, Callback callback) {
+        queue.offerFirst(() -> {
+            Map<String, Watching> now = readWatching();
+            watching = now;
+            Entry first;
+            synchronized (this) {
+                Pool p = pool(pkg);
+                List<Entry> order = new ArrayList<>(), rest = new ArrayList<>();
+                if (p != null) {
+                    for (Entry e : p.entries) (e.link != null && now.containsKey(e.link) ? order : rest).add(e);
+                }
+                order.sort((a, b) -> Long.compare(now.get(b.link).engaged, now.get(a.link).engaged));
+                first = order.isEmpty() ? null : order.get(0);
+                order.addAll(rest);
+                carousel = order;
+                carouselPkg = pkg;
+                if (!jump || first == shown.get(pkg)) first = null;
+                if (first != null) shown.put(pkg, first);
+            }
+            Bitmap bitmap = null, logo = null;
+            if (first != null) {
+                try {
+                    bitmap = BitmapFactory.decodeFile(first.still.getPath());
+                    logo = first.logo != null ? decodeLogo(first.logo) : null;
+                } catch (RuntimeException | OutOfMemoryError x) {
+                    bitmap = null;
+                }
+            }
+            Bitmap b = bitmap, l = logo;
+            Entry e = first;
+            main.post(() -> callback.onBackdrop(pkg, b, l, e != null ? e.title : null, e != null ? e.link : null));
+        });
     }
 
     interface SlideCallback {
@@ -938,22 +1038,32 @@ final class Backdrops {
         Set<String> sources = new HashSet<>(Collections.singletonList(pkg));
         if (pkg.equals(YOUTUBE)) Collections.addAll(sources, SMARTTUBE);
         List<Card> clean = new ArrayList<>(), badged = new ArrayList<>();
+        // What you've started watching comes first, the last watched first, so it's in the pool.
+        List<Card> started = new ArrayList<>();
+        Map<Card, Long> engaged = new HashMap<>();
         Set<String> seen = new HashSet<>();
         for (Uri table : new Uri[]{WATCH_NEXT, PREVIEW}) {
+            boolean watchNext = table == WATCH_NEXT;
             // Filtering by package in the query isn't allowed without system permissions; read all.
-            try (Cursor c = resolver.query(table, COLUMNS, null, null, null)) {
+            try (Cursor c = resolver.query(table, watchNext ? WATCH_NEXT_COLUMNS : COLUMNS, null, null, null)) {
                 while (c != null && c.moveToNext()) {
                     if (!sources.contains(c.getString(0))) continue;
                     Card card = new Card(c.getString(2), badged(c.getString(1)));
                     card.link = c.getString(1);
-                    for (int i = FIRST_IMAGE; i < COLUMNS.length; i++) {
+                    for (int i = FIRST_IMAGE; i < COLUMNS.length; i++) {   // the image columns, in both tables
                         String url = c.getString(i);
                         if (url == null || url.isEmpty() || !seen.add(url)) continue;
                         String sharper = youtubeMaxRes(url);
                         if (sharper != null && seen.add(sharper)) card.images.add(sharper);
                         card.images.add(url);
                     }
-                    if (!card.images.isEmpty()) (card.badged ? badged : clean).add(card);
+                    if (card.images.isEmpty()) continue;
+                    if (watchNext && isStarted(c, 5)) {
+                        started.add(card);
+                        engaged.put(card, c.isNull(6) ? 0L : c.getLong(6));
+                    } else {
+                        (card.badged ? badged : clean).add(card);
+                    }
                 }
             } catch (RuntimeException e) {
                 // No permission, or the provider is missing (not a TV): no stills.
@@ -972,7 +1082,15 @@ final class Backdrops {
         Collections.shuffle(clean, random);
         Collections.shuffle(badged, random);
         clean.addAll(badged);
-        return clean;
+        Collections.sort(started, (a, b) -> Long.compare(engaged.get(b), engaged.get(a)));
+        started.addAll(clean);
+        return started;
+    }
+
+    private static boolean isStarted(Cursor c, int typeColumn) {
+        if (c.isNull(typeColumn)) return false;
+        int type = c.getInt(typeColumn);
+        return type == CONTINUE || type == NEXT;
     }
 
     /** Video sites: their card titles are video names, not films or shows to look up on TMDB. */

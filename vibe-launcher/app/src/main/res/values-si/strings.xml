@@ -75,4 +75,5 @@
     <string name="reload_backdrops">පසුබිම් නැවත පූරණය කරන්න</string>
     <string name="backdrops_reloading">නව පසුබිම් බාගත වෙමින්…</string>
     <string name="auto_hide_bar">ස්වයංක්‍රීයව සඟවන්න</string>
+    <string name="time_remaining">%1$s ඉතිරියි</string>
 </resources>

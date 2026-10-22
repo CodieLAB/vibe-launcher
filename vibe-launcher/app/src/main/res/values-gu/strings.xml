@@ -75,4 +75,5 @@
     <string name="reload_backdrops">બેકડ્રોપ ફરી લોડ કરો</string>
     <string name="backdrops_reloading">નવા બેકડ્રોપ ડાઉનલોડ થઈ રહ્યા છે…</string>
     <string name="auto_hide_bar">આપમેળે છુપાવો</string>
+    <string name="time_remaining">%1$s બાકી</string>
 </resources>

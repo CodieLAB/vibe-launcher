@@ -75,4 +75,5 @@
     <string name="reload_backdrops">Обновить фоны</string>
     <string name="backdrops_reloading">Загрузка новых фонов…</string>
     <string name="auto_hide_bar">Автоскрытие</string>
+    <string name="time_remaining">Осталось: %1$s</string>
 </resources>

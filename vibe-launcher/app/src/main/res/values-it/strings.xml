@@ -75,4 +75,5 @@
     <string name="reload_backdrops">Ricarica gli sfondi</string>
     <string name="backdrops_reloading">Download di nuovi sfondi…</string>
     <string name="auto_hide_bar">Nascondi automaticamente</string>
+    <string name="time_remaining">Ancora %1$s</string>
 </resources>

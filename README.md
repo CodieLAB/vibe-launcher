@@ -50,18 +50,21 @@ Low-resolution art becomes a 2×2 wall instead of one blurry still, and apps wit
 a soft glow in their own colour.
 
 **Just the picture**: press Up on the dock and the apps slide away, leaving the backdrop on its own,
-and a round play button drops into the middle. Left and Right go through all of that app's pictures.
-Hold OK (or press and hold Play) and the button fills up, then opens the film, show or video in that
-app, or the app itself when there's no single title. Faint arrows at the screen's edges show where the
-remote goes.
+and a **Play** button slides in where the app's name was. It opens on what you've started watching
+(the last one first), with the time left under the button, such as "2 hours, 5 minutes remaining";
+Left and Right then go through everything else of that app's. Hold OK (or press and hold Play) and the
+button fills up, then opens the film, show or video in that app, or the app itself when there's no
+single title. Faint arrows at the screen's edges show where the remote goes. What you're watching comes
+from the apps themselves: those that share their "Continue watching" with Android TV (Jellyfin does,
+for example) get it, the others just the Play button.
 
-![Just the picture: Apex's backdrop on its own, with a round play button in the middle and faint arrows at the edges](vibe-launcher/docs/picture.jpg)
+![Just the picture: Wake Up Dead Man's backdrop on its own, with the Play button where the app's name was and faint arrows at the edges](vibe-launcher/docs/picture.jpg)
 
 ### Slideshow
 
 Leave Home alone for a minute and the apps and the top bar slide away: the backdrops of every app in
 the dock follow each other at random, ten seconds each, with nothing over them. Press any button and
-it stops on the picture showing, with the play button in the middle, so holding OK opens it. It
+it stops on the picture showing, with the Play button ready, so holding OK opens it. It
 doesn't start while a menu or Settings is open, and it keeps the screen on only as long as your TV's
 own screen-off setting would. (This replaces the screensaver of earlier versions; pick another, or
 Turn screen off, in your TV's screen saver settings.)

@@ -75,4 +75,5 @@
     <string name="reload_backdrops">Znova načítať pozadia</string>
     <string name="backdrops_reloading">Sťahujú sa nové pozadia…</string>
     <string name="auto_hide_bar">Automaticky skryť</string>
+    <string name="time_remaining">Zostáva %1$s</string>
 </resources>

@@ -75,4 +75,5 @@
     <string name="reload_backdrops">بارگذاری دوبارهٔ پس‌زمینه‌ها</string>
     <string name="backdrops_reloading">در حال دانلود پس‌زمینه‌های تازه…</string>
     <string name="auto_hide_bar">پنهان‌سازی خودکار</string>
+    <string name="time_remaining">%1$s باقی‌مانده</string>
 </resources>

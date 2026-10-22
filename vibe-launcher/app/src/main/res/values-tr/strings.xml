@@ -75,4 +75,5 @@
     <string name="reload_backdrops">Arka planları yeniden yükle</string>
     <string name="backdrops_reloading">Yeni arka planlar indiriliyor…</string>
     <string name="auto_hide_bar">Otomatik gizle</string>
+    <string name="time_remaining">%1$s kaldı</string>
 </resources>

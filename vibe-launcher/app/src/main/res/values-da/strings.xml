@@ -75,4 +75,5 @@
     <string name="reload_backdrops">Genindlæs baggrunde</string>
     <string name="backdrops_reloading">Henter nye baggrunde…</string>
     <string name="auto_hide_bar">Skjul automatisk</string>
+    <string name="time_remaining">%1$s tilbage</string>
 </resources>

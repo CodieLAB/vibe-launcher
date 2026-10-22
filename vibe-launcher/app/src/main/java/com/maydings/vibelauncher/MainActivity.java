@@ -21,6 +21,9 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
+import android.icu.text.MeasureFormat;
+import android.icu.util.Measure;
+import android.icu.util.MeasureUnit;
 import android.media.tv.TvContract;
 import android.media.tv.TvInputInfo;
 import android.media.tv.TvInputManager;
@@ -94,7 +97,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private static final long PICTURE_SLIDE_MS = 450;
     private static final long CARET_FADE_MS = 150;   // the carets go before the menus move
     private static final float CARET_ALPHA = 0.25f;
-    private static final long PLAY_DROP_MS = 450;     // the play button, from the top to the middle
+    private static final long PLAY_SLIDE_MS = 350;    // the Play pill, in from the left
     private static final long BAR_SLIDE_MS = 250;     // the top bar in or out as focus moves
     private static final long IDLE_MS = 60_000;       // left alone this long, Home shows the slideshow
     private static final long SLIDE_MS = 10_000;      // each picture in the slideshow
@@ -150,10 +153,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private final Runnable showPictureFromBar = this::showPictureFromBar;
     private float dockPanelTop;   // the dock's panel top on screen: how far the rows slide to leave it
     private View caretDock, caretBar, caretUp, caretDown, caretLeft, caretRight;
-    private boolean playShown;   // the round play button is in (or coming in)
+    private boolean playShown;   // the Play pill is in (or coming in)
     private VibeSettings settings;
     /** Hold OK with the picture alone: the Play pill fills, and a long press opens backdropLink. */
-    private PlayTileView holdPlay;
+    private View holdPlay, holdPlayFill;
+    private TextView playInfo;   // under the Play pill: the time left on something you're watching
     private ValueAnimator holdFill;
     private boolean holdOpened;   // this press already opened the title: its release changes nothing
     private String backdropLink;   // what opens the picture on screen's title; null for none
@@ -371,7 +375,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         caretLeft = findViewById(R.id.caretLeft);
         caretRight = findViewById(R.id.caretRight);
         holdPlay = findViewById(R.id.holdPlay);
-        holdPlay.setRadius(holdPlay.getLayoutParams().height / 2f);   // round
+        holdPlayFill = findViewById(R.id.holdPlayFill);
+        playInfo = findViewById(R.id.playInfo);
+        setHoldFill(0f);
         setHoldFill(0f);
         grid.setLayoutManager(new GridLayoutManager(this, COLUMNS));
         grid.setHasFixedSize(true);
@@ -949,6 +955,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         pictureOnly = true;
         rowsAway = false;   // the picture alone keeps them away now
         if (sound >= 0) grid.playSoundEffect(sound);
+        if (!slideshow) openCarousel(true);
         // The name and the glass don't move with the rows: they go with the carets, before anything moves.
         heroName.animate().alpha(0f).setDuration(CARET_FADE_MS).start();
         glass.animate().alpha(0f).setDuration(CARET_FADE_MS).start();   // the round play button takes over
@@ -1025,6 +1032,23 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         heroName.setText(adapter.labelAt(position));
         heroName.setTranslationX(0f);
         heroName.setAlpha(0f);
+    }
+
+    /**
+     * The carousel opens on what you've started watching (the last watched first) and says the time left;
+     * jump false keeps the picture showing (the slideshow stopped on it).
+     */
+    private void openCarousel(boolean jump) {
+        if (backdropPkg == null) return;
+        playInfo.setVisibility(View.GONE);
+        backdrops.openCarousel(backdropPkg, jump, (pkg, bitmap, logo, title, link) -> {
+            if (!pictureOnly || !pkg.equals(backdropPkg)) return;
+            if (bitmap != null) {
+                backdropLink = link;
+                fadeBackdrop(bitmap, logo, title, backdropColor);
+            }
+            updatePlayInfo();
+        });
     }
 
     /** Focus is back on a tile while the rows were kept down: they come up, then its name and glass. */
@@ -1190,25 +1214,42 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     }
 
     /**
-     * The round play button with the picture alone: it comes down from the top of the screen to the
-     * middle, and fades where it is on the way out (back up to the top for its next entrance).
+     * The Play pill with the picture alone: where the app's name was (its name fades out first), sliding in
+     * from the left as the name does; on the way out it fades where it is.
      */
     private void showPlay(boolean show) {
         if (show == playShown) return;
         playShown = show;
-        float above = -holdPlay.getHeight();
         if (show) {
+            // The pill's line centred on the name's line; the time left, if any, goes under it.
+            View pill = (View) holdPlayFill.getParent();
+            holdPlay.setY(heroName.getY() + (heroName.getHeight() - pill.getHeight()) / 2f);
             holdPlay.animate().cancel();
-            holdPlay.setTranslationY(above);
+            holdPlay.setTranslationX(-24 * density);
             holdPlay.setAlpha(0f);
-            float middle = (root.getHeight() - holdPlay.getHeight()) / 2f;
-            holdPlay.animate().translationY(middle).alpha(1f).setDuration(PLAY_DROP_MS)
+            holdPlay.animate().translationX(0f).alpha(1f).setDuration(PLAY_SLIDE_MS)
                     .setInterpolator(new DecelerateInterpolator(2f)).start();
         } else {
-            holdPlay.animate().alpha(0f).setDuration(CARET_FADE_MS).withEndAction(() -> {
-                if (!playShown) holdPlay.setTranslationY(above);
-            }).start();
+            holdPlay.animate().alpha(0f).setDuration(CARET_FADE_MS).start();
         }
+    }
+
+    /** Under the Play pill: "45 minutes remaining" when you're part-way through the picture's title. */
+    private void updatePlayInfo() {
+        long left = backdrops.remainingMs(backdropLink);
+        if (left <= 0) {
+            playInfo.setVisibility(View.GONE);
+            return;
+        }
+        long minutes = Math.max(1, (left + 59_999) / 60_000);   // rounded up: never "0 minutes"
+        Locale locale = getResources().getConfiguration().getLocales().get(0);
+        // "1 hour, 20 minutes", "45 minutes", in the language Home is in.
+        MeasureFormat format = MeasureFormat.getInstance(locale, MeasureFormat.FormatWidth.WIDE);
+        Measure hours = new Measure(minutes / 60, MeasureUnit.HOUR), rest = new Measure(minutes % 60, MeasureUnit.MINUTE);
+        String time = minutes < 60 ? format.format(rest)
+                : minutes % 60 == 0 ? format.format(hours) : format.formatMeasures(hours, rest);
+        playInfo.setText(getString(R.string.time_remaining, time));
+        playInfo.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -1303,8 +1344,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
      * language reads from (the right for Arabic, Hebrew, Persian and Urdu).
      */
     private void setHoldFill(float fill) {
+        int w = holdPlayFill.getWidth(), h = holdPlayFill.getHeight();
+        int filled = Math.round(w * Math.max(0f, Math.min(1f, fill)));
         Locale locale = getResources().getConfiguration().getLocales().get(0);
-        holdPlay.setFill(fill, TextUtils.getLayoutDirectionFromLocale(locale) == View.LAYOUT_DIRECTION_RTL);
+        boolean rtl = TextUtils.getLayoutDirectionFromLocale(locale) == View.LAYOUT_DIRECTION_RTL;
+        holdPlayFill.setClipBounds(rtl ? new Rect(w - filled, 0, w, h) : new Rect(0, 0, filled, h));
     }
 
     /** OK let go before the button is full: it drains, and nothing opens. */
@@ -1439,6 +1483,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             glass.setAlpha(0f);
         }
         if (pictureOnly && !caretsHeld) updateCarets();
+        if (pictureOnly) openCarousel(false);   // the stopped-on app's carousel, and the time left on it
         armIdle();
     }
 
@@ -1450,6 +1495,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             cancelHold();
             backdropLink = link;
             fadeBackdrop(bitmap, logo, title, backdropColor);
+            updatePlayInfo();
             updateCarets();
         });
         grid.playSoundEffect(direction > 0

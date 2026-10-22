@@ -75,4 +75,5 @@
     <string name="reload_backdrops">I-reload ang mga backdrop</string>
     <string name="backdrops_reloading">Nagda-download ng mga bagong backdrop…</string>
     <string name="auto_hide_bar">Awtomatikong itago</string>
+    <string name="time_remaining">%1$s pa ang natitira</string>
 </resources>
