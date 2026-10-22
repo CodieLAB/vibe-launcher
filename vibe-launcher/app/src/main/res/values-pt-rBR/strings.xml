@@ -74,4 +74,5 @@
     <string name="backdrops">Fundos</string>
     <string name="reload_backdrops">Recarregar fundos</string>
     <string name="backdrops_reloading">Baixando fundos novos…</string>
+    <string name="auto_hide_bar">Ocultar automaticamente</string>
 </resources>

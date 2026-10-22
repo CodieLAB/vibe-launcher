@@ -74,4 +74,5 @@
     <string name="backdrops">الخلفيات</string>
     <string name="reload_backdrops">إعادة تحميل الخلفيات</string>
     <string name="backdrops_reloading">جارٍ تنزيل خلفيات جديدة…</string>
+    <string name="auto_hide_bar">إخفاء تلقائي</string>
 </resources>

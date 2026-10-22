@@ -78,4 +78,5 @@
     <string name="backdrops">Backdrops</string>
     <string name="reload_backdrops">Reload backdrops</string>
     <string name="backdrops_reloading">Downloading new backdrops…</string>
+    <string name="auto_hide_bar">Auto-hide</string>
 </resources>

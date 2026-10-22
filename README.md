@@ -7,7 +7,7 @@ accounts. Free and open source.
 I built Vibe Launcher for my own TVs at home, because I wanted a home screen that just shows my apps
 and gets out of the way. It works well enough for us that I'd like to share it with everyone else.
 
-![Vibe Launcher: Netflix focused in the dock, with The Rip's backdrop and title logo filling the screen](vibe-launcher/docs/home.jpg)
+![Vibe Launcher: Netflix focused in the dock, with Apex's backdrop and title logo filling the screen](vibe-launcher/docs/home.jpg)
 
 **[Download the latest APK](https://github.com/maydings/vibe-launcher/releases/latest/download/vibe-launcher.apk)**
 · Android TV and Google TV, Android 8.0 or newer · under 1 MB
@@ -49,26 +49,28 @@ As you move along the dock, the screen behind it fills with artwork from the foc
 Low-resolution art becomes a 2×2 wall instead of one blurry still, and apps with nothing to show get
 a soft glow in their own colour.
 
-**Just the picture**: press Up on the dock (or Down from the top bar) and the apps and the top bar
-slide away, leaving the backdrop on its own. Left and Right go through all of that app's pictures.
-A play button sits under the glass in the app's place: hold OK (or press and hold Play) and it fills
-up, then opens the film, show or video in that app, or the app itself when there's no single title.
-Small arrows at the screen's edges show where the remote goes; scroll quickly and the rows stay put.
+**Just the picture**: press Up on the dock and the apps slide away, leaving the backdrop on its own,
+and a round play button drops into the middle. Left and Right go through all of that app's pictures.
+Hold OK (or press and hold Play) and the button fills up, then opens the film, show or video in that
+app, or the app itself when there's no single title. Faint arrows at the screen's edges show where the
+remote goes.
 
-![Just the picture: The Rip's backdrop on its own, with the play button in Netflix's place and arrows at the edges](vibe-launcher/docs/picture.jpg)
+![Just the picture: Apex's backdrop on its own, with a round play button in the middle and faint arrows at the edges](vibe-launcher/docs/picture.jpg)
 
 ### Slideshow
 
 Leave Home alone for a minute and the apps and the top bar slide away: the backdrops of every app in
 the dock follow each other at random, ten seconds each, with nothing over them. Press any button and
-it stops on the picture showing, with the play button in that app's place, so holding OK opens it. It
+it stops on the picture showing, with the play button in the middle, so holding OK opens it. It
 doesn't start while a menu or Settings is open, and it keeps the screen on only as long as your TV's
 own screen-off setting would. (This replaces the screensaver of earlier versions; pick another, or
 Turn screen off, in your TV's screen saver settings.)
 
 ## The top bar
 
-A frosted bar with the clock and date, and three menus. Left and Right move between them.
+A frosted bar with the clock and date, and three menus. Left and Right move between them. With
+**Auto-hide** on (the default) it stays out of sight on the dock, so the picture fills the screen: it
+slides in when you press Up from the picture alone, or move down into the app grid.
 
 - **Inputs** lists every HDMI and AV input, with whether something is connected to each HDMI one, plus Live TV. Devices
   that announce themselves over HDMI-CEC appear by name under their port, so an Apple TV and a
@@ -82,10 +84,10 @@ A frosted bar with the clock and date, and three menus. Left and Right move betw
 
 ## Settings
 
-**General**: tiles per row, hiding inactive inputs, language, reloading the backdrops and the software
-version.
+**General**: tiles per row, hiding inactive inputs, auto-hide, language and reloading the backdrops;
+under Save and Cancel, the software version.
 
-| ![Vibe Launcher settings, General tab: tiles per row, hide inactive inputs, language, reload backdrops and software version](vibe-launcher/docs/settings-general.jpg) | ![The language list, each language in its own name](vibe-launcher/docs/language.jpg) |
+| ![Vibe Launcher settings, General tab: tiles per row, hide inactive inputs, auto-hide, language, reload backdrops, and the software version under Save and Cancel](vibe-launcher/docs/settings-general.jpg) | ![The language list, each language in its own name](vibe-launcher/docs/language.jpg) |
 |---|---|
 
 - **Tiles per row**: 4, 5 or 6. Tiles shrink to fit and the dock holds as many apps. Until you pick,
@@ -93,6 +95,9 @@ version.
   the size of the TV it's plugged into, so it starts at 4.
 - **Hide inactive inputs**: the Inputs menu leaves out HDMI inputs with nothing connected. AV inputs
   always stay: TVs can't tell whether anything is plugged into them.
+- **Auto-hide**: On (the default) keeps the top bar out of sight on the dock and with the picture alone;
+  Off keeps it always on screen, and Up from the dock then waits a moment, so scrolling up quickly
+  passes the picture alone and reaches the bar.
 - **Language**: Match system (the default), or any of 50 languages, each listed in its own name. The
   clock and date follow it.
 - **Backdrops → Reload backdrops**: empties the saved pictures and downloads them all again, each

@@ -128,6 +128,33 @@
                         android:layout_marginTop="0dp"
                         android:layout_marginEnd="6dp"
                         android:maxWidth="150dp"
+                        android:text="@string/auto_hide_bar" />
+
+                    <TextView
+                        android:id="@+id/hideBarOff"
+                        style="@style/TopButton"
+                        android:paddingStart="20dp"
+                        android:text="@string/off" />
+
+                    <TextView
+                        android:id="@+id/hideBarOn"
+                        style="@style/TopButton"
+                        android:paddingStart="20dp"
+                        android:text="@string/on" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/SettingsLabel"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="6dp"
+                        android:maxWidth="150dp"
                         android:text="@string/language" />
 
                     <!-- The language in use; opens the list (SettingsDialog), applied on Save. -->
@@ -159,27 +186,6 @@
                         android:text="@string/reload_backdrops" />
                 </LinearLayout>
 
-                <TextView
-                    style="@style/SettingsLabel"
-                    android:layout_marginTop="28dp"
-                    android:text="@string/updates" />
-
-                <TextView
-                    android:id="@+id/updateStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:textColor="#B3FFFFFF"
-                    android:textSize="15sp"
-                    android:fontFamily="@font/outfit" />
-
-                <TextView
-                    android:id="@+id/updateButton"
-                    style="@style/TopButton"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="12dp"
-                    android:paddingStart="20dp"
-                    android:text="@string/check_updates" />
             </LinearLayout>
 
             <LinearLayout
@@ -285,8 +291,8 @@
             android:orientation="vertical"
             android:gravity="center_horizontal">
 
-            <!-- Save and Cancel first, so they sit in the same place on both tabs; the QR code comes under
-                 them on API keys only. -->
+            <!-- Save and Cancel first, so they sit in the same place on both tabs; under them the software
+                 version on General, the QR code on API keys. -->
             <TextView
                 android:id="@+id/save"
                 style="@style/TopButton"
@@ -304,6 +310,37 @@
                 android:layout_marginTop="12dp"
                 android:paddingStart="20dp"
                 android:text="@string/cancel" />
+
+            <!-- The software version and its update check, under Save and Cancel on General only. -->
+            <LinearLayout
+                android:id="@+id/updates"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/SettingsLabel"
+                    android:layout_marginTop="28dp"
+                    android:text="@string/updates" />
+
+                <TextView
+                    android:id="@+id/updateStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:textColor="#B3FFFFFF"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/outfit" />
+
+                <TextView
+                    android:id="@+id/updateButton"
+                    style="@style/TopButton"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="12dp"
+                    android:paddingStart="20dp"
+                    android:text="@string/check_updates" />
+            </LinearLayout>
 
             <!-- Scan to type the keys on a phone instead (PhoneLink). -->
             <LinearLayout

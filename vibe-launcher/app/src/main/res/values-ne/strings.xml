@@ -74,4 +74,5 @@
     <string name="backdrops">पृष्ठभूमिहरू</string>
     <string name="reload_backdrops">पृष्ठभूमिहरू फेरि लोड गर्नुहोस्</string>
     <string name="backdrops_reloading">नयाँ पृष्ठभूमिहरू डाउनलोड हुँदैछन्…</string>
+    <string name="auto_hide_bar">स्वतः लुकाउनुहोस्</string>
 </resources>

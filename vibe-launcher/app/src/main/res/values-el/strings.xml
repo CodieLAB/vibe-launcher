@@ -74,4 +74,5 @@
     <string name="backdrops">Φόντα</string>
     <string name="reload_backdrops">Επαναφόρτωση φόντων</string>
     <string name="backdrops_reloading">Λήψη νέων φόντων…</string>
+    <string name="auto_hide_bar">Αυτόματη απόκρυψη</string>
 </resources>

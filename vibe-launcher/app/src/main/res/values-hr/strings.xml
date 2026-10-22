@@ -74,4 +74,5 @@
     <string name="backdrops">Pozadine</string>
     <string name="reload_backdrops">Ponovno učitaj pozadine</string>
     <string name="backdrops_reloading">Preuzimanje novih pozadina…</string>
+    <string name="auto_hide_bar">Automatsko skrivanje</string>
 </resources>

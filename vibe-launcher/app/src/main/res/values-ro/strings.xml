@@ -74,4 +74,5 @@
     <string name="backdrops">Fundaluri</string>
     <string name="reload_backdrops">Reîncarcă fundalurile</string>
     <string name="backdrops_reloading">Se descarcă fundaluri noi…</string>
+    <string name="auto_hide_bar">Ascundere automată</string>
 </resources>

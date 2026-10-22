@@ -74,4 +74,5 @@
     <string name="backdrops">पार्श्वभूमी</string>
     <string name="reload_backdrops">पार्श्वभूमी पुन्हा लोड करा</string>
     <string name="backdrops_reloading">नवीन पार्श्वभूमी डाउनलोड होत आहेत…</string>
+    <string name="auto_hide_bar">आपोआप लपवा</string>
 </resources>

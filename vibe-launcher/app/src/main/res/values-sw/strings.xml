@@ -74,4 +74,5 @@
     <string name="backdrops">Mandhari</string>
     <string name="reload_backdrops">Pakia upya mandhari</string>
     <string name="backdrops_reloading">Inapakua mandhari mapya…</string>
+    <string name="auto_hide_bar">Ficha kiotomatiki</string>
 </resources>

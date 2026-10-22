@@ -74,4 +74,5 @@
     <string name="backdrops">ব্যাকড্রপ</string>
     <string name="reload_backdrops">ব্যাকড্রপ আবার লোড করুন</string>
     <string name="backdrops_reloading">নতুন ব্যাকড্রপ ডাউনলোড হচ্ছে…</string>
+    <string name="auto_hide_bar">স্বয়ংক্রিয়ভাবে লুকান</string>
 </resources>

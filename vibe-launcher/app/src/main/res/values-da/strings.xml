@@ -74,4 +74,5 @@
     <string name="backdrops">Baggrunde</string>
     <string name="reload_backdrops">Genindlæs baggrunde</string>
     <string name="backdrops_reloading">Henter nye baggrunde…</string>
+    <string name="auto_hide_bar">Skjul automatisk</string>
 </resources>

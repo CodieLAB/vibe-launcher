@@ -14,6 +14,7 @@ final class VibeSettings {
     private static final String COLUMNS = "columns";
     private static final String LANGUAGE = "language";
     private static final String HIDE_INACTIVE_INPUTS = "hideInactiveInputs";
+    private static final String AUTO_HIDE_BAR = "autoHideBar";
 
     private final SharedPreferences prefs;
 
@@ -64,6 +65,18 @@ final class VibeSettings {
 
     void setHideInactiveInputs(boolean hide) {
         prefs.edit().putBoolean(HIDE_INACTIVE_INPUTS, hide).apply();
+    }
+
+    /**
+     * Auto-hide (on by default): the top bar stays out of sight on the dock and with the picture alone, and
+     * the rows stay down while the top bar has focus.
+     */
+    boolean autoHideBar() {
+        return prefs.getBoolean(AUTO_HIDE_BAR, true);
+    }
+
+    void setAutoHideBar(boolean hide) {
+        prefs.edit().putBoolean(AUTO_HIDE_BAR, hide).apply();
     }
 
     void save(String tmdbKey, String youtubeKey, String plexToken) {

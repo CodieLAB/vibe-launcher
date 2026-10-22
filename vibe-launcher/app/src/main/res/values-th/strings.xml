@@ -74,4 +74,5 @@
     <string name="backdrops">ภาพพื้นหลัง</string>
     <string name="reload_backdrops">โหลดภาพพื้นหลังใหม่</string>
     <string name="backdrops_reloading">กำลังดาวน์โหลดภาพพื้นหลังใหม่…</string>
+    <string name="auto_hide_bar">ซ่อนอัตโนมัติ</string>
 </resources>

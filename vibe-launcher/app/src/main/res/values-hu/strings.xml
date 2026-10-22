@@ -74,4 +74,5 @@
     <string name="backdrops">Háttérképek</string>
     <string name="reload_backdrops">Háttérképek újratöltése</string>
     <string name="backdrops_reloading">Új háttérképek letöltése…</string>
+    <string name="auto_hide_bar">Automatikus elrejtés</string>
 </resources>

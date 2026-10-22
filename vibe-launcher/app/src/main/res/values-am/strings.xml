@@ -74,4 +74,5 @@
     <string name="backdrops">ዳራዎች</string>
     <string name="reload_backdrops">ዳራዎችን እንደገና ጫን</string>
     <string name="backdrops_reloading">አዲስ ዳራዎችን በማውረድ ላይ…</string>
+    <string name="auto_hide_bar">በራስ-ሰር ደብቅ</string>
 </resources>

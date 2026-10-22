@@ -95,17 +95,21 @@ art is used.
 
 ### The picture alone, and the slideshow
 
-Up on the dock (or Down from the top bar) waits 0.4 s, so quick scrolling passes straight through, then
-slides the rows down and the top bar up, leaving the backdrop. The glass stays on the focused tile's
-spot and a see-through play tile (`PlayTileView`) appears under it, at the tile's focused size. Left and
-Right step through that app's pool. Holding OK or Play fills the tile over Android's long-press time;
-the long press opens the picture's own link (the card's intent URI, or a YouTube video's address),
-always in the dock app that was picked, or that app itself when there's no link. Carets on the screen's
-edges show where the remote goes: they fade out before anything moves and back in once it has stopped.
+Up on the dock slides the rows down out of sight (and the top bar up, if it shows), leaving the
+backdrop. The glass and the app's name fade with the carets before anything moves; then a round,
+see-through play button (`PlayTileView`) drops from the top to the middle. Left and Right step through
+that app's pool. Holding OK or Play fills the button over Android's long-press time; the long press
+opens the picture's own link (the card's intent URI, or a YouTube video's address), always in the dock
+app that was picked, or that app itself when there's no link. Carets on the screen's edges (25 %
+opacity) show where the remote goes: they fade out before anything moves and back in once it has
+stopped. With Auto-hide on (the default) the top bar is only on screen while it or the grid below the
+dock has focus: Up from the picture alone brings the bar in and leaves the rows down, Down goes back to
+the picture. With it off, the bar always shows, and Up on the dock waits 0.4 s so quick scrolling passes
+straight through to it.
 
 After a minute without a key on Home (not while a menu, Settings or a tile's move is open), the same
 view runs as a slideshow: a random still from any dock app's pool every 10 s, with no carets, glass or
-play tile. Any key stops it on the still showing, with its app picked, so the play tile opens it. The
+play button. Any key stops it on the still showing, with its app picked, so the play button opens it. The
 screen is kept on for it only until the TV's own screen-off time since the last key. Settings → General
 → Reload backdrops empties every pool and the downloads and builds them again from scratch.
 
@@ -134,7 +138,7 @@ nothing else.
 | `Updater`, `UpdateReceiver` | Checks the GitHub releases, downloads and verifies the APK, hands it to Android's installer |
 | `AppAdapter`, `TileAnimator`, `DockDecoration` | Tiles, their animations and the dock band |
 | `GlassView`, `FrostView` | The glass focus highlight and the frosted top bar (software blur; Android 9 has no live blur) |
-| `PlayTileView` | The play button with the picture alone: a see-through tile under the glass that fills while OK is held |
+| `PlayTileView` | The round play button with the picture alone, see-through, filling while OK is held |
 | `Backdrops` | Builds each dock app's pool of backdrops and serves one per visit |
 | `ChannelSetup` | Asks apps to publish their home screen cards, as the stock launcher did |
 | `DefaultHome` | Offers to become the default Home through the TV's own dialog or chooser, where it has one |

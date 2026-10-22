@@ -74,4 +74,5 @@
     <string name="backdrops">బ్యాక్‌డ్రాప్‌లు</string>
     <string name="reload_backdrops">బ్యాక్‌డ్రాప్‌లను మళ్లీ లోడ్ చేయి</string>
     <string name="backdrops_reloading">కొత్త బ్యాక్‌డ్రాప్‌లు డౌన్‌లోడ్ అవుతున్నాయి…</string>
+    <string name="auto_hide_bar">ఆటోమేటిక్‌గా దాచు</string>
 </resources>

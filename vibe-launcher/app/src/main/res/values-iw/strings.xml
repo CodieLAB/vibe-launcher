@@ -74,4 +74,5 @@
     <string name="backdrops">תמונות רקע</string>
     <string name="reload_backdrops">טעינה מחדש של תמונות הרקע</string>
     <string name="backdrops_reloading">מורידים תמונות רקע חדשות…</string>
+    <string name="auto_hide_bar">הסתרה אוטומטית</string>
 </resources>

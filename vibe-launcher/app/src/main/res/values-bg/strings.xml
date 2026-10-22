@@ -74,4 +74,5 @@
     <string name="backdrops">Фонове</string>
     <string name="reload_backdrops">Презареди фоновете</string>
     <string name="backdrops_reloading">Изтегляне на нови фонове…</string>
+    <string name="auto_hide_bar">Автоскриване</string>
 </resources>

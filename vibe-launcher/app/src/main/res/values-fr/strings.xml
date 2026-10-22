@@ -74,4 +74,5 @@
     <string name="backdrops">Arrière-plans</string>
     <string name="reload_backdrops">Recharger les arrière-plans</string>
     <string name="backdrops_reloading">Téléchargement de nouveaux arrière-plans…</string>
+    <string name="auto_hide_bar">Masquage automatique</string>
 </resources>

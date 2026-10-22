@@ -74,4 +74,5 @@
     <string name="backdrops">Tła</string>
     <string name="reload_backdrops">Wczytaj tła ponownie</string>
     <string name="backdrops_reloading">Pobieranie nowych teł…</string>
+    <string name="auto_hide_bar">Automatyczne ukrywanie</string>
 </resources>

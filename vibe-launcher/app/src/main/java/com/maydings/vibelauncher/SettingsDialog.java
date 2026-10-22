@@ -112,10 +112,25 @@ final class SettingsDialog {
             });
         }
         View hideEntry = hidePills[savedHideInputs ? 1 : 0];
+        // Auto-hide the top bar: Off or On, the choice marked; applied on Save.
+        boolean savedHideBar = settings.autoHideBar();
+        boolean[] hideBar = {savedHideBar};
+        View[] barPills = {panel.findViewById(R.id.hideBarOff), panel.findViewById(R.id.hideBarOn)};
+        for (int i = 0; i < barPills.length; i++) {
+            boolean value = i == 1;
+            barPills[i].setSelected(value == savedHideBar);
+            barPills[i].setOnClickListener(v -> {
+                hideBar[0] = value;
+                for (View p : barPills) p.setSelected(p == v);
+            });
+        }
+        View barEntry = barPills[savedHideBar ? 1 : 0];
         TextView updateStatus = panel.findViewById(R.id.updateStatus);
         View tabGeneral = panel.findViewById(R.id.tabGeneral), tabKeys = panel.findViewById(R.id.tabKeys);
         View pageGeneral = panel.findViewById(R.id.pageGeneral), pageKeys = panel.findViewById(R.id.pageKeys);
         View phone = panel.findViewById(R.id.phone), projectLink = panel.findViewById(R.id.projectLink);
+        View updates = panel.findViewById(R.id.updates);
+        View reloadBackdrops = panel.findViewById(R.id.reloadBackdrops);
         boolean[] phoneReady = {false};
         // A tab shows its page as soon as it has focus, like the tabs in the TV's own apps.
         Runnable showGeneral = () -> {
@@ -123,6 +138,7 @@ final class SettingsDialog {
             pageKeys.setVisibility(View.GONE);
             phone.setVisibility(View.GONE);
             projectLink.setVisibility(View.VISIBLE);
+            updates.setVisibility(View.VISIBLE);
             tabGeneral.setSelected(true);
             tabKeys.setSelected(false);
         };
@@ -131,6 +147,7 @@ final class SettingsDialog {
             pageKeys.setVisibility(View.VISIBLE);
             phone.setVisibility(phoneReady[0] ? View.VISIBLE : View.GONE);   // the QR code is for the keys
             projectLink.setVisibility(View.GONE);
+            updates.setVisibility(View.GONE);
             tabGeneral.setSelected(false);
             tabKeys.setSelected(true);
         };
@@ -142,6 +159,19 @@ final class SettingsDialog {
             pageGeneral.measure(width, any);
             pageKeys.measure(width, any);
             pages.setMinimumHeight(Math.max(pageGeneral.getMeasuredHeight(), pageKeys.getMeasuredHeight()));
+            // Then Check for updates level with the last setting on the left (Reload backdrops).
+            pages.post(() -> {
+                View last = reloadBackdrops;
+                if (updateButton.getVisibility() != View.VISIBLE || last.getHeight() == 0) return;
+                int[] a = new int[2], b = new int[2];
+                last.getLocationOnScreen(a);
+                updateButton.getLocationOnScreen(b);
+                int down = a[1] - b[1];
+                if (down <= 0) return;
+                ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) updates.getLayoutParams();
+                lp.topMargin += down;
+                updates.setLayoutParams(lp);
+            });
         });
         tabGeneral.setOnFocusChangeListener((v, focused) -> { if (focused) showGeneral.run(); });
         tabKeys.setOnFocusChangeListener((v, focused) -> { if (focused) showKeys.run(); });
@@ -186,19 +216,17 @@ final class SettingsDialog {
             });
         }
         // Reload backdrops: at once, like checking for updates; Home shows each app's first new one as it comes.
-        View reloadBackdrops = panel.findViewById(R.id.reloadBackdrops);
         reloadBackdrops.setOnClickListener(v -> {
             if (activity instanceof MainActivity) ((MainActivity) activity).reloadBackdrops();
             Toast.makeText(activity, R.string.backdrops_reloading, Toast.LENGTH_SHORT).show();
         });
-        steer(languageButton, hideEntry, reloadBackdrops, save, cameFrom);
-        steer(reloadBackdrops, languageButton, updateButton.getVisibility() == View.VISIBLE ? updateButton : null,
-                save, cameFrom);
+        steer(languageButton, barEntry, reloadBackdrops, save, cameFrom);
+        steer(reloadBackdrops, languageButton, null, save, cameFrom);
         for (View pill : hidePills) {
             pill.setOnKeyListener((v, keyCode, event) -> {
                 if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
                 if (keyCode == KeyEvent.KEYCODE_DPAD_UP) return columnsEntry.requestFocus();
-                if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) return languageButton.requestFocus();
+                if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) return barEntry.requestFocus();
                 if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT && v == hidePills[1]) {
                     cameFrom[0] = v;
                     return save.requestFocus();
@@ -206,10 +234,33 @@ final class SettingsDialog {
                 return false;   // Left/Right move between the pills
             });
         }
-        steer(updateButton, reloadBackdrops, null, save, cameFrom);
+        for (View pill : barPills) {
+            pill.setOnKeyListener((v, keyCode, event) -> {
+                if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
+                if (keyCode == KeyEvent.KEYCODE_DPAD_UP) return hideEntry.requestFocus();
+                if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) return languageButton.requestFocus();
+                if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT && v == barPills[1]) {
+                    cameFrom[0] = v;
+                    return save.requestFocus();
+                }
+                return false;   // Left/Right move between the pills
+            });
+        }
+        // Under Cancel: Up goes back to it, Left to where the right column was entered from.
+        updateButton.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
+            if (keyCode == KeyEvent.KEYCODE_DPAD_UP) return cancel.requestFocus();
+            if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) return cameFrom[0].requestFocus();
+            return keyCode == KeyEvent.KEYCODE_DPAD_DOWN || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT;
+        });
         showUpdates(activity, updateStatus, updateButton);
-        View.OnKeyListener back = (v, keyCode, event) -> event.getAction() == KeyEvent.ACTION_DOWN
-                && keyCode == KeyEvent.KEYCODE_DPAD_LEFT && cameFrom[0].requestFocus();
+        View.OnKeyListener back = (v, keyCode, event) -> {
+            if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
+            if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) return cameFrom[0].requestFocus();
+            // Down from Cancel: the update check under it, on General.
+            return v == cancel && keyCode == KeyEvent.KEYCODE_DPAD_DOWN && updates.getVisibility() == View.VISIBLE
+                    && updateButton.getVisibility() == View.VISIBLE && updateButton.requestFocus();
+        };
         save.setOnKeyListener(back);
         cancel.setOnKeyListener(back);
         tmdb.setOnEditorActionListener((v, actionId, event) -> youtube.requestFocus());
@@ -280,6 +331,10 @@ final class SettingsDialog {
             if (chosen[0] != current) settings.setColumns(chosen[0]);
             if (!chosenLanguage[0].equals(savedLanguage)) settings.setLanguage(chosenLanguage[0]);
             if (hideInputs[0] != savedHideInputs) settings.setHideInactiveInputs(hideInputs[0]);   // read when Inputs opens
+            if (hideBar[0] != savedHideBar) {
+                settings.setAutoHideBar(hideBar[0]);
+                if (activity instanceof MainActivity) ((MainActivity) activity).updateTopBar();
+            }
             if (rebuild) activity.recreate();   // rebuild Home with the new grid or language
         });
         dialog.show();

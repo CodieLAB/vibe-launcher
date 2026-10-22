@@ -74,4 +74,5 @@
     <string name="backdrops">پس منظر</string>
     <string name="reload_backdrops">پس منظر دوبارہ لوڈ کریں</string>
     <string name="backdrops_reloading">نئے پس منظر ڈاؤن لوڈ ہو رہے ہیں…</string>
+    <string name="auto_hide_bar">خود بخود چھپائیں</string>
 </resources>

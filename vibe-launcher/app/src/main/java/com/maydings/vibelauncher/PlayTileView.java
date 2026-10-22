@@ -11,10 +11,9 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
- * The play button with the picture alone: a tile in the selected app's place and at its focused size,
- * under the glass, with a play triangle, see-through like a top bar pill (pill_bg) so the picture shows
- * under it. Holding OK fills it with a translucent white wash from the
- * reading side (setFill), like a chosen pill; a solid white showed the glass's sheen as a gradient.
+ * The play button with the picture alone: round (its corner radius half its size, set by Home), with a
+ * play triangle, see-through like a top bar pill (pill_bg) so the picture shows under it. Holding OK fills
+ * it with a translucent white wash from the reading side (setFill), like a chosen pill.
  */
 public class PlayTileView extends View {
 

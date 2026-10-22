@@ -74,4 +74,5 @@
     <string name="backdrops">ਪਿਛੋਕੜ</string>
     <string name="reload_backdrops">ਪਿਛੋਕੜ ਮੁੜ ਲੋਡ ਕਰੋ</string>
     <string name="backdrops_reloading">ਨਵੇਂ ਪਿਛੋਕੜ ਡਾਊਨਲੋਡ ਹੋ ਰਹੇ ਹਨ…</string>
+    <string name="auto_hide_bar">ਆਪਣੇ-ਆਪ ਲੁਕਾਓ</string>
 </resources>

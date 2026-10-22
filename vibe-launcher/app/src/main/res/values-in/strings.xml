@@ -74,4 +74,5 @@
     <string name="backdrops">Latar</string>
     <string name="reload_backdrops">Muat ulang latar</string>
     <string name="backdrops_reloading">Mengunduh latar baru…</string>
+    <string name="auto_hide_bar">Sembunyikan otomatis</string>
 </resources>

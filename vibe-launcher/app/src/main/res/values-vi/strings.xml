@@ -74,4 +74,5 @@
     <string name="backdrops">Ảnh nền</string>
     <string name="reload_backdrops">Tải lại ảnh nền</string>
     <string name="backdrops_reloading">Đang tải ảnh nền mới…</string>
+    <string name="auto_hide_bar">Tự động ẩn</string>
 </resources>

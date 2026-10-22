@@ -74,4 +74,5 @@
     <string name="backdrops">Taustakuvat</string>
     <string name="reload_backdrops">Lataa taustakuvat uudelleen</string>
     <string name="backdrops_reloading">Ladataan uusia taustakuvia…</string>
+    <string name="auto_hide_bar">Piilota automaattisesti</string>
 </resources>

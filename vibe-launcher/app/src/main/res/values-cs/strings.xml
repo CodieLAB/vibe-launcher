@@ -74,4 +74,5 @@
     <string name="backdrops">Pozadí</string>
     <string name="reload_backdrops">Znovu načíst pozadí</string>
     <string name="backdrops_reloading">Stahování nových pozadí…</string>
+    <string name="auto_hide_bar">Automaticky skrýt</string>
 </resources>

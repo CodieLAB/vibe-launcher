@@ -74,4 +74,5 @@
     <string name="backdrops">Hintergründe</string>
     <string name="reload_backdrops">Hintergründe neu laden</string>
     <string name="backdrops_reloading">Neue Hintergründe werden geladen…</string>
+    <string name="auto_hide_bar">Automatisch ausblenden</string>
 </resources>

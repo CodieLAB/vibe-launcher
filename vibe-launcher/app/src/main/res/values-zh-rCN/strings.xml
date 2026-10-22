@@ -74,4 +74,5 @@
     <string name="backdrops">背景图</string>
     <string name="reload_backdrops">重新加载背景图</string>
     <string name="backdrops_reloading">正在下载新的背景图…</string>
+    <string name="auto_hide_bar">自动隐藏</string>
 </resources>
