@@ -34,6 +34,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.Layout;
@@ -47,6 +48,7 @@ import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
@@ -89,6 +91,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     /** How long the rows take to slide out of sight; the top bar moves at the same speed. */
     private static final long PICTURE_SLIDE_MS = 450;
     private static final long CARET_FADE_MS = 150;   // the carets go before the menus move
+    private static final long IDLE_MS = 60_000;       // left alone this long, Home shows the slideshow
+    private static final long SLIDE_MS = 10_000;      // each picture in the slideshow
     /**
      * Up on the dock waits this long before the picture shows alone: another Up meanwhile (scrolling up
      * quickly) goes straight on to the top bar, and any other key stays, with no slide started and undone.
@@ -117,6 +121,20 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private boolean pictureSoon;
     private int pictureSoonKey;
     private int focusAfterSlide = -1;   // from the top bar: the dock tile to focus once the rows are gone
+    /**
+     * The slideshow: after IDLE_MS without a key on Home, every dock app's pictures at random, SLIDE_MS
+     * each, with nothing else on screen. Any key stops it on the picture showing (see endSlideshow).
+     */
+    private boolean slideshow;
+    private String slidePkg;            // the app of the picture showing in the slideshow
+    private Backdrops.Entry slideEntry;
+    private int swallowUp = -1;         // the key that stopped the slideshow: its release does nothing
+    private long lastKeyAt;
+    private final Runnable startSlideshow = this::startSlideshow;
+    private final Runnable nextSlide = this::nextSlide;
+    /** The screen stays on for the slideshow only until the TV's own screen-off time since the last key. */
+    private final Runnable letScreenOff =
+            () -> getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     private final Runnable showPictureSoon = () -> {
         pictureSoon = false;
         showPictureOnly(SoundEffectConstants.NAVIGATION_UP);
@@ -475,6 +493,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     @Override
     protected void onResume() {
         super.onResume();
+        lastKeyAt = SystemClock.uptimeMillis();
+        armIdle();
         showUpdateReady();
         if (wakeCheck) wakeUpdateCheck();
         else Updater.checkIfDue(this, (newer, failed) -> showUpdateReady());   // at most once a day
@@ -533,6 +553,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         handler.removeCallbacks(minuteTick);
         handler.removeCallbacks(refreshPools);
         cancelPictureSoon();
+        handler.removeCallbacks(startSlideshow);
+        if (slideshow) endSlideshow();
     }
 
     @Override
@@ -870,7 +892,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private void showPictureOnly(int sound) {
         if (pictureOnly || rows.getHeight() == 0) return;
         pictureOnly = true;
-        grid.playSoundEffect(sound);
+        if (sound >= 0) grid.playSoundEffect(sound);
         transition(() -> {
             long ms = Math.max(slide(rows, rowsDistance()), slide(topBar, -topBar.getHeight()));
             heroName.animate().alpha(0f).setDuration(200).start();
@@ -923,14 +945,31 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private void menusMoved() {
         if (pictureOnly && focusAfterSlide >= 0) {   // from the top bar: the tile, now out of sight
             focusTile(focusAfterSlide);
+            quietHero(focusAfterSlide);
             focusAfterSlide = -1;
-            heroName.animate().cancel();
-            heroName.setAlpha(0f);
             placePlayTile();
+            if (slideshow) {   // its glass waits for the slideshow to end
+                glass.animate().cancel();
+                glass.setAlpha(0f);
+            }
         }
         caretsHeld = false;
         updateCarets();
-        if (pictureOnly && glassShown && glass.getAlpha() < 1f) glass.animate().alpha(1f).setDuration(300).start();
+        if (pictureOnly && !slideshow && glassShown && glass.getAlpha() < 1f) {
+            glass.animate().alpha(1f).setDuration(300).start();
+        }
+    }
+
+    /**
+     * The dock tile focused out of sight (with the picture alone): its name in place, but hidden until
+     * the rows come back. Focusing it starts the name's swap animation, which only sets the new name at
+     * its end; stopped here, the old name stayed.
+     */
+    private void quietHero(int position) {
+        heroName.animate().cancel();
+        heroName.setText(adapter.labelAt(position));
+        heroName.setTranslationX(0f);
+        heroName.setAlpha(0f);
     }
 
     /** Back from the picture alone, once the rows are in place: the app's name. */
@@ -985,6 +1024,18 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
      */
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            lastKeyAt = SystemClock.uptimeMillis();
+            armIdle();
+            if (slideshow) {   // any key: back to the picture alone, on the picture showing
+                swallowUp = event.getKeyCode();
+                endSlideshow();
+                return true;
+            }
+        } else if (event.getAction() == KeyEvent.ACTION_UP && event.getKeyCode() == swallowUp) {
+            swallowUp = -1;
+            return true;
+        }
         if (pictureSoon && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() != pictureSoonKey) {
             cancelPictureSoon();   // another key before the picture showed alone: it doesn't
         }
@@ -1049,6 +1100,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     /** Just far enough down for the dock's panel, the rows' top, to leave the screen. */
     private float rowsDistance() {
+        // Scrolled down the grid, the rows fill the screen: all the way. Else just past the dock's panel.
+        if (grid.computeVerticalScrollOffset() > 0) return rows.getHeight();
         float d = rows.getHeight() - dockPanelTop;
         return d > 0 && dockPanelTop > 0 ? d : rows.getHeight();
     }
@@ -1072,7 +1125,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
      * picture alone. None on the lower rows.
      */
     private void updateCarets() {
-        boolean on = !caretsHeld;   // none while the menus move
+        boolean on = !caretsHeld && !slideshow;   // none while the menus move, or in the slideshow
         boolean more = on && pictureOnly && backdropPkg != null && backdrops.stillCount(backdropPkg) > 1;
         showCaret(caretDock, on && !pictureOnly && onDock());
         caretBar.setY(topBar.getHeight() + 4 * density);   // just under the bar
@@ -1202,6 +1255,91 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             else Toast.makeText(this, R.string.not_available, Toast.LENGTH_SHORT).show();
         }
         // The pill stays full while the title opens; it empties on the way back (onStart, showRows).
+    }
+
+    // ---- the slideshow ---------------------------------------------------------------------------------
+
+    /** Starts (again) the wait for the slideshow. */
+    private void armIdle() {
+        handler.removeCallbacks(startSlideshow);
+        if (started) handler.postDelayed(startSlideshow, IDLE_MS);
+    }
+
+    /** The dock's apps: their pools are the slideshow's pictures. */
+    private List<String> dockApps() {
+        List<String> dock = new ArrayList<>();
+        for (int i = 0; i < COLUMNS; i++) {
+            String pkg = adapter.packageAt(i);
+            if (pkg != null) dock.add(pkg);
+        }
+        return dock;
+    }
+
+    /**
+     * Left alone on Home: the rows and the top bar go, as for the picture alone, and the pictures of every
+     * dock app follow each other at random with nothing over them. Not while a menu, Settings or a tile's
+     * move is open (Home hasn't the window's focus, or a tile is moving): then the wait starts over.
+     */
+    private void startSlideshow() {
+        if (slideshow || !started || !hasWindowFocus() || adapter.isMoving() || dockApps().isEmpty()) {
+            armIdle();
+            return;
+        }
+        slideshow = true;
+        slidePkg = backdropPkg;
+        slideEntry = null;
+        glass.animate().alpha(0f).setDuration(CARET_FADE_MS).start();
+        if (!pictureOnly) {
+            if (!onDock()) focusAfterSlide = lastFocused % COLUMNS;   // the top bar or a lower row
+            showPictureOnly(-1);
+        } else {
+            updateCarets();   // the carets and play button go
+        }
+        // The screen stays on for it, but only as long as the TV would have left it on anyway.
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        long screenOff = Settings.System.getLong(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT,
+                30 * 60_000L);
+        handler.removeCallbacks(letScreenOff);
+        handler.postAtTime(letScreenOff, lastKeyAt + Math.max(IDLE_MS, screenOff));
+        handler.postDelayed(nextSlide, PICTURE_SLIDE_MS + CARET_FADE_MS);
+    }
+
+    private void nextSlide() {
+        if (!slideshow) return;
+        backdrops.randomSlide(dockApps(), slideEntry, (pkg, entry, bitmap, logo) -> {
+            if (!slideshow) return;
+            slidePkg = pkg;
+            slideEntry = entry;
+            fadeBackdrop(bitmap, logo, entry.title, backdropColor);
+        });
+        handler.postDelayed(nextSlide, SLIDE_MS);
+    }
+
+    /**
+     * A key in the slideshow: it stops on the picture showing, with that picture's app as the one picked,
+     * so the play button (in its place on the dock, under the glass) opens it.
+     */
+    private void endSlideshow() {
+        slideshow = false;
+        handler.removeCallbacks(nextSlide);
+        handler.removeCallbacks(letScreenOff);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        int at = slidePkg != null ? dockApps().indexOf(slidePkg) : -1;
+        if (slideEntry != null && at >= 0 && slidePkg.equals(adapter.packageAt(at))) {
+            backdrops.keep(slidePkg, slideEntry);
+            backdropPkg = slidePkg;   // already showing: focusing its tile doesn't load another
+            backdropLink = slideEntry.link;
+            backdropColor = adapter.ambientColorAt(at);
+            focusAfterSlide = -1;
+            focusTile(at);
+            quietHero(at);
+            placePlayTile();
+        }
+        if (pictureOnly && !caretsHeld) {
+            if (glassShown) glass.animate().alpha(1f).setDuration(300).start();
+            updateCarets();
+        }
+        armIdle();
     }
 
     /** The focused app's next or previous picture, cross-faded in. */

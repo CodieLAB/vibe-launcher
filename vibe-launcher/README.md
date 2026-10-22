@@ -93,6 +93,22 @@ key go once a new one is in. Downloads are kept for two days, title matches for 
 month. Stremio's metadata is not an official public API; if it stops answering, the cards' own
 art is used.
 
+### The picture alone, and the slideshow
+
+Up on the dock (or Down from the top bar) waits 0.4 s, so quick scrolling passes straight through, then
+slides the rows down and the top bar up, leaving the backdrop. The glass stays on the focused tile's
+spot and a see-through play tile (`PlayTileView`) appears under it, at the tile's focused size. Left and
+Right step through that app's pool. Holding OK or Play fills the tile over Android's long-press time;
+the long press opens the picture's own link (the card's intent URI, or a YouTube video's address),
+always in the dock app that was picked, or that app itself when there's no link. Carets on the screen's
+edges show where the remote goes: they fade out before anything moves and back in once it has stopped.
+
+After a minute without a key on Home (not while a menu, Settings or a tile's move is open), the same
+view runs as a slideshow: a random still from any dock app's pool every 10 s, with no carets, glass or
+play tile. Any key stops it on the still showing, with its app picked, so the play tile opens it. The
+screen is kept on for it only until the TV's own screen-off time since the last key. Settings → General
+→ Reload backdrops empties every pool and the downloads and builds them again from scratch.
+
 Keys are entered in **Settings → Vibe Launcher settings**, on the TV or from a phone: the dialog shows
 a QR code for a small page the launcher serves on your home network while the dialog is open. The
 link carries a random code that changes every time, and the page shows saved keys hidden but for the
@@ -122,7 +138,6 @@ nothing else.
 | `Backdrops` | Builds each dock app's pool of backdrops and serves one per visit |
 | `ChannelSetup` | Asks apps to publish their home screen cards, as the stock launcher did |
 | `DefaultHome` | Offers to become the default Home through the TV's own dialog or chooser, where it has one |
-| `VibeDream` | The screensaver: the pooled backdrops with a clock |
 | `TitleArt`, `Tmdb`, `Stremio` | Clean backdrops and logos for films and shows by title: TMDB with a key, Stremio without |
 | `YouTubePopular`, `Plex`, `HdHomeRun` | The YouTube (popular videos or film trailers), Plex and HDHomeRun backdrop sources |
 | `SmartTube` | Installs SmartTube from its GitHub releases, or opens it to sign in |

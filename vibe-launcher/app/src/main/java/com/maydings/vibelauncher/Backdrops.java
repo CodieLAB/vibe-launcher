@@ -346,6 +346,56 @@ final class Backdrops {
         return e;
     }
 
+    interface SlideCallback {
+        /** On the main thread: a still for the slideshow, from this app's pool. */
+        void onSlide(String pkg, Entry entry, Bitmap bitmap, Bitmap logo);
+    }
+
+    /**
+     * A still picked at random from all these apps' pools (any but the one showing), for the slideshow
+     * Home runs when left alone. Nothing when there's no other.
+     */
+    void randomSlide(List<String> pkgs, Entry showing, SlideCallback callback) {
+        queue.offer(() -> {
+            String[] owner = new String[1];
+            Entry e = pickSlide(pkgs, showing, owner);
+            if (e == null) return;
+            Bitmap bitmap, logo;
+            try {
+                bitmap = BitmapFactory.decodeFile(e.still.getPath());
+                logo = e.logo != null ? decodeLogo(e.logo) : null;
+            } catch (RuntimeException | OutOfMemoryError x) {
+                return;   // a bad file or no memory: the next one in ten seconds
+            }
+            if (bitmap == null) return;
+            Bitmap l = logo;
+            main.post(() -> callback.onSlide(owner[0], e, bitmap, l));
+        });
+    }
+
+    private synchronized Entry pickSlide(List<String> pkgs, Entry showing, String[] owner) {
+        List<Entry> all = new ArrayList<>();
+        List<String> owners = new ArrayList<>();
+        for (String pkg : pkgs) {
+            Pool p = pool(pkg);
+            if (p == null) continue;
+            for (Entry e : p.entries) {
+                if (e == showing) continue;
+                all.add(e);
+                owners.add(pkg);
+            }
+        }
+        if (all.isEmpty()) return null;
+        int i = random.nextInt(all.size());
+        owner[0] = owners.get(i);
+        return all.get(i);
+    }
+
+    /** Makes this the app's still for this visit: the slideshow stopped on it. */
+    synchronized void keep(String pkg, Entry e) {
+        shown.put(pkg, e);
+    }
+
     /** How many stills the app's pool has now. */
     synchronized int stillCount(String pkg) {
         Pool p = pool(pkg);
@@ -660,29 +710,6 @@ final class Backdrops {
     private static void deleteStill(Entry e) {
         e.still.delete();
         if (e.logo != null) e.logo.delete();
-    }
-
-    /**
-     * Every still in the pools in use, for the screensaver: films and shows, so not the video sites'
-     * thumbnails. Reads files only; call off the main thread.
-     */
-    static List<Entry> screensaverStills(Context context) {
-        Set<String> videoSites = new HashSet<>();
-        videoSites.add(sha1(YOUTUBE));
-        videoSites.add(sha1(YOUTUBE + "kids"));   // com.google.android.youtube.tvkids
-        for (String s : SMARTTUBE) videoSites.add(sha1(s));
-        List<Entry> stills = new ArrayList<>();
-        File[] apps = new File(context.getCacheDir(), "pools").listFiles();
-        if (apps == null) return stills;
-        for (File app : apps) {
-            if (videoSites.contains(app.getName())) continue;
-            try {
-                for (Entry e : readPool(app).entries) if (e.still.exists()) stills.add(e);
-            } catch (IOException | RuntimeException e) {
-                // No pool for this app yet.
-            }
-        }
-        return stills;
     }
 
     /**

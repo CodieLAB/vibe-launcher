@@ -21,8 +21,8 @@ adb exec-out screencap -p > s.png
 then `TV_HOST=<tv-ip> tools/venv/bin/python tools/tv.py <command>` does the same.) Include a screenshot in your pull
 request and say which TV you tested on.
 
-Ideas that fit: more backdrop sources (Jellyfin and Emby servers), an idle screensaver, editing the
-dock from settings, localisation. Ideas that don't: recommendation rows, content feeds, ads,
+Ideas that fit: more backdrop sources (Jellyfin and Emby servers), editing the dock from settings,
+more languages. Ideas that don't: recommendation rows, content feeds, ads,
 telemetry.
 
 ## Pull requests

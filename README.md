@@ -18,7 +18,7 @@ and gets out of the way. It works well enough for us that I'd like to share it w
   the film or show on its home screen card, with the title's own logo.
 - **Dock and grid.** Up to six favourite apps in a dock; press Down for everything else.
 - **Inputs at a glance.** HDMI ports with what's connected, devices behind a switch listed by name.
-- **A screensaver to match.** Your backdrops, full screen, with a large clock.
+- **A slideshow when idle.** Leave Home alone for a minute and every app's backdrops play full screen.
 - **50 languages.** Follows your TV, or pick one.
 - **Updates itself.** Shows what's new, checks the download, installs with one confirmation.
 - **Snappy and light.** Moving around feels instant, even on older TVs with 1 to 2 GB of RAM. No
@@ -26,8 +26,8 @@ and gets out of the way. It works well enough for us that I'd like to share it w
 
 ## The home screen
 
-Your favourite apps sit in a dock at the bottom of the screen: four by default, five or six if you
-like. Press Down and the rest of your apps slide up in a grid. A single glass highlight springs from
+Your favourite apps sit in a dock at the bottom of the screen: four, five or six, to suit the size of
+your TV or as you choose. Press Down and the rest of your apps slide up in a grid. A single glass highlight springs from
 tile to tile.
 
 ![The app grid below the dock, with the glass highlight on YouTube Kids](vibe-launcher/docs/launcher-grid.jpg)
@@ -55,13 +55,14 @@ A play button sits under the glass in the app's place: hold OK (or press and hol
 up, then opens the film, show or video in that app, or the app itself when there's no single title.
 Small arrows at the screen's edges show where the remote goes; scroll quickly and the rows stay put.
 
-### Screensaver
+### Slideshow
 
-**Vibe Launcher posters** shows the same backdrops full screen, slowly drifting and cross-fading,
-with a large clock and each title's logo. It uses only pictures already on the TV. Choose it in your
-TV's screen saver settings (on Android TV: Settings → Device Preferences → Screen saver).
-
-![The screensaver: a title's backdrop and logo with a large clock and the date](vibe-launcher/docs/screensaver.jpg)
+Leave Home alone for a minute and the apps and the top bar slide away: the backdrops of every app in
+the dock follow each other at random, ten seconds each, with nothing over them. Press any button and
+it stops on the picture showing, with the play button in that app's place, so holding OK opens it. It
+doesn't start while a menu or Settings is open, and it keeps the screen on only as long as your TV's
+own screen-off setting would. (This replaces the screensaver of earlier versions; pick another, or
+Turn screen off, in your TV's screen saver settings.)
 
 ## The top bar
 
