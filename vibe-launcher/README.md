@@ -71,7 +71,7 @@ time you come back to Home, never the same twice in a row):
 | YouTube without SmartTube | The most popular videos in the TV's country, refreshed every 4 hours (1 unit of the free 10,000 a day) | YouTube Data API key |
 | YouTube with neither | Trailers of the top films in Stremio's free catalog (Cinemeta), refreshed every 4 hours | Nothing |
 | HDHomeRun | What's on the tuner now, from SiliconDust's free guide: each show looked up like a card's title, the rest as 2×2 walls of the guide's 480×270 images. The tuner is found through SiliconDust's discovery and asked over plain HTTP, home-network addresses only | An HDHomeRun on the same network |
-| Plex | Art of Continue Watching and recently added on your server, found through plex.tv and scaled by the server | Plex token |
+| Plex | Art of Continue Watching (On Deck, first, with where you stopped) and recently added on your server, with each title's name and logo, found through plex.tv and scaled by the server. Opened in the Plex app with `plex://movie/<slug>` or `plex://show/<slug>/season/<n>/episode/<n>` | Plex token |
 
 Some apps (Prime Video) only publish their cards when the home screen asks them to, which the
 stock launcher does after each install or update. Vibe Launcher asks too, once per app and version.
@@ -108,7 +108,7 @@ app that was picked, or that app itself when there's no link. Carets on the scre
 opacity) show where the remote goes: they fade out before anything moves and back in once it has
 stopped. With Auto-hide on (the default) the top bar is only on screen while it or the grid below the
 dock has focus: Up from the picture alone brings the bar in and leaves the rows down, Down goes back to
-the picture. With it off, the bar always shows, and Up on the dock waits 0.4 s so quick scrolling passes
+the picture. With it off, the bar always shows, and Up on the dock waits 0.3 s so quick scrolling passes
 straight through to it.
 
 After a minute without a key on Home (not while a menu, Settings or a tile's move is open), the same

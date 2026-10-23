@@ -107,7 +107,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
      * quickly) goes straight on to the top bar, and any other key stays, with no slide started and undone.
      * Only with the top bar always showing: set to auto-hide, there's no bar to scroll on to, so no wait.
      */
-    private static final long PICTURE_DELAY_MS = 400;
+    private static final long PICTURE_DELAY_MS = 300;
     private static final long HOLD_FINISH_MS = 250;   // an empty Play pill to full, once the long press comes
     private static final long MINUTE_MS = 60_000L;
     /** 2025-01-01: a clock before this hasn't been set yet. */
@@ -126,6 +126,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private Runnable moveMenus = () -> { };
     private final Runnable caretsBack = this::menusMoved;
     private final Runnable nameBack = this::showName;
+    private boolean sideHeld;   // Left or Right held with the picture alone: it switched app, its release does nothing
     /**
      * Up pressed on the dock, or Down on the top bar: the picture shows alone after PICTURE_DELAY_MS,
      * unless pictureSoonKey comes again meanwhile (scrolling on) or another key does.
@@ -162,6 +163,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private ValueAnimator holdFill;
     private boolean holdOpened;   // this press already opened the title: its release changes nothing
     private String backdropLink;   // what opens the picture on screen's title; null for none
+    /** A picture (not the glow) is behind the dock: without one there's no picture to show alone. */
+    private boolean stillShown;
     private FrameLayout root;
     private GlassView glass;
     private View ambient;
@@ -379,7 +382,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         holdPlayFill = findViewById(R.id.holdPlayFill);
         playInfo = findViewById(R.id.playInfo);
         setHoldFill(0f);
-        setHoldFill(0f);
         grid.setLayoutManager(new GridLayoutManager(this, COLUMNS));
         grid.setHasFixedSize(true);
         grid.setItemAnimator(new TileAnimator());
@@ -466,6 +468,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
             if (keyCode == KeyEvent.KEYCODE_DPAD_UP) return true;
             if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+                if (!stillShown) {   // no picture to show alone (none, or not loaded yet): the dock tile
+                    cancelPictureSoon();
+                    focusTile(lastFocused % COLUMNS);
+                    return true;
+                }
                 if (settings.autoHideBar()) {   // the bar goes either way: the picture alone at once, no wait
                     cancelPictureSoon();
                     showPictureFromBar();
@@ -586,6 +593,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         ChannelSetup.run(this);
         backdropPkg = null;
         backdrop.setAlpha(0f);
+        stillShown = false;
         backdrops.reshuffle();
         grid.scheduleLayoutAnimation();
         grid.requestLayout();   // reload() only touches changed tiles, so ask for the pass that plays the entrance
@@ -670,6 +678,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         backdropPrevious.setVisibility(View.GONE);
         backdropLogo.setImageDrawable(null);
         backdropPkg = null;
+        stillShown = false;
         rebuildOnResume = true;
     }
 
@@ -834,6 +843,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     /** Shows a still (cross-fading from the one before, if any), or the glow in this colour. */
     private void fadeBackdrop(Bitmap bitmap, Bitmap logo, String title, int color) {
+        stillShown = bitmap != null;
         if (bitmap == null) {
             backdrop.animate().alpha(0f).setDuration(300).withLayer().start();
             if (ambient.getAlpha() > 0f && color != ambientColor) {
@@ -897,6 +907,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private void hideHero() {
         if (!heroShown) return;
         heroShown = false;
+        stillShown = false;
         heroName.animate().alpha(0f).setDuration(160).start();
         ambient.animate().alpha(0f).setDuration(300).start();
         backdrop.animate().alpha(0f).setDuration(300).withLayer().start();
@@ -917,6 +928,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         int target;
         if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
             if (position < COLUMNS) {                      // dock row: the picture alone, then the top bar
+                if (!stillShown) {                         // no picture (none, or not loaded yet): the top bar
+                    cancelPictureSoon();
+                    focusTopBar();
+                    return true;
+                }
                 if (settings.autoHideBar()) {              // no top bar to scroll on to: the picture at once
                     showPictureOnly(SoundEffectConstants.NAVIGATION_UP);
                     return true;
@@ -947,9 +963,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     /**
      * Up from the dock: the app rows slide down out of sight and the top bar up (if it was showing),
-     * leaving the focused app's picture (and its title's logo) alone on screen, and then a round play
-     * button comes down to the middle. Focus stays on the tile meanwhile; the keys are handled in
-     * dispatchKeyEvent.
+     * leaving the focused app's picture (and its title's logo) alone on screen, and then the Play pill slides
+     * in. Focus stays on the tile meanwhile; the keys are handled in dispatchKeyEvent.
      */
     private void showPictureOnly(int sound) {
         if (pictureOnly || rows.getHeight() == 0) return;
@@ -959,7 +974,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         if (!slideshow) openCarousel(true);
         // The name and the glass don't move with the rows: they go with the carets, before anything moves.
         heroName.animate().alpha(0f).setDuration(CARET_FADE_MS).start();
-        glass.animate().alpha(0f).setDuration(CARET_FADE_MS).start();   // the round play button takes over
+        glass.animate().alpha(0f).setDuration(CARET_FADE_MS).start();   // the Play pill takes over
         transition(() -> Math.max(slide(rows, rowsDistance()), slide(topBar, -topBar.getHeight())));
     }
 
@@ -1042,7 +1057,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private void openCarousel(boolean jump) {
         if (backdropPkg == null) return;
         playInfo.setVisibility(View.GONE);
-        backdrops.openCarousel(backdropPkg, jump, (pkg, bitmap, logo, title, link) -> {
+        backdrops.openCarousel(backdropPkg, jump, false, (pkg, bitmap, logo, title, link) -> {
             if (!pictureOnly || !pkg.equals(backdropPkg)) return;
             if (bitmap != null) {
                 backdropLink = link;
@@ -1058,8 +1073,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         // Focusing the tile just faded its glass and name in where the rows will be: they wait for the rows.
         glass.animate().cancel();
         glass.setAlpha(0f);
-        heroName.animate().cancel();
-        heroName.setAlpha(0f);
+        quietHero(lastFocused);   // and its name set now: the name's swap animation stopped would leave the old
         handler.postDelayed(nameBack, slide(rows, 0f));
     }
 
@@ -1090,7 +1104,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     /**
      * While the picture is alone: Up brings the rows back and goes to the top bar, Down and Back back to
-     * the tile. Left and Right go through the app's pictures, round and back to the first. Holding OK fills
+     * the tile. Left and Right go through the app's pictures, round and back to the first; held, they switch
+     * to the next dock app (switchApp). Holding OK fills
      * the Play pill and a long press opens the picture's title, and the remote's Play key the same; other
      * keys (volume, Home) as usual.
      */
@@ -1121,11 +1136,23 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 }
                 return true;
             case KeyEvent.KEYCODE_DPAD_LEFT:
-            case KeyEvent.KEYCODE_DPAD_RIGHT:
+            case KeyEvent.KEYCODE_DPAD_RIGHT: {
+                // A press goes to the app's next picture, on release; held, to the next dock app instead.
+                int direction = event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT ? 1 : -1;
                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                    stepPicture(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT ? 1 : -1);
+                    if (event.getRepeatCount() == 0) sideHeld = false;
+                    else if (event.isLongPress() && !sideHeld) {
+                        sideHeld = true;
+                        switchApp(direction);
+                    }
+                } else if (event.getAction() == KeyEvent.ACTION_UP && !event.isCanceled()) {
+                    if (!sideHeld) stepPicture(direction);
+                    sideHeld = false;
                 }
                 return true;
+            }
+            case KeyEvent.KEYCODE_MENU:
+                return true;   // the focused tile is out of sight: no tile menu over the picture
             case KeyEvent.KEYCODE_DPAD_CENTER:
             case KeyEvent.KEYCODE_ENTER:
             case KeyEvent.KEYCODE_NUMPAD_ENTER:
@@ -1150,6 +1177,17 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         // growing to its focused size on the way out.
         focusAfterSlide = lastFocused % COLUMNS;
         showPictureOnly(SoundEffectConstants.NAVIGATION_DOWN);
+    }
+
+    /** Up from the dock straight to the top bar: the pill above the tile, or the first. */
+    private void focusTopBar() {
+        View card = getCurrentFocus();
+        View above = card != null ? card.focusSearch(View.FOCUS_UP) : null;
+        View[] bar = topBarPills();
+        if (!isPill(above) && bar.length > 0) above = bar[0];
+        if (above == null) return;
+        above.requestFocus();
+        grid.playSoundEffect(SoundEffectConstants.NAVIGATION_UP);
     }
 
     private void cancelPictureSoon() {
@@ -1215,8 +1253,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     }
 
     /**
-     * The Play pill with the picture alone: where the app's name was (its name fades out first), sliding in
-     * from off the screen's left edge, and back out the same way.
+     * The Play pill with the picture alone (see placePlay for where), sliding in from off the screen's left
+     * edge, and back out the same way.
      */
     private void showPlay(boolean show) {
         if (show == playShown) return;
@@ -1490,7 +1528,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     /**
      * A key in the slideshow: it stops on the picture showing, with that picture's app as the one picked,
-     * so the play button (in its place on the dock, under the glass) opens it.
+     * so the Play pill opens it.
      */
     private void endSlideshow() {
         slideshow = false;
@@ -1506,12 +1544,43 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             focusAfterSlide = -1;
             focusTile(at);
             quietHero(at);
-            glass.animate().cancel();   // the round play button, not the glass, with the picture alone
+            glass.animate().cancel();   // the Play pill, not the glass, with the picture alone
             glass.setAlpha(0f);
         }
         if (pictureOnly && !caretsHeld) updateCarets();
         if (pictureOnly) openCarousel(false);   // the stopped-on app's carousel, and the time left on it
         armIdle();
+    }
+
+    /**
+     * Left or Right held with the picture alone: the next or previous dock app, going round from the last to
+     * the first (the dock itself stops at its ends). Its tile takes focus out of sight, name and all, so the
+     * rows come back on it; the carousel opens on what you're watching in it, else this visit's picture.
+     */
+    private void switchApp(int direction) {
+        List<String> dock = dockApps();
+        if (dock.size() < 2) return;
+        int at = Math.max(0, Math.min(dock.size() - 1, lastFocused % COLUMNS));
+        int next = ((at + direction) % dock.size() + dock.size()) % dock.size();
+        String pkg = dock.get(next);
+        cancelHold();
+        backdropPkg = pkg;   // set first: focusing its tile then doesn't load a picture of its own
+        backdropColor = adapter.ambientColorAt(next);
+        backdropLink = null;
+        focusTile(next);
+        quietHero(next);
+        glass.animate().cancel();
+        glass.setAlpha(0f);
+        playInfo.setVisibility(View.GONE);
+        grid.playSoundEffect(direction > 0
+                ? SoundEffectConstants.NAVIGATION_RIGHT : SoundEffectConstants.NAVIGATION_LEFT);
+        backdrops.openCarousel(pkg, true, true, (loaded, bitmap, logo, title, link) -> {
+            if (!pictureOnly || !loaded.equals(backdropPkg)) return;
+            backdropLink = link;
+            fadeBackdrop(bitmap, logo, title, backdropColor);
+            updatePlayInfo();
+            updateCarets();
+        });
     }
 
     /** The focused app's next or previous picture, cross-faded in. */
@@ -1641,11 +1710,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     }
 
     /**
-     * Granted at install over adb (-g). Installed from a file manager instead, ask once for both: TV
-     * listings (the apps' home screen cards, for backdrops) and location (Android only reveals the
-     * Wi-Fi network's name with it). Refused, the launcher keeps the colour glow and shows "Wi-Fi".
-     */
-    /**
      * Tiles per row when none was chosen in Settings: 4 on screens under 51", 5 up to 74", 6 from there.
      * config.xml's when the size isn't known.
      */
@@ -1670,6 +1734,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         return inches >= 20 && inches <= 150 ? inches : 0;
     }
 
+    /**
+     * Granted at install over adb (-g). Installed from a file manager instead, ask once for both: TV
+     * listings (the apps' home screen cards, for backdrops) and location (Android only reveals the
+     * Wi-Fi network's name with it). Refused, the launcher keeps the colour glow and shows "Wi-Fi".
+     */
     private boolean askPermissionsOnce() {
         if (getPreferences(MODE_PRIVATE).getBoolean("askedPermissions", false)) return false;
         List<String> missing = new ArrayList<>();

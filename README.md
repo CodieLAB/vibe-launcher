@@ -52,11 +52,13 @@ a soft glow in their own colour.
 **Just the picture**: press Up on the dock and the apps slide away, leaving the backdrop on its own,
 and a **Play** button slides in from the left, just above where the apps were. It opens on what you've started watching
 (the last one first), with the time left under the button, such as "2 hours, 5 minutes remaining";
-Left and Right then go through everything else of that app's. Hold OK (or press and hold Play) and the
+Left and Right then go through everything else of that app's; hold Left or Right to move on to the
+next app in the dock, going round from the last to the first. Hold OK (or press and hold Play) and the
 button fills up, then opens the film, show or video in that app, or the app itself when there's no
 single title. Faint arrows at the screen's edges show where the remote goes. What you're watching comes
 from the apps themselves: those that share their "Continue watching" with Android TV (Jellyfin does,
-for example) get it, the others just the Play button.
+for example) get it, and Plex gets it from your own server (with a Plex token); the others just the
+Play button. An app with no picture yet goes straight to the top bar instead.
 
 ![Just the picture: Wake Up Dead Man's backdrop on its own, with the Play button where the app's name was and faint arrows at the edges](vibe-launcher/docs/picture.jpg)
 

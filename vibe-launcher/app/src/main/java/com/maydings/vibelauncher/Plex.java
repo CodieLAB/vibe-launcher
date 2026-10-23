@@ -12,15 +12,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
 /**
  * Backdrops for the Plex tile from the user's own server: the fan art of what's on Continue Watching
- * and recently added. The new Plex app publishes no home screen cards. Uses the Plex token from Vibe
+ * (On Deck, with where you stopped) and recently added, with each title's name, logo and a link the Plex
+ * app opens it with. The new Plex app publishes no home screen cards. Uses the Plex token from Vibe
  * Launcher settings to find the server through plex.tv (its secure local address first), and has the
  * server scale the art (stored at up to 4K) to the screen.
  */
@@ -28,13 +27,35 @@ final class Plex {
 
     private static final long SERVER_MS = 24L * 60 * 60 * 1000;
     private static final long ART_MS = 30L * 60 * 1000;
+    private static final long ON_DECK_MS = 60L * 1000;   // where you stopped: asked again a minute later
+
+    /** A title on the server: its art and logo (URLs, token included), name, Plex app link, and progress. */
+    static final class Item {
+        final String art, logo, title, link;
+        final boolean onDeck;
+        final long viewedMs, durationMs, offsetMs;
+
+        Item(String art, String logo, String title, String link, boolean onDeck, long viewedMs, long durationMs,
+             long offsetMs) {
+            this.art = art;
+            this.logo = logo;
+            this.title = title;
+            this.link = link;
+            this.onDeck = onDeck;
+            this.viewedMs = viewedMs;
+            this.durationMs = durationMs;
+            this.offsetMs = offsetMs;
+        }
+    }
 
     private final VibeSettings settings;
     private final SharedPreferences cache;
     private final int width, height;
-    private List<String> art = Collections.emptyList();
+    private List<Item> art = Collections.emptyList();
     private long artTime;
     private String artToken = "";
+    private List<Item> onDeck = Collections.emptyList();
+    private long onDeckTime;
 
     Plex(Context context, int width, int height) {
         settings = new VibeSettings(context);
@@ -46,8 +67,11 @@ final class Plex {
         }
     }
 
-    /** Image URLs (token included) of backdrops on the server; empty without a token or server. Worker thread. */
-    synchronized List<String> backdrops() {
+    /**
+     * The titles for backdrops: On Deck first (the last watched first), then recently added; empty without
+     * a token or server. Worker thread.
+     */
+    synchronized List<Item> items() {
         String token = settings.plexToken();
         if (token.isEmpty()) return Collections.emptyList();
         long now = System.currentTimeMillis();
@@ -56,7 +80,9 @@ final class Plex {
             String[] server = server(token, attempt > 0);
             if (server == null) break;
             try {
-                art = fetchArt(server[0], server[1]);
+                List<Item> found = fetch(server[0], server[1], "/library/onDeck", true);
+                found.addAll(fetch(server[0], server[1], "/library/recentlyAdded", false));
+                art = found;
                 artTime = now;
                 artToken = token;
                 return art;
@@ -65,6 +91,23 @@ final class Plex {
             }
         }
         return art;   // the last good list, if any
+    }
+
+    /** What's On Deck now, for the time left: asked again after a minute. Empty without a server. Worker thread. */
+    synchronized List<Item> onDeck() {
+        String token = settings.plexToken();
+        if (token.isEmpty()) return Collections.emptyList();
+        long now = System.currentTimeMillis();
+        if (now - onDeckTime < ON_DECK_MS) return onDeck;
+        String[] server = server(token, false);
+        if (server == null) return onDeck;
+        try {
+            onDeck = fetch(server[0], server[1], "/library/onDeck", true);
+            onDeckTime = now;
+        } catch (IOException | JSONException | RuntimeException e) {
+            // Offline, or the server moved: the last list, and items() looks the server up again.
+        }
+        return onDeck;
     }
 
     /** {base URI, server access token} for the first owned (else any) online server, cached for a day. */
@@ -103,23 +146,55 @@ final class Plex {
         }
     }
 
-    private List<String> fetchArt(String base, String token) throws IOException, JSONException {
-        Set<String> paths = new LinkedHashSet<>();
-        for (String path : new String[]{"/library/onDeck", "/library/recentlyAdded"}) {
-            JSONArray items = new JSONObject(get(base + path, token)).getJSONObject("MediaContainer")
-                    .optJSONArray("Metadata");
-            for (int i = 0; items != null && i < items.length(); i++) {
-                JSONObject m = items.getJSONObject(i);
-                String a = m.optString("grandparentArt", m.optString("art"));   // a show's art for its episodes
-                if (!a.isEmpty()) paths.add(a);
+    /**
+     * The titles in this server list. An episode stands for its show (its art, logo and name); its link opens
+     * that episode. The Plex app's links: plex://movie/<slug>, plex://show/<slug>/season/<n>/episode/<n>.
+     */
+    private List<Item> fetch(String base, String token, String path, boolean deck) throws IOException, JSONException {
+        List<Item> items = new ArrayList<>();
+        JSONArray found = new JSONObject(get(base + path, token)).getJSONObject("MediaContainer")
+                .optJSONArray("Metadata");
+        for (int i = 0; found != null && i < found.length(); i++) {
+            JSONObject m = found.getJSONObject(i);
+            boolean episode = "episode".equals(m.optString("type"));
+            String a = episode ? m.optString("grandparentArt", m.optString("art")) : m.optString("art");
+            if (a.isEmpty()) continue;
+            String title = episode ? m.optString("grandparentTitle") : m.optString("title");
+            String link = null;
+            String slug = episode ? m.optString("grandparentSlug") : m.optString("slug");
+            if (!slug.isEmpty() && "movie".equals(m.optString("type"))) {
+                link = "plex://movie/" + Uri.encode(slug);
+            } else if (!slug.isEmpty() && episode && m.has("parentIndex") && m.has("index")) {
+                link = "plex://show/" + Uri.encode(slug) + "/season/" + m.optInt("parentIndex")
+                        + "/episode/" + m.optInt("index");
+            }
+            items.add(new Item(image(base, token, a, width, height, true), logo(base, token, m, episode),
+                    title.isEmpty() ? null : title, link, deck, m.optLong("lastViewedAt") * 1000,
+                    m.optLong("duration"), m.optLong("viewOffset")));
+        }
+        return items;
+    }
+
+    /** The title's clear logo (newer servers list one; for an episode, its show's), or null. */
+    private String logo(String base, String token, JSONObject m, boolean episode) {
+        JSONArray images = m.optJSONArray("Image");
+        for (int i = 0; !episode && images != null && i < images.length(); i++) {
+            JSONObject image = images.optJSONObject(i);
+            if (image != null && "clearLogo".equals(image.optString("type")) && !image.optString("url").isEmpty()) {
+                return image(base, token, image.optString("url"), width / 2, height / 4, false);
             }
         }
-        List<String> urls = new ArrayList<>();
-        for (String p : paths) {
-            urls.add(base + "/photo/:/transcode?width=" + width + "&height=" + height + "&minSize=1&upscale=0"
-                    + "&url=" + Uri.encode(p) + "&X-Plex-Token=" + Uri.encode(token));
-        }
-        return urls;
+        // An episode's own Image list is its own: its show's logo sits at a fixed place on the server.
+        String show = m.optString("grandparentRatingKey");
+        return episode && !show.isEmpty()
+                ? image(base, token, "/library/metadata/" + show + "/clearLogo", width / 2, height / 4, false) : null;
+    }
+
+    /** One of the server's images, scaled by the server: to cover w by h (fill), else to fit within it. */
+    private static String image(String base, String token, String path, int w, int h, boolean fill) {
+        return base + "/photo/:/transcode?width=" + w + "&height=" + h + "&minSize=" + (fill ? 1 : 0)
+                + "&upscale=0"
+                + "&url=" + Uri.encode(path) + "&X-Plex-Token=" + Uri.encode(token);
     }
 
     private String get(String url, String token) throws IOException {

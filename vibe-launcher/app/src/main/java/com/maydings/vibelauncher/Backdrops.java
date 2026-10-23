@@ -128,7 +128,7 @@ final class Backdrops {
     private static final int FIRST_IMAGE = 3;   // COLUMNS from here on are image URIs
     /** Watch Next rows also say whether you're watching it, and when you last did. */
     private static final String[] WATCH_NEXT_COLUMNS = {"package_name", "intent_uri", "title", "poster_art_uri",
-            "thumbnail_uri", "watch_next_type", "last_engagement_time_utc_millis"};
+            "thumbnail_uri", "watch_next_type", "last_engagement_time_utc_millis", "browsable"};
     /** Watch Next types for something started: part-way through (CONTINUE), or the next episode (NEXT). */
     private static final int CONTINUE = 0, NEXT = 1;
     private static final String YOUTUBE = "com.google.android.youtube.tv";
@@ -152,10 +152,10 @@ final class Backdrops {
      */
     private static final String STILL_FORMAT = "png";
     /**
-     * What a pool's index holds, also part of the fingerprint: 2 added each still's link, so pools from
-     * before refresh once to get them.
+     * What a pool's index holds, also part of the fingerprint: pools from before refresh once to get it. 2
+     * added each still's link; 3, Plex's names, logos and links.
      */
-    private static final int POOL_VERSION = 2;
+    private static final int POOL_VERSION = 3;
     private static final long EMPTY_RETRY_MS = 2L * 60 * 1000;   // an empty pool (offline?) is retried sooner
     private static final long RETRY_MS = 10L * 60 * 1000;        // after a round that found nothing
     private static final int MAX_IMAGE_BYTES = 6 * 1024 * 1024;
@@ -344,7 +344,9 @@ final class Backdrops {
         Pool p = pool(pkg);
         if (p == null || p.entries.size() < 2) return null;
         // The carousel's order when it was opened for this app (what you're watching first), else the pool's.
-        List<Entry> order = pkg.equals(carouselPkg) && carousel.size() == p.entries.size() ? carousel : p.entries;
+        // A refresh since may have replaced a still: then the pool's own order, with no gone still in it.
+        List<Entry> order = pkg.equals(carouselPkg) && carousel.size() == p.entries.size()
+                && p.entries.containsAll(carousel) ? carousel : p.entries;
         int n = order.size();
         int at = order.indexOf(shown.get(pkg));
         if (at < 0) at = direction > 0 ? -1 : 0;   // none shown, or replaced since: start at an end
@@ -401,20 +403,23 @@ final class Backdrops {
         return w == null ? 0 : w.remainingMs();
     }
 
-    /** Whether this link opens something you've started, as of the last openCarousel. */
-    boolean isWatching(String link) {
-        return link != null && watching.containsKey(link);
-    }
-
     /**
      * Opening the picture alone for this app: reads what you're watching, puts it first in the carousel (the
      * last watched first), then the rest of the pool. With jump, and something watched in the pool, delivers
      * the first of them to show (unless it is showing already); otherwise delivers a null bitmap, just to say
-     * the watching info is in.
+     * the watching info is in. With switched (another app picked in the picture alone), always delivers the
+     * picture to show: the first watched, else this visit's still, else null for the app's glow.
      */
-    void openCarousel(String pkg, boolean jump, Callback callback) {
+    void openCarousel(String pkg, boolean jump, boolean switched, Callback callback) {
         queue.offerFirst(() -> {
             Map<String, Watching> now = readWatching();
+            if (pkg.equals(PLEX)) {
+                // The Plex app shares nothing with Android TV: where you stopped comes from your server.
+                for (Plex.Item item : plex.onDeck()) {
+                    if (item.link == null) continue;
+                    now.put(item.link, new Watching(item.viewedMs, item.durationMs, item.offsetMs));
+                }
+            }
             watching = now;
             Entry first;
             synchronized (this) {
@@ -428,7 +433,11 @@ final class Backdrops {
                 order.addAll(rest);
                 carousel = order;
                 carouselPkg = pkg;
-                if (!jump || first == shown.get(pkg)) first = null;
+                if (switched) {
+                    if (first == null) first = choose(pkg);   // this visit's still, if its file is still there
+                } else if (!jump || first == shown.get(pkg)) {
+                    first = null;
+                }
                 if (first != null) shown.put(pkg, first);
             }
             Bitmap bitmap = null, logo = null;
@@ -887,6 +896,12 @@ final class Backdrops {
         final List<String> images = new ArrayList<>();
         int minWidth = MIN_WIDTH;
         String link;   // what opens the card's title (see Entry.link)
+        /**
+         * The art comes with the title's name and logo from the app's own source (Plex): used as is, not
+         * looked up by name (which can find another film of the same name). The logo may be null.
+         */
+        boolean ownArt;
+        String logo;
 
         Card(String title, boolean badged) {
             this.title = title;
@@ -944,7 +959,7 @@ final class Backdrops {
         }
 
         private void card(Card card) {
-            if (titleArt != null && card.title != null) {
+            if (titleArt != null && card.title != null && !card.ownArt) {
                 tries++;
                 TitleArt.Art art = titleArt.lookup(card.title);
                 if (art != null && used.add(art.backdrop) && !unsuitable.contains(art.backdrop)) {
@@ -962,7 +977,12 @@ final class Backdrops {
                 File file = fetch(url, card.minWidth);
                 if (file == null) continue;
                 if (width(file) >= SHARP_WIDTH) {
-                    if (!card.badged) sharp.add(new Choice(Collections.singletonList(file), null, null, card.link));
+                    // A card with its own logo (Plex) keeps its name and logo with its own art.
+                    File logo = card.logo != null && !unsuitable.contains(card.logo) ? fetch(card.logo, false) : null;
+                    if (!card.badged) {
+                        sharp.add(new Choice(Collections.singletonList(file), logo, card.ownArt ? card.title : null,
+                                card.link));
+                    }
                 } else {
                     if (plain == null && !card.badged) {
                         plain = file;
@@ -1023,16 +1043,23 @@ final class Backdrops {
             return cards;
         }
         if (pkg.equals(PLEX)) {
-            // The server's own art; Plex's old cards point at a provider the new app no longer has.
-            List<Card> cards = new ArrayList<>();
-            for (String url : plex.backdrops()) {
-                Card card = new Card(null, false);
-                card.images.add(url);
-                cards.add(card);
+            // The server's own art, name and logo; Plex's old cards point at a provider the new app no longer
+            // has. On Deck (what you're watching) first, the last watched first; then recently added, shuffled.
+            List<Card> deck = new ArrayList<>(), added = new ArrayList<>();
+            Set<String> seenArt = new HashSet<>();
+            for (Plex.Item item : plex.items()) {
+                if (!seenArt.add(item.art)) continue;   // a show's episodes share its art
+                Card card = new Card(item.title, false);
+                card.images.add(item.art);
+                card.link = item.link;
+                card.logo = item.logo;
+                card.ownArt = true;
+                (item.onDeck ? deck : added).add(card);
             }
-            if (!cards.isEmpty()) {
-                Collections.shuffle(cards, random);
-                return cards;
+            if (!deck.isEmpty() || !added.isEmpty()) {
+                Collections.shuffle(added, random);
+                deck.addAll(added);
+                return deck;
             }
         }
         Set<String> sources = new HashSet<>(Collections.singletonList(pkg));
@@ -1058,7 +1085,8 @@ final class Backdrops {
                         card.images.add(url);
                     }
                     if (card.images.isEmpty()) continue;
-                    if (watchNext && isStarted(c, 5)) {
+                    // Removed from Continue watching (browsable 0): an ordinary card, not one you're watching.
+                    if (watchNext && isStarted(c, 5) && (c.isNull(7) || c.getInt(7) != 0)) {
                         started.add(card);
                         engaged.put(card, c.isNull(6) ? 0L : c.getLong(6));
                     } else {
