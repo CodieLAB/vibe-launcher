@@ -15,6 +15,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.RejectedExecutionException;
 
 /**
  * Backdrops for the Plex tile from the user's own server: the fan art of what's on Continue Watching
@@ -54,8 +57,16 @@ final class Plex {
     private List<Item> art = Collections.emptyList();
     private long artTime;
     private String artToken = "";
-    private List<Item> onDeck = Collections.emptyList();
-    private long onDeckTime;
+    /** What's On Deck, as last fetched (by items() or refreshOnDeck): read without waiting. */
+    private volatile List<Item> onDeck = Collections.emptyList();
+    private volatile long onDeckTime;
+    private final Object deckLock = new Object();
+    /** Asks the server for On Deck away from the threads that show and build pictures. */
+    private final ExecutorService refresher = Executors.newSingleThreadExecutor(r -> {
+        Thread t = new Thread(r, "PlexOnDeck");
+        t.setPriority(Thread.MIN_PRIORITY);
+        return t;
+    });
 
     Plex(Context context, int width, int height) {
         settings = new VibeSettings(context);
@@ -81,6 +92,8 @@ final class Plex {
             if (server == null) break;
             try {
                 List<Item> found = fetch(server[0], server[1], "/library/onDeck", true);
+                onDeck = new ArrayList<>(found);
+                onDeckTime = now;
                 found.addAll(fetch(server[0], server[1], "/library/recentlyAdded", false));
                 art = found;
                 artTime = now;
@@ -93,21 +106,42 @@ final class Plex {
         return art;   // the last good list, if any
     }
 
-    /** What's On Deck now, for the time left: asked again after a minute. Empty without a server. Worker thread. */
-    synchronized List<Item> onDeck() {
+    /** What's On Deck as last fetched, at once: the screen never waits on the server. */
+    List<Item> onDeck() {
+        return settings.plexToken().isEmpty() ? Collections.emptyList() : onDeck;
+    }
+
+    /**
+     * Asks the server for On Deck again when the list is over a minute old, in the background; done runs (on
+     * that thread) when a new list is in. Nothing happens without a token, or when it's fresh.
+     */
+    void refreshOnDeck(Runnable done) {
         String token = settings.plexToken();
-        if (token.isEmpty()) return Collections.emptyList();
-        long now = System.currentTimeMillis();
-        if (now - onDeckTime < ON_DECK_MS) return onDeck;
-        String[] server = server(token, false);
-        if (server == null) return onDeck;
+        if (token.isEmpty() || System.currentTimeMillis() - onDeckTime < ON_DECK_MS) return;
         try {
-            onDeck = fetch(server[0], server[1], "/library/onDeck", true);
-            onDeckTime = now;
-        } catch (IOException | JSONException | RuntimeException e) {
-            // Offline, or the server moved: the last list, and items() looks the server up again.
+            refresher.execute(() -> {
+                synchronized (deckLock) {
+                    long now = System.currentTimeMillis();
+                    if (now - onDeckTime < ON_DECK_MS) return;   // another request just did it
+                    String[] server = server(token, false);
+                    if (server == null) return;
+                    try {
+                        onDeck = fetch(server[0], server[1], "/library/onDeck", true);
+                        onDeckTime = now;
+                    } catch (IOException | JSONException | RuntimeException e) {
+                        onDeckTime = now;   // offline or moved: the last list for another minute; items() looks again
+                        return;
+                    }
+                }
+                done.run();
+            });
+        } catch (RejectedExecutionException closed) {
+            // Shut down with Home.
         }
-        return onDeck;
+    }
+
+    void close() {
+        refresher.shutdownNow();
     }
 
     /** {base URI, server access token} for the first owned (else any) online server, cached for a day. */

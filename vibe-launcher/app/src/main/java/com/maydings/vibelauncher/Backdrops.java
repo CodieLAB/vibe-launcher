@@ -224,6 +224,7 @@ final class Backdrops {
     void close() {
         worker.shutdownNow();
         builder.shutdown();
+        plex.close();
     }
 
     /**
@@ -412,34 +413,7 @@ final class Backdrops {
      */
     void openCarousel(String pkg, boolean jump, boolean switched, Callback callback) {
         queue.offerFirst(() -> {
-            Map<String, Watching> now = readWatching();
-            if (pkg.equals(PLEX)) {
-                // The Plex app shares nothing with Android TV: where you stopped comes from your server.
-                for (Plex.Item item : plex.onDeck()) {
-                    if (item.link == null) continue;
-                    now.put(item.link, new Watching(item.viewedMs, item.durationMs, item.offsetMs));
-                }
-            }
-            watching = now;
-            Entry first;
-            synchronized (this) {
-                Pool p = pool(pkg);
-                List<Entry> order = new ArrayList<>(), rest = new ArrayList<>();
-                if (p != null) {
-                    for (Entry e : p.entries) (e.link != null && now.containsKey(e.link) ? order : rest).add(e);
-                }
-                order.sort((a, b) -> Long.compare(now.get(b.link).engaged, now.get(a.link).engaged));
-                first = order.isEmpty() ? null : order.get(0);
-                order.addAll(rest);
-                carousel = order;
-                carouselPkg = pkg;
-                if (switched) {
-                    if (first == null) first = choose(pkg);   // this visit's still, if its file is still there
-                } else if (!jump || first == shown.get(pkg)) {
-                    first = null;
-                }
-                if (first != null) shown.put(pkg, first);
-            }
+            Entry first = orderCarousel(pkg, jump, switched);
             Bitmap bitmap = null, logo = null;
             if (first != null) {
                 try {
@@ -452,7 +426,58 @@ final class Backdrops {
             Bitmap b = bitmap, l = logo;
             Entry e = first;
             main.post(() -> callback.onBackdrop(pkg, b, l, e != null ? e.title : null, e != null ? e.link : null));
+            if (pkg.equals(PLEX)) {
+                // Plex's progress is the server's: asked again in the background, and the order and time left
+                // follow once it's in (the picture showing stays).
+                plex.refreshOnDeck(() -> queue.offerFirst(() -> {
+                    orderCarousel(pkg, false, false);
+                    if (watchingChanged != null) main.post(watchingChanged);
+                }));
+            }
         });
+    }
+
+    /** Runs on the main thread when what you're watching changed after the carousel opened (Plex). */
+    void setWatchingListener(Runnable listener) {
+        watchingChanged = listener;
+    }
+
+    private volatile Runnable watchingChanged;
+
+    /**
+     * Reads what you're watching (Watch Next, and for Plex its server's On Deck as last fetched) and orders
+     * the app's carousel by it; returns the still to show, per openCarousel, or null. Worker thread.
+     */
+    private Entry orderCarousel(String pkg, boolean jump, boolean switched) {
+        Map<String, Watching> now = readWatching();
+        if (pkg.equals(PLEX)) {
+            // The Plex app shares nothing with Android TV: where you stopped comes from your server.
+            for (Plex.Item item : plex.onDeck()) {
+                if (item.link == null) continue;
+                now.put(item.link, new Watching(item.viewedMs, item.durationMs, item.offsetMs));
+            }
+        }
+        watching = now;
+        Entry first;
+        synchronized (this) {
+            Pool p = pool(pkg);
+            List<Entry> order = new ArrayList<>(), rest = new ArrayList<>();
+            if (p != null) {
+                for (Entry e : p.entries) (e.link != null && now.containsKey(e.link) ? order : rest).add(e);
+            }
+            order.sort((a, b) -> Long.compare(now.get(b.link).engaged, now.get(a.link).engaged));
+            first = order.isEmpty() ? null : order.get(0);
+            order.addAll(rest);
+            carousel = order;
+            carouselPkg = pkg;
+            if (switched) {
+                if (first == null) first = choose(pkg);   // this visit's still, if its file is still there
+            } else if (!jump || first == shown.get(pkg)) {
+                first = null;
+            }
+            if (first != null) shown.put(pkg, first);
+        }
+        return first;
     }
 
     interface SlideCallback {

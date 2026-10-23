@@ -265,6 +265,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             }
             adapter.reload();
             appsChangedUnseen();   // shown already: no rebuild for it on the next return
+            ChannelSetup.run(MainActivity.this);   // a new or updated app asked for its home screen cards now
             // Tiles may have moved: once they settle, bring the glass to wherever focus went.
             grid.postOnAnimation(() -> {
                 RecyclerView.ItemAnimator animator = grid.getItemAnimator();
@@ -323,6 +324,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             if (!heroShown || !pkg.equals(backdropPkg)) return;
             backdropPkg = null;
             showBackdrop(pkg, backdropColor);
+        });
+        // Plex's progress arrives after its carousel opened: the time left follows.
+        backdrops.setWatchingListener(() -> {
+            if (pictureOnly) updatePlayInfo();
         });
         if (!askPermissionsOnce()) askHomeOnce();
         ConnectivityManager cm = getSystemService(ConnectivityManager.class);
@@ -1111,10 +1116,15 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
      */
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
+        int code = event.getKeyCode();
+        if (code == KeyEvent.KEYCODE_VOLUME_UP || code == KeyEvent.KEYCODE_VOLUME_DOWN
+                || code == KeyEvent.KEYCODE_VOLUME_MUTE) {
+            return super.dispatchKeyEvent(event);   // volume as usual: it doesn't stop the slideshow, or count as use
+        }
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             lastKeyAt = SystemClock.uptimeMillis();
             armIdle();
-            if (slideshow) {   // any key: back to the picture alone, on the picture showing
+            if (slideshow) {   // any other key: back to the picture alone, on the picture showing
                 swallowUp = event.getKeyCode();
                 endSlideshow();
                 return true;
