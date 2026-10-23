@@ -58,7 +58,9 @@ say "Stock launcher: $STOCK_LAUNCHER"
 step "Installing"
 RESULT=$(tv_install "$APK")
 [[ "$RESULT" == *Success* ]] || die "install failed: $RESULT (a release build installed? uninstall it first: debug and release builds are signed with different keys)"
-tv "am start -n $LAUNCHER_ACTIVITY" >/dev/null
+# Started as Home (the HOME action and category), not as an app: "am start -n" alone opens it in an ordinary
+# task, and the next Home press starts a second copy beside it.
+tv "am start -a android.intent.action.MAIN -c android.intent.category.HOME -n $LAUNCHER_ACTIVITY" >/dev/null
 sleep 2
 [ "$STOCK_LAUNCHER" = none ] || tv "pm disable-user --user 0 $STOCK_LAUNCHER"
 tv "cmd package set-home-activity --user 0 $LAUNCHER_ACTIVITY" >/dev/null
