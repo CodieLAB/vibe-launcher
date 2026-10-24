@@ -77,13 +77,13 @@
     <string name="auto_hide_bar">Piilota automaattisesti</string>
     <string name="time_remaining">%1$s jäljellä</string>
     <string name="home_key_name">Vibe Launcherin aloitusnäyttöpainike</string>
-    <string name="home_key_description">Avaa Vibe Launcherin, kun painat aloitusnäyttöpainiketta tai televisio tuo esiin oman aloitusnäyttönsä. Se ei lue mitään näytöltä eikä reagoi muihin painikkeisiin.</string>
+    <string name="home_key_description">Saa kaukosäätimen aloitusnäyttöpainikkeen avaamaan Vibe Launcherin television oman aloitusnäytön sijaan ja pitkän painalluksen television asetukset. Se ei lue mitään näytöltä ja päästää kaikki muut painikkeet läpi.</string>
     <string name="home_key_turn_on">Ota tästä käyttöön ”%1$s”, niin aloitusnäyttöpainike avaa Vibe Launcherin.</string>
     <string name="permissions_title">Kaksi lupaa</string>
     <string name="permissions_why">Vibe Launcher pyytää seuraavaksi kahta lupaa.\n\nTV-ohjelmatiedot: jotta se voi näyttää kuvia korteista, joita sovelluksesi julkaisevat aloitusnäytölle.\n\nSijainti: Android näyttää Wi-Fi-verkon nimen vain sovelluksille, joilla on tämä lupa. Vibe Launcher käyttää sitä vain nimeen eikä koskaan selvitä, missä televisio on.\n\nKumpikaan ei lähde televisiosta.</string>
     <string name="continue_button">Jatka</string>
     <string name="home_key_disclosure_title">Käytä aloitusnäyttöpainiketta</string>
-    <string name="home_key_disclosure">Tämä televisio ei anna sovellusten ryhtyä aloitusnäyttösovellukseksi, joten Vibe Launcher tarvitsee esteettömyyspalvelun vastatakseen aloitusnäyttöpainikkeeseen.\n\nSe näkee, mikä näyttö tulee esiin, ja toimii vain television oman aloitusnäytön kohdalla. Se näkee kaukosäätimen painikkeet, toimii vain aloitusnäyttöpainikkeen kohdalla ja päästää kaikki muut läpi. Se ei lue mitään näytöltä, ei tallenna mitään eikä lähetä mitään minnekään.\n\nVoit poistaa sen käytöstä milloin tahansa: Asetukset &gt; Esteettömyys.</string>
+    <string name="home_key_disclosure">Tämä televisio ei anna sovellusten ryhtyä aloitusnäyttösovellukseksi, joten Vibe Launcher tarvitsee esteettömyyspalvelun vastatakseen aloitusnäyttöpainikkeeseen.\n\nSe ottaa aloitusnäyttöpainikkeen hoitaakseen: painallus avaa Vibe Launcherin, pitkä painallus asetukset, ja kaikki muut painikkeet menevät läpi sellaisinaan. Se näkee myös, kun television oma aloitusnäyttö tulee esiin, ja peittää sen. Se ei lue mitään näytöltä, ei tallenna mitään eikä lähetä mitään minnekään.\n\nVoit poistaa sen käytöstä milloin tahansa: Asetukset &gt; Esteettömyys.</string>
     <string name="home_key_agree">Hyväksy</string>
     <string name="home_key_steps">Seuraavaksi: valitse avautuvasta luettelosta ”%1$s”, ota se käyttöön ja paina aloitusnäyttöpainiketta.</string>
 </resources>

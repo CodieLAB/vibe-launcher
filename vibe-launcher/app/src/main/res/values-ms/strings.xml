@@ -77,13 +77,13 @@
     <string name="auto_hide_bar">Sembunyi automatik</string>
     <string name="time_remaining">%1$s lagi</string>
     <string name="home_key_name">Butang Laman Utama Vibe Launcher</string>
-    <string name="home_key_description">Membuka Vibe Launcher apabila anda menekan Laman Utama atau TV memaparkan skrin utamanya sendiri. Ia tidak membaca apa-apa pada skrin dan tidak bertindak balas kepada butang lain selain Laman Utama.</string>
+    <string name="home_key_description">Menjadikan butang Laman Utama alat kawalan jauh membuka Vibe Launcher dan bukannya skrin utama TV itu sendiri, dan menekannya lama membuka Tetapan TV. Ia tidak membaca apa-apa pada skrin dan melepaskan semua butang lain.</string>
     <string name="home_key_turn_on">Hidupkan “%1$s” di sini supaya butang Laman Utama membuka Vibe Launcher.</string>
     <string name="permissions_title">Dua kebenaran</string>
     <string name="permissions_why">Seterusnya Vibe Launcher akan meminta dua kebenaran.\n\nSenarai TV: untuk memaparkan gambar daripada kad yang diterbitkan apl anda untuk skrin utama.\n\nLokasi: Android hanya menunjukkan nama rangkaian Wi-Fi kepada apl yang mempunyai kebenaran ini. Vibe Launcher menggunakannya untuk nama itu sahaja dan tidak pernah mencari lokasi TV.\n\nKedua-duanya tidak keluar dari TV.</string>
     <string name="continue_button">Teruskan</string>
     <string name="home_key_disclosure_title">Gunakan butang Laman Utama</string>
-    <string name="home_key_disclosure">TV ini tidak membenarkan apl menjadi apl laman utama, jadi Vibe Launcher memerlukan perkhidmatan kebolehaksesan untuk menjawab butang Laman Utama.\n\nIa melihat skrin mana yang muncul dan hanya bertindak pada skrin utama TV itu sendiri. Ia melihat butang alat kawalan jauh, hanya bertindak pada Laman Utama dan melepaskan semua butang lain. Ia tidak membaca apa-apa pada skrin, tidak menyimpan apa-apa dan tidak menghantar apa-apa ke mana-mana.\n\nMatikannya pada bila-bila masa dalam Tetapan &gt; Kebolehaksesan.</string>
+    <string name="home_key_disclosure">TV ini tidak membenarkan apl menjadi apl laman utama, jadi Vibe Launcher memerlukan perkhidmatan kebolehaksesan untuk menjawab butang Laman Utama.\n\nIa mengambil alih butang Laman Utama: tekan untuk membuka Vibe Launcher, tekan lama untuk membuka Tetapan, dan semua butang lain dilepaskan tanpa diubah. Ia juga melihat apabila skrin utama TV itu sendiri muncul, lalu menutupnya. Ia tidak membaca apa-apa pada skrin, tidak menyimpan apa-apa dan tidak menghantar apa-apa ke mana-mana.\n\nMatikannya pada bila-bila masa dalam Tetapan &gt; Kebolehaksesan.</string>
     <string name="home_key_agree">Setuju</string>
     <string name="home_key_steps">Seterusnya: dalam senarai yang dibuka, pilih “%1$s”, hidupkannya, kemudian tekan Laman Utama.</string>
 </resources>

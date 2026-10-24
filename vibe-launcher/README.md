@@ -44,8 +44,8 @@ Or by hand: `./gradlew assembleAdbDebug`, then `adb install -r -g app/build/outp
 |---|---|---|
 | Installed with | `build-and-install.sh` or a GitHub release APK, over adb | the store, no computer |
 | Stock launcher | turned off over adb (with Google TV's setup wizard) | stays on |
-| Home button | comes here by itself: Vibe Launcher is the only Home | the user turns on *Vibe Launcher Home button* in Settings → Accessibility; it opens Vibe Launcher whenever the stock home comes up, and on a short press of Home over it |
-| Accessibility service | none | `HomeKeyService`: hears only the stock launchers' screens opening, reads nothing on screen, passes every key on and acts only on Home; stops looking at keys while a game controller is connected |
+| Home button | comes here by itself: Vibe Launcher is the only Home | the user turns on *Vibe Launcher Home button* in Settings → Accessibility; the service keeps Home from the stock launcher: a press opens Vibe Launcher, a hold the TV's Settings; a stock home that comes up anyway (Back out of an app) gets covered |
+| Accessibility service | none | `HomeKeyService`: hears only the stock launchers' screens opening, reads nothing on screen, keeps Home and passes every other key on; stops looking at keys while a game controller is connected (Home then reaches the stock launcher, which gets covered) |
 | First start, and gear menu → *Make Home* | the TV's default-Home dialog, where it has one | the TV's default-Home dialog only where it can work (no stock launcher outranks it); otherwise, or if that doesn't take, a note on what the Home button service sees and the steps, then Accessibility settings. Shown until Home comes here |
 | Remote's app buttons (Google TV) | the ones Google TV's launcher handled (YouTube, Free TV) stop working with it off | keep working |
 | Updates | checks the GitHub releases (daily, on waking, in the gear menu) and installs them | none of its own: the store updates it |

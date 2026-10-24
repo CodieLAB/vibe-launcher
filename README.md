@@ -139,7 +139,8 @@ and install it. No account needed.
 There's also an **app store version**,
 [vibe-launcher-store.apk](https://github.com/maydings/vibe-launcher/releases/latest/download/vibe-launcher-store.apk),
 for TVs where the stock launcher can't be turned off: it leaves it on, and its own Home button service
-(turned on in Settings → Accessibility, it walks you through it) sends the Home button to Vibe Launcher.
+(turned on in Settings → Accessibility, it walks you through it) sends the Home button to Vibe Launcher,
+and holding Home opens the TV's Settings.
 It doesn't update itself or install SmartTube. The two are signed alike, so either can replace the other;
 [the build notes](vibe-launcher/README.md) compare them.
 

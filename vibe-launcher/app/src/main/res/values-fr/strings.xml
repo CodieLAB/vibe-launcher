@@ -77,13 +77,13 @@
     <string name="auto_hide_bar">Masquage automatique</string>
     <string name="time_remaining">Encore %1$s</string>
     <string name="home_key_name">Bouton Accueil de Vibe Launcher</string>
-    <string name="home_key_description">Ouvre Vibe Launcher quand vous appuyez sur Accueil ou que le téléviseur affiche son propre écran d\'accueil. Il ne lit rien à l\'écran et ne réagit à aucune touche sauf Accueil.</string>
+    <string name="home_key_description">Fait ouvrir Vibe Launcher au bouton Accueil de la télécommande au lieu de l\'écran d\'accueil du téléviseur, et ses paramètres quand on le maintient enfoncé. Il ne lit rien à l\'écran et laisse passer toutes les autres touches.</string>
     <string name="home_key_turn_on">Activez « %1$s » ici pour que le bouton Accueil ouvre Vibe Launcher.</string>
     <string name="permissions_title">Deux autorisations</string>
     <string name="permissions_why">Vibe Launcher va maintenant demander deux autorisations.\n\nProgrammes TV : pour afficher des images des cartes que vos applications publient pour l\'écran d\'accueil.\n\nPosition : Android ne montre le nom du réseau Wi-Fi qu\'aux applications qui ont cette autorisation. Vibe Launcher ne s\'en sert que pour ce nom et ne cherche jamais où se trouve le téléviseur.\n\nRien de cela ne quitte le téléviseur.</string>
     <string name="continue_button">Continuer</string>
     <string name="home_key_disclosure_title">Utiliser le bouton Accueil</string>
-    <string name="home_key_disclosure">Ce téléviseur ne permet pas aux applications de devenir l\'application d\'accueil. Vibe Launcher a donc besoin d\'un service d\'accessibilité pour répondre au bouton Accueil.\n\nIl voit quel écran s\'affiche et n\'agit que sur l\'écran d\'accueil du téléviseur. Il voit les touches de la télécommande, n\'agit que sur Accueil et laisse passer toutes les autres. Il ne lit rien à l\'écran, ne garde rien et n\'envoie rien nulle part.\n\nDésactivez-le à tout moment dans Paramètres &gt; Accessibilité.</string>
+    <string name="home_key_disclosure">Ce téléviseur ne permet pas aux applications de devenir l\'application d\'accueil. Vibe Launcher a donc besoin d\'un service d\'accessibilité pour répondre au bouton Accueil.\n\nIl prend en charge le bouton Accueil : un appui ouvre Vibe Launcher, un appui long ouvre les paramètres, et toutes les autres touches passent telles quelles. Il voit aussi quand l\'écran d\'accueil du téléviseur s\'affiche, et le recouvre. Il ne lit rien à l\'écran, ne garde rien et n\'envoie rien nulle part.\n\nDésactivez-le à tout moment dans Paramètres &gt; Accessibilité.</string>
     <string name="home_key_agree">Accepter</string>
     <string name="home_key_steps">Ensuite : dans la liste qui s\'ouvre, choisissez « %1$s », activez-le, puis appuyez sur Accueil.</string>
 </resources>

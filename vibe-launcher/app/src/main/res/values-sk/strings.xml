@@ -77,13 +77,13 @@
     <string name="auto_hide_bar">Automaticky skryť</string>
     <string name="time_remaining">Zostáva %1$s</string>
     <string name="home_key_name">Tlačidlo Domov pre Vibe Launcher</string>
-    <string name="home_key_description">Otvorí Vibe Launcher, keď stlačíte Domov alebo televízor zobrazí vlastnú domovskú obrazovku. Nič z obrazovky nečíta a nereaguje na žiadne tlačidlo okrem Domov.</string>
+    <string name="home_key_description">Tlačidlo Domov na ovládači otvorí Vibe Launcher namiesto vlastnej domovskej obrazovky televízora a jeho podržanie otvorí nastavenia televízora. Nič z obrazovky nečíta a všetky ostatné tlačidlá púšťa ďalej.</string>
     <string name="home_key_turn_on">Zapnite tu „%1$s“, aby tlačidlo Domov otváralo Vibe Launcher.</string>
     <string name="permissions_title">Dve povolenia</string>
     <string name="permissions_why">Vibe Launcher teraz požiada o dve povolenia.\n\nTV program: aby mohol zobrazovať obrázky z kariet, ktoré vaše aplikácie zverejňujú pre domovskú obrazovku.\n\nPoloha: Android ukazuje názov siete Wi-Fi len aplikáciám s týmto povolením. Vibe Launcher ho používa len na tento názov a nikdy nezisťuje, kde je televízor.\n\nNič z toho neopustí televízor.</string>
     <string name="continue_button">Pokračovať</string>
     <string name="home_key_disclosure_title">Používať tlačidlo Domov</string>
-    <string name="home_key_disclosure">Tento televízor nedovoľuje aplikáciám stať sa domovskou aplikáciou, preto Vibe Launcher potrebuje službu dostupnosti, aby mohol reagovať na tlačidlo Domov.\n\nVidí, ktorá obrazovka sa objavila, a koná len pri vlastnej domovskej obrazovke televízora. Vidí tlačidlá ovládača, koná len pri tlačidle Domov a všetky ostatné púšťa ďalej. Nič z obrazovky nečíta, nič neukladá a nikam nič neposiela.\n\nKedykoľvek ju vypnete v Nastaveniach &gt; Dostupnosť.</string>
+    <string name="home_key_disclosure">Tento televízor nedovoľuje aplikáciám stať sa domovskou aplikáciou, preto Vibe Launcher potrebuje službu dostupnosti, aby mohol reagovať na tlačidlo Domov.\n\nPrevezme tlačidlo Domov: stlačenie otvorí Vibe Launcher, podržanie otvorí nastavenia a všetky ostatné tlačidlá prejdú bez zmeny. Vidí aj, kedy sa objaví vlastná domovská obrazovka televízora, a zakryje ju. Nič z obrazovky nečíta, nič neukladá a nikam nič neposiela.\n\nKedykoľvek ju vypnete v Nastaveniach &gt; Dostupnosť.</string>
     <string name="home_key_agree">Súhlasím</string>
     <string name="home_key_steps">Ďalej: v zozname, ktorý sa otvorí, vyberte „%1$s“, zapnite ho a stlačte Domov.</string>
 </resources>

@@ -7,14 +7,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.hardware.input.InputManager;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.SystemClock;
+import android.os.PowerManager;
 import android.os.UserManager;
 import android.provider.Settings;
 import android.view.InputDevice;
@@ -29,34 +26,21 @@ import java.util.Set;
  * The Home button for the store build. Installed from an app store there's no adb to turn the stock
  * launcher off, and Android TV has no setting for the Home app, so Home keeps opening the stock one. The
  * user turns this on under Settings > Accessibility, and then:
- * - each time a stock home screen comes up (Home pressed in an app, or the firmware bringing it back),
- *   Vibe Launcher opens over it;
- * - a short press of Home with the stock home already on screen (no screen opens, so no event comes) opens
- *   it too. A long press is left alone: Google TV opens its quick settings with it.
+ * - Home is kept from the stock launcher: a press opens Vibe Launcher, a hold the TV's Settings (Google TV's
+ *   own long-press panel needs a system permission);
+ * - a stock home screen that comes up anyway (Back out of an app) is covered with Vibe Launcher.
  *
  * It hears only from the stock launchers, and only that one of their screens came up; it reads nothing on
- * screen. It sees every key but passes them all on. While a game controller is connected it stops looking
- * at keys: then Android routes every key through the service, and games stop seeing the controller's
- * buttons as its own (seen upstream with Steam Link and an Xbox controller).
+ * screen. It sees every key and passes on all but Home. While a game controller is connected it stops
+ * looking at keys (with key filtering on, games stop seeing the controller's buttons as its own; upstream,
+ * Steam Link with an Xbox controller): Home then reaches the stock launcher, which gets covered.
  */
 public final class HomeKeyService extends AccessibilityService implements InputManager.InputDeviceListener {
 
-    /** How long after boot the first bind still counts as "at boot" for probeAtBoot. */
-    private static final long BOOT_WINDOW_MS = 3 * 60 * 1000L;
-    /** Lets the system handle Home first, so ours opens over the stock home rather than under it. */
-    private static final long HOME_KEY_DELAY_MS = 250;
-    /** Home pressed in an app gives both the key and the stock home's screen: one opening is enough. */
-    private static final long SAME_PRESS_MS = 1000;
-    /** If the stock home keeps coming back by itself (firmware that insists on it), stop fighting it a while. */
-    private static final int BURST = 4;
-    private static final long BURST_MS = 10 * 1000L, PAUSE_MS = 60 * 1000L;
-
     /** "package/activity" for every stock HOME activity, turned off ones included: firmware can turn them back on. */
     private final Set<String> stockHome = new HashSet<>();
-    private final Handler handler = new Handler(Looper.getMainLooper());
-    private final long[] recent = new long[BURST];
-    private int next;
-    private long pausedUntil, openedAt, homeKeyAt;
+    /** This Home press is kept from the system: its down went nowhere, so its up mustn't either. */
+    private boolean homeKept;
     private InputManager input;
     /** Waits for the user to unlock when Android binds this service at boot; null otherwise. */
     private BroadcastReceiver unlockReceiver;
@@ -77,27 +61,27 @@ public final class HomeKeyService extends AccessibilityService implements InputM
         }
         input = getSystemService(InputManager.class);
         if (input != null) {
-            input.registerInputDeviceListener(this, handler);
+            input.registerInputDeviceListener(this, null);
             updateKeyFilter();
         }
         // Direct-boot aware: Android 11 skips a service that isn't while the user is still locked at boot, and
         // some firmware (TCL, upstream) then turns it off for good. Home itself can only open after the unlock.
         UserManager users = getSystemService(UserManager.class);
         if (users == null || users.isUserUnlocked()) {
-            probeAtBoot();
+            probe();
             return;
         }
         unlockReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 stopWaitingForUnlock();
-                probeAtBoot();
+                probe();
             }
         };
         registerReceiver(unlockReceiver, new IntentFilter(Intent.ACTION_USER_UNLOCKED));
         if (users.isUserUnlocked()) {   // it may have happened between the check and the registration
             stopWaitingForUnlock();
-            probeAtBoot();
+            probe();
         }
     }
 
@@ -123,82 +107,46 @@ public final class HomeKeyService extends AccessibilityService implements InputM
     public void onAccessibilityEvent(AccessibilityEvent event) {
         if (event.getEventType() != AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) return;
         CharSequence pkg = event.getPackageName(), cls = event.getClassName();
-        if (pkg == null || cls == null || !stockHome.contains(pkg + "/" + cls)) return;
-        long now = SystemClock.elapsedRealtime();
-        // Home just pressed: the user asked for it, so it never counts as the firmware insisting.
-        if (now - homeKeyAt < SAME_PRESS_MS) {
-            openHome();
-            return;
-        }
-        // The fourth time in ten seconds by itself: the firmware keeps bringing its home back, so let it have the screen.
-        if (now < pausedUntil) return;
-        long oldest = recent[next];
-        recent[next] = now;
-        next = (next + 1) % BURST;
-        if (oldest != 0 && now - oldest < BURST_MS) {
-            pausedUntil = now + PAUSE_MS;
-            return;
-        }
-        openHome();
+        if (pkg != null && cls != null && stockHome.contains(pkg + "/" + cls)) open(homeIntent());
     }
 
     @Override
     protected boolean onKeyEvent(KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_HOME && event.getAction() == KeyEvent.ACTION_UP) {
-            homeKeyAt = SystemClock.elapsedRealtime();
+        if (event.getKeyCode() != KeyEvent.KEYCODE_HOME) return false;   // every other key goes on as usual
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            // Only where Home doesn't come here anyway, and with the TV awake (asleep, Home wakes it).
+            PowerManager power = getSystemService(PowerManager.class);
+            homeKept = !DefaultHome.isHome(this) && (power == null || power.isInteractive());
+            return homeKept;
         }
-        // Held time, not repeats: Android makes key repeats after the accessibility filter, so none come here.
-        if (event.getKeyCode() == KeyEvent.KEYCODE_HOME && event.getAction() == KeyEvent.ACTION_UP && !event.isCanceled()
-                && event.getEventTime() - event.getDownTime() < ViewConfiguration.getLongPressTimeout()
-                && !DefaultHome.isHome(this)) {
-            handler.postDelayed(this::openHome, HOME_KEY_DELAY_MS);
+        if (!homeKept) return false;
+        homeKept = false;
+        if (event.getAction() == KeyEvent.ACTION_UP && !event.isCanceled()) {
+            // A hold, by how long it was down: the TV's Settings. Else Vibe Launcher.
+            boolean held = event.getEventTime() - event.getDownTime() >= ViewConfiguration.getLongPressTimeout();
+            open(held ? new Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) : homeIntent());
         }
-        return false;   // every key goes on as usual
+        return true;
     }
 
     /**
-     * The stock home is often on screen before Android binds this service, so no event for it arrives: at
-     * boot, and after an update of Vibe Launcher (which ends it, and the TV falls back to its own home while
-     * the service starts again). Then, once, open ProbeActivity: when it closes, whatever was in front comes
-     * back and sends an event, and onAccessibilityEvent covers it only if it's the stock home. An HDMI input
-     * or an app the TV resumed is left alone. Not at other binds: the probe pauses whatever is playing for a
-     * moment.
+     * The stock home may already be on screen when Android binds this service (at boot, after an update of
+     * Vibe Launcher), so no event for it comes. ProbeActivity opens and closes at once: whatever was in front
+     * comes back and says so, and onAccessibilityEvent covers it only if it's the stock home.
      */
-    private void probeAtBoot() {
+    private void probe() {
         if (stockHome.isEmpty()) return;
-        int boot = Settings.Global.getInt(getContentResolver(), Settings.Global.BOOT_COUNT, -1);
-        long updated = updateTime();
-        // Device-protected: readable before the unlock too.
-        SharedPreferences prefs = createDeviceProtectedStorageContext().getSharedPreferences("homekey", MODE_PRIVATE);
-        boolean atBoot = boot >= 0 && boot != prefs.getInt("probeBoot", -1) && SystemClock.elapsedRealtime() < BOOT_WINDOW_MS;
-        boolean afterUpdate = updated != prefs.getLong("probeUpdate", 0)
-                && System.currentTimeMillis() - updated < BOOT_WINDOW_MS;
-        if (!atBoot && !afterUpdate) return;
-        prefs.edit().putInt("probeBoot", boot).putLong("probeUpdate", updated).apply();
-        try {
-            startActivity(new Intent(this, ProbeActivity.class)
-                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION));
-        } catch (ActivityNotFoundException | SecurityException ignored) {
-            // Nothing to probe with: Home on the remote still works.
-        }
+        open(new Intent(this, ProbeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION));
     }
 
-    /** When Vibe Launcher was last installed or updated, or 0. */
-    private long updateTime() {
-        try {
-            return getPackageManager().getPackageInfo(getPackageName(), 0).lastUpdateTime;
-        } catch (PackageManager.NameNotFoundException e) {
-            return 0;
-        }
+    private Intent homeIntent() {
+        return new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME).setPackage(getPackageName())
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
     }
 
-    private void openHome() {
-        long now = SystemClock.elapsedRealtime();
-        if (now - openedAt < SAME_PRESS_MS) return;
-        openedAt = now;
+    private void open(Intent intent) {
         try {
-            startActivity(new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME).setPackage(getPackageName())
-                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED));
+            startActivity(intent);
         } catch (ActivityNotFoundException | SecurityException ignored) {
             // Not before the unlock: the stock home stays this once.
         }
@@ -207,7 +155,7 @@ public final class HomeKeyService extends AccessibilityService implements InputM
     /**
      * Looks at keys only while no game controller is connected. A controller has all the SOURCE_GAMEPAD and
      * SOURCE_JOYSTICK bits; either alone isn't one (upstream, on a TCL: its voice remote reports a joystick,
-     * its virtual search keyboard a gamepad). Meanwhile Home on the stock home waits for the controller to go.
+     * its virtual search keyboard a gamepad).
      */
     private void updateKeyFilter() {
         boolean gamepad = false;
@@ -254,7 +202,6 @@ public final class HomeKeyService extends AccessibilityService implements InputM
     public void onDestroy() {
         stopWaitingForUnlock();
         if (input != null) input.unregisterInputDeviceListener(this);
-        handler.removeCallbacksAndMessages(null);
         super.onDestroy();
     }
 

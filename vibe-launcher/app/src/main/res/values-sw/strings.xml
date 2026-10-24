@@ -77,13 +77,13 @@
     <string name="auto_hide_bar">Ficha kiotomatiki</string>
     <string name="time_remaining">Zimebaki %1$s</string>
     <string name="home_key_name">Kitufe cha Mwanzo cha Vibe Launcher</string>
-    <string name="home_key_description">Hufungua Vibe Launcher unapobonyeza Mwanzo au televisheni inapoonyesha skrini yake ya mwanzo. Haisomi chochote kwenye skrini na haijibu kitufe kingine chochote isipokuwa Mwanzo.</string>
+    <string name="home_key_description">Hufanya kitufe cha Mwanzo cha rimoti kifungue Vibe Launcher badala ya skrini ya mwanzo ya TV yenyewe, na ukikibonyeza kwa muda mipangilio ya TV ifunguke. Haisomi chochote kwenye skrini na huacha vitufe vingine vyote vipite.</string>
     <string name="home_key_turn_on">Washa “%1$s” hapa ili kitufe cha Mwanzo kifungue Vibe Launcher.</string>
     <string name="permissions_title">Ruhusa mbili</string>
     <string name="permissions_why">Kisha Vibe Launcher itaomba ruhusa mbili.\n\nOrodha za TV: ili kuonyesha picha kutoka kwenye kadi ambazo programu zako huchapisha kwa skrini ya mwanzo.\n\nMahali: Android huonyesha jina la mtandao wa Wi-Fi kwa programu zenye ruhusa hii pekee. Vibe Launcher huitumia kwa jina hilo tu na haitafuti kamwe mahali TV ilipo.\n\nHakuna kati ya hizo kinachotoka kwenye TV.</string>
     <string name="continue_button">Endelea</string>
     <string name="home_key_disclosure_title">Tumia kitufe cha Mwanzo</string>
-    <string name="home_key_disclosure">TV hii hairuhusu programu kuwa programu ya mwanzo, kwa hiyo Vibe Launcher inahitaji huduma ya ufikivu ili kujibu kitufe cha Mwanzo.\n\nHuona skrini ipi imefunguka, na hufanya kazi tu kwenye skrini ya mwanzo ya TV yenyewe. Huona vitufe vya rimoti, hufanya kazi kwenye Mwanzo tu na huacha vitufe vingine vyote vipite. Haisomi chochote kwenye skrini, haihifadhi chochote na haitumi chochote popote.\n\nIzime wakati wowote katika Mipangilio &gt; Ufikivu.</string>
+    <string name="home_key_disclosure">TV hii hairuhusu programu kuwa programu ya mwanzo, kwa hiyo Vibe Launcher inahitaji huduma ya ufikivu ili kujibu kitufe cha Mwanzo.\n\nHuchukua kitufe cha Mwanzo: kubonyeza hufungua Vibe Launcher, kubonyeza kwa muda hufungua Mipangilio, na vitufe vingine vyote hupita bila kubadilishwa. Pia huona skrini ya mwanzo ya TV yenyewe inapotokea, na kuifunika. Haisomi chochote kwenye skrini, haihifadhi chochote na haitumi chochote popote.\n\nIzime wakati wowote katika Mipangilio &gt; Ufikivu.</string>
     <string name="home_key_agree">Ninakubali</string>
     <string name="home_key_steps">Kisha: katika orodha itakayofunguka, chagua “%1$s”, iwashe, kisha ubonyeze Mwanzo.</string>
 </resources>

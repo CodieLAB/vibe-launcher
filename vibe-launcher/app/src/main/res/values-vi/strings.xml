@@ -77,13 +77,13 @@
     <string name="auto_hide_bar">Tự động ẩn</string>
     <string name="time_remaining">Còn %1$s</string>
     <string name="home_key_name">Nút Màn hình chính của Vibe Launcher</string>
-    <string name="home_key_description">Mở Vibe Launcher khi bạn nhấn nút Màn hình chính hoặc khi TV hiện màn hình chính của riêng nó. Không đọc nội dung nào trên màn hình và không phản hồi nút nào ngoài nút Màn hình chính.</string>
+    <string name="home_key_description">Khiến nút Màn hình chính trên điều khiển mở Vibe Launcher thay vì màn hình chính của TV, và nhấn giữ để mở Cài đặt của TV. Không đọc nội dung nào trên màn hình và để mọi nút khác đi qua như bình thường.</string>
     <string name="home_key_turn_on">Bật “%1$s” tại đây để nút Màn hình chính mở Vibe Launcher.</string>
     <string name="permissions_title">Hai quyền</string>
     <string name="permissions_why">Tiếp theo, Vibe Launcher sẽ xin hai quyền.\n\nLịch phát sóng TV: để hiện hình ảnh từ các thẻ mà ứng dụng của bạn đăng lên màn hình chính.\n\nVị trí: Android chỉ cho ứng dụng có quyền này thấy tên mạng Wi-Fi. Vibe Launcher chỉ dùng quyền này cho cái tên đó và không bao giờ tìm xem TV ở đâu.\n\nKhông gì trong số đó rời khỏi TV.</string>
     <string name="continue_button">Tiếp tục</string>
     <string name="home_key_disclosure_title">Dùng nút Màn hình chính</string>
-    <string name="home_key_disclosure">TV này không cho ứng dụng trở thành ứng dụng màn hình chính, nên Vibe Launcher cần một dịch vụ hỗ trợ tiếp cận để phản hồi nút Màn hình chính.\n\nDịch vụ biết màn hình nào hiện lên và chỉ hành động khi màn hình chính của chính TV hiện lên. Dịch vụ biết các nút trên điều khiển, chỉ hành động với nút Màn hình chính và để mọi nút khác đi qua như bình thường. Dịch vụ không đọc gì trên màn hình, không lưu gì và không gửi gì đi đâu cả.\n\nTắt bất cứ lúc nào trong Cài đặt &gt; Hỗ trợ tiếp cận.</string>
+    <string name="home_key_disclosure">TV này không cho ứng dụng trở thành ứng dụng màn hình chính, nên Vibe Launcher cần một dịch vụ hỗ trợ tiếp cận để phản hồi nút Màn hình chính.\n\nDịch vụ đảm nhận nút Màn hình chính: nhấn để mở Vibe Launcher, nhấn giữ để mở Cài đặt, mọi nút khác đi qua như bình thường. Dịch vụ cũng biết khi màn hình chính của chính TV hiện lên và che nó đi. Dịch vụ không đọc gì trên màn hình, không lưu gì và không gửi gì đi đâu cả.\n\nTắt bất cứ lúc nào trong Cài đặt &gt; Hỗ trợ tiếp cận.</string>
     <string name="home_key_agree">Đồng ý</string>
     <string name="home_key_steps">Tiếp theo: trong danh sách mở ra, chọn “%1$s”, bật lên rồi nhấn nút Màn hình chính.</string>
 </resources>

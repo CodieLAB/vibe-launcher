@@ -36,8 +36,9 @@ explaining it. It:
 
 - hears when one of the TV's own home screens comes up (from those launchers only), and opens Vibe
   Launcher over it;
-- sees the remote's key presses, acts only on a short press of Home, and passes every key on unchanged;
-  while a game controller is connected it stops seeing keys;
+- sees the remote's key presses and keeps the Home button from the TV's own launcher: a press opens Vibe
+  Launcher, a hold opens the TV's Settings. Every other key passes on unchanged. While a game controller
+  is connected it stops seeing keys, and Home goes to the TV's launcher as usual;
 - reads nothing on screen, stores nothing, and sends nothing anywhere.
 
 Turning it off in Settings > Accessibility stops all of it.

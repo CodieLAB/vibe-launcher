@@ -77,13 +77,13 @@
     <string name="auto_hide_bar">Otomatik gizle</string>
     <string name="time_remaining">%1$s kaldı</string>
     <string name="home_key_name">Vibe Launcher Ana ekran düğmesi</string>
-    <string name="home_key_description">Ana ekran düğmesine bastığınızda ya da TV kendi ana ekranını açtığında Vibe Launcher\'ı açar. Ekrandaki hiçbir şeyi okumaz ve Ana ekran dışında hiçbir düğmeye tepki vermez.</string>
+    <string name="home_key_description">Kumandanın Ana ekran düğmesinin TV\'nin kendi ana ekranı yerine Vibe Launcher\'ı açmasını, basılı tutulduğunda da TV\'nin ayarlarını açmasını sağlar. Ekrandaki hiçbir şeyi okumaz ve diğer tüm tuşları olduğu gibi iletir.</string>
     <string name="home_key_turn_on">Ana ekran düğmesinin Vibe Launcher\'ı açması için burada “%1$s” seçeneğini açın.</string>
     <string name="permissions_title">İki izin</string>
     <string name="permissions_why">Vibe Launcher şimdi iki izin isteyecek.\n\nTV yayın akışı: uygulamalarınızın ana ekran için yayınladığı kartlardaki resimleri göstermek için.\n\nKonum: Android, Wi-Fi ağının adını yalnızca bu izne sahip uygulamalara gösterir. Vibe Launcher bunu yalnızca bu ad için kullanır, TV\'nin nerede olduğuna asla bakmaz.\n\nHiçbiri TV\'den dışarı çıkmaz.</string>
     <string name="continue_button">Devam</string>
     <string name="home_key_disclosure_title">Ana ekran düğmesini kullan</string>
-    <string name="home_key_disclosure">Bu TV, uygulamaların ana ekran uygulaması olmasına izin vermiyor; bu yüzden Vibe Launcher\'ın Ana ekran düğmesine yanıt verebilmesi için bir erişilebilirlik hizmeti gerekiyor.\n\nHangi ekranın açıldığını görür ve yalnızca TV\'nin kendi ana ekranında devreye girer. Kumandanın tuşlarını görür, yalnızca Ana ekran tuşunda devreye girer ve diğer tüm tuşları olduğu gibi iletir. Ekrandaki hiçbir şeyi okumaz, hiçbir şey saklamaz ve hiçbir yere bir şey göndermez.\n\nİstediğiniz zaman Ayarlar &gt; Erişilebilirlik bölümünden kapatabilirsiniz.</string>
+    <string name="home_key_disclosure">Bu TV, uygulamaların ana ekran uygulaması olmasına izin vermiyor; bu yüzden Vibe Launcher\'ın Ana ekran düğmesine yanıt verebilmesi için bir erişilebilirlik hizmeti gerekiyor.\n\nAna ekran düğmesini üstlenir: basınca Vibe Launcher açılır, basılı tutunca Ayarlar açılır, diğer tüm tuşlar olduğu gibi geçer. TV\'nin kendi ana ekranının açıldığını da görür ve üstünü kapatır. Ekrandaki hiçbir şeyi okumaz, hiçbir şey saklamaz ve hiçbir yere bir şey göndermez.\n\nİstediğiniz zaman Ayarlar &gt; Erişilebilirlik bölümünden kapatabilirsiniz.</string>
     <string name="home_key_agree">Kabul ediyorum</string>
     <string name="home_key_steps">Sonra: açılan listede “%1$s” seçeneğini seçip açın, ardından Ana ekran düğmesine basın.</string>
 </resources>

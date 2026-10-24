@@ -77,13 +77,13 @@
     <string name="auto_hide_bar">Automatisch verbergen</string>
     <string name="time_remaining">Nog %1$s</string>
     <string name="home_key_name">Vibe Launcher-startknop</string>
-    <string name="home_key_description">Opent Vibe Launcher als je op de startknop drukt of de tv zijn eigen startscherm toont. Leest niets op het scherm en reageert op geen enkele knop behalve de startknop.</string>
+    <string name="home_key_description">Laat de startknop van de afstandsbediening Vibe Launcher openen in plaats van het eigen startscherm van de tv, en ingedrukt houden de instellingen van de tv. Leest niets op het scherm en laat alle andere knoppen door.</string>
     <string name="home_key_turn_on">Zet hier ‘%1$s’ aan, dan opent de startknop Vibe Launcher.</string>
     <string name="permissions_title">Twee machtigingen</string>
     <string name="permissions_why">Vibe Launcher vraagt zo om twee machtigingen.\n\nTv-gids: om afbeeldingen te tonen uit de kaarten die je apps voor het startscherm publiceren.\n\nLocatie: Android toont de naam van het wifi-netwerk alleen aan apps met deze machtiging. Vibe Launcher gebruikt hem alleen voor die naam en zoekt nooit op waar de tv staat.\n\nGeen van beide verlaat de tv.</string>
     <string name="continue_button">Doorgaan</string>
     <string name="home_key_disclosure_title">De startknop gebruiken</string>
-    <string name="home_key_disclosure">Deze tv laat apps geen startscherm-app worden, dus Vibe Launcher heeft een toegankelijkheidsservice nodig om op de startknop te reageren.\n\nDie ziet welk scherm verschijnt en doet alleen iets bij het eigen startscherm van de tv. Die ziet de knoppen van de afstandsbediening, doet alleen iets bij de startknop en laat alle andere knoppen door. Die leest niets op het scherm, bewaart niets en stuurt nergens iets heen.\n\nZet hem op elk moment uit via Instellingen &gt; Toegankelijkheid.</string>
+    <string name="home_key_disclosure">Deze tv laat apps geen startscherm-app worden, dus Vibe Launcher heeft een toegankelijkheidsservice nodig om op de startknop te reageren.\n\nHij neemt de startknop over: indrukken opent Vibe Launcher, ingedrukt houden opent de instellingen, en alle andere knoppen gaan onveranderd door. Hij ziet ook wanneer het eigen startscherm van de tv verschijnt, en bedekt het. Hij leest niets op het scherm, bewaart niets en stuurt nergens iets heen.\n\nZet hem op elk moment uit via Instellingen &gt; Toegankelijkheid.</string>
     <string name="home_key_agree">Akkoord</string>
     <string name="home_key_steps">Daarna: kies in de lijst die opent ‘%1$s’, zet het aan en druk op de startknop.</string>
 </resources>

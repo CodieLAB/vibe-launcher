@@ -77,13 +77,13 @@
     <string name="auto_hide_bar">自动隐藏</string>
     <string name="time_remaining">剩余 %1$s</string>
     <string name="home_key_name">Vibe Launcher 主页键</string>
-    <string name="home_key_description">按下主页键或电视显示自带的主屏幕时，打开 Vibe Launcher。它不读取屏幕上的任何内容，除主页键外不响应任何按键。</string>
+    <string name="home_key_description">让遥控器的主页键打开 Vibe Launcher，而不是电视自带的主屏幕；长按则打开电视的设置。它不读取屏幕上的任何内容，其他按键都照常放行。</string>
     <string name="home_key_turn_on">在此开启“%1$s”，按主页键即可打开 Vibe Launcher。</string>
     <string name="permissions_title">两项权限</string>
     <string name="permissions_why">接下来 Vibe Launcher 会请求两项权限。\n\n电视节目单：用于显示各应用为主屏幕发布的卡片中的图片。\n\n位置信息：Android 只向拥有此权限的应用显示 Wi-Fi 网络名称。Vibe Launcher 只把它用于这个名称，从不查看电视的位置。\n\n两者都不会离开电视。</string>
     <string name="continue_button">继续</string>
     <string name="home_key_disclosure_title">使用主页键</string>
-    <string name="home_key_disclosure">这台电视不允许应用成为主屏幕应用，因此 Vibe Launcher 需要一项无障碍服务来响应主页键。\n\n它能知道出现的是哪个屏幕，只在电视自带的主屏幕出现时才起作用。它能知道遥控器按了哪个键，只对主页键起作用，其他按键都照常放行。它不读取屏幕上的任何内容，不保存任何东西，也不向任何地方发送任何东西。\n\n可随时在“设置”&gt;“无障碍”中关闭。</string>
+    <string name="home_key_disclosure">这台电视不允许应用成为主屏幕应用，因此 Vibe Launcher 需要一项无障碍服务来响应主页键。\n\n它接管主页键：按一下打开 Vibe Launcher，长按打开设置，其他按键都原样放行。它也能知道电视自带的主屏幕何时出现，并把它盖住。它不读取屏幕上的任何内容，不保存任何东西，也不向任何地方发送任何东西。\n\n可随时在“设置”&gt;“无障碍”中关闭。</string>
     <string name="home_key_agree">同意</string>
     <string name="home_key_steps">下一步：在打开的列表中选择“%1$s”并开启，然后按主页键。</string>
 </resources>

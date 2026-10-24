@@ -77,13 +77,13 @@
     <string name="auto_hide_bar">Automatyczne ukrywanie</string>
     <string name="time_remaining">Pozostało: %1$s</string>
     <string name="home_key_name">Przycisk ekranu głównego Vibe Launcher</string>
-    <string name="home_key_description">Otwiera Vibe Launcher po naciśnięciu przycisku ekranu głównego lub gdy telewizor pokaże własny ekran główny. Nie odczytuje niczego z ekranu i nie reaguje na inne przyciski.</string>
+    <string name="home_key_description">Sprawia, że przycisk ekranu głównego na pilocie otwiera Vibe Launcher zamiast własnego ekranu głównego telewizora, a przytrzymany – ustawienia telewizora. Niczego nie odczytuje z ekranu i przepuszcza wszystkie inne przyciski.</string>
     <string name="home_key_turn_on">Włącz tutaj „%1$s”, aby przycisk ekranu głównego otwierał Vibe Launcher.</string>
     <string name="permissions_title">Dwa uprawnienia</string>
     <string name="permissions_why">Za chwilę Vibe Launcher poprosi o dwa uprawnienia.\n\nProgram telewizyjny: aby pokazywać obrazy z kart, które Twoje aplikacje publikują na ekranie głównym.\n\nLokalizacja: Android pokazuje nazwę sieci Wi-Fi tylko aplikacjom z tym uprawnieniem. Vibe Launcher używa go tylko do tej nazwy i nigdy nie sprawdza, gdzie jest telewizor.\n\nŻadne z nich nie opuszcza telewizora.</string>
     <string name="continue_button">Dalej</string>
     <string name="home_key_disclosure_title">Używaj przycisku ekranu głównego</string>
-    <string name="home_key_disclosure">Ten telewizor nie pozwala aplikacjom stać się aplikacją ekranu głównego, więc Vibe Launcher potrzebuje usługi ułatwień dostępu, żeby reagować na przycisk ekranu głównego.\n\nWidzi, który ekran się pojawia, i działa tylko przy własnym ekranie głównym telewizora. Widzi przyciski pilota, działa tylko przy przycisku ekranu głównego, a wszystkie inne przepuszcza. Niczego nie odczytuje z ekranu, niczego nie przechowuje i nigdzie niczego nie wysyła.\n\nMożesz ją wyłączyć w dowolnej chwili w Ustawieniach &gt; Ułatwienia dostępu.</string>
+    <string name="home_key_disclosure">Ten telewizor nie pozwala aplikacjom stać się aplikacją ekranu głównego, więc Vibe Launcher potrzebuje usługi ułatwień dostępu, żeby reagować na przycisk ekranu głównego.\n\nPrzejmuje przycisk ekranu głównego: naciśnięcie otwiera Vibe Launcher, przytrzymanie otwiera ustawienia, a wszystkie inne przyciski przechodzą bez zmian. Widzi też, kiedy pojawia się własny ekran główny telewizora, i go zasłania. Niczego nie odczytuje z ekranu, niczego nie przechowuje i nigdzie niczego nie wysyła.\n\nMożesz ją wyłączyć w dowolnej chwili w Ustawieniach &gt; Ułatwienia dostępu.</string>
     <string name="home_key_agree">Zgadzam się</string>
     <string name="home_key_steps">Dalej: na liście, która się otworzy, wybierz „%1$s”, włącz to i naciśnij przycisk ekranu głównego.</string>
 </resources>

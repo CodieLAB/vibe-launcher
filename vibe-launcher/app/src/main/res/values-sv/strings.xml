@@ -77,13 +77,13 @@
     <string name="auto_hide_bar">Dölj automatiskt</string>
     <string name="time_remaining">%1$s kvar</string>
     <string name="home_key_name">Vibe Launcher-hemknapp</string>
-    <string name="home_key_description">Öppnar Vibe Launcher när du trycker på hem eller tv:n visar sin egen startskärm. Den läser inget på skärmen och reagerar inte på några andra knappar än hem.</string>
+    <string name="home_key_description">Får fjärrkontrollens hemknapp att öppna Vibe Launcher i stället för tv:ns egen startskärm, och ett långt tryck att öppna tv:ns inställningar. Den läser inget på skärmen och släpper igenom alla andra knappar.</string>
     <string name="home_key_turn_on">Slå på ”%1$s” här så öppnar hemknappen Vibe Launcher.</string>
     <string name="permissions_title">Två behörigheter</string>
     <string name="permissions_why">Vibe Launcher ber nu om två behörigheter.\n\nTv-tablå: för att visa bilder från korten som dina appar publicerar för startskärmen.\n\nPlats: Android visar bara Wi-Fi-nätverkets namn för appar med den här behörigheten. Vibe Launcher använder den bara för namnet och tar aldrig reda på var tv:n står.\n\nIngen av dem lämnar tv:n.</string>
     <string name="continue_button">Fortsätt</string>
     <string name="home_key_disclosure_title">Använd hemknappen</string>
-    <string name="home_key_disclosure">Den här tv:n låter inte appar bli startskärmsapp, så Vibe Launcher behöver en tillgänglighetstjänst för att svara på hemknappen.\n\nDen ser vilken skärm som kommer fram och agerar bara när tv:ns egen startskärm visas. Den ser fjärrkontrollens knappar, agerar bara på hem och släpper igenom alla andra. Den läser inget på skärmen, sparar inget och skickar inget någonstans.\n\nStäng av den när du vill under Inställningar &gt; Tillgänglighet.</string>
+    <string name="home_key_disclosure">Den här tv:n låter inte appar bli startskärmsapp, så Vibe Launcher behöver en tillgänglighetstjänst för att svara på hemknappen.\n\nDen tar över hemknappen: ett tryck öppnar Vibe Launcher, ett långt tryck öppnar inställningarna, och alla andra knappar går igenom oförändrade. Den ser också när tv:ns egen startskärm kommer fram och täcker den. Den läser inget på skärmen, sparar inget och skickar inget någonstans.\n\nStäng av den när du vill under Inställningar &gt; Tillgänglighet.</string>
     <string name="home_key_agree">Godkänn</string>
     <string name="home_key_steps">Nästa steg: välj ”%1$s” i listan som öppnas, slå på den och tryck sedan på hem.</string>
 </resources>

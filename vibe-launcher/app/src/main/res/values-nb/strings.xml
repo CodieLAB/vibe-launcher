@@ -77,13 +77,13 @@
     <string name="auto_hide_bar">Skjul automatisk</string>
     <string name="time_remaining">%1$s igjen</string>
     <string name="home_key_name">Vibe Launcher-hjemknapp</string>
-    <string name="home_key_description">Åpner Vibe Launcher når du trykker på hjem eller TV-en viser sin egen startskjerm. Den leser ingenting på skjermen og reagerer ikke på andre knapper enn hjem.</string>
+    <string name="home_key_description">Får hjemknappen på fjernkontrollen til å åpne Vibe Launcher i stedet for TV-ens egen startskjerm, og et langt trykk til å åpne TV-ens innstillinger. Den leser ingenting på skjermen og sender alle andre knapper videre.</string>
     <string name="home_key_turn_on">Slå på «%1$s» her, så åpner hjemknappen Vibe Launcher.</string>
     <string name="permissions_title">To tillatelser</string>
     <string name="permissions_why">Vibe Launcher ber nå om to tillatelser.\n\nTV-oversikt: for å vise bilder fra kortene appene dine publiserer for startskjermen.\n\nPosisjon: Android viser bare navnet på Wi-Fi-nettverket til apper med denne tillatelsen. Vibe Launcher bruker den bare til navnet og finner aldri ut hvor TV-en er.\n\nIngen av delene forlater TV-en.</string>
     <string name="continue_button">Fortsett</string>
     <string name="home_key_disclosure_title">Bruk hjemknappen</string>
-    <string name="home_key_disclosure">Denne TV-en lar ikke apper bli startskjermappen, så Vibe Launcher trenger en tilgjengelighetstjeneste for å svare på hjemknappen.\n\nDen ser hvilken skjerm som kommer opp, og handler bare når TV-ens egen startskjerm vises. Den ser knappene på fjernkontrollen, handler bare på hjem og sender alle andre knapper videre. Den leser ingenting på skjermen, lagrer ingenting og sender ingenting noe sted.\n\nSlå den av når som helst under Innstillinger &gt; Tilgjengelighet.</string>
+    <string name="home_key_disclosure">Denne TV-en lar ikke apper bli startskjermappen, så Vibe Launcher trenger en tilgjengelighetstjeneste for å svare på hjemknappen.\n\nDen overtar hjemknappen: et trykk åpner Vibe Launcher, et langt trykk åpner innstillingene, og alle andre knapper går uendret videre. Den ser også når TV-ens egen startskjerm kommer opp, og dekker den. Den leser ingenting på skjermen, lagrer ingenting og sender ingenting noe sted.\n\nSlå den av når som helst under Innstillinger &gt; Tilgjengelighet.</string>
     <string name="home_key_agree">Godta</string>
     <string name="home_key_steps">Neste: Velg «%1$s» i listen som åpnes, slå den på, og trykk så på hjem.</string>
 </resources>

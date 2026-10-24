@@ -77,13 +77,13 @@
     <string name="auto_hide_bar">Nascondi automaticamente</string>
     <string name="time_remaining">Ancora %1$s</string>
     <string name="home_key_name">Tasto Home di Vibe Launcher</string>
-    <string name="home_key_description">Apre Vibe Launcher quando premi Home o il televisore mostra la propria schermata Home. Non legge nulla sullo schermo e non risponde ad altri tasti oltre a Home.</string>
+    <string name="home_key_description">Fa aprire Vibe Launcher al tasto Home del telecomando al posto della schermata Home del televisore, e le impostazioni del televisore tenendolo premuto. Non legge nulla sullo schermo e lascia passare tutti gli altri tasti.</string>
     <string name="home_key_turn_on">Attiva qui «%1$s» perché il tasto Home apra Vibe Launcher.</string>
     <string name="permissions_title">Due autorizzazioni</string>
     <string name="permissions_why">Ora Vibe Launcher chiederà due autorizzazioni.\n\nGuida TV: per mostrare immagini dalle schede che le tue app pubblicano per la schermata Home.\n\nPosizione: Android mostra il nome della rete Wi-Fi solo alle app con questa autorizzazione. Vibe Launcher la usa solo per quel nome e non cerca mai dove si trova il televisore.\n\nNessuna delle due esce dal televisore.</string>
     <string name="continue_button">Continua</string>
     <string name="home_key_disclosure_title">Usa il tasto Home</string>
-    <string name="home_key_disclosure">Questo televisore non permette alle app di diventare l\'app Home, quindi Vibe Launcher ha bisogno di un servizio di accessibilità per rispondere al tasto Home.\n\nVede quale schermata compare e agisce solo sulla schermata Home del televisore. Vede i tasti del telecomando, agisce solo su Home e lascia passare tutti gli altri. Non legge nulla sullo schermo, non conserva nulla e non invia nulla da nessuna parte.\n\nPuoi disattivarlo quando vuoi in Impostazioni &gt; Accessibilità.</string>
+    <string name="home_key_disclosure">Questo televisore non permette alle app di diventare l\'app Home, quindi Vibe Launcher ha bisogno di un servizio di accessibilità per rispondere al tasto Home.\n\nSi occupa del tasto Home: una pressione apre Vibe Launcher, tenerlo premuto apre le impostazioni e tutti gli altri tasti passano invariati. Vede anche quando compare la schermata Home del televisore e la copre. Non legge nulla sullo schermo, non conserva nulla e non invia nulla da nessuna parte.\n\nPuoi disattivarlo quando vuoi in Impostazioni &gt; Accessibilità.</string>
     <string name="home_key_agree">Accetto</string>
     <string name="home_key_steps">Poi: nell\'elenco che si apre, scegli «%1$s», attivalo e premi Home.</string>
 </resources>
