@@ -311,6 +311,12 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.Holder> {
         return true;
     }
 
+    /** The TV's App info page for pkg, or null where the firmware has none. */
+    static Intent appInfo(Context context, String pkg) {
+        Intent info = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + pkg));
+        return context.getPackageManager().resolveActivity(info, PackageManager.MATCH_DEFAULT_ONLY) != null ? info : null;
+    }
+
     void openAppInfo(int position) {
         if (!isApp(position)) return;
         Intent i = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + items.get(position).pkg));

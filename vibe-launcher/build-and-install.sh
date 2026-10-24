@@ -75,6 +75,9 @@ RESULT=$(tv_install "$APK")
 [[ "$RESULT" == *Success* ]] || die "install failed: $RESULT (a release build installed? uninstall it first: debug and release builds are signed with different keys)"
 # Started as Home (the HOME action and category), not as an app: "am start -n" alone opens it in an ordinary
 # task, and the next Home press starts a second copy beside it.
+# Replaced while it was Home, Android may have restarted it mid-update, and upstream saw such an instance
+# (a TCL, Android 11) leave the previous app's picture on screen; stopped, the start below makes a fresh one.
+tv "am force-stop ${LAUNCHER_ACTIVITY%%/*}" >/dev/null
 tv "am start -a android.intent.action.MAIN -c android.intent.category.HOME -n $LAUNCHER_ACTIVITY" >/dev/null
 sleep 2
 [ "$STOCK_LAUNCHER" = none ] || tv "pm disable-user --user 0 $STOCK_LAUNCHER"

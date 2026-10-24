@@ -35,6 +35,11 @@
         </intent>
         <package android:name="com.google.android.tvlauncher" />
         <package android:name="com.google.android.leanbacklauncher" />
+        <!-- The tile menu offers App info only where this resolves (AppAdapter.appInfo). -->
+        <intent>
+            <action android:name="android.settings.APPLICATION_DETAILS_SETTINGS" />
+            <data android:scheme="package" />
+        </intent>
     </queries>
 
     <application
@@ -63,6 +68,22 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- market://launch?id=<package>: how the TV's phone-remote service opens an app by its package name.
+             The stock launcher serves it; with that off (adb) this does. Where it's still on (the store
+             build), Android lets the user pick between the two. -->
+        <activity
+            android:name=".AppLaunchActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:theme="@android:style/Theme.NoDisplay">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="market" android:host="launch" />
             </intent-filter>
         </activity>
     </application>

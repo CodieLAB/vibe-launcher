@@ -2377,8 +2377,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                 addInputRow(rows, popup, R.drawable.ic_delete, getString(R.string.remove), -1,
                         () -> adapter.uninstall(adapter.positionOf(pkg)));
             }
-            addInputRow(rows, popup, R.drawable.ic_settings, getString(R.string.app_info), -1,
-                    () -> adapter.openAppInfo(adapter.positionOf(pkg)));
+            // Some TVs have no App info page at all (upstream: CVTE's settings); then no row that only fails.
+            if (AppAdapter.appInfo(this, pkg) != null) {
+                addInputRow(rows, popup, R.drawable.ic_settings, getString(R.string.app_info), -1,
+                        () -> adapter.openAppInfo(adapter.positionOf(pkg)));
+            }
         }
         if (!adapter.userHidden().isEmpty()) {
             if (rows.getChildCount() > 0) addSeparator(rows);
@@ -2445,8 +2448,26 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                                    TvInputManager tim) {
         int state = hdmi ? tim.getInputState(id) : -1;   // -1: neither, so no state is shown
         return addInputRow(rows, popup, hdmi ? R.drawable.ic_input : R.drawable.ic_av, label, state,
-                () -> open(new Intent(Intent.ACTION_VIEW).setDataAndType(
-                        TvContract.buildChannelUriForPassthroughInput(id), "vnd.android.cursor.item/channel")));
+                () -> openInput(id));
+    }
+
+    /**
+     * Switches to an input through the TV app first: other apps can claim the same channel address (an IPTV
+     * player, a file manager), and with two or more Android shows a chooser instead of the input (upstream,
+     * on WhaleOS). Without a TV app, or if it doesn't answer, the address goes out to whichever handles it.
+     */
+    private void openInput(String id) {
+        Intent view = new Intent(Intent.ACTION_VIEW).setDataAndType(
+                TvContract.buildChannelUriForPassthroughInput(id), "vnd.android.cursor.item/channel");
+        if (!liveTvPkg.isEmpty()) {
+            try {
+                startActivity(new Intent(view).setPackage(liveTvPkg).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                return;
+            } catch (ActivityNotFoundException | SecurityException ignored) {
+                // Not the TV app's: as before.
+            }
+        }
+        open(view);
     }
 
     private void addSeparator(LinearLayout rows) {
