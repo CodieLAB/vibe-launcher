@@ -187,11 +187,12 @@ lists for over a hundred TV models.
 
 ## Tested on
 
-| Device | Android |
-|---|---|
-| Sony Bravia XBR-940E | 9 |
-| Sony Bravia 900F | 9 |
-| NVIDIA Shield TV (2017) | 11 |
+| Device | Android | Version |
+|---|---|---|
+| Sony Bravia XBR-940E | 9 | adb |
+| Sony Bravia 900F | 9 | adb |
+| NVIDIA Shield TV (2017) | 11 | adb |
+| onn 4K Streaming Device (Walmart, Google TV) | 14 | adb and app store |
 
 It should run on any Android TV or Google TV with Android 8.0 or newer.
 
