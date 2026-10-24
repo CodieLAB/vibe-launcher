@@ -76,4 +76,14 @@
     <string name="backdrops_reloading">ਨਵੇਂ ਪਿਛੋਕੜ ਡਾਊਨਲੋਡ ਹੋ ਰਹੇ ਹਨ…</string>
     <string name="auto_hide_bar">ਆਪਣੇ-ਆਪ ਲੁਕਾਓ</string>
     <string name="time_remaining">%1$s ਬਾਕੀ</string>
+    <string name="home_key_name">Vibe Launcher ਹੋਮ ਬਟਨ</string>
+    <string name="home_key_description">ਹੋਮ ਦਬਾਉਣ ਜਾਂ ਟੀਵੀ ਦੇ ਆਪਣੀ ਹੋਮ ਸਕ੍ਰੀਨ ਦਿਖਾਉਣ ਉੱਤੇ Vibe Launcher ਖੋਲ੍ਹਦਾ ਹੈ। ਇਹ ਸਕ੍ਰੀਨ ਉੱਤੇ ਕੁਝ ਨਹੀਂ ਪੜ੍ਹਦਾ ਅਤੇ ਹੋਮ ਤੋਂ ਸਿਵਾ ਕਿਸੇ ਬਟਨ ਉੱਤੇ ਕੁਝ ਨਹੀਂ ਕਰਦਾ।</string>
+    <string name="home_key_turn_on">ਹੋਮ ਬਟਨ ਨਾਲ Vibe Launcher ਖੋਲ੍ਹਣ ਲਈ ਇੱਥੇ “%1$s” ਚਾਲੂ ਕਰੋ।</string>
+    <string name="permissions_title">ਦੋ ਇਜਾਜ਼ਤਾਂ</string>
+    <string name="permissions_why">ਅੱਗੇ Vibe Launcher ਦੋ ਇਜਾਜ਼ਤਾਂ ਮੰਗੇਗਾ।\n\nਟੀਵੀ ਸੂਚੀਆਂ: ਤੁਹਾਡੀਆਂ ਐਪਾਂ ਹੋਮ ਸਕ੍ਰੀਨ ਲਈ ਜੋ ਕਾਰਡ ਪ੍ਰਕਾਸ਼ਿਤ ਕਰਦੀਆਂ ਹਨ, ਉਨ੍ਹਾਂ ਦੀਆਂ ਤਸਵੀਰਾਂ ਦਿਖਾਉਣ ਲਈ।\n\nਟਿਕਾਣਾ: Android ਵਾਈ-ਫ਼ਾਈ ਨੈੱਟਵਰਕ ਦਾ ਨਾਮ ਸਿਰਫ਼ ਇਸ ਇਜਾਜ਼ਤ ਵਾਲੀਆਂ ਐਪਾਂ ਨੂੰ ਦਿਖਾਉਂਦਾ ਹੈ। Vibe Launcher ਇਸਨੂੰ ਸਿਰਫ਼ ਉਸ ਨਾਮ ਲਈ ਵਰਤਦਾ ਹੈ ਅਤੇ ਕਦੇ ਨਹੀਂ ਦੇਖਦਾ ਕਿ ਟੀਵੀ ਕਿੱਥੇ ਹੈ।\n\nਕੋਈ ਵੀ ਟੀਵੀ ਤੋਂ ਬਾਹਰ ਨਹੀਂ ਜਾਂਦਾ।</string>
+    <string name="continue_button">ਜਾਰੀ ਰੱਖੋ</string>
+    <string name="home_key_disclosure_title">ਹੋਮ ਬਟਨ ਵਰਤੋ</string>
+    <string name="home_key_disclosure">ਇਹ ਟੀਵੀ ਐਪਾਂ ਨੂੰ ਹੋਮ ਐਪ ਨਹੀਂ ਬਣਨ ਦਿੰਦਾ, ਇਸ ਲਈ ਹੋਮ ਬਟਨ ਦਾ ਜਵਾਬ ਦੇਣ ਲਈ Vibe Launcher ਨੂੰ ਪਹੁੰਚਯੋਗਤਾ ਸੇਵਾ ਦੀ ਲੋੜ ਹੈ।\n\nਇਹ ਦੇਖਦਾ ਹੈ ਕਿ ਕਿਹੜੀ ਸਕ੍ਰੀਨ ਆਈ, ਅਤੇ ਸਿਰਫ਼ ਟੀਵੀ ਦੀ ਆਪਣੀ ਹੋਮ ਸਕ੍ਰੀਨ ਉੱਤੇ ਕੰਮ ਕਰਦਾ ਹੈ। ਇਹ ਰਿਮੋਟ ਦੇ ਬਟਨ ਦੇਖਦਾ ਹੈ, ਸਿਰਫ਼ ਹੋਮ ਉੱਤੇ ਕੰਮ ਕਰਦਾ ਹੈ ਅਤੇ ਬਾਕੀ ਸਾਰੇ ਬਟਨ ਉਵੇਂ ਹੀ ਅੱਗੇ ਜਾਣ ਦਿੰਦਾ ਹੈ। ਇਹ ਸਕ੍ਰੀਨ ਉੱਤੇ ਕੁਝ ਨਹੀਂ ਪੜ੍ਹਦਾ, ਕੁਝ ਨਹੀਂ ਰੱਖਦਾ ਅਤੇ ਕਿਤੇ ਕੁਝ ਨਹੀਂ ਭੇਜਦਾ।\n\nਇਸਨੂੰ ਕਦੇ ਵੀ ਸੈਟਿੰਗਾਂ &gt; ਪਹੁੰਚਯੋਗਤਾ ਵਿੱਚ ਬੰਦ ਕਰੋ।</string>
+    <string name="home_key_agree">ਸਹਿਮਤ ਹਾਂ</string>
+    <string name="home_key_steps">ਅੱਗੇ: ਖੁੱਲ੍ਹਣ ਵਾਲੀ ਸੂਚੀ ਵਿੱਚ “%1$s” ਚੁਣੋ, ਇਸਨੂੰ ਚਾਲੂ ਕਰੋ, ਫਿਰ ਹੋਮ ਦਬਾਓ।</string>
 </resources>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name" translatable="false">Vibe Launcher</string>
     <string name="project_link" translatable="false">github.com/maydings/vibe-launcher</string>
     <string name="inputs">Inputs</string>
@@ -80,4 +80,15 @@
     <string name="backdrops_reloading">Downloading new backdrops…</string>
     <string name="auto_hide_bar">Auto-hide</string>
     <string name="time_remaining">%1$s remaining</string>
+    <string name="home_key_name">Vibe Launcher Home button</string>
+    <!-- The store build's accessibility service (src/store). -->
+    <string name="home_key_description" tools:ignore="UnusedResources">Opens Vibe Launcher when you press Home or the TV brings up its own home screen. It reads nothing on screen and acts on no key but Home.</string>
+    <string name="home_key_turn_on">Turn on “%1$s” here so the Home button opens Vibe Launcher.</string>
+    <string name="permissions_title">Two permissions</string>
+    <string name="permissions_why">Vibe Launcher will ask for two permissions next.\n\nTV listings: to show pictures from the cards your apps publish for the home screen.\n\nLocation: Android only shows the Wi-Fi network\'s name to apps with it. Vibe Launcher uses it for that name alone and never looks up where the TV is.\n\nNeither leaves the TV.</string>
+    <string name="continue_button">Continue</string>
+    <string name="home_key_disclosure_title">Use the Home button</string>
+    <string name="home_key_disclosure">This TV doesn\'t let apps become the Home app, so Vibe Launcher needs an accessibility service to answer the Home button.\n\nIt sees which screen comes up, and acts only on the TV\'s own home screen. It sees the remote\'s keys, acts only on Home and passes every key on. It reads nothing on screen, keeps nothing and sends nothing anywhere.\n\nTurn it off any time in Settings &gt; Accessibility.</string>
+    <string name="home_key_agree">Agree</string>
+    <string name="home_key_steps">Next: in the list that opens, choose “%1$s”, turn it on, then press Home.</string>
 </resources>

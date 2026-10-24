@@ -76,4 +76,14 @@
     <string name="backdrops_reloading">Stahování nových pozadí…</string>
     <string name="auto_hide_bar">Automaticky skrýt</string>
     <string name="time_remaining">Zbývá %1$s</string>
+    <string name="home_key_name">Tlačítko Domů pro Vibe Launcher</string>
+    <string name="home_key_description">Otevře Vibe Launcher, když stisknete Domů nebo televize zobrazí vlastní domovskou obrazovku. Nic na obrazovce nečte a nereaguje na žádné tlačítko kromě Domů.</string>
+    <string name="home_key_turn_on">Zapněte zde „%1$s“, aby tlačítko Domů otevíralo Vibe Launcher.</string>
+    <string name="permissions_title">Dvě oprávnění</string>
+    <string name="permissions_why">Vibe Launcher teď požádá o dvě oprávnění.\n\nTV program: aby mohl zobrazovat obrázky z karet, které vaše aplikace zveřejňují pro domovskou obrazovku.\n\nPoloha: Android ukazuje název sítě Wi-Fi jen aplikacím s tímto oprávněním. Vibe Launcher ho používá jen pro tento název a nikdy nezjišťuje, kde televize je.\n\nNic z toho televizi neopustí.</string>
+    <string name="continue_button">Pokračovat</string>
+    <string name="home_key_disclosure_title">Používat tlačítko Domů</string>
+    <string name="home_key_disclosure">Tato televize nedovoluje aplikacím stát se domovskou aplikací, a tak Vibe Launcher potřebuje službu usnadnění, aby mohl reagovat na tlačítko Domů.\n\nVidí, která obrazovka se objeví, a jedná jen u vlastní domovské obrazovky televize. Vidí tlačítka ovladače, jedná jen u tlačítka Domů a všechna ostatní propouští dál. Nic na obrazovce nečte, nic neukládá a nikam nic neposílá.\n\nKdykoli ji vypnete v Nastavení &gt; Usnadnění.</string>
+    <string name="home_key_agree">Souhlasím</string>
+    <string name="home_key_steps">Dál: v seznamu, který se otevře, vyberte „%1$s“, zapněte ho a stiskněte Domů.</string>
 </resources>

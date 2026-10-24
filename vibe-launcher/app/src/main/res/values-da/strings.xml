@@ -76,4 +76,14 @@
     <string name="backdrops_reloading">Henter nye baggrunde…</string>
     <string name="auto_hide_bar">Skjul automatisk</string>
     <string name="time_remaining">%1$s tilbage</string>
+    <string name="home_key_name">Vibe Launcher-hjemknap</string>
+    <string name="home_key_description">Åbner Vibe Launcher, når du trykker på hjem, eller tv\'et viser sin egen startskærm. Den læser intet på skærmen og reagerer ikke på andre knapper end hjem.</string>
+    <string name="home_key_turn_on">Slå “%1$s” til her, så hjemknappen åbner Vibe Launcher.</string>
+    <string name="permissions_title">To tilladelser</string>
+    <string name="permissions_why">Vibe Launcher beder nu om to tilladelser.\n\nTv-oversigter: for at vise billeder fra de kort, dine apps lægger på startskærmen.\n\nPlacering: Android viser kun Wi-Fi-netværkets navn for apps med denne tilladelse. Vibe Launcher bruger den kun til navnet og slår aldrig op, hvor tv\'et er.\n\nIngen af delene forlader tv\'et.</string>
+    <string name="continue_button">Fortsæt</string>
+    <string name="home_key_disclosure_title">Brug hjemknappen</string>
+    <string name="home_key_disclosure">Dette tv lader ikke apps blive startapp, så Vibe Launcher skal bruge en hjælpefunktionstjeneste for at svare på hjemknappen.\n\nDen ser, hvilken skærm der kommer frem, og handler kun på tv\'ets egen startskærm. Den ser fjernbetjeningens knapper, handler kun på hjem og sender alle andre knapper videre. Den læser intet på skærmen, gemmer intet og sender intet nogen steder hen.\n\nSlå den fra når som helst under Indstillinger &gt; Hjælpefunktioner.</string>
+    <string name="home_key_agree">Accepter</string>
+    <string name="home_key_steps">Næste trin: Vælg “%1$s” på listen, der åbnes, slå den til, og tryk så på hjem.</string>
 </resources>

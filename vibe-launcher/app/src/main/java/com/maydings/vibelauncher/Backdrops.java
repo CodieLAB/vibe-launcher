@@ -48,7 +48,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  * (Netflix's 853x480) becomes a 2x2 wall of four cards. YouTube publishes no cards, so its tile borrows
  * SmartTube's (the user's own feed), or without SmartTube shows popular videos via the YouTube Data API
  * key. Plex, with a Plex token, shows art from the user's own server, and HDHomeRun the shows on the
- * user's tuner now (HdHomeRun). Apps with none keep the colour glow.
+ * user's tuner now (HdHomeRun), and a streaming app with no cards what's popular on it (StreamingCatalogs).
+ * Apps with none keep the colour glow.
  *
  * Each app has a pool of up to {@link #POOL_SIZE} stills, refreshed in the background when it is six
  * hours old: each new still found replaces the oldest, one at a time, so there is never a second set
@@ -167,6 +168,7 @@ final class Backdrops {
     private final Tmdb tmdb;
     private final Stremio stremio;
     private final YouTubePopular youtubePopular;
+    private final StreamingCatalogs streamingCatalogs;
     private final Plex plex;
     private final HdHomeRun hdHomeRun;
     private final File root, poolRoot;
@@ -206,6 +208,7 @@ final class Backdrops {
         tmdb = new Tmdb(context);
         stremio = new Stremio(context);
         youtubePopular = new YouTubePopular(context);
+        streamingCatalogs = new StreamingCatalogs(context);
         root = new File(context.getCacheDir(), "cards");
         poolRoot = new File(context.getCacheDir(), "pools");
         targetWidth = context.getResources().getDisplayMetrics().widthPixels;
@@ -1129,6 +1132,17 @@ final class Backdrops {
                 card.link = "https://www.youtube.com/watch?v=" + id;
                 card.images.add("https://i.ytimg.com/vi/" + id + "/maxresdefault.jpg");
                 card.images.add("https://i.ytimg.com/vi/" + id + "/hq720.jpg");
+                clean.add(card);
+            }
+        }
+        if (clean.isEmpty() && badged.isEmpty() && started.isEmpty() && StreamingCatalogs.covers(pkg)) {
+            // A streaming app with no cards (Netflix before anyone signs in): what's popular on it, with each
+            // title's own name and logo. Opened by the app's tile, as there's no link into the app for them.
+            for (StreamingCatalogs.Title t : streamingCatalogs.titles(pkg)) {
+                Card card = new Card(t.name, false);
+                card.images.add(t.backdrop);
+                card.logo = t.logo;
+                card.ownArt = true;
                 clean.add(card);
             }
         }

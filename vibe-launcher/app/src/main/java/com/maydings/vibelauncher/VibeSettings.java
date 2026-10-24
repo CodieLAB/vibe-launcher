@@ -68,11 +68,11 @@ final class VibeSettings {
     }
 
     /**
-     * Auto-hide (on by default): the top bar stays out of sight on the dock and with the picture alone, and
+     * Auto-hide (off by default): the top bar stays out of sight on the dock and with the picture alone, and
      * the rows stay down while the top bar has focus.
      */
     boolean autoHideBar() {
-        return prefs.getBoolean(AUTO_HIDE_BAR, true);
+        return prefs.getBoolean(AUTO_HIDE_BAR, false);
     }
 
     void setAutoHideBar(boolean hide) {

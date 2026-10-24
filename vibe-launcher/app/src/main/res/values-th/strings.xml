@@ -76,4 +76,14 @@
     <string name="backdrops_reloading">กำลังดาวน์โหลดภาพพื้นหลังใหม่…</string>
     <string name="auto_hide_bar">ซ่อนอัตโนมัติ</string>
     <string name="time_remaining">เหลือ %1$s</string>
+    <string name="home_key_name">ปุ่มหน้าแรกของ Vibe Launcher</string>
+    <string name="home_key_description">เปิด Vibe Launcher เมื่อคุณกดปุ่มหน้าแรกหรือเมื่อทีวีแสดงหน้าจอหลักของตัวเอง โดยไม่อ่านสิ่งใดบนหน้าจอ และไม่ตอบสนองต่อปุ่มอื่นนอกจากปุ่มหน้าแรก</string>
+    <string name="home_key_turn_on">เปิด “%1$s” ที่นี่ เพื่อให้ปุ่มหน้าแรกเปิด Vibe Launcher</string>
+    <string name="permissions_title">สิทธิ์สองรายการ</string>
+    <string name="permissions_why">ถัดไป Vibe Launcher จะขอสิทธิ์สองรายการ\n\nผังรายการทีวี: เพื่อแสดงภาพจากการ์ดที่แอปของคุณเผยแพร่สำหรับหน้าจอหลัก\n\nตำแหน่ง: Android จะแสดงชื่อเครือข่าย Wi-Fi ให้เฉพาะแอปที่มีสิทธิ์นี้ Vibe Launcher ใช้สิทธิ์นี้เพื่อชื่อนั้นเท่านั้น และไม่เคยค้นหาว่าทีวีอยู่ที่ไหน\n\nไม่มีข้อมูลใดออกจากทีวี</string>
+    <string name="continue_button">ดำเนินการต่อ</string>
+    <string name="home_key_disclosure_title">ใช้ปุ่มหน้าแรก</string>
+    <string name="home_key_disclosure">ทีวีเครื่องนี้ไม่อนุญาตให้แอปเป็นแอปหน้าแรก Vibe Launcher จึงต้องใช้บริการการช่วยเหลือพิเศษเพื่อตอบสนองปุ่มหน้าแรก\n\nบริการนี้รู้ว่าหน้าจอใดขึ้นมา และทำงานเฉพาะเมื่อหน้าจอหลักของทีวีเองขึ้นมา รู้ว่ากดปุ่มใดบนรีโมต ทำงานเฉพาะปุ่มหน้าแรก และส่งปุ่มอื่นทั้งหมดต่อไปตามปกติ ไม่อ่านสิ่งใดบนหน้าจอ ไม่เก็บสิ่งใด และไม่ส่งสิ่งใดไปที่ใด\n\nปิดได้ทุกเมื่อในการตั้งค่า &gt; การช่วยเหลือพิเศษ</string>
+    <string name="home_key_agree">ยอมรับ</string>
+    <string name="home_key_steps">ขั้นต่อไป: ในรายการที่เปิดขึ้น เลือก “%1$s” แล้วเปิดใช้ จากนั้นกดปุ่มหน้าแรก</string>
 </resources>

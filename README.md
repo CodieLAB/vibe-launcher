@@ -74,7 +74,7 @@ Turn screen off, in your TV's screen saver settings.)
 ## The top bar
 
 A frosted bar with the clock and date, and three menus. Left and Right move between them. With
-**Auto-hide** on (the default) it stays out of sight on the dock, so the picture fills the screen: it
+**Auto-hide** on it stays out of sight on the dock, so the picture fills the screen: it
 slides in when you press Up from the picture alone, or move down into the app grid.
 
 - **Inputs** lists every HDMI and AV input, with whether something is connected to each HDMI one, plus Live TV. Devices
@@ -100,8 +100,8 @@ under Save and Cancel, the software version.
   the size of the TV it's plugged into, so it starts at 4.
 - **Hide inactive inputs**: the Inputs menu leaves out HDMI inputs with nothing connected. AV inputs
   always stay: TVs can't tell whether anything is plugged into them.
-- **Auto-hide**: On (the default) keeps the top bar out of sight on the dock and with the picture alone;
-  Off keeps it always on screen, and Up from the dock then waits a moment, so scrolling up quickly
+- **Auto-hide**: On keeps the top bar out of sight on the dock and with the picture alone;
+  Off (the default) keeps it always on screen, and Up from the dock then waits a moment, so scrolling up quickly
   passes the picture alone and reaches the bar.
 - **Language**: Match system (the default), or any of 50 languages, each listed in its own name. The
   clock and date follow it.
@@ -135,6 +135,13 @@ open **App info**. Hidden apps come back from the same menu.
 
 Download **[vibe-launcher.apk](https://github.com/maydings/vibe-launcher/releases/latest/download/vibe-launcher.apk)**
 and install it. No account needed.
+
+There's also an **app store version**,
+[vibe-launcher-store.apk](https://github.com/maydings/vibe-launcher/releases/latest/download/vibe-launcher-store.apk),
+for TVs where the stock launcher can't be turned off: it leaves it on, and its own Home button service
+(turned on in Settings → Accessibility, it walks you through it) sends the Home button to Vibe Launcher.
+It doesn't update itself or install SmartTube. The two are signed alike, so either can replace the other;
+[the build notes](vibe-launcher/README.md) compare them.
 
 ### On the TV
 
@@ -192,7 +199,8 @@ It should run on any Android TV or Google TV with Android 8.0 or newer.
 **No data collection and no ads, ever.** No accounts, no analytics, no tracking, and nothing is ever
 sent to me. Vibe Launcher goes online only to fetch artwork (looking up the titles on your apps' cards
 with TMDB or Stremio, and asking YouTube, your own Plex server or your HDHomeRun's guide) and to check
-this project's releases for updates. Your API keys stay on the TV.
+this project's releases for updates (the app store build leaves updates to the store). Your API keys
+stay on the TV. The details are in the [privacy policy](vibe-launcher/docs/PRIVACY.md).
 
 ## Build it yourself
 

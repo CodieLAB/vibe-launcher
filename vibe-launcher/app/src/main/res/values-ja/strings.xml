@@ -76,4 +76,14 @@
     <string name="backdrops_reloading">新しい背景画像をダウンロードしています…</string>
     <string name="auto_hide_bar">自動的に隠す</string>
     <string name="time_remaining">残り %1$s</string>
+    <string name="home_key_name">Vibe Launcher ホームボタン</string>
+    <string name="home_key_description">ホームボタンを押したときや、テレビが独自のホーム画面を表示したときに Vibe Launcher を開きます。画面の内容は読み取らず、ホーム以外のボタンには反応しません。</string>
+    <string name="home_key_turn_on">ホームボタンで Vibe Launcher を開くには、ここで「%1$s」をオンにしてください。</string>
+    <string name="permissions_title">2 つの権限</string>
+    <string name="permissions_why">このあと Vibe Launcher が 2 つの権限をリクエストします。\n\nテレビ番組表：アプリがホーム画面向けに公開しているカードの画像を表示するためです。\n\n位置情報：Android は Wi-Fi ネットワーク名をこの権限を持つアプリにしか表示しません。Vibe Launcher はその名前のためだけに使い、テレビの場所を調べることはありません。\n\nどちらもテレビの外には出ません。</string>
+    <string name="continue_button">続行</string>
+    <string name="home_key_disclosure_title">ホームボタンを使う</string>
+    <string name="home_key_disclosure">このテレビではアプリをホームアプリにできないため、Vibe Launcher がホームボタンに応えるにはユーザー補助サービスが必要です。\n\nどの画面が表示されたかを確認し、テレビ独自のホーム画面のときだけ動作します。リモコンのボタンを確認し、ホームボタンのときだけ動作して、ほかのボタンはそのまま通します。画面の内容は読み取らず、何も保存せず、どこにも何も送信しません。\n\n[設定] &gt; [ユーザー補助] でいつでもオフにできます。</string>
+    <string name="home_key_agree">同意する</string>
+    <string name="home_key_steps">次に、表示されるリストで「%1$s」を選んでオンにし、ホームボタンを押してください。</string>
 </resources>

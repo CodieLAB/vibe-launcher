@@ -76,4 +76,14 @@
     <string name="backdrops_reloading">جارٍ تنزيل خلفيات جديدة…</string>
     <string name="auto_hide_bar">إخفاء تلقائي</string>
     <string name="time_remaining">متبقٍ: %1$s</string>
+    <string name="home_key_name">زر الشاشة الرئيسية لـ Vibe Launcher</string>
+    <string name="home_key_description">يفتح Vibe Launcher عند الضغط على زر الشاشة الرئيسية أو عندما يعرض التلفزيون شاشته الرئيسية. لا يقرأ شيئًا على الشاشة ولا يستجيب لأي زر غير زر الشاشة الرئيسية.</string>
+    <string name="home_key_turn_on">شغّل “%1$s” هنا ليفتح زر الشاشة الرئيسية Vibe Launcher.</string>
+    <string name="permissions_title">إذنان</string>
+    <string name="permissions_why">سيطلب Vibe Launcher إذنين بعد ذلك.\n\nقوائم التلفزيون: لعرض صور من البطاقات التي تنشرها تطبيقاتك للشاشة الرئيسية.\n\nالموقع: لا يُظهر Android اسم شبكة Wi-Fi إلا للتطبيقات التي تملك هذا الإذن. يستخدمه Vibe Launcher لهذا الاسم فقط ولا يبحث أبدًا عن مكان التلفزيون.\n\nلا يغادر أيٌّ منهما التلفزيون.</string>
+    <string name="continue_button">متابعة</string>
+    <string name="home_key_disclosure_title">استخدام زر الشاشة الرئيسية</string>
+    <string name="home_key_disclosure">لا يسمح هذا التلفزيون للتطبيقات بأن تصبح تطبيق الشاشة الرئيسية، لذا يحتاج Vibe Launcher إلى خدمة إمكانية الوصول للاستجابة لزر الشاشة الرئيسية.\n\nيرى أي شاشة تظهر، ولا يتصرف إلا عند ظهور الشاشة الرئيسية الخاصة بالتلفزيون. ويرى أزرار جهاز التحكم، ولا يتصرف إلا عند زر الشاشة الرئيسية ويمرر كل زر آخر كما هو. لا يقرأ شيئًا على الشاشة، ولا يحتفظ بشيء، ولا يرسل شيئًا إلى أي مكان.\n\nيمكنك إيقافه في أي وقت من الإعدادات &gt; إمكانية الوصول.</string>
+    <string name="home_key_agree">موافق</string>
+    <string name="home_key_steps">التالي: في القائمة التي تفتح، اختر “%1$s” وشغّله، ثم اضغط على زر الشاشة الرئيسية.</string>
 </resources>

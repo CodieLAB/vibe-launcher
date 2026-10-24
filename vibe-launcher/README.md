@@ -1,7 +1,7 @@
 # Vibe Launcher
 
 A free and open-source (MIT), tvOS-inspired home screen for Android TV, with no ads, ever. Plain
-Java, under 1 MB, no background services; built for TVs with 1 to 2 GB of RAM. Android 8.0 (API 26) and newer, targets API 34 so Play Protect accepts it
+Java, under 1 MB, no background services (the app store build has one: its Home button); built for TVs with 1 to 2 GB of RAM. Android 8.0 (API 26) and newer, targets API 34 so Play Protect accepts it
 on Android 11+ devices such as the NVIDIA Shield.
 
 ![Vibe Launcher home with a backdrop behind the dock](docs/home.jpg)
@@ -36,7 +36,27 @@ client in [`tools/`](tools/) where macOS blocks adb on the local network:
 ./build-and-install.sh 192.168.1.50
 ```
 
-Or by hand: `./gradlew assembleDebug`, then `adb install -r -g app/build/outputs/apk/debug/app-debug.apk`.
+Or by hand: `./gradlew assembleAdbDebug`, then `adb install -r -g app/build/outputs/apk/adb/debug/app-adb-debug.apk`.
+
+**Two builds** come from the same code (`app/build.gradle`):
+
+| | `adb` (this README, the GitHub releases) | `store` (for an app store) |
+|---|---|---|
+| Installed with | `build-and-install.sh` or a GitHub release APK, over adb | the store, no computer |
+| Stock launcher | turned off over adb (with Google TV's setup wizard) | stays on |
+| Home button | comes here by itself: Vibe Launcher is the only Home | the user turns on *Vibe Launcher Home button* in Settings → Accessibility; it opens Vibe Launcher whenever the stock home comes up, and on a short press of Home over it |
+| Accessibility service | none | `HomeKeyService`: hears only the stock launchers' screens opening, reads nothing on screen, passes every key on and acts only on Home; stops looking at keys while a game controller is connected |
+| First start, and gear menu → *Make Home* | the TV's default-Home dialog, where it has one | the TV's default-Home dialog only where it can work (no stock launcher outranks it); otherwise, or if that doesn't take, a note on what the Home button service sees and the steps, then Accessibility settings. Shown until Home comes here |
+| Remote's app buttons (Google TV) | the ones Google TV's launcher handled (YouTube, Free TV) stop working with it off | keep working |
+| Updates | checks the GitHub releases (daily, on waking, in the gear menu) and installs them | none of its own: the store updates it |
+| Settings → General | version and *Check for updates* | version only |
+| SmartTube | Settings can install it | Settings only opens it, and only shows the button when it's on the TV |
+| Install permissions | `REQUEST_INSTALL_PACKAGES`, `KILL_BACKGROUND_PROCESSES` | none |
+| Code of its own | `app/src/adb` (manifest) | `app/src/store` (manifest, `HomeKeyService`, `ProbeActivity`) |
+
+To try the store build on a TV as a store user
+would get it (stock launcher and Home left alone): `FLAVOR=store ./build-and-install.sh 192.168.1.50`. For
+a store upload, `./gradlew bundleStoreRelease` makes `app/build/outputs/bundle/storeRelease/app-store-release.aab`.
 
 **Release builds** are signed with a key that never enters the repo. Put its location in
 `local.properties` (ignored by git):
@@ -48,9 +68,10 @@ releaseKeyAlias=vibe-launcher
 releaseKeyPassword=…
 ```
 
-then `./gradlew assembleRelease`. Without these the release APK is built unsigned. Release builds are
-shrunk with R8 (rules in `app/proguard-rules.pro`); the name map for reading their stack traces is
-`app/build/outputs/mapping/release/mapping.txt`, attached to each GitHub release as `mapping-vX.txt`.
+then `./gradlew assembleAdbRelease` (`app/build/outputs/apk/adb/release/app-adb-release.apk`). Without
+these the release APK is built unsigned. Release builds are shrunk with R8 (rules in
+`app/proguard-rules.pro`); the name map for reading their stack traces is
+`app/build/outputs/mapping/adbRelease/mapping.txt`, attached to each GitHub release as `mapping-vX.txt`.
 
 Keep the key backed up: APKs signed with a different key can't update an existing install. With the key
 set, debug builds are signed with it too, so a TV can move between your debug builds and the releases (and take in-app
@@ -106,9 +127,9 @@ watching is in it. Holding OK or Play fills the pill over Android's long-press t
 opens the picture's own link (the card's intent URI, or a YouTube video's address), always in the dock
 app that was picked, or that app itself when there's no link. Carets on the screen's edges (25 %
 opacity) show where the remote goes: they fade out before anything moves and back in once it has
-stopped. With Auto-hide on (the default) the top bar is only on screen while it or the grid below the
+stopped. With Auto-hide on the top bar is only on screen while it or the grid below the
 dock has focus: Up from the picture alone brings the bar in and leaves the rows down, Down goes back to
-the picture. With it off, the bar always shows, and Up on the dock waits 0.3 s so quick scrolling passes
+the picture. With it off (the default), the bar always shows, and Up on the dock waits 0.3 s so quick scrolling passes
 straight through to it.
 
 After a minute without a key on Home (not while a menu, Settings or a tile's move is open), the same
@@ -127,10 +148,13 @@ last four characters.
 Only what the backdrops need: image downloads from the apps' own artwork servers; title art from
 Stremio (`v3-cinemeta.strem.io`, `images.metahub.space`) or, with a key, TMDB (`api.themoviedb.org`,
 `image.tmdb.org`); YouTube (`googleapis.com`, `i.ytimg.com`) and plex.tv plus your Plex server once
-their keys are set; film trailers from Cinemeta (`v3-cinemeta.strem.io`) without a YouTube key; an
+their keys are set; film trailers from Cinemeta (`v3-cinemeta.strem.io`) without a YouTube key; what's popular on
+Netflix, Disney+, Prime Video, Apple TV+ or Max from the Streaming Catalogs add-on for Stremio
+(`…baby-beamup.club`) when that app publishes no cards; an
 HDHomeRun tuner on your network and SiliconDust's guide (`api.hdhomerun.com`, `img.hdhomerun.com`);
 and GitHub, for this project's updates and, when you ask, SmartTube. No analytics, no accounts,
 nothing else.
+The full list, with what each is sent, is in the [privacy policy](docs/PRIVACY.md).
 
 ## Code map
 

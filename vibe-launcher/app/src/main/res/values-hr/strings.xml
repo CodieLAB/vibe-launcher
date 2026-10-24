@@ -76,4 +76,14 @@
     <string name="backdrops_reloading">Preuzimanje novih pozadina…</string>
     <string name="auto_hide_bar">Automatsko skrivanje</string>
     <string name="time_remaining">Još %1$s</string>
+    <string name="home_key_name">Tipka Početno za Vibe Launcher</string>
+    <string name="home_key_description">Otvara Vibe Launcher kad pritisnete Početno ili televizor prikaže vlastiti početni zaslon. Ne čita ništa sa zaslona i ne reagira ni na jednu tipku osim Početno.</string>
+    <string name="home_key_turn_on">Ovdje uključite „%1$s” da tipka Početno otvara Vibe Launcher.</string>
+    <string name="permissions_title">Dva dopuštenja</string>
+    <string name="permissions_why">Vibe Launcher će sada zatražiti dva dopuštenja.\n\nTV program: za prikaz slika s kartica koje vaše aplikacije objavljuju za početni zaslon.\n\nLokacija: Android prikazuje naziv Wi-Fi mreže samo aplikacijama s tim dopuštenjem. Vibe Launcher ga koristi samo za taj naziv i nikad ne provjerava gdje je televizor.\n\nNi jedno ne napušta televizor.</string>
+    <string name="continue_button">Nastavi</string>
+    <string name="home_key_disclosure_title">Koristi tipku Početno</string>
+    <string name="home_key_disclosure">Ovaj televizor ne dopušta aplikacijama da postanu aplikacija početnog zaslona, pa Vibe Launcheru treba usluga pristupačnosti da bi odgovorio na tipku Početno.\n\nVidi koji se zaslon pojavio i djeluje samo na vlastiti početni zaslon televizora. Vidi tipke daljinskog upravljača, djeluje samo na Početno i propušta sve ostale. Ne čita ništa sa zaslona, ništa ne sprema i nikamo ništa ne šalje.\n\nIsključite je bilo kada u Postavke &gt; Pristupačnost.</string>
+    <string name="home_key_agree">Slažem se</string>
+    <string name="home_key_steps">Zatim: na popisu koji se otvori odaberite „%1$s”, uključite ga i pritisnite Početno.</string>
 </resources>

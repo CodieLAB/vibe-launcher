@@ -185,7 +185,21 @@ final class SettingsDialog {
         TextView smartTube = panel.findViewById(R.id.smartTubeButton);
         View[] order = {tmdbInfo, tmdb, youtubeInfo, smartTube, youtube, plexInfo, plex};
         for (int i = 0; i < order.length; i++) {
-            steer(order[i], i > 0 ? order[i - 1] : tabKeys, i < order.length - 1 ? order[i + 1] : null, save, cameFrom);
+            int at = i;
+            order[i].setOnKeyListener((v, keyCode, event) -> {
+                if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
+                if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                    cameFrom[0] = v;
+                    return save.requestFocus();
+                }
+                // Up or Down to the next one shown: the store build hides SmartTube's button without SmartTube.
+                int step = keyCode == KeyEvent.KEYCODE_DPAD_UP ? -1 : keyCode == KeyEvent.KEYCODE_DPAD_DOWN ? 1 : 0;
+                if (step == 0) return false;
+                for (int j = at + step; j >= 0 && j < order.length; j += step) {
+                    if (order[j].getVisibility() == View.VISIBLE) return order[j].requestFocus();
+                }
+                return step < 0 && tabKeys.requestFocus();
+            });
         }
         View.OnKeyListener tabKeysNav = (v, keyCode, event) -> {
             if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
@@ -290,8 +304,12 @@ final class SettingsDialog {
         // Open SmartTube to sign in, or install it first. The label follows along: checked again when an app
         // is installed or removed (the installer's screen closes before the install is done), and whenever
         // the dialog gets the screen back.
-        Runnable showSmartTube = () -> smartTube.setText(SmartTube.launchIntent(activity) != null
-                ? R.string.smarttube_open : R.string.smarttube_install);
+        // The store build can't install apps: there the button only opens SmartTube, when it's on the TV.
+        Runnable showSmartTube = () -> {
+            boolean installed = SmartTube.launchIntent(activity) != null;
+            smartTube.setText(installed ? R.string.smarttube_open : R.string.smarttube_install);
+            if (BuildConfig.STORE) smartTube.setVisibility(installed ? View.VISIBLE : View.GONE);
+        };
         showSmartTube.run();
         panel.getViewTreeObserver().addOnWindowFocusChangeListener(hasFocus -> { if (hasFocus) showSmartTube.run(); });
         BroadcastReceiver packages = new BroadcastReceiver() {
@@ -311,6 +329,7 @@ final class SettingsDialog {
                 activity.startActivity(open);
                 return;
             }
+            if (BuildConfig.STORE) return;
             boolean started = SmartTube.install(activity, res -> Toast.makeText(activity,
                     res == R.string.update_failed ? R.string.smarttube_failed : res, Toast.LENGTH_LONG).show());
             if (started) Toast.makeText(activity, R.string.smarttube_downloading, Toast.LENGTH_LONG).show();
@@ -453,6 +472,11 @@ final class SettingsDialog {
      */
     private static void showUpdates(Activity activity, TextView status, TextView button) {
         String version = Updater.installedVersion(activity);
+        if (BuildConfig.STORE) {   // the store updates it: just the version
+            status.setText(activity.getString(R.string.version_current, version));
+            button.setVisibility(View.GONE);
+            return;
+        }
         if (Updater.isDevelopmentBuild(activity)) {
             status.setText(activity.getString(R.string.update_development_status, version));
             button.setVisibility(View.GONE);

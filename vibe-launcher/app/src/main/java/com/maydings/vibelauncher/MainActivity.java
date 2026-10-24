@@ -6,6 +6,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -52,6 +53,7 @@ import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
@@ -545,7 +547,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         armIdle();
         showUpdateReady();
         if (wakeCheck) wakeUpdateCheck();
-        else Updater.checkIfDue(this, (newer, failed) -> showUpdateReady());   // at most once a day
+        else if (!BuildConfig.STORE) Updater.checkIfDue(this, (newer, failed) -> showUpdateReady());   // at most once a day
         sizeTimeBox();   // the 12/24-hour setting may have changed meanwhile
         // The pills keep their state while Home is away, and the network callback updates the network one, so
         // this only catches anything missed. Its binder calls (the Wi-Fi name, the TV's inputs) would hold up
@@ -633,7 +635,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
      * runs again once the network is back.
      */
     private void wakeUpdateCheck() {
-        if (!wakeCheck || wakeChecking) return;
+        if (BuildConfig.STORE || !wakeCheck || wakeChecking) return;   // the store updates it
         wakeChecking = Updater.checkIfOlderThan(this, 5 * 60 * 1000L, (newer, failed) -> {
             wakeChecking = false;
             if (!failed) wakeCheck = false;
@@ -1745,9 +1747,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     }
 
     /**
-     * Granted at install over adb (-g). Installed from a file manager instead, ask once for both: TV
-     * listings (the apps' home screen cards, for backdrops) and location (Android only reveals the
-     * Wi-Fi network's name with it). Refused, the launcher keeps the colour glow and shows "Wi-Fi".
+     * Granted at install over adb (-g). Installed from a file manager or a store instead, ask once for both:
+     * TV listings (the apps' home screen cards, for backdrops) and location (Android only reveals the
+     * Wi-Fi network's name with it). A note says why first, since "location" on a TV is puzzling. Refused,
+     * the launcher keeps the colour glow and shows "Wi-Fi".
      */
     private boolean askPermissionsOnce() {
         if (getPreferences(MODE_PRIVATE).getBoolean("askedPermissions", false)) return false;
@@ -1759,7 +1762,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         }
         if (missing.isEmpty()) return false;
         getPreferences(MODE_PRIVATE).edit().putBoolean("askedPermissions", true).apply();
-        requestPermissions(missing.toArray(new String[0]), 1);
+        showNotice(R.string.permissions_title, getString(R.string.permissions_why), R.string.continue_button,
+                () -> requestPermissions(missing.toArray(new String[0]), 1), this::askHomeOnce);
         return true;
     }
 
@@ -1770,6 +1774,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private void askHomeOnce() {
         if (getPreferences(MODE_PRIVATE).getBoolean("askedHome", false) || DefaultHome.isHome(this)) return;
         getPreferences(MODE_PRIVATE).edit().putBoolean("askedHome", true).apply();
+        // The store build, on its first start: set up the Home button now, while the user is here to read it.
+        if (BuildConfig.STORE) {
+            if (!DefaultHome.homeButtonOn(this)) makeHomeStore();
+            return;
+        }
         if (DefaultHome.request(this) != null) makeHome();
     }
 
@@ -1784,6 +1793,75 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             // The Android 10+ dialog answers with a result; Android 9's chooser is plain Home.
             if (Build.VERSION.SDK_INT >= 29) startActivityForResult(request, 2);
             else startActivity(request);
+        } catch (ActivityNotFoundException | SecurityException e) {
+            // The store build has another way: the Home button service.
+            if (BuildConfig.STORE) showHomeKeyDisclosure();
+            else Toast.makeText(this, R.string.home_not_changeable, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /**
+     * The store build: Android's own dialog for the default Home first, which needs nothing more, where the TV
+     * has it. Without it, or turned down (onActivityResult), the Home button service.
+     */
+    private void makeHomeStore() {
+        // Asked only where it can work: where the stock launcher outranks any choice, straight to the service.
+        if (DefaultHome.choiceWins(this) && DefaultHome.request(this) != null) makeHome();
+        else showHomeKeyDisclosure();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 2 && BuildConfig.STORE && !DefaultHome.isHome(this) && !DefaultHome.homeButtonOn(this)) {
+            showHomeKeyDisclosure();
+        }
+    }
+
+    /**
+     * Says what the Home button service sees, and that nothing leaves the TV, before the user is sent to turn
+     * it on: app stores ask for this up front for any accessibility service that isn't an accessibility tool.
+     */
+    private void showHomeKeyDisclosure() {
+        // What it does, then what to do in Settings: the user reads it here, before the list opens.
+        String text = getString(R.string.home_key_disclosure) + "\n\n"
+                + getString(R.string.home_key_steps, getString(R.string.home_key_name));
+        showNotice(R.string.home_key_disclosure_title, text, R.string.home_key_agree, this::turnOnHomeButton, null);
+    }
+
+    /** A note with OK (named okLabel) and Cancel, in the update dialog's glass. Back counts as Cancel. */
+    private void showNotice(int title, CharSequence text, int okLabel, Runnable ok, Runnable cancel) {
+        View panel = getLayoutInflater().inflate(R.layout.dialog_update, root, false);
+        ((TextView) panel.findViewById(R.id.updateTitle)).setText(title);
+        ((TextView) panel.findViewById(R.id.notes)).setText(text);
+        TextView okButton = panel.findViewById(R.id.install);
+        okButton.setText(okLabel);
+        Dialog dialog = new Dialog(this, android.R.style.Theme_Material_Dialog_NoActionBar);
+        dialog.setContentView(panel);
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            window.setLayout((int) (560 * getResources().getDisplayMetrics().density), ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
+        boolean[] chose = {false};
+        panel.findViewById(R.id.cancelUpdate).setOnClickListener(v -> dialog.dismiss());
+        okButton.setOnClickListener(v -> {
+            chose[0] = true;
+            dialog.dismiss();
+            ok.run();
+        });
+        dialog.setOnDismissListener(d -> {
+            if (!chose[0] && cancel != null) cancel.run();
+        });
+        dialog.show();
+        okButton.requestFocus();
+    }
+
+    /** The TV's accessibility settings, where the user turns on the Home button. */
+    private void turnOnHomeButton() {
+        try {
+            startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+            Toast.makeText(this, getString(R.string.home_key_turn_on, getString(R.string.home_key_name)), Toast.LENGTH_LONG).show();
         } catch (ActivityNotFoundException | SecurityException e) {
             Toast.makeText(this, R.string.home_not_changeable, Toast.LENGTH_LONG).show();
         }
@@ -1971,29 +2049,35 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         // The last check's answer at once, then ask GitHub again: a release out since then replaces it in
         // this row, or shows the row. Settings → General, opened from here, shows the same answer. The row is
         // always there (hidden without an update) so showMenu gives it the menu bar's Left and Right.
-        Updater.Release[] update = {Updater.available(this)};
-        View updateRow = addInputRow(rows, popup, R.drawable.ic_update, "", -1,
-                () -> SettingsDialog.startUpdate(this, update[0]));
-        Runnable showUpdate = () -> {
-            updateRow.setVisibility(update[0] != null ? View.VISIBLE : View.GONE);
-            if (update[0] != null) {
-                ((TextView) updateRow.findViewById(R.id.title)).setText(getString(R.string.update_to, update[0].version));
-            }
-        };
-        showUpdate.run();
+        // The store build has no update row: the store updates it.
+        if (!BuildConfig.STORE) {
+            Updater.Release[] update = {Updater.available(this)};
+            View updateRow = addInputRow(rows, popup, R.drawable.ic_update, "", -1,
+                    () -> SettingsDialog.startUpdate(this, update[0]));
+            Runnable showUpdate = () -> {
+                updateRow.setVisibility(update[0] != null ? View.VISIBLE : View.GONE);
+                if (update[0] != null) {
+                    ((TextView) updateRow.findViewById(R.id.title)).setText(getString(R.string.update_to, update[0].version));
+                }
+            };
+            showUpdate.run();
+            // At most every few minutes: GitHub allows 60 unsigned API calls an hour per address, shared by every
+            // TV in the house, and this menu is opened often (it shows the memory meter).
+            Updater.checkIfOlderThan(this, 5 * 60 * 1000L, (newer, failed) -> {
+                showUpdateReady();
+                if (newer == null || !popup.isShowing()) return;
+                update[0] = newer;
+                showUpdate.run();
+            });
+        }
         addInputRow(rows, popup, R.drawable.ic_all_apps, getString(R.string.vibe_settings), -1,
                 () -> SettingsDialog.show(this, root));
-        // At most every few minutes: GitHub allows 60 unsigned API calls an hour per address, shared by every
-        // TV in the house, and this menu is opened often (it shows the memory meter).
-        Updater.checkIfOlderThan(this, 5 * 60 * 1000L, (newer, failed) -> {
-            showUpdateReady();
-            if (newer == null || !popup.isShowing()) return;
-            update[0] = newer;
-            showUpdate.run();
-        });
         addInputRow(rows, popup, R.drawable.ic_settings, getString(R.string.android_settings), -1,
                 () -> open(new Intent(Settings.ACTION_SETTINGS)));
-        if (!DefaultHome.isHome(this)) {
+        if (BuildConfig.STORE && !DefaultHome.isHome(this) && !DefaultHome.homeButtonOn(this)) {
+            // The stock launcher stays on: the TV's default-Home dialog where it has one, else HomeKeyService.
+            addInputRow(rows, popup, R.drawable.ic_home, getString(R.string.make_home), -1, this::makeHomeStore);
+        } else if (!BuildConfig.STORE && !DefaultHome.isHome(this)) {
             addInputRow(rows, popup, R.drawable.ic_home, getString(R.string.make_home), -1, this::makeHome);
         }
         // Live while the menu is open.
@@ -2012,7 +2096,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     /** The green dot in the Settings gear: shown while a newer release is waiting to be installed. */
     void showUpdateReady() {
-        findViewById(R.id.updateDot).setVisibility(Updater.available(this) != null ? View.VISIBLE : View.GONE);
+        findViewById(R.id.updateDot).setVisibility(!BuildConfig.STORE && Updater.available(this) != null ? View.VISIBLE : View.GONE);
     }
 
     /** A read-only row with a usage bar; fill it with the returned view. */

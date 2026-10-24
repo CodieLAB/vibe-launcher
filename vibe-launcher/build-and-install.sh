@@ -6,6 +6,9 @@
 # Connects with adb, or with the Python client in tools/ where macOS blocks adb (tools/lib.sh). Pass
 # STOCK_LAUNCHER=<package> to name the launcher to disable yourself, or STOCK_LAUNCHER=none to disable
 # nothing.
+#
+# FLAVOR=store installs the app store build instead, to try it as a store user would get it: it leaves the
+# stock launcher and Home alone, and its Home button is turned on in the TV's Settings > Accessibility.
 set -uo pipefail
 cd "$(dirname "$0")"
 . tools/lib.sh
@@ -16,11 +19,23 @@ export JAVA_HOME="${JAVA_HOME:-/opt/homebrew/opt/openjdk@17}"
 export ANDROID_HOME="${ANDROID_HOME:-/opt/homebrew/share/android-commandlinetools}"
 export PATH="$JAVA_HOME/bin:$PATH"
 [ -f local.properties ] || echo "sdk.dir=$ANDROID_HOME" > local.properties
-step "Building"
-./gradlew assembleDebug -q --console=plain || die "build failed"
-APK=app/build/outputs/apk/debug/app-debug.apk
+FLAVOR=${FLAVOR:-adb}
+case "$FLAVOR" in adb|store) ;; *) die "FLAVOR is adb or store, not '$FLAVOR'" ;; esac
+CAP=$(printf '%s' "${FLAVOR:0:1}" | tr a-z A-Z)${FLAVOR:1}
+step "Building ($FLAVOR)"
+./gradlew "assemble${CAP}Debug" -q --console=plain || die "build failed"
+APK=app/build/outputs/apk/$FLAVOR/debug/app-$FLAVOR-debug.apk
 
 connect "$HOST"
+
+if [ "$FLAVOR" = store ]; then
+  step "Installing"
+  RESULT=$(tv_install "$APK")
+  [[ "$RESULT" == *Success* ]] || die "install failed: $RESULT (the adb build installed? uninstall it first if it was signed with another key)"
+  say "Installed the store build. Home and the stock launcher are as they were: on the TV, open Settings >"
+  say "Accessibility and turn on \"Vibe Launcher Home button\" (the gear menu's Make Home row goes there)."
+  exit 0
+fi
 
 # Which app owns Home differs by build (com.google.android.tvlauncher on Android TV,
 # com.google.android.apps.tv.launcherx on newer Google TV), so ask the TV instead of guessing. Only a

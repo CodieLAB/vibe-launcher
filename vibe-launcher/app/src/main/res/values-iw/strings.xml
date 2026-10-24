@@ -76,4 +76,14 @@
     <string name="backdrops_reloading">מורידים תמונות רקע חדשות…</string>
     <string name="auto_hide_bar">הסתרה אוטומטית</string>
     <string name="time_remaining">נותרו %1$s</string>
+    <string name="home_key_name">כפתור הבית של Vibe Launcher</string>
+    <string name="home_key_description">פותח את Vibe Launcher כשלוחצים על כפתור הבית או כשהטלוויזיה מציגה את מסך הבית שלה. הוא לא קורא דבר מהמסך ולא מגיב לשום כפתור מלבד כפתור הבית.</string>
+    <string name="home_key_turn_on">הפעילו כאן את “%1$s” כדי שכפתור הבית יפתח את Vibe Launcher.</string>
+    <string name="permissions_title">שתי הרשאות</string>
+    <string name="permissions_why">בשלב הבא Vibe Launcher יבקש שתי הרשאות.\n\nלוח שידורים: כדי להציג תמונות מהכרטיסים שהאפליקציות שלכם מפרסמות למסך הבית.\n\nמיקום: Android מציג את שם רשת ה-Wi-Fi רק לאפליקציות עם ההרשאה הזו. Vibe Launcher משתמש בה רק לשם הזה ואף פעם לא בודק איפה הטלוויזיה נמצאת.\n\nאף אחת מהן לא יוצאת מהטלוויזיה.</string>
+    <string name="continue_button">המשך</string>
+    <string name="home_key_disclosure_title">שימוש בכפתור הבית</string>
+    <string name="home_key_disclosure">הטלוויזיה הזו לא מאפשרת לאפליקציות להפוך לאפליקציית הבית, ולכן Vibe Launcher צריך שירות נגישות כדי להגיב לכפתור הבית.\n\nהוא רואה איזה מסך עולה, ופועל רק כשעולה מסך הבית של הטלוויזיה עצמה. הוא רואה את מקשי השלט, פועל רק על כפתור הבית ומעביר הלאה את כל השאר. הוא לא קורא דבר מהמסך, לא שומר דבר ולא שולח דבר לשום מקום.\n\nאפשר לכבות אותו בכל רגע בהגדרות &gt; נגישות.</string>
+    <string name="home_key_agree">אני מסכים/ה</string>
+    <string name="home_key_steps">השלב הבא: ברשימה שנפתחת בחרו “%1$s”, הפעילו אותו ולחצו על כפתור הבית.</string>
 </resources>

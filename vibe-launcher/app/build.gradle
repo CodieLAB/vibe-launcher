@@ -15,8 +15,30 @@ android {
         applicationId 'com.maydings.vibelauncher'
         minSdk 26
         targetSdk 34
-        versionCode 43
-        versionName '1.9.3'
+        versionCode 44
+        versionName '2.0.0'
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    // Two ways onto a TV, built from the same code:
+    // adb: sideloaded (build-and-install.sh, or the GitHub releases). The stock launcher is turned off over
+    //   adb, so Home comes here by itself. Updates itself from the releases and can install SmartTube.
+    // store: for an app store. No adb, so the stock launcher stays on; HomeKeyService (src/store) brings the
+    //   Home button here instead. Stores don't allow apps that install apps, so no self-update or SmartTube
+    //   install, and none of their permissions (src/adb/AndroidManifest.xml).
+    flavorDimensions = ['channel']
+    productFlavors {
+        adb {
+            dimension 'channel'
+            buildConfigField 'boolean', 'STORE', 'false'
+        }
+        store {
+            dimension 'channel'
+            buildConfigField 'boolean', 'STORE', 'true'
+        }
     }
 
     packagingOptions {

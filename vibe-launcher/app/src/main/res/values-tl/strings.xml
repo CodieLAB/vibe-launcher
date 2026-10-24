@@ -76,4 +76,14 @@
     <string name="backdrops_reloading">Nagda-download ng mga bagong backdrop…</string>
     <string name="auto_hide_bar">Awtomatikong itago</string>
     <string name="time_remaining">%1$s pa ang natitira</string>
+    <string name="home_key_name">Home button ng Vibe Launcher</string>
+    <string name="home_key_description">Binubuksan ang Vibe Launcher kapag pinindot mo ang Home o ipinakita ng TV ang sarili nitong home screen. Wala itong binabasa sa screen at walang ibang button na pinapansin maliban sa Home.</string>
+    <string name="home_key_turn_on">I-on dito ang “%1$s” para buksan ng Home button ang Vibe Launcher.</string>
+    <string name="permissions_title">Dalawang pahintulot</string>
+    <string name="permissions_why">Susunod, hihingi ang Vibe Launcher ng dalawang pahintulot.\n\nTV listings: para maipakita ang mga larawan mula sa mga card na inilalathala ng iyong mga app para sa home screen.\n\nLokasyon: ipinapakita lang ng Android ang pangalan ng Wi-Fi network sa mga app na may ganitong pahintulot. Ginagamit ito ng Vibe Launcher para sa pangalang iyon lang at hindi kailanman hinahanap kung nasaan ang TV.\n\nWalang lumalabas sa TV.</string>
+    <string name="continue_button">Magpatuloy</string>
+    <string name="home_key_disclosure_title">Gamitin ang Home button</string>
+    <string name="home_key_disclosure">Hindi pinapayagan ng TV na ito na maging home app ang mga app, kaya kailangan ng Vibe Launcher ng accessibility service para tumugon sa Home button.\n\nNakikita nito kung aling screen ang lumabas, at kumikilos lang ito sa sariling home screen ng TV. Nakikita nito ang mga button ng remote, kumikilos lang sa Home, at pinapadaan ang lahat ng iba pa. Wala itong binabasa sa screen, walang iniimbak, at walang ipinapadala kahit saan.\n\nI-off ito anumang oras sa Mga Setting &gt; Accessibility.</string>
+    <string name="home_key_agree">Sumasang-ayon</string>
+    <string name="home_key_steps">Susunod: sa listahang magbubukas, piliin ang “%1$s”, i-on ito, saka pindutin ang Home.</string>
 </resources>

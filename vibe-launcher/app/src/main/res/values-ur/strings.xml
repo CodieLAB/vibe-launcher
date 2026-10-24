@@ -76,4 +76,14 @@
     <string name="backdrops_reloading">نئے پس منظر ڈاؤن لوڈ ہو رہے ہیں…</string>
     <string name="auto_hide_bar">خود بخود چھپائیں</string>
     <string name="time_remaining">%1$s باقی</string>
+    <string name="home_key_name">Vibe Launcher ہوم بٹن</string>
+    <string name="home_key_description">ہوم دبانے پر یا ٹی وی کے اپنی ہوم اسکرین دکھانے پر Vibe Launcher کھولتا ہے۔ یہ اسکرین پر کچھ نہیں پڑھتا اور ہوم کے سوا کسی بٹن پر کچھ نہیں کرتا۔</string>
+    <string name="home_key_turn_on">ہوم بٹن سے Vibe Launcher کھولنے کے لیے یہاں “%1$s” آن کریں۔</string>
+    <string name="permissions_title">دو اجازتیں</string>
+    <string name="permissions_why">اب Vibe Launcher دو اجازتیں مانگے گا۔\n\nٹی وی فہرستیں: آپ کی ایپس ہوم اسکرین کے لیے جو کارڈز شائع کرتی ہیں، ان کی تصویریں دکھانے کے لیے۔\n\nمقام: Android وائی فائی نیٹ ورک کا نام صرف اس اجازت والی ایپس کو دکھاتا ہے۔ Vibe Launcher اسے صرف اسی نام کے لیے استعمال کرتا ہے اور کبھی نہیں دیکھتا کہ ٹی وی کہاں ہے۔\n\nان میں سے کچھ بھی ٹی وی سے باہر نہیں جاتا۔</string>
+    <string name="continue_button">جاری رکھیں</string>
+    <string name="home_key_disclosure_title">ہوم بٹن استعمال کریں</string>
+    <string name="home_key_disclosure">یہ ٹی وی ایپس کو ہوم ایپ بننے نہیں دیتا، اس لیے ہوم بٹن کا جواب دینے کے لیے Vibe Launcher کو ایک رسائی سروس کی ضرورت ہے۔\n\nیہ دیکھتا ہے کہ کون سی اسکرین آئی، اور صرف ٹی وی کی اپنی ہوم اسکرین پر کچھ کرتا ہے۔ یہ ریموٹ کے بٹن دیکھتا ہے، صرف ہوم پر کچھ کرتا ہے اور باقی سب بٹن ویسے ہی آگے جانے دیتا ہے۔ یہ اسکرین پر کچھ نہیں پڑھتا، کچھ نہیں رکھتا اور کہیں کچھ نہیں بھیجتا۔\n\nاسے کسی بھی وقت ترتیبات &gt; رسائی میں بند کریں۔</string>
+    <string name="home_key_agree">متفق ہوں</string>
+    <string name="home_key_steps">اس کے بعد: کھلنے والی فہرست میں “%1$s” منتخب کریں، اسے آن کریں، پھر ہوم دبائیں۔</string>
 </resources>

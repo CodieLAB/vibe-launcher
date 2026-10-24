@@ -76,4 +76,14 @@
     <string name="backdrops_reloading">Új háttérképek letöltése…</string>
     <string name="auto_hide_bar">Automatikus elrejtés</string>
     <string name="time_remaining">Még %1$s</string>
+    <string name="home_key_name">Vibe Launcher Kezdőképernyő gomb</string>
+    <string name="home_key_description">Megnyitja a Vibe Launchert, ha megnyomja a Kezdőképernyő gombot, vagy a tévé a saját kezdőképernyőjét jeleníti meg. Semmit nem olvas a képernyőről, és csak erre a gombra reagál.</string>
+    <string name="home_key_turn_on">Kapcsolja be itt: „%1$s”, hogy a Kezdőképernyő gomb a Vibe Launchert nyissa meg.</string>
+    <string name="permissions_title">Két engedély</string>
+    <string name="permissions_why">A Vibe Launcher most két engedélyt kér.\n\nTV-műsor: hogy képeket mutathasson az alkalmazásai által a kezdőképernyőre közzétett kártyákból.\n\nHely: az Android csak az ilyen engedéllyel rendelkező alkalmazásoknak mutatja meg a Wi-Fi-hálózat nevét. A Vibe Launcher csak erre a névre használja, és sosem nézi meg, hol van a tévé.\n\nEgyik sem hagyja el a tévét.</string>
+    <string name="continue_button">Tovább</string>
+    <string name="home_key_disclosure_title">A Kezdőképernyő gomb használata</string>
+    <string name="home_key_disclosure">Ez a tévé nem engedi, hogy egy alkalmazás legyen a kezdőképernyő-alkalmazás, ezért a Vibe Launchernek kisegítő szolgáltatásra van szüksége, hogy válaszolni tudjon a Kezdőképernyő gombra.\n\nLátja, melyik képernyő jelenik meg, és csak a tévé saját kezdőképernyőjénél lép közbe. Látja a távirányító gombjait, csak a Kezdőképernyő gombra reagál, minden mást továbbenged. Semmit nem olvas a képernyőről, semmit nem tárol, és semmit nem küld sehová.\n\nBármikor kikapcsolhatja: Beállítások &gt; Kisegítő lehetőségek.</string>
+    <string name="home_key_agree">Elfogadom</string>
+    <string name="home_key_steps">Ezután: a megnyíló listában válassza ki ezt: „%1$s”, kapcsolja be, majd nyomja meg a Kezdőképernyő gombot.</string>
 </resources>

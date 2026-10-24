@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Build;
+import android.provider.Settings;
 
 /**
  * Making Vibe Launcher the default Home through the TV's own UI, with no computer. Android 10+ has a
@@ -27,6 +28,33 @@ final class DefaultHome {
     static boolean isHome(Context context) {
         ResolveInfo ri = context.getPackageManager().resolveActivity(home(), PackageManager.MATCH_DEFAULT_ONLY);
         return ri != null && ri.activityInfo != null && context.getPackageName().equals(ri.activityInfo.packageName);
+    }
+
+    /**
+     * Whether becoming the default Home (request) would bring the Home button here. Android picks a Home
+     * app that declares a higher priority before it looks at the user's choice, and only system apps can:
+     * Google TV's launcher does (2, on the onn 4K stick), so there the Home role is granted and changes
+     * nothing. Then only the store build's Home button service helps.
+     */
+    static boolean choiceWins(Context context) {
+        int ours = 0, best = Integer.MIN_VALUE;
+        for (ResolveInfo ri : context.getPackageManager().queryIntentActivities(home(), PackageManager.MATCH_DEFAULT_ONLY)) {
+            if (ri.activityInfo == null) continue;
+            if (context.getPackageName().equals(ri.activityInfo.packageName)) ours = ri.priority;
+            else if (!ri.activityInfo.name.endsWith("FallbackHome")) best = Math.max(best, ri.priority);
+        }
+        return best <= ours;
+    }
+
+    /** The store build's Home button (HomeKeyService) is on under Settings > Accessibility. */
+    static boolean homeButtonOn(Context context) {
+        String on = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
+        if (on == null) return false;
+        String pkg = context.getPackageName();
+        for (String service : on.split(":")) {
+            if (service.equals(pkg + "/.HomeKeyService") || service.equals(pkg + "/" + pkg + ".HomeKeyService")) return true;
+        }
+        return false;
     }
 
     /** The system screen that makes Vibe Launcher the default Home, or null when this TV has none. */

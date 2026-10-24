@@ -76,4 +76,14 @@
     <string name="backdrops_reloading">नए बैकड्रॉप डाउनलोड हो रहे हैं…</string>
     <string name="auto_hide_bar">अपने-आप छिपाएं</string>
     <string name="time_remaining">%1$s बाकी</string>
+    <string name="home_key_name">Vibe Launcher होम बटन</string>
+    <string name="home_key_description">होम दबाने पर या टीवी के अपनी होम स्क्रीन दिखाने पर Vibe Launcher खोलता है। यह स्क्रीन पर कुछ नहीं पढ़ता और होम के अलावा किसी बटन पर कुछ नहीं करता।</string>
+    <string name="home_key_turn_on">होम बटन से Vibe Launcher खोलने के लिए यहाँ “%1$s” चालू करें।</string>
+    <string name="permissions_title">दो अनुमतियाँ</string>
+    <string name="permissions_why">अब Vibe Launcher दो अनुमतियाँ माँगेगा।\n\nटीवी लिस्टिंग: आपके ऐप होम स्क्रीन के लिए जो कार्ड प्रकाशित करते हैं, उनकी तस्वीरें दिखाने के लिए।\n\nजगह की जानकारी: Android वाई-फ़ाई नेटवर्क का नाम सिर्फ़ इस अनुमति वाले ऐप को दिखाता है। Vibe Launcher इसका इस्तेमाल सिर्फ़ उसी नाम के लिए करता है और कभी नहीं देखता कि टीवी कहाँ है।\n\nदोनों में से कुछ भी टीवी से बाहर नहीं जाता।</string>
+    <string name="continue_button">जारी रखें</string>
+    <string name="home_key_disclosure_title">होम बटन इस्तेमाल करें</string>
+    <string name="home_key_disclosure">यह टीवी ऐप को होम ऐप नहीं बनने देता, इसलिए होम बटन का जवाब देने के लिए Vibe Launcher को एक सुलभता सेवा की ज़रूरत है।\n\nयह देखता है कि कौन-सी स्क्रीन आई, और सिर्फ़ टीवी की अपनी होम स्क्रीन पर कुछ करता है। यह रिमोट के बटन देखता है, सिर्फ़ होम पर कुछ करता है और बाकी सभी बटन जैसे के तैसे आगे जाने देता है। यह स्क्रीन पर कुछ नहीं पढ़ता, कुछ नहीं रखता और कहीं कुछ नहीं भेजता।\n\nइसे कभी भी सेटिंग &gt; सुलभता में बंद करें।</string>
+    <string name="home_key_agree">सहमत हूँ</string>
+    <string name="home_key_steps">आगे: खुलने वाली सूची में “%1$s” चुनें, उसे चालू करें, फिर होम दबाएँ।</string>
 </resources>
