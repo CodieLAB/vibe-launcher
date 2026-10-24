@@ -166,7 +166,7 @@ The full list, with what each is sent, is in the [privacy policy](docs/PRIVACY.m
 | `Updater`, `UpdateReceiver` | Checks the GitHub releases, downloads and verifies the APK, hands it to Android's installer |
 | `AppAdapter`, `TileAnimator`, `DockDecoration` | Tiles, their animations and the dock band |
 | `GlassView`, `FrostView` | The glass focus highlight and the frosted top bar (software blur; Android 9 has no live blur) |
-| `Backdrops` | Builds each dock app's pool of backdrops and serves one per visit |
+| `Backdrops` | Builds each dock app's pool of backdrops and serves one per visit. One for the whole app, kept when Home is rebuilt |
 | `ChannelSetup` | Asks apps to publish their home screen cards, as the stock launcher did |
 | `DefaultHome` | Offers to become the default Home through the TV's own dialog or chooser, where it has one |
 | `TitleArt`, `Tmdb`, `Stremio` | Clean backdrops and logos for films and shows by title: TMDB with a key, Stremio without |

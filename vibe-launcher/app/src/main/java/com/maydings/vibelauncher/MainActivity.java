@@ -218,6 +218,16 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private int packageSequence;
     /** Home was pressed while Home was in front: go back to the first dock tile. */
     private boolean homeToTop;
+    /** The focused app was on its glow, waiting for its first still: show it now. */
+    private final Backdrops.FirstStillListener firstStill = pkg -> {
+        if (!heroShown || !pkg.equals(backdropPkg)) return;
+        backdropPkg = null;
+        showBackdrop(pkg, backdropColor);
+    };
+    /** Plex's progress arrives after its carousel opened: the time left follows. */
+    private final Runnable watchingChanged = () -> {
+        if (pictureOnly) updatePlayInfo();
+    };
     /** Between onStart and onStop: Home is (at least partly) on screen. */
     private boolean started;
     /** The time box's width for each length of time text ("8:08" is 4, "10:08" is 5); see sizeTimeBox. */
@@ -321,16 +331,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         backdropTitleBox = findViewById(R.id.backdropTitleBox);
         backdropLogo = findViewById(R.id.backdropLogo);
         backdropTitle = findViewById(R.id.backdropTitle);
-        backdrops = new Backdrops(this, pkg -> {
-            // The focused app was on its glow, waiting for its first still: show it now.
-            if (!heroShown || !pkg.equals(backdropPkg)) return;
-            backdropPkg = null;
-            showBackdrop(pkg, backdropColor);
-        });
-        // Plex's progress arrives after its carousel opened: the time left follows.
-        backdrops.setWatchingListener(() -> {
-            if (pictureOnly) updatePlayInfo();
-        });
+        backdrops = Backdrops.get(this);
+        backdrops.attach(firstStill, watchingChanged);
         if (!askPermissionsOnce()) askHomeOnce();
         ConnectivityManager cm = getSystemService(ConnectivityManager.class);
         if (cm != null) cm.registerDefaultNetworkCallback(networkCallback);
@@ -648,7 +650,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     protected void onDestroy() {
         unregisterReceiver(screenReceiver);
         unregisterReceiver(packageReceiver);
-        backdrops.close();
+        // The pools go on filling for the next Home; only this one's handlers go.
+        backdrops.detach(firstStill, watchingChanged);
         handler.removeCallbacksAndMessages(null);
         ConnectivityManager cm = getSystemService(ConnectivityManager.class);
         if (cm != null) {

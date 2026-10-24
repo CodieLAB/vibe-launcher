@@ -17,7 +17,6 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.RejectedExecutionException;
 
 /**
  * Backdrops for the Plex tile from the user's own server: the fan art of what's on Continue Watching
@@ -118,30 +117,22 @@ final class Plex {
     void refreshOnDeck(Runnable done) {
         String token = settings.plexToken();
         if (token.isEmpty() || System.currentTimeMillis() - onDeckTime < ON_DECK_MS) return;
-        try {
-            refresher.execute(() -> {
-                synchronized (deckLock) {
-                    long now = System.currentTimeMillis();
-                    if (now - onDeckTime < ON_DECK_MS) return;   // another request just did it
-                    String[] server = server(token, false);
-                    if (server == null) return;
-                    try {
-                        onDeck = fetch(server[0], server[1], "/library/onDeck", true);
-                        onDeckTime = now;
-                    } catch (IOException | JSONException | RuntimeException e) {
-                        onDeckTime = now;   // offline or moved: the last list for another minute; items() looks again
-                        return;
-                    }
+        refresher.execute(() -> {
+            synchronized (deckLock) {
+                long now = System.currentTimeMillis();
+                if (now - onDeckTime < ON_DECK_MS) return;   // another request just did it
+                String[] server = server(token, false);
+                if (server == null) return;
+                try {
+                    onDeck = fetch(server[0], server[1], "/library/onDeck", true);
+                    onDeckTime = now;
+                } catch (IOException | JSONException | RuntimeException e) {
+                    onDeckTime = now;   // offline or moved: the last list for another minute; items() looks again
+                    return;
                 }
-                done.run();
-            });
-        } catch (RejectedExecutionException closed) {
-            // Shut down with Home.
-        }
-    }
-
-    void close() {
-        refresher.shutdownNow();
+            }
+            done.run();
+        });
     }
 
     /** {base URI, server access token} for the first owned (else any) online server, cached for a day. */

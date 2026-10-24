@@ -35,7 +35,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -189,7 +188,8 @@ final class Backdrops {
     /** Bumped by reload: builds from before it are dropped, and put nothing into the new pools. */
     private final AtomicInteger generation = new AtomicInteger();
     private int turn;                                       // pool thread only
-    private final FirstStillListener firstStill;
+    /** Home's, while one is on screen; null in between (it's rebuilt for a new grid or language). */
+    private volatile FirstStillListener firstStill;
     private final Handler main = new Handler(Looper.getMainLooper());
     private final Map<String, Pool> pools = new HashMap<>();
     private final Map<String, Entry> shown = new HashMap<>();   // this visit's still per app
@@ -200,9 +200,36 @@ final class Backdrops {
     private final Random random = new Random();
     private final int targetWidth, targetHeight;
 
-    Backdrops(Context context, FirstStillListener firstStill) {
-        this.context = context.getApplicationContext();
+    private static Backdrops instance;
+
+    /**
+     * The one for the whole app. Filling the pools is the app's job, not the screen's: Home is rebuilt for a
+     * new grid or language, and each Home used to bring its own, so the old one, still replacing stills,
+     * deleted the one the new Home had just picked (900F, on changing tiles per row). Created on first use
+     * and kept: its threads wait idle on their queues between builds.
+     */
+    static synchronized Backdrops get(Context context) {
+        if (instance == null) instance = new Backdrops(context.getApplicationContext());
+        return instance;
+    }
+
+    /** Home's handlers: an app's first still, and what you're watching changing after its carousel opened. */
+    void attach(FirstStillListener firstStill, Runnable watchingChanged) {
         this.firstStill = firstStill;
+        this.watchingChanged = watchingChanged;
+    }
+
+    /**
+     * Home going: its handlers go, but only if they're still the ones attached. A rebuilt Home can start
+     * before the old one is destroyed, and the old one mustn't take the new one's away.
+     */
+    void detach(FirstStillListener firstStill, Runnable watchingChanged) {
+        if (this.firstStill == firstStill) this.firstStill = null;
+        if (this.watchingChanged == watchingChanged) this.watchingChanged = null;
+    }
+
+    private Backdrops(Context context) {
+        this.context = context;
         settings = new VibeSettings(context);
         resolver = context.getContentResolver();
         tmdb = new Tmdb(context);
@@ -217,17 +244,6 @@ final class Backdrops {
         hdHomeRun = new HdHomeRun(context);
         worker.prestartCoreThread();   // waiting on the queue, so jobs can go straight to its front
         builder.execute(this::prune);
-    }
-
-    /**
-     * Home is gone (recreated for a new tiles-per-row choice or language): stop this instance's threads,
-     * or each recreation leaves two behind and the old and new one rebuild the same pools at once. The
-     * pools being built are dropped (the new instance builds them); their stills so far are kept.
-     */
-    void close() {
-        worker.shutdownNow();
-        builder.shutdown();
-        plex.close();
     }
 
     /**
@@ -254,14 +270,10 @@ final class Backdrops {
         shown.clear();
         // Stills replaced since the last visit can go now: nothing picks them any more. And the old
         // downloads: the launcher can run for weeks, so starting up isn't often enough.
-        try {
-            builder.execute(() -> {
-                sweep();
-                prune();
-            });
-        } catch (RejectedExecutionException closed) {
-            // Home was rebuilt: the new instance does this.
-        }
+        builder.execute(() -> {
+            sweep();
+            prune();
+        });
     }
 
     /**
@@ -271,13 +283,7 @@ final class Backdrops {
     void refresh(String pkg) {
         if (!due(pkg) || !building.add(pkg)) return;
         incoming.offer(new Build(pkg));
-        try {
-            builder.execute(this::pump);   // ends at once when another pump already took it
-        } catch (RejectedExecutionException closed) {
-            // Closed (Home was rebuilt), maybe from a load still finishing: the new instance builds it.
-            incoming.clear();
-            building.remove(pkg);
-        }
+        builder.execute(this::pump);   // ends at once when another pump already took it
     }
 
     /** How long until the first of these apps' pools is due; 0 when one already is. */
@@ -434,17 +440,14 @@ final class Backdrops {
                 // follow once it's in (the picture showing stays).
                 plex.refreshOnDeck(() -> queue.offerFirst(() -> {
                     orderCarousel(pkg, false, false);
-                    if (watchingChanged != null) main.post(watchingChanged);
+                    Runnable listener = watchingChanged;   // read once: Home may go meanwhile
+                    if (listener != null) main.post(listener);
                 }));
             }
         });
     }
 
-    /** Runs on the main thread when what you're watching changed after the carousel opened (Plex). */
-    void setWatchingListener(Runnable listener) {
-        watchingChanged = listener;
-    }
-
+    /** Runs on the main thread when what you're watching changed after the carousel opened (Plex); see attach. */
     private volatile Runnable watchingChanged;
 
     /**
@@ -695,7 +698,7 @@ final class Backdrops {
      * until none are left.
      */
     private void pump() {
-        while (!builder.isShutdown()) {
+        while (true) {
             for (Build b; (b = incoming.poll()) != null; ) active.add(b);
             for (int i = active.size() - 1; i >= 0; i--) {
                 if (active.get(i).generation != generation.get()) active.remove(i);   // from before a reload
@@ -775,7 +778,10 @@ final class Backdrops {
             }
             if (gone != null && gone != shown.get(pkg)) deleteStill(gone);
         }
-        if (first) main.post(() -> firstStill.onFirstStill(pkg));
+        if (first) main.post(() -> {
+            FirstStillListener listener = firstStill;
+            if (listener != null) listener.onFirstStill(pkg);
+        });
         return true;
     }
 
