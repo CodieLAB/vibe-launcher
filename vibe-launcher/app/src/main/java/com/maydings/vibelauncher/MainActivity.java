@@ -1016,6 +1016,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             return;
         }
         grid.playSoundEffect(toTopBar ? SoundEffectConstants.NAVIGATION_UP : SoundEffectConstants.NAVIGATION_DOWN);
+        // Focusing the tile above (Down again while the menus were leaving from the top bar) faded its glass
+        // in at once, before the rows were back: it waits for them, like the name (showName).
+        glass.animate().cancel();
+        glass.setAlpha(0f);
         // Set to auto-hide, Up brings only the top bar: the rows stay down until focus comes back to them.
         boolean rowsStay = toTopBar && settings.autoHideBar();
         transition(() -> {
