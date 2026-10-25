@@ -94,6 +94,38 @@
                         android:paddingStart="20dp"
                         android:text="@string/reload_backdrops" />
                 </LinearLayout>
+
+                <!-- The software version and its update check (SettingsDialog.showUpdates). -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/SettingsLabel"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="16dp"
+                        android:maxWidth="150dp"
+                        android:text="@string/updates" />
+
+                    <TextView
+                        android:id="@+id/updateStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#B3FFFFFF"
+                        android:textSize="15sp"
+                        android:fontFamily="@string/font_regular" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/updateButton"
+                    style="@style/TopButton"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="12dp"
+                    android:paddingStart="20dp"
+                    android:text="@string/check_updates" />
             </LinearLayout>
 
             <LinearLayout
@@ -332,8 +364,8 @@
             android:orientation="vertical"
             android:gravity="center_horizontal">
 
-            <!-- Save and Cancel first, so they sit in the same place on every tab; under them the software
-                 version on General, the QR code on API keys. -->
+            <!-- Save and Cancel first, so they sit in the same place on every tab; under them the QR code on
+                 API keys. -->
             <TextView
                 android:id="@+id/save"
                 style="@style/TopButton"
@@ -351,37 +383,6 @@
                 android:layout_marginTop="12dp"
                 android:paddingStart="20dp"
                 android:text="@string/cancel" />
-
-            <!-- The software version and its update check, under Save and Cancel on General only. -->
-            <LinearLayout
-                android:id="@+id/updates"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/SettingsLabel"
-                    android:layout_marginTop="28dp"
-                    android:text="@string/updates" />
-
-                <TextView
-                    android:id="@+id/updateStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:textColor="#B3FFFFFF"
-                    android:textSize="15sp"
-                    android:fontFamily="@string/font_regular" />
-
-                <TextView
-                    android:id="@+id/updateButton"
-                    style="@style/TopButton"
-                    android:layout_width="match_parent"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="12dp"
-                    android:paddingStart="20dp"
-                    android:text="@string/check_updates" />
-            </LinearLayout>
 
             <!-- Scan to type the keys on a phone instead (PhoneLink). -->
             <LinearLayout
@@ -422,7 +423,7 @@
                     android:fontFamily="@string/font_regular" />
             </LinearLayout>
 
-            <!-- The project's home, bottom right of General (SettingsDialog). Plain text: TVs rarely have a
+            <!-- The project's home, bottom right of every tab. Plain text: TVs rarely have a
                  browser to open it in. -->
             <Space
                 android:layout_width="match_parent"

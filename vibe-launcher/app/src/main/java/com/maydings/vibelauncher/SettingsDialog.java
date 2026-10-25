@@ -144,12 +144,11 @@ final class SettingsDialog {
         View pageGeneral = panel.findViewById(R.id.pageGeneral), pageAppearance = panel.findViewById(R.id.pageAppearance),
                 pageKeys = panel.findViewById(R.id.pageKeys);
         View[] tabs = {tabGeneral, tabAppearance, tabKeys}, pageViews = {pageGeneral, pageAppearance, pageKeys};
-        View phone = panel.findViewById(R.id.phone), projectLink = panel.findViewById(R.id.projectLink);
-        View updates = panel.findViewById(R.id.updates);
+        View phone = panel.findViewById(R.id.phone);
         View reloadBackdrops = panel.findViewById(R.id.reloadBackdrops);
         boolean[] phoneReady = {false};
         // A tab shows its page as soon as it has focus, like the tabs in the TV's own apps. Under Save and
-        // Cancel: the updates on General, the QR code on API keys (it's for the keys).
+        // Cancel: the QR code on API keys (it's for the keys).
         java.util.function.IntConsumer showPage = page -> {
             for (int i = 0; i < tabs.length; i++) {
                 pageViews[i].setVisibility(i == page ? View.VISIBLE : View.GONE);
@@ -157,8 +156,6 @@ final class SettingsDialog {
             }
             boolean keys = page == 2;
             phone.setVisibility(keys && phoneReady[0] ? View.VISIBLE : View.GONE);
-            projectLink.setVisibility(keys ? View.GONE : View.VISIBLE);
-            updates.setVisibility(page == 0 ? View.VISIBLE : View.GONE);
         };
         // One height for every tab: the frame as tall as the tallest page, once it has its width.
         View pages = panel.findViewById(R.id.pages);
@@ -171,19 +168,6 @@ final class SettingsDialog {
                 tallest = Math.max(tallest, page.getMeasuredHeight());
             }
             pages.setMinimumHeight(tallest);
-            // Then Check for updates level with the last setting on the left (Reload backdrops).
-            pages.post(() -> {
-                View last = reloadBackdrops;
-                if (updateButton.getVisibility() != View.VISIBLE || last.getHeight() == 0) return;
-                int[] a = new int[2], b = new int[2];
-                last.getLocationOnScreen(a);
-                updateButton.getLocationOnScreen(b);
-                int down = a[1] - b[1];
-                if (down <= 0) return;
-                ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) updates.getLayoutParams();
-                lp.topMargin += down;
-                updates.setLayoutParams(lp);
-            });
         });
         View[] firstOnPage = {languageButton, columnsEntry, tmdbInfo};
         for (int i = 0; i < tabs.length; i++) {
@@ -248,7 +232,8 @@ final class SettingsDialog {
             Toast.makeText(activity, R.string.backdrops_reloading, Toast.LENGTH_SHORT).show();
         });
         steer(languageButton, tabGeneral, reloadBackdrops, save, cameFrom);
-        steer(reloadBackdrops, languageButton, null, save, cameFrom);
+        steer(reloadBackdrops, languageButton, updateButton, save, cameFrom);   // hidden: Down stays
+        steer(updateButton, reloadBackdrops, null, save, cameFrom);
         for (View pill : hidePills) {
             pill.setOnKeyListener((v, keyCode, event) -> {
                 if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
@@ -285,20 +270,10 @@ final class SettingsDialog {
                 return false;   // Left/Right move between the pills
             });
         }
-        // Under Cancel: Up goes back to it, Left to where the right column was entered from.
-        updateButton.setOnKeyListener((v, keyCode, event) -> {
-            if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
-            if (keyCode == KeyEvent.KEYCODE_DPAD_UP) return cancel.requestFocus();
-            if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) return cameFrom[0].requestFocus();
-            return keyCode == KeyEvent.KEYCODE_DPAD_DOWN || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT;
-        });
         showUpdates(activity, updateStatus, updateButton);
         View.OnKeyListener back = (v, keyCode, event) -> {
             if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
-            if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) return cameFrom[0].requestFocus();
-            // Down from Cancel: the update check under it, on General.
-            return v == cancel && keyCode == KeyEvent.KEYCODE_DPAD_DOWN && updates.getVisibility() == View.VISIBLE
-                    && updateButton.getVisibility() == View.VISIBLE && updateButton.requestFocus();
+            return keyCode == KeyEvent.KEYCODE_DPAD_LEFT && cameFrom[0].requestFocus();
         };
         save.setOnKeyListener(back);
         cancel.setOnKeyListener(back);

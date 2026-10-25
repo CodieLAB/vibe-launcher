@@ -92,7 +92,7 @@ slides in when you press Up from the picture alone, or move down into the app gr
 
 Three tabs: **General**, **Appearance** and **API keys**.
 
-**General**: language and reloading the backdrops; under Save and Cancel, the software version.
+**General**: language, reloading the backdrops, and the software version with its update check.
 
 | ![Vibe Launcher settings, General tab: tiles per row, hide inactive inputs, auto-hide, language, reload backdrops, and the software version under Save and Cancel](vibe-launcher/docs/settings-general.jpg) | ![The language list, each language in its own name](vibe-launcher/docs/language.jpg) |
 |---|---|
