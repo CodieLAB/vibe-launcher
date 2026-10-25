@@ -1288,12 +1288,18 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         holdPlay.setAlpha(1f);
         if (show) {
             // From off screen, or from wherever a slide out has got to.
-            if (holdPlay.getTranslationX() == 0f) holdPlay.setTranslationX(offScreen);
+            if (holdPlay.getVisibility() != View.VISIBLE) {
+                holdPlay.setTranslationX(offScreen);
+                holdPlay.setVisibility(View.VISIBLE);
+            }
             holdPlay.animate().translationX(0f).setDuration(PLAY_SLIDE_MS)
                     .setInterpolator(new DecelerateInterpolator(2f)).start();
         } else {
+            // Gone once out: the time left can arrive after the slide started, widening the pill past
+            // where it was sent, and its end would stay on screen.
             holdPlay.animate().translationX(offScreen).setDuration(PLAY_SLIDE_MS)
-                    .setInterpolator(new AccelerateInterpolator(2f)).start();
+                    .setInterpolator(new AccelerateInterpolator(2f))
+                    .withEndAction(() -> holdPlay.setVisibility(View.INVISIBLE)).start();
         }
     }
 

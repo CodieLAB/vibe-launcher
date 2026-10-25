@@ -337,6 +337,7 @@
         android:layout_marginStart="62dp"
         android:orientation="vertical"
         android:alpha="0"
+        android:visibility="invisible"
         android:importantForAccessibility="no">
 
         <FrameLayout
