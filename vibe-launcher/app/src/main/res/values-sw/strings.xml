@@ -37,6 +37,7 @@
     <string name="save">Hifadhi</string>
     <string name="cancel">Ghairi</string>
     <string name="tab_general">Jumla</string>
+    <string name="tab_appearance">Mwonekano</string>
     <string name="tab_keys">Funguo za API</string>
     <string name="updates">Toleo la programu</string>
     <string name="check_updates">Angalia masasisho</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">Pakia upya mandhari</string>
     <string name="backdrops_reloading">Inapakua mandhari mapya…</string>
     <string name="auto_hide_bar">Ficha kiotomatiki</string>
+    <string name="slideshow_clock">Saa kwenye skrini ya kupumzisha</string>
     <string name="time_remaining">Zimebaki %1$s</string>
     <string name="home_key_name">Kitufe cha Mwanzo cha Vibe Launcher</string>
     <string name="home_key_description">Hufanya kitufe cha Mwanzo cha rimoti kifungue Vibe Launcher badala ya skrini ya mwanzo ya TV yenyewe, na ukikibonyeza kwa muda mipangilio ya TV ifunguke. Haisomi chochote kwenye skrini na huacha vitufe vingine vyote vipite.</string>

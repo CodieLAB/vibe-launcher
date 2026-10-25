@@ -37,6 +37,7 @@
     <string name="save">ذخیره</string>
     <string name="cancel">لغو</string>
     <string name="tab_general">عمومی</string>
+    <string name="tab_appearance">ظاهر</string>
     <string name="tab_keys">کلیدهای API</string>
     <string name="updates">نسخه نرم‌افزار</string>
     <string name="check_updates">بررسی به‌روزرسانی</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">بارگذاری دوبارهٔ پس‌زمینه‌ها</string>
     <string name="backdrops_reloading">در حال دانلود پس‌زمینه‌های تازه…</string>
     <string name="auto_hide_bar">پنهان‌سازی خودکار</string>
+    <string name="slideshow_clock">ساعت محافظ صفحه</string>
     <string name="time_remaining">%1$s باقی‌مانده</string>
     <string name="home_key_name">دکمه صفحه اصلی Vibe Launcher</string>
     <string name="home_key_description">دکمه صفحه اصلی کنترل را به‌جای صفحه اصلی خود تلویزیون به باز کردن Vibe Launcher وامی‌دارد و نگه داشتن آن تنظیمات تلویزیون را باز می‌کند. چیزی از صفحه نمی‌خواند و بقیه دکمه‌ها را دست‌نخورده رد می‌کند.</string>

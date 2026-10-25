@@ -37,6 +37,7 @@
     <string name="save">Simpan</string>
     <string name="cancel">Batal</string>
     <string name="tab_general">Umum</string>
+    <string name="tab_appearance">Penampilan</string>
     <string name="tab_keys">Kunci API</string>
     <string name="updates">Versi perisian</string>
     <string name="check_updates">Semak kemas kini</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">Muat semula latar</string>
     <string name="backdrops_reloading">Memuat turun latar baharu…</string>
     <string name="auto_hide_bar">Sembunyi automatik</string>
+    <string name="slideshow_clock">Jam penyelamat skrin</string>
     <string name="time_remaining">%1$s lagi</string>
     <string name="home_key_name">Butang Laman Utama Vibe Launcher</string>
     <string name="home_key_description">Menjadikan butang Laman Utama alat kawalan jauh membuka Vibe Launcher dan bukannya skrin utama TV itu sendiri, dan menekannya lama membuka Tetapan TV. Ia tidak membaca apa-apa pada skrin dan melepaskan semua butang lain.</string>

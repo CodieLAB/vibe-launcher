@@ -37,6 +37,7 @@
     <string name="save">సేవ్ చేయి</string>
     <string name="cancel">రద్దు చేయి</string>
     <string name="tab_general">సాధారణం</string>
+    <string name="tab_appearance">రూపం</string>
     <string name="tab_keys">API కీలు</string>
     <string name="updates">సాఫ్ట్‌వేర్ వెర్షన్</string>
     <string name="check_updates">అప్‌డేట్‌ల కోసం చూడు</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">బ్యాక్‌డ్రాప్‌లను మళ్లీ లోడ్ చేయి</string>
     <string name="backdrops_reloading">కొత్త బ్యాక్‌డ్రాప్‌లు డౌన్‌లోడ్ అవుతున్నాయి…</string>
     <string name="auto_hide_bar">ఆటోమేటిక్‌గా దాచు</string>
+    <string name="slideshow_clock">స్క్రీన్‌సేవర్ గడియారం</string>
     <string name="time_remaining">%1$s మిగిలి ఉంది</string>
     <string name="home_key_name">Vibe Launcher హోమ్ బటన్</string>
     <string name="home_key_description">రిమోట్ హోమ్ బటన్ టీవీ సొంత హోమ్ స్క్రీన్‌కు బదులుగా Vibe Launcher‌ను తెరుస్తుంది, నొక్కి పట్టుకుంటే టీవీ సెట్టింగ్‌లు తెరుచుకుంటాయి. స్క్రీన్‌పై ఏదీ చదవదు, మిగతా బటన్‌లన్నీ అలాగే పంపుతుంది.</string>

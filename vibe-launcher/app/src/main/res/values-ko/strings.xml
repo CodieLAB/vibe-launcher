@@ -37,6 +37,7 @@
     <string name="save">저장</string>
     <string name="cancel">취소</string>
     <string name="tab_general">일반</string>
+    <string name="tab_appearance">모양</string>
     <string name="tab_keys">API 키</string>
     <string name="updates">소프트웨어 버전</string>
     <string name="check_updates">업데이트 확인</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">배경 다시 불러오기</string>
     <string name="backdrops_reloading">새 배경을 다운로드하는 중…</string>
     <string name="auto_hide_bar">자동 숨기기</string>
+    <string name="slideshow_clock">화면 보호기 시계</string>
     <string name="time_remaining">%1$s 남음</string>
     <string name="home_key_name">Vibe Launcher 홈 버튼</string>
     <string name="home_key_description">리모컨의 홈 버튼을 누르면 TV 자체 홈 화면 대신 Vibe Launcher가 열리고, 길게 누르면 TV 설정이 열립니다. 화면의 내용은 읽지 않으며 다른 버튼은 모두 그대로 전달합니다.</string>

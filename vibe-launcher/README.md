@@ -134,7 +134,8 @@ straight through to it.
 
 After a minute without a key on Home (not while a menu, Settings or a tile's move is open), the same
 view runs as a slideshow: a random still from any dock app's pool every 10 s, with no carets, glass or
-play button. Any key stops it on the still showing, with its app picked, so the play button opens it. The
+play button; only the top bar's time and AM/PM, where they are on the bar (`slideClock`; Settings →
+Appearance → Screensaver clock). Any key stops it on the still showing, with its app picked, so the play button opens it. The
 screen is kept on for it only until the TV's own screen-off time since the last key. Settings → General
 → Reload backdrops empties every pool and the downloads and builds them again from scratch.
 
@@ -161,7 +162,7 @@ The full list, with what each is sent, is in the [privacy policy](docs/PRIVACY.m
 | File | What it does |
 |---|---|
 | `MainActivity` | Home screen, dock and grid focus, top bar menus, the Inputs menu with its HDMI-CEC devices |
-| `SettingsDialog` | Vibe Launcher settings: General (tiles per row, software version) and API keys (the keys, their ⓘ, the QR code) |
+| `SettingsDialog` | Vibe Launcher settings: General (language, reload backdrops, software version), Appearance (tiles per row, inputs, auto-hide, screensaver clock) and API keys (the keys, their ⓘ, the QR code) |
 | `Lang` | The 50 languages and applying the one chosen in settings (or the TV's own) |
 | `Updater`, `UpdateReceiver` | Checks the GitHub releases, downloads and verifies the APK, hands it to Android's installer |
 | `AppAdapter`, `TileAnimator`, `DockDecoration` | Tiles, their animations and the dock band |

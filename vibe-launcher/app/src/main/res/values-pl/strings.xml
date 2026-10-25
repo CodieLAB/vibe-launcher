@@ -37,6 +37,7 @@
     <string name="save">Zapisz</string>
     <string name="cancel">Anuluj</string>
     <string name="tab_general">Ogólne</string>
+    <string name="tab_appearance">Wygląd</string>
     <string name="tab_keys">Klucze API</string>
     <string name="updates">Wersja oprogramowania</string>
     <string name="check_updates">Sprawdź aktualizacje</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">Wczytaj tła ponownie</string>
     <string name="backdrops_reloading">Pobieranie nowych teł…</string>
     <string name="auto_hide_bar">Automatyczne ukrywanie</string>
+    <string name="slideshow_clock">Zegar na wygaszaczu</string>
     <string name="time_remaining">Pozostało: %1$s</string>
     <string name="home_key_name">Przycisk ekranu głównego Vibe Launcher</string>
     <string name="home_key_description">Sprawia, że przycisk ekranu głównego na pilocie otwiera Vibe Launcher zamiast własnego ekranu głównego telewizora, a przytrzymany – ustawienia telewizora. Niczego nie odczytuje z ekranu i przepuszcza wszystkie inne przyciski.</string>

@@ -37,6 +37,7 @@
     <string name="save">Lagre</string>
     <string name="cancel">Avbryt</string>
     <string name="tab_general">Generelt</string>
+    <string name="tab_appearance">Utseende</string>
     <string name="tab_keys">API-nøkler</string>
     <string name="updates">Programvareversjon</string>
     <string name="check_updates">Se etter oppdateringer</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">Last inn bakgrunner på nytt</string>
     <string name="backdrops_reloading">Laster ned nye bakgrunner…</string>
     <string name="auto_hide_bar">Skjul automatisk</string>
+    <string name="slideshow_clock">Klokke på skjermsparer</string>
     <string name="time_remaining">%1$s igjen</string>
     <string name="home_key_name">Vibe Launcher-hjemknapp</string>
     <string name="home_key_description">Får hjemknappen på fjernkontrollen til å åpne Vibe Launcher i stedet for TV-ens egen startskjerm, og et langt trykk til å åpne TV-ens innstillinger. Den leser ingenting på skjermen og sender alle andre knapper videre.</string>

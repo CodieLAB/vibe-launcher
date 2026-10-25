@@ -37,6 +37,7 @@
     <string name="save">Opslaan</string>
     <string name="cancel">Annuleren</string>
     <string name="tab_general">Algemeen</string>
+    <string name="tab_appearance">Weergave</string>
     <string name="tab_keys">API-sleutels</string>
     <string name="updates">Softwareversie</string>
     <string name="check_updates">Controleren op updates</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">Achtergronden opnieuw laden</string>
     <string name="backdrops_reloading">Nieuwe achtergronden downloaden…</string>
     <string name="auto_hide_bar">Automatisch verbergen</string>
+    <string name="slideshow_clock">Klok op screensaver</string>
     <string name="time_remaining">Nog %1$s</string>
     <string name="home_key_name">Vibe Launcher-startknop</string>
     <string name="home_key_description">Laat de startknop van de afstandsbediening Vibe Launcher openen in plaats van het eigen startscherm van de tv, en ingedrukt houden de instellingen van de tv. Leest niets op het scherm en laat alle andere knoppen door.</string>

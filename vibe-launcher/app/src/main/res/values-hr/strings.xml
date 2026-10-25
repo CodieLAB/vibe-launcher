@@ -37,6 +37,7 @@
     <string name="save">Spremi</string>
     <string name="cancel">Odustani</string>
     <string name="tab_general">Općenito</string>
+    <string name="tab_appearance">Izgled</string>
     <string name="tab_keys">API ključevi</string>
     <string name="updates">Verzija softvera</string>
     <string name="check_updates">Provjeri ažuriranja</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">Ponovno učitaj pozadine</string>
     <string name="backdrops_reloading">Preuzimanje novih pozadina…</string>
     <string name="auto_hide_bar">Automatsko skrivanje</string>
+    <string name="slideshow_clock">Sat na čuvaru zaslona</string>
     <string name="time_remaining">Još %1$s</string>
     <string name="home_key_name">Tipka Početno za Vibe Launcher</string>
     <string name="home_key_description">Tipka Početno na daljinskom otvara Vibe Launcher umjesto vlastitog početnog zaslona televizora, a dulji pritisak otvara postavke televizora. Ne čita ništa sa zaslona i propušta sve ostale tipke.</string>

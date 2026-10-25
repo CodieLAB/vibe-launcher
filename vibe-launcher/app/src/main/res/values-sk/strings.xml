@@ -37,6 +37,7 @@
     <string name="save">Uložiť</string>
     <string name="cancel">Zrušiť</string>
     <string name="tab_general">Všeobecné</string>
+    <string name="tab_appearance">Vzhľad</string>
     <string name="tab_keys">Kľúče API</string>
     <string name="updates">Verzia softvéru</string>
     <string name="check_updates">Skontrolovať aktualizácie</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">Znova načítať pozadia</string>
     <string name="backdrops_reloading">Sťahujú sa nové pozadia…</string>
     <string name="auto_hide_bar">Automaticky skryť</string>
+    <string name="slideshow_clock">Hodiny na šetriči</string>
     <string name="time_remaining">Zostáva %1$s</string>
     <string name="home_key_name">Tlačidlo Domov pre Vibe Launcher</string>
     <string name="home_key_description">Tlačidlo Domov na ovládači otvorí Vibe Launcher namiesto vlastnej domovskej obrazovky televízora a jeho podržanie otvorí nastavenia televízora. Nič z obrazovky nečíta a všetky ostatné tlačidlá púšťa ďalej.</string>

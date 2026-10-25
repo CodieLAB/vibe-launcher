@@ -37,6 +37,7 @@
     <string name="save">Salvează</string>
     <string name="cancel">Anulează</string>
     <string name="tab_general">General</string>
+    <string name="tab_appearance">Aspect</string>
     <string name="tab_keys">Chei API</string>
     <string name="updates">Versiunea software</string>
     <string name="check_updates">Caută actualizări</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">Reîncarcă fundalurile</string>
     <string name="backdrops_reloading">Se descarcă fundaluri noi…</string>
     <string name="auto_hide_bar">Ascundere automată</string>
+    <string name="slideshow_clock">Ceas pe screensaver</string>
     <string name="time_remaining">Mai sunt %1$s</string>
     <string name="home_key_name">Butonul Acasă pentru Vibe Launcher</string>
     <string name="home_key_description">Face ca butonul Acasă al telecomenzii să deschidă Vibe Launcher în locul ecranului de pornire al televizorului, iar ținut apăsat să deschidă setările televizorului. Nu citește nimic de pe ecran și lasă să treacă toate celelalte butoane.</string>

@@ -15,6 +15,7 @@ final class VibeSettings {
     private static final String LANGUAGE = "language";
     private static final String HIDE_INACTIVE_INPUTS = "hideInactiveInputs";
     private static final String AUTO_HIDE_BAR = "autoHideBar";
+    private static final String SLIDESHOW_CLOCK = "slideshowClock";
 
     private final SharedPreferences prefs;
 
@@ -77,6 +78,15 @@ final class VibeSettings {
 
     void setAutoHideBar(boolean hide) {
         prefs.edit().putBoolean(AUTO_HIDE_BAR, hide).apply();
+    }
+
+    /** The top bar's time on the slideshow (on by default). */
+    boolean slideshowClock() {
+        return prefs.getBoolean(SLIDESHOW_CLOCK, true);
+    }
+
+    void setSlideshowClock(boolean show) {
+        prefs.edit().putBoolean(SLIDESHOW_CLOCK, show).apply();
     }
 
     void save(String tmdbKey, String youtubeKey, String plexToken) {

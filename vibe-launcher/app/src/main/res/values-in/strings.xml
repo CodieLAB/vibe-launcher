@@ -37,6 +37,7 @@
     <string name="save">Simpan</string>
     <string name="cancel">Batal</string>
     <string name="tab_general">Umum</string>
+    <string name="tab_appearance">Tampilan</string>
     <string name="tab_keys">Kunci API</string>
     <string name="updates">Versi perangkat lunak</string>
     <string name="check_updates">Periksa pembaruan</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">Muat ulang latar</string>
     <string name="backdrops_reloading">Mengunduh latar baru…</string>
     <string name="auto_hide_bar">Sembunyikan otomatis</string>
+    <string name="slideshow_clock">Jam di screensaver</string>
     <string name="time_remaining">Sisa %1$s</string>
     <string name="home_key_name">Tombol Beranda Vibe Launcher</string>
     <string name="home_key_description">Membuat tombol Beranda remote membuka Vibe Launcher, bukan layar beranda bawaan TV, dan menahannya membuka Setelan TV. Tidak membaca apa pun di layar dan meneruskan semua tombol lainnya.</string>

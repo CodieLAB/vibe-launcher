@@ -37,6 +37,7 @@
     <string name="save">Speichern</string>
     <string name="cancel">Abbrechen</string>
     <string name="tab_general">Allgemein</string>
+    <string name="tab_appearance">Darstellung</string>
     <string name="tab_keys">API-Schlüssel</string>
     <string name="updates">Softwareversion</string>
     <string name="check_updates">Nach Updates suchen</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">Hintergründe neu laden</string>
     <string name="backdrops_reloading">Neue Hintergründe werden geladen…</string>
     <string name="auto_hide_bar">Automatisch ausblenden</string>
+    <string name="slideshow_clock">Uhr im Bildschirmschoner</string>
     <string name="time_remaining">Noch %1$s</string>
     <string name="home_key_name">Vibe Launcher Home-Taste</string>
     <string name="home_key_description">Lässt die Home-Taste der Fernbedienung Vibe Launcher statt des eigenen Startbildschirms des Fernsehers öffnen, und langes Drücken die Einstellungen des Fernsehers. Liest nichts vom Bildschirm und gibt jede andere Taste unverändert weiter.</string>

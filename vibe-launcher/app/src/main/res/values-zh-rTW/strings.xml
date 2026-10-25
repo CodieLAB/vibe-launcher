@@ -37,6 +37,7 @@
     <string name="save">儲存</string>
     <string name="cancel">取消</string>
     <string name="tab_general">一般</string>
+    <string name="tab_appearance">外觀</string>
     <string name="tab_keys">API 金鑰</string>
     <string name="updates">軟體版本</string>
     <string name="check_updates">檢查更新</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">重新載入背景圖</string>
     <string name="backdrops_reloading">正在下載新的背景圖…</string>
     <string name="auto_hide_bar">自動隱藏</string>
+    <string name="slideshow_clock">螢幕保護程式時鐘</string>
     <string name="time_remaining">剩餘 %1$s</string>
     <string name="home_key_name">Vibe Launcher 主畫面鍵</string>
     <string name="home_key_description">讓遙控器的主畫面鍵開啟 Vibe Launcher，而不是電視內建的主畫面；長按則開啟電視的設定。它不讀取畫面上的任何內容，其他按鍵都照常放行。</string>

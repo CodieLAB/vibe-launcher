@@ -38,6 +38,7 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="tab_general">General</string>
+    <string name="tab_appearance">Appearance</string>
     <string name="tab_keys">API keys</string>
     <string name="updates">Software version</string>
     <string name="check_updates">Check for updates</string>
@@ -79,6 +80,7 @@
     <string name="reload_backdrops">Reload backdrops</string>
     <string name="backdrops_reloading">Downloading new backdrops…</string>
     <string name="auto_hide_bar">Auto-hide</string>
+    <string name="slideshow_clock">Screensaver clock</string>
     <string name="time_remaining">%1$s remaining</string>
     <string name="home_key_name">Vibe Launcher Home button</string>
     <!-- The store build's accessibility service (src/store). -->

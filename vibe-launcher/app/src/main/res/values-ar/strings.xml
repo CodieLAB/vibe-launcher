@@ -37,6 +37,7 @@
     <string name="save">حفظ</string>
     <string name="cancel">إلغاء</string>
     <string name="tab_general">عام</string>
+    <string name="tab_appearance">المظهر</string>
     <string name="tab_keys">مفاتيح API</string>
     <string name="updates">إصدار البرنامج</string>
     <string name="check_updates">البحث عن تحديثات</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">إعادة تحميل الخلفيات</string>
     <string name="backdrops_reloading">جارٍ تنزيل خلفيات جديدة…</string>
     <string name="auto_hide_bar">إخفاء تلقائي</string>
+    <string name="slideshow_clock">ساعة شاشة التوقف</string>
     <string name="time_remaining">متبقٍ: %1$s</string>
     <string name="home_key_name">زر الشاشة الرئيسية لـ Vibe Launcher</string>
     <string name="home_key_description">يجعل زر الشاشة الرئيسية في جهاز التحكم يفتح Vibe Launcher بدل الشاشة الرئيسية للتلفزيون، ويفتح الضغط المطوّل عليه إعدادات التلفزيون. لا يقرأ شيئًا على الشاشة ويمرّر كل زر آخر كما هو.</string>

@@ -37,6 +37,7 @@
     <string name="save">සුරකින්න</string>
     <string name="cancel">අවලංගු කරන්න</string>
     <string name="tab_general">සාමාන්‍ය</string>
+    <string name="tab_appearance">පෙනුම</string>
     <string name="tab_keys">API යතුරු</string>
     <string name="updates">මෘදුකාංග අනුවාදය</string>
     <string name="check_updates">යාවත්කාලීන සොයන්න</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">පසුබිම් නැවත පූරණය කරන්න</string>
     <string name="backdrops_reloading">නව පසුබිම් බාගත වෙමින්…</string>
     <string name="auto_hide_bar">ස්වයංක්‍රීයව සඟවන්න</string>
+    <string name="slideshow_clock">තිර සුරැකුම් ඔරලෝසුව</string>
     <string name="time_remaining">%1$s ඉතිරියි</string>
     <string name="home_key_name">Vibe Launcher මුල් බොත්තම</string>
     <string name="home_key_description">දුරස්ථ පාලකයේ මුල් බොත්තම රූපවාහිනියේම මුල් තිරය වෙනුවට Vibe Launcher විවෘත කරන අතර, එය තදකර තබාගත් විට රූපවාහිනියේ සැකසීම් විවෘත වේ. එය තිරයේ කිසිවක් කියවන්නේ නැති අතර අනෙක් සියලු බොත්තම් එලෙසම ඉදිරියට යවයි.</string>

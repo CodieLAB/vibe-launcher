@@ -25,10 +25,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Vibe Launcher settings on two tabs. General: tiles per row and updates (Updater). API keys: the TMDB,
- * YouTube and Plex keys, each with an (i) explaining it, SmartTube to install or sign in to (the key-free
- * way to YouTube backdrops), and a QR code for pasting the keys from a phone (PhoneLink). Save and Cancel
- * serve both tabs.
+ * Vibe Launcher settings on three tabs. General: language, reloading the backdrops and updates (Updater).
+ * Appearance: tiles per row, inputs, the top bar and the slideshow's clock. API keys: the TMDB, YouTube and
+ * Plex keys, each with an (i) explaining it, SmartTube to install or sign in to (the key-free way to YouTube
+ * backdrops), and a QR code for pasting the keys from a phone (PhoneLink). Save and Cancel serve every tab.
  */
 final class SettingsDialog {
 
@@ -59,7 +59,7 @@ final class SettingsDialog {
         Window window = dialog.getWindow();
         if (window != null) {
             window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            // Centred, one size for both tabs (see pages below). The keyboard only comes up once a field
+            // Centred, one size for every tab (see pages below). The keyboard only comes up once a field
             // is picked.
             window.setGravity(Gravity.CENTER);
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -125,40 +125,52 @@ final class SettingsDialog {
             });
         }
         View barEntry = barPills[savedHideBar ? 1 : 0];
+        // The clock on the slideshow: Off or On, the choice marked; applied on Save.
+        boolean savedSlideClock = settings.slideshowClock();
+        boolean[] slideClock = {savedSlideClock};
+        View[] clockPills = {panel.findViewById(R.id.slideClockOff), panel.findViewById(R.id.slideClockOn)};
+        for (int i = 0; i < clockPills.length; i++) {
+            boolean value = i == 1;
+            clockPills[i].setSelected(value == savedSlideClock);
+            clockPills[i].setOnClickListener(v -> {
+                slideClock[0] = value;
+                for (View p : clockPills) p.setSelected(p == v);
+            });
+        }
+        View clockEntry = clockPills[savedSlideClock ? 1 : 0];
         TextView updateStatus = panel.findViewById(R.id.updateStatus);
-        View tabGeneral = panel.findViewById(R.id.tabGeneral), tabKeys = panel.findViewById(R.id.tabKeys);
-        View pageGeneral = panel.findViewById(R.id.pageGeneral), pageKeys = panel.findViewById(R.id.pageKeys);
+        View tabGeneral = panel.findViewById(R.id.tabGeneral), tabAppearance = panel.findViewById(R.id.tabAppearance),
+                tabKeys = panel.findViewById(R.id.tabKeys);
+        View pageGeneral = panel.findViewById(R.id.pageGeneral), pageAppearance = panel.findViewById(R.id.pageAppearance),
+                pageKeys = panel.findViewById(R.id.pageKeys);
+        View[] tabs = {tabGeneral, tabAppearance, tabKeys}, pageViews = {pageGeneral, pageAppearance, pageKeys};
         View phone = panel.findViewById(R.id.phone), projectLink = panel.findViewById(R.id.projectLink);
         View updates = panel.findViewById(R.id.updates);
         View reloadBackdrops = panel.findViewById(R.id.reloadBackdrops);
         boolean[] phoneReady = {false};
-        // A tab shows its page as soon as it has focus, like the tabs in the TV's own apps.
-        Runnable showGeneral = () -> {
-            pageGeneral.setVisibility(View.VISIBLE);
-            pageKeys.setVisibility(View.GONE);
-            phone.setVisibility(View.GONE);
-            projectLink.setVisibility(View.VISIBLE);
-            updates.setVisibility(View.VISIBLE);
-            tabGeneral.setSelected(true);
-            tabKeys.setSelected(false);
+        // A tab shows its page as soon as it has focus, like the tabs in the TV's own apps. Under Save and
+        // Cancel: the updates on General, the QR code on API keys (it's for the keys).
+        java.util.function.IntConsumer showPage = page -> {
+            for (int i = 0; i < tabs.length; i++) {
+                pageViews[i].setVisibility(i == page ? View.VISIBLE : View.GONE);
+                tabs[i].setSelected(i == page);
+            }
+            boolean keys = page == 2;
+            phone.setVisibility(keys && phoneReady[0] ? View.VISIBLE : View.GONE);
+            projectLink.setVisibility(keys ? View.GONE : View.VISIBLE);
+            updates.setVisibility(page == 0 ? View.VISIBLE : View.GONE);
         };
-        Runnable showKeys = () -> {
-            pageGeneral.setVisibility(View.GONE);
-            pageKeys.setVisibility(View.VISIBLE);
-            phone.setVisibility(phoneReady[0] ? View.VISIBLE : View.GONE);   // the QR code is for the keys
-            projectLink.setVisibility(View.GONE);
-            updates.setVisibility(View.GONE);
-            tabGeneral.setSelected(false);
-            tabKeys.setSelected(true);
-        };
-        // One height for both tabs: the frame as tall as the taller page, once it has its width.
+        // One height for every tab: the frame as tall as the tallest page, once it has its width.
         View pages = panel.findViewById(R.id.pages);
         pages.post(() -> {
             int width = View.MeasureSpec.makeMeasureSpec(pages.getWidth(), View.MeasureSpec.EXACTLY);
             int any = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-            pageGeneral.measure(width, any);
-            pageKeys.measure(width, any);
-            pages.setMinimumHeight(Math.max(pageGeneral.getMeasuredHeight(), pageKeys.getMeasuredHeight()));
+            int tallest = 0;
+            for (View page : pageViews) {
+                page.measure(width, any);
+                tallest = Math.max(tallest, page.getMeasuredHeight());
+            }
+            pages.setMinimumHeight(tallest);
             // Then Check for updates level with the last setting on the left (Reload backdrops).
             pages.post(() -> {
                 View last = reloadBackdrops;
@@ -173,15 +185,17 @@ final class SettingsDialog {
                 updates.setLayoutParams(lp);
             });
         });
-        tabGeneral.setOnFocusChangeListener((v, focused) -> { if (focused) showGeneral.run(); });
-        tabKeys.setOnFocusChangeListener((v, focused) -> { if (focused) showKeys.run(); });
-        tabGeneral.setOnClickListener(v -> columnsEntry.requestFocus());
-        tabKeys.setOnClickListener(v -> tmdbInfo.requestFocus());
+        View[] firstOnPage = {languageButton, columnsEntry, tmdbInfo};
+        for (int i = 0; i < tabs.length; i++) {
+            int page = i;
+            tabs[i].setOnFocusChangeListener((v, focused) -> { if (focused) showPage.accept(page); });
+            tabs[i].setOnClickListener(v -> firstOnPage[page].requestFocus());
+        }
 
         // Text fields keep Up/Down to themselves on this TV, so steer the remote by hand. Up from the top
         // of a page reaches its tab; Right from anything jumps to Save (and Cancel under it), and Left
         // comes back to where it left.
-        View[] cameFrom = {columnsEntry};
+        View[] cameFrom = {languageButton};
         TextView smartTube = panel.findViewById(R.id.smartTubeButton);
         View[] order = {tmdbInfo, tmdb, youtubeInfo, smartTube, youtube, plexInfo, plex};
         for (int i = 0; i < order.length; i++) {
@@ -201,26 +215,25 @@ final class SettingsDialog {
                 return step < 0 && tabKeys.requestFocus();
             });
         }
-        View.OnKeyListener tabKeysNav = (v, keyCode, event) -> {
-            if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
-            if (keyCode == KeyEvent.KEYCODE_DPAD_UP) return true;   // nothing above
-            if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
-                return v == tabGeneral ? columnsEntry.requestFocus() : tmdbInfo.requestFocus();
-            }
-            if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) return v == tabGeneral || tabGeneral.requestFocus();
-            if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
-                if (v == tabGeneral) return tabKeys.requestFocus();
-                cameFrom[0] = v;
-                return save.requestFocus();
-            }
-            return false;
-        };
-        tabGeneral.setOnKeyListener(tabKeysNav);
-        tabKeys.setOnKeyListener(tabKeysNav);
+        for (int i = 0; i < tabs.length; i++) {
+            int at = i;
+            tabs[i].setOnKeyListener((v, keyCode, event) -> {
+                if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
+                if (keyCode == KeyEvent.KEYCODE_DPAD_UP) return true;   // nothing above
+                if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) return firstOnPage[at].requestFocus();
+                if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) return at == 0 || tabs[at - 1].requestFocus();
+                if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                    if (at < tabs.length - 1) return tabs[at + 1].requestFocus();
+                    cameFrom[0] = v;
+                    return save.requestFocus();
+                }
+                return false;
+            });
+        }
         for (View pill : columnPills) {
             pill.setOnKeyListener((v, keyCode, event) -> {
                 if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
-                if (keyCode == KeyEvent.KEYCODE_DPAD_UP) return tabGeneral.requestFocus();
+                if (keyCode == KeyEvent.KEYCODE_DPAD_UP) return tabAppearance.requestFocus();
                 if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) return hideEntry.requestFocus();
                 if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT && v == columnPills[2]) {
                     cameFrom[0] = v;
@@ -234,7 +247,7 @@ final class SettingsDialog {
             if (activity instanceof MainActivity) ((MainActivity) activity).reloadBackdrops();
             Toast.makeText(activity, R.string.backdrops_reloading, Toast.LENGTH_SHORT).show();
         });
-        steer(languageButton, barEntry, reloadBackdrops, save, cameFrom);
+        steer(languageButton, tabGeneral, reloadBackdrops, save, cameFrom);
         steer(reloadBackdrops, languageButton, null, save, cameFrom);
         for (View pill : hidePills) {
             pill.setOnKeyListener((v, keyCode, event) -> {
@@ -252,8 +265,20 @@ final class SettingsDialog {
             pill.setOnKeyListener((v, keyCode, event) -> {
                 if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
                 if (keyCode == KeyEvent.KEYCODE_DPAD_UP) return hideEntry.requestFocus();
-                if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) return languageButton.requestFocus();
+                if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) return clockEntry.requestFocus();
                 if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT && v == barPills[1]) {
+                    cameFrom[0] = v;
+                    return save.requestFocus();
+                }
+                return false;   // Left/Right move between the pills
+            });
+        }
+        for (View pill : clockPills) {
+            pill.setOnKeyListener((v, keyCode, event) -> {
+                if (event.getAction() != KeyEvent.ACTION_DOWN) return false;
+                if (keyCode == KeyEvent.KEYCODE_DPAD_UP) return barEntry.requestFocus();
+                if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) return true;   // the last one
+                if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT && v == clockPills[1]) {
                     cameFrom[0] = v;
                     return save.requestFocus();
                 }
@@ -334,7 +359,7 @@ final class SettingsDialog {
                     res == R.string.update_failed ? R.string.smarttube_failed : res, Toast.LENGTH_LONG).show());
             if (started) Toast.makeText(activity, R.string.smarttube_downloading, Toast.LENGTH_LONG).show();
         });
-        showGeneral.run();
+        showPage.accept(0);
         dialog.setOnDismissListener(d -> {
             link.stop();
             activity.unregisterReceiver(packages);
@@ -350,6 +375,7 @@ final class SettingsDialog {
             if (chosen[0] != current) settings.setColumns(chosen[0]);
             if (!chosenLanguage[0].equals(savedLanguage)) settings.setLanguage(chosenLanguage[0]);
             if (hideInputs[0] != savedHideInputs) settings.setHideInactiveInputs(hideInputs[0]);   // read when Inputs opens
+            if (slideClock[0] != savedSlideClock) settings.setSlideshowClock(slideClock[0]);   // read when it starts
             if (hideBar[0] != savedHideBar) {
                 settings.setAutoHideBar(hideBar[0]);
                 if (activity instanceof MainActivity) ((MainActivity) activity).updateTopBar();
@@ -357,7 +383,7 @@ final class SettingsDialog {
             if (rebuild) activity.recreate();   // rebuild Home with the new grid or language
         });
         dialog.show();
-        columnsEntry.requestFocus();
+        languageButton.requestFocus();
     }
 
     /**

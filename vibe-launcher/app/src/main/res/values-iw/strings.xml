@@ -37,6 +37,7 @@
     <string name="save">שמירה</string>
     <string name="cancel">ביטול</string>
     <string name="tab_general">כללי</string>
+    <string name="tab_appearance">מראה</string>
     <string name="tab_keys">מפתחות API</string>
     <string name="updates">גרסת התוכנה</string>
     <string name="check_updates">בדיקת עדכונים</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">טעינה מחדש של תמונות הרקע</string>
     <string name="backdrops_reloading">מורידים תמונות רקע חדשות…</string>
     <string name="auto_hide_bar">הסתרה אוטומטית</string>
+    <string name="slideshow_clock">שעון בשומר המסך</string>
     <string name="time_remaining">נותרו %1$s</string>
     <string name="home_key_name">כפתור הבית של Vibe Launcher</string>
     <string name="home_key_description">גורם לכפתור הבית בשלט לפתוח את Vibe Launcher במקום מסך הבית של הטלוויזיה, ולחיצה ארוכה עליו פותחת את הגדרות הטלוויזיה. הוא לא קורא דבר מהמסך ומעביר הלאה את כל שאר המקשים.</string>

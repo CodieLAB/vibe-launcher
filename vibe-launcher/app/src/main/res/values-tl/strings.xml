@@ -37,6 +37,7 @@
     <string name="save">I-save</string>
     <string name="cancel">Kanselahin</string>
     <string name="tab_general">Pangkalahatan</string>
+    <string name="tab_appearance">Hitsura</string>
     <string name="tab_keys">Mga API key</string>
     <string name="updates">Bersyon ng software</string>
     <string name="check_updates">Tingnan kung may update</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">I-reload ang mga backdrop</string>
     <string name="backdrops_reloading">Nagda-download ng mga bagong backdrop…</string>
     <string name="auto_hide_bar">Awtomatikong itago</string>
+    <string name="slideshow_clock">Orasan sa screensaver</string>
     <string name="time_remaining">%1$s pa ang natitira</string>
     <string name="home_key_name">Home button ng Vibe Launcher</string>
     <string name="home_key_description">Ginagawa nitong buksan ng Home button ng remote ang Vibe Launcher sa halip na ang sariling home screen ng TV, at ang Mga Setting ng TV kapag pinindot nang matagal. Wala itong binabasa sa screen at pinapadaan ang lahat ng iba pang button.</string>

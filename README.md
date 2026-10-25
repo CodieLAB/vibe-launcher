@@ -65,7 +65,8 @@ Play button. An app with no picture yet goes straight to the top bar instead.
 ### Slideshow
 
 Leave Home alone for a minute and the apps and the top bar slide away: the backdrops of every app in
-the dock follow each other at random, ten seconds each, with nothing over them. Press any button and
+the dock follow each other at random, ten seconds each, with only the clock over them, where it sits on
+the top bar (Settings → Appearance → Screensaver clock turns it off). Press any button and
 it stops on the picture showing, with the Play button ready, so holding OK opens it. It
 doesn't start while a menu or Settings is open, and it keeps the screen on only as long as your TV's
 own screen-off setting would. (This replaces the screensaver of earlier versions; pick another, or
@@ -89,11 +90,19 @@ slides in when you press Up from the picture alone, or move down into the app gr
 
 ## Settings
 
-**General**: tiles per row, hiding inactive inputs, auto-hide, language and reloading the backdrops;
-under Save and Cancel, the software version.
+Three tabs: **General**, **Appearance** and **API keys**.
+
+**General**: language and reloading the backdrops; under Save and Cancel, the software version.
 
 | ![Vibe Launcher settings, General tab: tiles per row, hide inactive inputs, auto-hide, language, reload backdrops, and the software version under Save and Cancel](vibe-launcher/docs/settings-general.jpg) | ![The language list, each language in its own name](vibe-launcher/docs/language.jpg) |
 |---|---|
+
+- **Language**: Match system (the default), or any of 50 languages, each listed in its own name. The
+  clock and date follow it.
+- **Backdrops → Reload backdrops**: empties the saved pictures and downloads them all again, each
+  app's first one first.
+
+**Appearance**: tiles per row, hiding inactive inputs, auto-hide and the screensaver clock.
 
 - **Tiles per row**: 4, 5 or 6. Tiles shrink to fit and the dock holds as many apps. Until you pick,
   it follows the TV's size: 4 under 51", 5 up to 74", 6 from 74" up. A streaming box can't tell
@@ -103,10 +112,8 @@ under Save and Cancel, the software version.
 - **Auto-hide**: On keeps the top bar out of sight on the dock and with the picture alone;
   Off (the default) keeps it always on screen, and Up from the dock then waits a moment, so scrolling up quickly
   passes the picture alone and reaches the bar.
-- **Language**: Match system (the default), or any of 50 languages, each listed in its own name. The
-  clock and date follow it.
-- **Backdrops → Reload backdrops**: empties the saved pictures and downloads them all again, each
-  app's first one first.
+- **Screensaver clock**: On (the default) shows the time on the slideshow, in the same place as on the
+  top bar but without the bar; Off leaves the pictures alone.
 
 **API keys**: optional keys that unlock more backdrops: **TMDB**, **YouTube** and **Plex**. Each has
 an ⓘ that explains what it adds and where to get it, free. Typing a 32-character key with a remote

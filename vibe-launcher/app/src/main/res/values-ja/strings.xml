@@ -37,6 +37,7 @@
     <string name="save">保存</string>
     <string name="cancel">キャンセル</string>
     <string name="tab_general">一般</string>
+    <string name="tab_appearance">外観</string>
     <string name="tab_keys">API キー</string>
     <string name="updates">ソフトウェアのバージョン</string>
     <string name="check_updates">アップデートを確認</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">背景画像を再読み込み</string>
     <string name="backdrops_reloading">新しい背景画像をダウンロードしています…</string>
     <string name="auto_hide_bar">自動的に隠す</string>
+    <string name="slideshow_clock">スクリーンセーバーの時計</string>
     <string name="time_remaining">残り %1$s</string>
     <string name="home_key_name">Vibe Launcher ホームボタン</string>
     <string name="home_key_description">リモコンのホームボタンで、テレビ独自のホーム画面ではなく Vibe Launcher を開き、長押しでテレビの設定を開きます。画面の内容は読み取らず、ほかのボタンはそのまま通します。</string>

@@ -37,6 +37,7 @@
     <string name="save">सुरक्षित गर्नुहोस्</string>
     <string name="cancel">रद्द गर्नुहोस्</string>
     <string name="tab_general">सामान्य</string>
+    <string name="tab_appearance">रूप</string>
     <string name="tab_keys">API कुञ्जीहरू</string>
     <string name="updates">सफ्टवेयर संस्करण</string>
     <string name="check_updates">अपडेट जाँच्नुहोस्</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">पृष्ठभूमिहरू फेरि लोड गर्नुहोस्</string>
     <string name="backdrops_reloading">नयाँ पृष्ठभूमिहरू डाउनलोड हुँदैछन्…</string>
     <string name="auto_hide_bar">स्वतः लुकाउनुहोस्</string>
+    <string name="slideshow_clock">स्क्रिनसेभर घडी</string>
     <string name="time_remaining">%1$s बाँकी</string>
     <string name="home_key_name">Vibe Launcher होम बटन</string>
     <string name="home_key_description">रिमोटको होम बटनले टिभीको आफ्नै होम स्क्रिनको सट्टा Vibe Launcher खोल्छ, र थिचिराख्दा टिभीका सेटिङ खुल्छन्। यसले स्क्रिनमा केही पढ्दैन र अरू सबै बटन जस्ताको तस्तै अगाडि जान दिन्छ।</string>

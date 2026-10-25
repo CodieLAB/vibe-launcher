@@ -37,6 +37,7 @@
     <string name="save">Salva</string>
     <string name="cancel">Annulla</string>
     <string name="tab_general">Generali</string>
+    <string name="tab_appearance">Aspetto</string>
     <string name="tab_keys">Chiavi API</string>
     <string name="updates">Versione del software</string>
     <string name="check_updates">Cerca aggiornamenti</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">Ricarica gli sfondi</string>
     <string name="backdrops_reloading">Download di nuovi sfondi…</string>
     <string name="auto_hide_bar">Nascondi automaticamente</string>
+    <string name="slideshow_clock">Orologio nel salvaschermo</string>
     <string name="time_remaining">Ancora %1$s</string>
     <string name="home_key_name">Tasto Home di Vibe Launcher</string>
     <string name="home_key_description">Fa aprire Vibe Launcher al tasto Home del telecomando al posto della schermata Home del televisore, e le impostazioni del televisore tenendolo premuto. Non legge nulla sullo schermo e lascia passare tutti gli altri tasti.</string>

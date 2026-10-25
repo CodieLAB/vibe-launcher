@@ -37,6 +37,7 @@
     <string name="save">Guardar</string>
     <string name="cancel">Cancelar</string>
     <string name="tab_general">General</string>
+    <string name="tab_appearance">Apariencia</string>
     <string name="tab_keys">Claves de API</string>
     <string name="updates">Versión del software</string>
     <string name="check_updates">Buscar actualizaciones</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">Volver a cargar fondos</string>
     <string name="backdrops_reloading">Descargando fondos nuevos…</string>
     <string name="auto_hide_bar">Ocultar automáticamente</string>
+    <string name="slideshow_clock">Reloj en el salvapantallas</string>
     <string name="time_remaining">Quedan %1$s</string>
     <string name="home_key_name">Botón de inicio de Vibe Launcher</string>
     <string name="home_key_description">Hace que el botón de inicio del mando abra Vibe Launcher en lugar de la pantalla de inicio del televisor, y que mantenerlo pulsado abra los ajustes del televisor. No lee nada de la pantalla y deja pasar todos los demás botones.</string>

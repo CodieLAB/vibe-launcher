@@ -37,6 +37,7 @@
     <string name="save">Запазване</string>
     <string name="cancel">Отказ</string>
     <string name="tab_general">Общи</string>
+    <string name="tab_appearance">Облик</string>
     <string name="tab_keys">API ключове</string>
     <string name="updates">Версия на софтуера</string>
     <string name="check_updates">Проверка за актуализации</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">Презареди фоновете</string>
     <string name="backdrops_reloading">Изтегляне на нови фонове…</string>
     <string name="auto_hide_bar">Автоскриване</string>
+    <string name="slideshow_clock">Часовник на скрийнсейвъра</string>
     <string name="time_remaining">Остават %1$s</string>
     <string name="home_key_name">Бутон „Начало“ за Vibe Launcher</string>
     <string name="home_key_description">Бутонът „Начало“ на дистанционното отваря Vibe Launcher вместо собствения начален екран на телевизора, а задържането му – настройките на телевизора. Не чете нищо от екрана и пропуска всички останали бутони.</string>

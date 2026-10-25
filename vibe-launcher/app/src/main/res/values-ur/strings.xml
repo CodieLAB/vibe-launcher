@@ -37,6 +37,7 @@
     <string name="save">محفوظ کریں</string>
     <string name="cancel">منسوخ کریں</string>
     <string name="tab_general">عمومی</string>
+    <string name="tab_appearance">ظاہری شکل</string>
     <string name="tab_keys">API کلیدیں</string>
     <string name="updates">سافٹ ویئر ورژن</string>
     <string name="check_updates">اپ ڈیٹس دیکھیں</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">پس منظر دوبارہ لوڈ کریں</string>
     <string name="backdrops_reloading">نئے پس منظر ڈاؤن لوڈ ہو رہے ہیں…</string>
     <string name="auto_hide_bar">خود بخود چھپائیں</string>
+    <string name="slideshow_clock">اسکرین سیور گھڑی</string>
     <string name="time_remaining">%1$s باقی</string>
     <string name="home_key_name">Vibe Launcher ہوم بٹن</string>
     <string name="home_key_description">ریموٹ کا ہوم بٹن ٹی وی کی اپنی ہوم اسکرین کے بجائے Vibe Launcher کھولتا ہے، اور اسے دبائے رکھنے پر ٹی وی کی ترتیبات کھلتی ہیں۔ یہ اسکرین پر کچھ نہیں پڑھتا اور باقی سب بٹن ویسے ہی آگے جانے دیتا ہے۔</string>

@@ -37,6 +37,7 @@
     <string name="save">Зберегти</string>
     <string name="cancel">Скасувати</string>
     <string name="tab_general">Загальні</string>
+    <string name="tab_appearance">Вигляд</string>
     <string name="tab_keys">Ключі API</string>
     <string name="updates">Версія програми</string>
     <string name="check_updates">Перевірити оновлення</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">Оновити фони</string>
     <string name="backdrops_reloading">Завантаження нових фонів…</string>
     <string name="auto_hide_bar">Автоприховування</string>
+    <string name="slideshow_clock">Годинник на заставці</string>
     <string name="time_remaining">Залишилося: %1$s</string>
     <string name="home_key_name">Кнопка «Головний екран» для Vibe Launcher</string>
     <string name="home_key_description">Кнопка «Головний екран» на пульті відкриває Vibe Launcher замість власного головного екрана телевізора, а довге натискання – налаштування телевізора. Нічого не зчитує з екрана й пропускає всі інші кнопки.</string>

@@ -37,6 +37,7 @@
     <string name="save">சேமி</string>
     <string name="cancel">ரத்துசெய்</string>
     <string name="tab_general">பொது</string>
+    <string name="tab_appearance">தோற்றம்</string>
     <string name="tab_keys">API சாவிகள்</string>
     <string name="updates">மென்பொருள் பதிப்பு</string>
     <string name="check_updates">புதுப்பிப்புகளைத் தேடு</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">பின்னணிகளை மீண்டும் ஏற்று</string>
     <string name="backdrops_reloading">புதிய பின்னணிகள் பதிவிறக்கப்படுகின்றன…</string>
     <string name="auto_hide_bar">தானாக மறை</string>
+    <string name="slideshow_clock">ஸ்கிரீன்சேவர் கடிகாரம்</string>
     <string name="time_remaining">%1$s மீதம்</string>
     <string name="home_key_name">Vibe Launcher முகப்புப் பொத்தான்</string>
     <string name="home_key_description">ரிமோட்டின் முகப்புப் பொத்தான் டிவியின் சொந்த முகப்புத் திரைக்குப் பதிலாக Vibe Launcher-ஐத் திறக்கும், அழுத்திப் பிடித்தால் டிவியின் அமைப்புகள் திறக்கும். திரையில் எதையும் படிக்காது, மற்ற எல்லாப் பொத்தான்களையும் அப்படியே அனுப்பும்.</string>

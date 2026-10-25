@@ -37,6 +37,7 @@
     <string name="save">जतन करा</string>
     <string name="cancel">रद्द करा</string>
     <string name="tab_general">सामान्य</string>
+    <string name="tab_appearance">स्वरूप</string>
     <string name="tab_keys">API की</string>
     <string name="updates">सॉफ्टवेअर आवृत्ती</string>
     <string name="check_updates">अपडेट तपासा</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">पार्श्वभूमी पुन्हा लोड करा</string>
     <string name="backdrops_reloading">नवीन पार्श्वभूमी डाउनलोड होत आहेत…</string>
     <string name="auto_hide_bar">आपोआप लपवा</string>
+    <string name="slideshow_clock">स्क्रीनसेव्हर घड्याळ</string>
     <string name="time_remaining">%1$s बाकी</string>
     <string name="home_key_name">Vibe Launcher होम बटण</string>
     <string name="home_key_description">रिमोटचे होम बटण टीव्हीच्या स्वतःच्या होम स्क्रीनऐवजी Vibe Launcher उघडते, आणि ते दाबून ठेवल्यास टीव्हीची सेटिंग्ज उघडतात. तो स्क्रीनवरील काहीही वाचत नाही आणि बाकी सर्व बटणे तशीच पुढे जाऊ देतो.</string>

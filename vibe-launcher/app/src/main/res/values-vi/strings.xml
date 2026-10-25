@@ -37,6 +37,7 @@
     <string name="save">Lưu</string>
     <string name="cancel">Hủy</string>
     <string name="tab_general">Chung</string>
+    <string name="tab_appearance">Giao diện</string>
     <string name="tab_keys">Khóa API</string>
     <string name="updates">Phiên bản phần mềm</string>
     <string name="check_updates">Kiểm tra cập nhật</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">Tải lại ảnh nền</string>
     <string name="backdrops_reloading">Đang tải ảnh nền mới…</string>
     <string name="auto_hide_bar">Tự động ẩn</string>
+    <string name="slideshow_clock">Đồng hồ trên trình bảo vệ màn hình</string>
     <string name="time_remaining">Còn %1$s</string>
     <string name="home_key_name">Nút Màn hình chính của Vibe Launcher</string>
     <string name="home_key_description">Khiến nút Màn hình chính trên điều khiển mở Vibe Launcher thay vì màn hình chính của TV, và nhấn giữ để mở Cài đặt của TV. Không đọc nội dung nào trên màn hình và để mọi nút khác đi qua như bình thường.</string>

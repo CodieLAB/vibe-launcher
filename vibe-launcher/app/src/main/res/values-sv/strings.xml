@@ -37,6 +37,7 @@
     <string name="save">Spara</string>
     <string name="cancel">Avbryt</string>
     <string name="tab_general">Allmänt</string>
+    <string name="tab_appearance">Utseende</string>
     <string name="tab_keys">API-nycklar</string>
     <string name="updates">Programversion</string>
     <string name="check_updates">Sök efter uppdateringar</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">Läs in bakgrunder igen</string>
     <string name="backdrops_reloading">Hämtar nya bakgrunder…</string>
     <string name="auto_hide_bar">Dölj automatiskt</string>
+    <string name="slideshow_clock">Klocka på skärmsläckare</string>
     <string name="time_remaining">%1$s kvar</string>
     <string name="home_key_name">Vibe Launcher-hemknapp</string>
     <string name="home_key_description">Får fjärrkontrollens hemknapp att öppna Vibe Launcher i stället för tv:ns egen startskärm, och ett långt tryck att öppna tv:ns inställningar. Den läser inget på skärmen och släpper igenom alla andra knappar.</string>

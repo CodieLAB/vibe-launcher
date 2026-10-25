@@ -37,6 +37,7 @@
     <string name="save">Αποθήκευση</string>
     <string name="cancel">Ακύρωση</string>
     <string name="tab_general">Γενικά</string>
+    <string name="tab_appearance">Εμφάνιση</string>
     <string name="tab_keys">Κλειδιά API</string>
     <string name="updates">Έκδοση λογισμικού</string>
     <string name="check_updates">Έλεγχος για ενημερώσεις</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">Επαναφόρτωση φόντων</string>
     <string name="backdrops_reloading">Λήψη νέων φόντων…</string>
     <string name="auto_hide_bar">Αυτόματη απόκρυψη</string>
+    <string name="slideshow_clock">Ρολόι προφύλαξης οθόνης</string>
     <string name="time_remaining">Απομένουν %1$s</string>
     <string name="home_key_name">Κουμπί αρχικής οθόνης Vibe Launcher</string>
     <string name="home_key_description">Κάνει το κουμπί αρχικής οθόνης του τηλεχειριστηρίου να ανοίγει το Vibe Launcher αντί για την αρχική οθόνη της τηλεόρασης, και το παρατεταμένο πάτημα να ανοίγει τις ρυθμίσεις της. Δεν διαβάζει τίποτα στην οθόνη και αφήνει όλα τα άλλα κουμπιά να περάσουν.</string>

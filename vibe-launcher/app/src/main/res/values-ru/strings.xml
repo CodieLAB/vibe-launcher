@@ -37,6 +37,7 @@
     <string name="save">Сохранить</string>
     <string name="cancel">Отмена</string>
     <string name="tab_general">Общие</string>
+    <string name="tab_appearance">Оформление</string>
     <string name="tab_keys">Ключи API</string>
     <string name="updates">Версия программы</string>
     <string name="check_updates">Проверить обновления</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">Обновить фоны</string>
     <string name="backdrops_reloading">Загрузка новых фонов…</string>
     <string name="auto_hide_bar">Автоскрытие</string>
+    <string name="slideshow_clock">Часы на заставке</string>
     <string name="time_remaining">Осталось: %1$s</string>
     <string name="home_key_name">Кнопка «Домой» для Vibe Launcher</string>
     <string name="home_key_description">Кнопка «Домой» на пульте открывает Vibe Launcher вместо собственного главного экрана телевизора, а долгое нажатие – настройки телевизора. Ничего не считывает с экрана и пропускает все остальные кнопки.</string>

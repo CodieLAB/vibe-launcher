@@ -37,6 +37,7 @@
     <string name="save">सहेजें</string>
     <string name="cancel">रद्द करें</string>
     <string name="tab_general">सामान्य</string>
+    <string name="tab_appearance">रूप-रंग</string>
     <string name="tab_keys">API कुंजियाँ</string>
     <string name="updates">सॉफ़्टवेयर संस्करण</string>
     <string name="check_updates">अपडेट देखें</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">बैकड्रॉप फिर से लोड करें</string>
     <string name="backdrops_reloading">नए बैकड्रॉप डाउनलोड हो रहे हैं…</string>
     <string name="auto_hide_bar">अपने-आप छिपाएं</string>
+    <string name="slideshow_clock">स्क्रीनसेवर घड़ी</string>
     <string name="time_remaining">%1$s बाकी</string>
     <string name="home_key_name">Vibe Launcher होम बटन</string>
     <string name="home_key_description">रिमोट का होम बटन टीवी की अपनी होम स्क्रीन के बजाय Vibe Launcher खोलता है, और उसे दबाए रखने पर टीवी की सेटिंग खुलती है। यह स्क्रीन पर कुछ नहीं पढ़ता और बाकी सभी बटन जैसे के तैसे आगे जाने देता है।</string>

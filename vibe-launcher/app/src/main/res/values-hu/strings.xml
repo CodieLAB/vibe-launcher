@@ -37,6 +37,7 @@
     <string name="save">Mentés</string>
     <string name="cancel">Mégse</string>
     <string name="tab_general">Általános</string>
+    <string name="tab_appearance">Megjelenés</string>
     <string name="tab_keys">API-kulcsok</string>
     <string name="updates">Szoftververzió</string>
     <string name="check_updates">Frissítések keresése</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">Háttérképek újratöltése</string>
     <string name="backdrops_reloading">Új háttérképek letöltése…</string>
     <string name="auto_hide_bar">Automatikus elrejtés</string>
+    <string name="slideshow_clock">Óra a képernyővédőn</string>
     <string name="time_remaining">Még %1$s</string>
     <string name="home_key_name">Vibe Launcher Kezdőképernyő gomb</string>
     <string name="home_key_description">A távirányító Kezdőképernyő gombja a tévé saját kezdőképernyője helyett a Vibe Launchert nyitja meg, nyomva tartva pedig a tévé beállításait. Semmit nem olvas a képernyőről, és minden más gombot továbbenged.</string>

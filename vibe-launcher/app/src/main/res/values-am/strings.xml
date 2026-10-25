@@ -37,6 +37,7 @@
     <string name="save">አስቀምጥ</string>
     <string name="cancel">ይቅር</string>
     <string name="tab_general">አጠቃላይ</string>
+    <string name="tab_appearance">መልክ</string>
     <string name="tab_keys">የAPI ቁልፎች</string>
     <string name="updates">የሶፍትዌር ስሪት</string>
     <string name="check_updates">ዝማኔዎችን ፈልግ</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">ዳራዎችን እንደገና ጫን</string>
     <string name="backdrops_reloading">አዲስ ዳራዎችን በማውረድ ላይ…</string>
     <string name="auto_hide_bar">በራስ-ሰር ደብቅ</string>
+    <string name="slideshow_clock">የስክሪን ቆጣቢ ሰዓት</string>
     <string name="time_remaining">%1$s ቀርቷል</string>
     <string name="home_key_name">Vibe Launcher የመነሻ አዝራር</string>
     <string name="home_key_description">የሩቅ መቆጣጠሪያው የመነሻ አዝራር ከቴሌቪዥኑ የራሱ መነሻ ማያ ገጽ ይልቅ Vibe Launcherን እንዲከፍት፣ ተጭኖ ሲያዝ ደግሞ የቴሌቪዥኑን ቅንብሮች እንዲከፍት ያደርጋል። በማያ ገጹ ላይ ምንም አያነብም፣ ሌሎቹን ቁልፎች ሁሉ ያሳልፋል።</string>

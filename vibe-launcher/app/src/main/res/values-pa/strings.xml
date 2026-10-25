@@ -37,6 +37,7 @@
     <string name="save">ਸੰਭਾਲੋ</string>
     <string name="cancel">ਰੱਦ ਕਰੋ</string>
     <string name="tab_general">ਆਮ</string>
+    <string name="tab_appearance">ਦਿੱਖ</string>
     <string name="tab_keys">API ਕੁੰਜੀਆਂ</string>
     <string name="updates">ਸਾਫ਼ਟਵੇਅਰ ਵਰਜਨ</string>
     <string name="check_updates">ਅੱਪਡੇਟ ਦੇਖੋ</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">ਪਿਛੋਕੜ ਮੁੜ ਲੋਡ ਕਰੋ</string>
     <string name="backdrops_reloading">ਨਵੇਂ ਪਿਛੋਕੜ ਡਾਊਨਲੋਡ ਹੋ ਰਹੇ ਹਨ…</string>
     <string name="auto_hide_bar">ਆਪਣੇ-ਆਪ ਲੁਕਾਓ</string>
+    <string name="slideshow_clock">ਸਕ੍ਰੀਨਸੇਵਰ ਘੜੀ</string>
     <string name="time_remaining">%1$s ਬਾਕੀ</string>
     <string name="home_key_name">Vibe Launcher ਹੋਮ ਬਟਨ</string>
     <string name="home_key_description">ਰਿਮੋਟ ਦਾ ਹੋਮ ਬਟਨ ਟੀਵੀ ਦੀ ਆਪਣੀ ਹੋਮ ਸਕ੍ਰੀਨ ਦੀ ਬਜਾਏ Vibe Launcher ਖੋਲ੍ਹਦਾ ਹੈ, ਅਤੇ ਦਬਾਈ ਰੱਖਣ ਉੱਤੇ ਟੀਵੀ ਦੀਆਂ ਸੈਟਿੰਗਾਂ ਖੁੱਲ੍ਹਦੀਆਂ ਹਨ। ਇਹ ਸਕ੍ਰੀਨ ਉੱਤੇ ਕੁਝ ਨਹੀਂ ਪੜ੍ਹਦਾ ਅਤੇ ਬਾਕੀ ਸਾਰੇ ਬਟਨ ਉਵੇਂ ਹੀ ਅੱਗੇ ਜਾਣ ਦਿੰਦਾ ਹੈ।</string>

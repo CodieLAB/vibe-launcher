@@ -37,6 +37,7 @@
     <string name="save">သိမ်းရန်</string>
     <string name="cancel">မလုပ်တော့ပါ</string>
     <string name="tab_general">အထွေထွေ</string>
+    <string name="tab_appearance">အသွင်အပြင်</string>
     <string name="tab_keys">API ကီးများ</string>
     <string name="updates">ဆော့ဖ်ဝဲ ဗားရှင်း</string>
     <string name="check_updates">အပ်ဒိတ် စစ်ရန်</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">နောက်ခံပုံများကို ပြန်ဖွင့်ရန်</string>
     <string name="backdrops_reloading">နောက်ခံပုံအသစ်များ ဒေါင်းလုဒ်လုပ်နေသည်…</string>
     <string name="auto_hide_bar">အလိုအလျောက် ဝှက်ရန်</string>
+    <string name="slideshow_clock">မျက်နှာပြင်ထိန်း နာရီ</string>
     <string name="time_remaining">%1$s ကျန်သည်</string>
     <string name="home_key_name">Vibe Launcher ပင်မခလုတ်</string>
     <string name="home_key_description">အဝေးထိန်း၏ ပင်မခလုတ်က TV ၏ ကိုယ်ပိုင်ပင်မစခရင်အစား Vibe Launcher ကို ဖွင့်ပြီး ဖိထားလျှင် TV ၏ ဆက်တင်များကို ဖွင့်သည်။ စခရင်ပေါ်ရှိ မည်သည့်အရာကိုမျှ မဖတ်ဘဲ အခြားခလုတ်အားလုံးကို ဆက်လက်ပေးပို့သည်။</string>

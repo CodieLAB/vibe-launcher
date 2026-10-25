@@ -37,6 +37,7 @@
     <string name="save">সংরক্ষণ</string>
     <string name="cancel">বাতিল</string>
     <string name="tab_general">সাধারণ</string>
+    <string name="tab_appearance">চেহারা</string>
     <string name="tab_keys">API কী</string>
     <string name="updates">সফটওয়্যার সংস্করণ</string>
     <string name="check_updates">আপডেট খুঁজুন</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">ব্যাকড্রপ আবার লোড করুন</string>
     <string name="backdrops_reloading">নতুন ব্যাকড্রপ ডাউনলোড হচ্ছে…</string>
     <string name="auto_hide_bar">স্বয়ংক্রিয়ভাবে লুকান</string>
+    <string name="slideshow_clock">স্ক্রিনসেভার ঘড়ি</string>
     <string name="time_remaining">%1$s বাকি</string>
     <string name="home_key_name">Vibe Launcher হোম বোতাম</string>
     <string name="home_key_description">রিমোটের হোম বোতাম টিভির নিজের হোম স্ক্রিনের বদলে Vibe Launcher খোলে, আর চেপে ধরলে টিভির সেটিংস খোলে। এটি স্ক্রিনের কিছুই পড়ে না এবং বাকি সব বোতাম যেমন আছে তেমন পাঠিয়ে দেয়।</string>

@@ -261,6 +261,45 @@
         </RelativeLayout>
     </FrameLayout>
 
+    <!-- The slideshow's clock: the top bar's time and AM/PM, without the bar, put where they are on it (in
+         MainActivity). -->
+    <LinearLayout
+        android:id="@+id/slideClock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:orientation="horizontal"
+        android:baselineAligned="false"
+        android:alpha="0"
+        android:visibility="invisible"
+        android:importantForAccessibility="no">
+
+        <TextClock
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:format12Hour="h:mm"
+            android:format24Hour="HH:mm"
+            android:textColor="#FFFFFFFF"
+            android:textSize="52sp"
+            android:fontFamily="@string/font_regular"
+            android:letterSpacing="-0.04"
+            android:includeFontPadding="false" />
+
+        <TextClock
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="16.5dp"
+            android:format12Hour="a"
+            android:format24Hour=""
+            android:textColor="#B3FFFFFF"
+            android:textSize="15sp"
+            android:fontFamily="@string/font_regular"
+            android:letterSpacing="0.08"
+            android:textAllCaps="true" />
+    </LinearLayout>
+
     <!-- Where the remote goes: up from the dock to the picture alone (right above the dock, placed in
          code), and with the picture alone all four ways (see MainActivity.updateCarets). -->
     <ImageView

@@ -37,6 +37,7 @@
     <string name="save">Tallenna</string>
     <string name="cancel">Peruuta</string>
     <string name="tab_general">Yleiset</string>
+    <string name="tab_appearance">Ulkoasu</string>
     <string name="tab_keys">API-avaimet</string>
     <string name="updates">Ohjelmistoversio</string>
     <string name="check_updates">Tarkista päivitykset</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">Lataa taustakuvat uudelleen</string>
     <string name="backdrops_reloading">Ladataan uusia taustakuvia…</string>
     <string name="auto_hide_bar">Piilota automaattisesti</string>
+    <string name="slideshow_clock">Kello näytönsäästäjässä</string>
     <string name="time_remaining">%1$s jäljellä</string>
     <string name="home_key_name">Vibe Launcherin aloitusnäyttöpainike</string>
     <string name="home_key_description">Saa kaukosäätimen aloitusnäyttöpainikkeen avaamaan Vibe Launcherin television oman aloitusnäytön sijaan ja pitkän painalluksen television asetukset. Se ei lue mitään näytöltä ja päästää kaikki muut painikkeet läpi.</string>

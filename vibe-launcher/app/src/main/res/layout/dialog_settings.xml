@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Vibe Launcher settings on two tabs: General (tiles per row, updates) and API keys (the backdrop
-     sources' keys and the phone QR code). Save and Cancel on the right serve both. -->
+<!-- Vibe Launcher settings on three tabs: General (language, backdrops, updates), Appearance (the grid, the
+     top bar, the slideshow) and API keys (the backdrop sources' keys and the phone QR code). Save and Cancel
+     on the right serve all three. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="620dp"
@@ -21,6 +22,11 @@
             android:text="@string/tab_general" />
 
         <TextView
+            android:id="@+id/tabAppearance"
+            style="@style/TopButton"
+            android:text="@string/tab_appearance" />
+
+        <TextView
             android:id="@+id/tabKeys"
             style="@style/TopButton"
             android:text="@string/tab_keys" />
@@ -32,7 +38,7 @@
         android:orientation="horizontal"
         android:baselineAligned="false">
 
-        <!-- Both pages in one frame; only the chosen tab's page is there, the frame as tall as the taller
+        <!-- The pages in one frame; only the chosen tab's page is there, the frame as tall as the tallest
              page so the dialog keeps one height (SettingsDialog). -->
         <FrameLayout
             android:id="@+id/pages"
@@ -45,6 +51,57 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/SettingsLabel"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="6dp"
+                        android:maxWidth="150dp"
+                        android:text="@string/language" />
+
+                    <!-- The language in use; opens the list (SettingsDialog), applied on Save. -->
+                    <TextView
+                        android:id="@+id/languageButton"
+                        style="@style/TopButton"
+                        android:paddingStart="20dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        style="@style/SettingsLabel"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="6dp"
+                        android:maxWidth="150dp"
+                        android:text="@string/backdrops" />
+
+                    <!-- Empties the backdrop pools and downloads, and builds them again (at once, not on Save). -->
+                    <TextView
+                        android:id="@+id/reloadBackdrops"
+                        style="@style/TopButton"
+                        android:paddingStart="20dp"
+                        android:text="@string/reload_backdrops" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/pageAppearance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <!-- Label and choices on one line, so the dialog still fits a 1080p screen. Each label has a
                      maxWidth: a long translation wraps onto two lines instead of pushing its choices off the
@@ -143,6 +200,7 @@
                         android:text="@string/on" />
                 </LinearLayout>
 
+                <!-- The time on the slideshow, where it is on the top bar. -->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -155,37 +213,20 @@
                         android:layout_marginTop="0dp"
                         android:layout_marginEnd="6dp"
                         android:maxWidth="150dp"
-                        android:text="@string/language" />
-
-                    <!-- The language in use; opens the list (SettingsDialog), applied on Save. -->
-                    <TextView
-                        android:id="@+id/languageButton"
-                        style="@style/TopButton"
-                        android:paddingStart="20dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
+                        android:text="@string/slideshow_clock" />
 
                     <TextView
-                        style="@style/SettingsLabel"
-                        android:layout_marginTop="0dp"
-                        android:layout_marginEnd="6dp"
-                        android:maxWidth="150dp"
-                        android:text="@string/backdrops" />
-
-                    <!-- Empties the backdrop pools and downloads, and builds them again (at once, not on Save). -->
-                    <TextView
-                        android:id="@+id/reloadBackdrops"
+                        android:id="@+id/slideClockOff"
                         style="@style/TopButton"
                         android:paddingStart="20dp"
-                        android:text="@string/reload_backdrops" />
-                </LinearLayout>
+                        android:text="@string/off" />
 
+                    <TextView
+                        android:id="@+id/slideClockOn"
+                        style="@style/TopButton"
+                        android:paddingStart="20dp"
+                        android:text="@string/on" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -291,7 +332,7 @@
             android:orientation="vertical"
             android:gravity="center_horizontal">
 
-            <!-- Save and Cancel first, so they sit in the same place on both tabs; under them the software
+            <!-- Save and Cancel first, so they sit in the same place on every tab; under them the software
                  version on General, the QR code on API keys. -->
             <TextView
                 android:id="@+id/save"

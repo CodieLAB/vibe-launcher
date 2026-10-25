@@ -161,6 +161,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private VibeSettings settings;
     /** Hold OK with the picture alone: the Play pill fills, and a long press opens backdropLink. */
     private View holdPlay, holdPlayFill;
+    private View slideClock;   // the slideshow's clock, where the top bar's is
     private TextView playInfo;   // under the Play pill: the time left on something you're watching
     private ValueAnimator holdFill;
     private boolean holdOpened;   // this press already opened the title: its release changes nothing
@@ -388,6 +389,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         caretLeft = findViewById(R.id.caretLeft);
         caretRight = findViewById(R.id.caretRight);
         holdPlay = findViewById(R.id.holdPlay);
+        slideClock = findViewById(R.id.slideClock);
         holdPlayFill = findViewById(R.id.holdPlayFill);
         playInfo = findViewById(R.id.playInfo);
         setHoldFill(0f);
@@ -569,8 +571,19 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         if (homeToTop) {
             homeToTop = false;
             lastFocused = 0;
+            // Focused once the grid is laid out at the top: before it, the glass was fitted to where the
+            // tile was (pressed again and again, up by the clock), and the jump doesn't move it. Fitted
+            // again too, for when the tile kept its focus and no focus change would.
+            grid.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+                @Override
+                public void onLayoutChange(View v, int l, int t, int r, int b, int ol, int ot, int or, int ob) {
+                    grid.removeOnLayoutChangeListener(this);
+                    focusTile(0);
+                    refreshFocusedTile();
+                }
+            });
             grid.scrollToPosition(0);
-            grid.post(() -> focusTile(0));
+            grid.requestLayout();
         }
         updateTopBar();
         if (!rebuild) {
@@ -1232,7 +1245,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private float rowsDistance() {
         // Scrolled down the grid, the rows fill the screen: all the way. Else just past the dock's panel.
         if (grid.computeVerticalScrollOffset() > 0) return rows.getHeight();
-        float d = rows.getHeight() - dockPanelTop;
+        // 2dp more for the panel's edge, a stroke centred on its top, and its anti-aliasing.
+        float d = rows.getHeight() - dockPanelTop + 2 * density;
         return d > 0 && dockPanelTop > 0 ? d : rows.getHeight();
     }
 
@@ -1526,6 +1540,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         slidePkg = backdropPkg;
         slideEntry = null;
         glass.animate().alpha(0f).setDuration(CARET_FADE_MS).start();
+        showSlideClock(pictureOnly ? 0 : PICTURE_SLIDE_MS);   // once the top bar, with its clock, is away
         if (!pictureOnly) {
             if (!onDock()) focusAfterSlide = lastFocused % COLUMNS;   // the top bar or a lower row
             showPictureOnly(-1);
@@ -1539,6 +1554,25 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         handler.removeCallbacks(letScreenOff);
         handler.postAtTime(letScreenOff, lastKeyAt + Math.max(IDLE_MS, screenOff));
         handler.postDelayed(nextSlide, PICTURE_SLIDE_MS + CARET_FADE_MS);
+    }
+
+    /**
+     * The top bar's time and AM/PM, alone on the slideshow: in the same place as on the bar (where the bar
+     * is when showing, whatever it's doing now), and not until the TV knows the time, like the bar's. Unless
+     * turned off in Settings.
+     */
+    private void showSlideClock(long delay) {
+        if (!settings.slideshowClock()) return;   // Settings > Appearance
+        View box = findViewById(R.id.timeBox);
+        if (findViewById(R.id.clockRow).getVisibility() != View.VISIBLE || box.getWidth() == 0) return;
+        Rect r = new Rect(0, 0, box.getWidth(), box.getHeight());
+        root.offsetDescendantRectToMyCoords(box, r);   // layout positions: the bar's slide doesn't count
+        slideClock.setX(r.left);
+        slideClock.setY(r.top);
+        slideClock.animate().cancel();
+        slideClock.setAlpha(0f);
+        slideClock.setVisibility(View.VISIBLE);
+        slideClock.animate().alpha(1f).setStartDelay(delay).setDuration(400).start();
     }
 
     private void nextSlide() {
@@ -1558,6 +1592,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
      */
     private void endSlideshow() {
         slideshow = false;
+        slideClock.animate().cancel();
+        slideClock.animate().alpha(0f).setStartDelay(0).setDuration(CARET_FADE_MS)
+                .withEndAction(() -> slideClock.setVisibility(View.INVISIBLE)).start();
         handler.removeCallbacks(nextSlide);
         handler.removeCallbacks(letScreenOff);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);

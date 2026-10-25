@@ -37,6 +37,7 @@
     <string name="save">ಉಳಿಸು</string>
     <string name="cancel">ರದ್ದುಮಾಡಿ</string>
     <string name="tab_general">ಸಾಮಾನ್ಯ</string>
+    <string name="tab_appearance">ಗೋಚರತೆ</string>
     <string name="tab_keys">API ಕೀಗಳು</string>
     <string name="updates">ಸಾಫ್ಟ್‌ವೇರ್ ಆವೃತ್ತಿ</string>
     <string name="check_updates">ಅಪ್‌ಡೇಟ್‌ಗಳಿಗಾಗಿ ಪರಿಶೀಲಿಸು</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">ಹಿನ್ನೆಲೆಗಳನ್ನು ಮರುಲೋಡ್ ಮಾಡಿ</string>
     <string name="backdrops_reloading">ಹೊಸ ಹಿನ್ನೆಲೆಗಳನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ…</string>
     <string name="auto_hide_bar">ಸ್ವಯಂ ಮರೆಮಾಡು</string>
+    <string name="slideshow_clock">ಸ್ಕ್ರೀನ್‌ಸೇವರ್ ಗಡಿಯಾರ</string>
     <string name="time_remaining">%1$s ಉಳಿದಿದೆ</string>
     <string name="home_key_name">Vibe Launcher ಹೋಮ್ ಬಟನ್</string>
     <string name="home_key_description">ರಿಮೋಟ್‌ನ ಹೋಮ್ ಬಟನ್ ಟಿವಿಯ ಸ್ವಂತ ಹೋಮ್ ಸ್ಕ್ರೀನ್ ಬದಲು Vibe Launcher ತೆರೆಯುತ್ತದೆ, ಒತ್ತಿ ಹಿಡಿದರೆ ಟಿವಿಯ ಸೆಟ್ಟಿಂಗ್‌ಗಳು ತೆರೆಯುತ್ತವೆ. ಸ್ಕ್ರೀನ್‌ನಲ್ಲಿ ಏನನ್ನೂ ಓದುವುದಿಲ್ಲ, ಉಳಿದ ಎಲ್ಲ ಬಟನ್‌ಗಳನ್ನು ಹಾಗೆಯೇ ಕಳುಹಿಸುತ್ತದೆ.</string>

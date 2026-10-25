@@ -37,6 +37,7 @@
     <string name="save">រក្សាទុក</string>
     <string name="cancel">បោះបង់</string>
     <string name="tab_general">ទូទៅ</string>
+    <string name="tab_appearance">រូបរាង</string>
     <string name="tab_keys">សោ API</string>
     <string name="updates">កំណែកម្មវិធី</string>
     <string name="check_updates">ពិនិត្យរកបច្ចុប្បន្នភាព</string>
@@ -75,6 +76,7 @@
     <string name="reload_backdrops">ផ្ទុកផ្ទៃខាងក្រោយឡើងវិញ</string>
     <string name="backdrops_reloading">កំពុងទាញយកផ្ទៃខាងក្រោយថ្មី…</string>
     <string name="auto_hide_bar">លាក់ដោយស្វ័យប្រវត្តិ</string>
+    <string name="slideshow_clock">នាឡិកាលើធាតុរក្សាអេក្រង់</string>
     <string name="time_remaining">នៅសល់ %1$s</string>
     <string name="home_key_name">ប៊ូតុងដើម Vibe Launcher</string>
     <string name="home_key_description">ធ្វើឱ្យប៊ូតុងដើមលើតេឡេបញ្ជាបើក Vibe Launcher ជំនួសអេក្រង់ដើមរបស់ទូរទស្សន៍ ហើយការចុចជាប់បើកការកំណត់ទូរទស្សន៍។ វាមិនអានអ្វីនៅលើអេក្រង់ទេ ហើយបញ្ជូនប៊ូតុងផ្សេងៗទាំងអស់បន្ត។</string>
