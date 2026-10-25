@@ -86,4 +86,5 @@
     <string name="home_key_disclosure">Bu TV, uygulamaların ana ekran uygulaması olmasına izin vermiyor; bu yüzden Vibe Launcher\'ın Ana ekran düğmesine yanıt verebilmesi için bir erişilebilirlik hizmeti gerekiyor.\n\nAna ekran düğmesini üstlenir: basınca Vibe Launcher açılır, basılı tutunca Ayarlar açılır, diğer tüm tuşlar olduğu gibi geçer. TV\'nin kendi ana ekranının açıldığını da görür ve üstünü kapatır. Ekrandaki hiçbir şeyi okumaz, hiçbir şey saklamaz ve hiçbir yere bir şey göndermez.\n\nİstediğiniz zaman Ayarlar &gt; Erişilebilirlik bölümünden kapatabilirsiniz.</string>
     <string name="home_key_agree">Kabul ediyorum</string>
     <string name="home_key_steps">Sonra: açılan listede “%1$s” seçeneğini seçip açın, ardından Ana ekran düğmesine basın.</string>
+    <string name="store_update">Vibe Launcher\'ı güncelle</string>
 </resources>

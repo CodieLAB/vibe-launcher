@@ -15,8 +15,8 @@ android {
         applicationId 'com.maydings.vibelauncher'
         minSdk 26
         targetSdk 34
-        versionCode 48
-        versionName '2.1.1'
+        versionCode 49
+        versionName '2.2.0'
     }
 
     buildFeatures {
@@ -85,4 +85,6 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.4.0'
     implementation 'androidx.dynamicanimation:dynamicanimation:1.1.0'
     implementation 'com.google.zxing:core:3.5.4'   // QR code for pasting keys from a phone
+    // The store build: whether Play has a newer version, and Play's own update screen (StoreUpdates).
+    storeImplementation 'com.google.android.play:app-update:2.1.0'
 }

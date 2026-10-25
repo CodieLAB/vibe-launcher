@@ -86,4 +86,5 @@
     <string name="home_key_disclosure">このテレビではアプリをホームアプリにできないため、Vibe Launcher がホームボタンに応えるにはユーザー補助サービスが必要です。\n\nホームボタンを引き受けます。押すと Vibe Launcher が、長押しすると設定が開き、ほかのボタンはそのまま通ります。テレビ独自のホーム画面が表示されたときもそれを確認し、上から覆います。画面の内容は読み取らず、何も保存せず、どこにも何も送信しません。\n\n[設定] &gt; [ユーザー補助] でいつでもオフにできます。</string>
     <string name="home_key_agree">同意する</string>
     <string name="home_key_steps">次に、表示されるリストで「%1$s」を選んでオンにし、ホームボタンを押してください。</string>
+    <string name="store_update">Vibe Launcher を更新</string>
 </resources>

@@ -48,7 +48,7 @@ Or by hand: `./gradlew assembleAdbDebug`, then `adb install -r -g app/build/outp
 | Accessibility service | none | `HomeKeyService`: hears only the stock launchers' screens opening, reads nothing on screen, keeps Home and passes every other key on; stops looking at keys while a game controller is connected (Home then reaches the stock launcher, which gets covered) |
 | First start, and gear menu → *Make Home* | the TV's default-Home dialog, where it has one | the TV's default-Home dialog only where it can work (no stock launcher outranks it); otherwise, or if that doesn't take, a note on what the Home button service sees and the steps, then Accessibility settings. Shown until Home comes here |
 | Remote's app buttons (Google TV) | the ones Google TV's launcher handled (YouTube, Free TV) stop working with it off | keep working |
-| Updates | checks the GitHub releases (daily, on waking, in the gear menu) and installs them | none of its own: the store updates it |
+| Updates | checks the GitHub releases (daily, on waking, in the gear menu) and installs them | Play installs them; while Play has a newer version, the gear shows the green dot and its row (and Settings) opens Play's update screen |
 | Settings → General | version and *Check for updates* | version only |
 | SmartTube | Settings can install it | Settings only opens it, and only shows the button when it's on the TV |
 | Install permissions | `REQUEST_INSTALL_PACKAGES`, `KILL_BACKGROUND_PROCESSES` | none |

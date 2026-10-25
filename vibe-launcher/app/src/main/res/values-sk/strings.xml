@@ -86,4 +86,5 @@
     <string name="home_key_disclosure">Tento televízor nedovoľuje aplikáciám stať sa domovskou aplikáciou, preto Vibe Launcher potrebuje službu dostupnosti, aby mohol reagovať na tlačidlo Domov.\n\nPrevezme tlačidlo Domov: stlačenie otvorí Vibe Launcher, podržanie otvorí nastavenia a všetky ostatné tlačidlá prejdú bez zmeny. Vidí aj, kedy sa objaví vlastná domovská obrazovka televízora, a zakryje ju. Nič z obrazovky nečíta, nič neukladá a nikam nič neposiela.\n\nKedykoľvek ju vypnete v Nastaveniach &gt; Dostupnosť.</string>
     <string name="home_key_agree">Súhlasím</string>
     <string name="home_key_steps">Ďalej: v zozname, ktorý sa otvorí, vyberte „%1$s“, zapnite ho a stlačte Domov.</string>
+    <string name="store_update">Aktualizovať Vibe Launcher</string>
 </resources>

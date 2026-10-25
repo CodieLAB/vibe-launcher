@@ -548,8 +548,9 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         lastKeyAt = SystemClock.uptimeMillis();
         armIdle();
         showUpdateReady();
-        if (wakeCheck) wakeUpdateCheck();
-        else if (!BuildConfig.STORE) Updater.checkIfDue(this, (newer, failed) -> showUpdateReady());   // at most once a day
+        if (BuildConfig.STORE) StoreUpdates.check(this, this::showUpdateReady);   // Play keeps the answer
+        else if (wakeCheck) wakeUpdateCheck();
+        else Updater.checkIfDue(this, (newer, failed) -> showUpdateReady());   // at most once a day
         sizeTimeBox();   // the 12/24-hour setting may have changed meanwhile
         // The pills keep their state while Home is away, and the network callback updates the network one, so
         // this only catches anything missed. Its binder calls (the Wi-Fi name, the TV's inputs) would hold up
@@ -2056,7 +2057,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         // The last check's answer at once, then ask GitHub again: a release out since then replaces it in
         // this row, or shows the row. Settings → General, opened from here, shows the same answer. The row is
         // always there (hidden without an update) so showMenu gives it the menu bar's Left and Right.
-        // The store build has no update row: the store updates it.
+        // The store build: a row only while Play has a newer version; it opens Play's update screen.
+        if (BuildConfig.STORE && StoreUpdates.available()) {
+            addInputRow(rows, popup, R.drawable.ic_update, getString(R.string.store_update), -1,
+                    () -> StoreUpdates.open(this));
+        }
         if (!BuildConfig.STORE) {
             Updater.Release[] update = {Updater.available(this)};
             View updateRow = addInputRow(rows, popup, R.drawable.ic_update, "", -1,
@@ -2103,7 +2108,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     /** The green dot in the Settings gear: shown while a newer release is waiting to be installed. */
     void showUpdateReady() {
-        findViewById(R.id.updateDot).setVisibility(!BuildConfig.STORE && Updater.available(this) != null ? View.VISIBLE : View.GONE);
+        boolean ready = BuildConfig.STORE ? StoreUpdates.available() : Updater.available(this) != null;
+        findViewById(R.id.updateDot).setVisibility(ready ? View.VISIBLE : View.GONE);
     }
 
     /** A read-only row with a usage bar; fill it with the returned view. */

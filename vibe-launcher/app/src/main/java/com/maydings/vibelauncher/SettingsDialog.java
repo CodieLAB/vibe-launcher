@@ -472,9 +472,11 @@ final class SettingsDialog {
      */
     private static void showUpdates(Activity activity, TextView status, TextView button) {
         String version = Updater.installedVersion(activity);
-        if (BuildConfig.STORE) {   // the store updates it: just the version
+        if (BuildConfig.STORE) {   // Play updates it: the version, and its update screen while it has a newer one
             status.setText(activity.getString(R.string.version_current, version));
-            button.setVisibility(View.GONE);
+            button.setVisibility(StoreUpdates.available() ? View.VISIBLE : View.GONE);
+            button.setText(R.string.store_update);
+            button.setOnClickListener(v -> StoreUpdates.open(activity));
             return;
         }
         if (Updater.isDevelopmentBuild(activity)) {

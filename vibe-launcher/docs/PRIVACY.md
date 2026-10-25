@@ -61,7 +61,7 @@ internet address). The services' own privacy policies apply to what they receive
 | Your phone, on your home network | the keys page, while the keys dialog is open | when you scan the QR code to type keys on a phone; it has a random address that changes each time |
 | **adb build only:** GitHub (`api.github.com`, `github.com`) | a request for this project's latest release, and SmartTube's | daily, when the TV wakes, from the gear menu, and when you ask to install SmartTube |
 
-The app store build makes no update checks of its own: the store updates it.
+The app store build doesn't contact GitHub: Google Play updates it. When Home comes back, it asks the Play Store app on the TV whether Play has a newer version, for the green dot on the gear.
 
 ## For the app store's data form
 

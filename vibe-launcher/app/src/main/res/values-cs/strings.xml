@@ -86,4 +86,5 @@
     <string name="home_key_disclosure">Tato televize nedovoluje aplikacím stát se domovskou aplikací, a tak Vibe Launcher potřebuje službu usnadnění, aby mohl reagovat na tlačítko Domů.\n\nPřevezme tlačítko Domů: stisk otevře Vibe Launcher, podržení otevře nastavení a všechna ostatní tlačítka projdou beze změny. Vidí také, kdy se objeví vlastní domovská obrazovka televize, a zakryje ji. Nic na obrazovce nečte, nic neukládá a nikam nic neposílá.\n\nKdykoli ji vypnete v Nastavení &gt; Usnadnění.</string>
     <string name="home_key_agree">Souhlasím</string>
     <string name="home_key_steps">Dál: v seznamu, který se otevře, vyberte „%1$s“, zapněte ho a stiskněte Domů.</string>
+    <string name="store_update">Aktualizovat Vibe Launcher</string>
 </resources>

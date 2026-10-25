@@ -86,4 +86,5 @@
     <string name="home_key_disclosure">Hindi pinapayagan ng TV na ito na maging home app ang mga app, kaya kailangan ng Vibe Launcher ng accessibility service para tumugon sa Home button.\n\nIto ang hahawak sa Home button: binubuksan ng isang pindot ang Vibe Launcher, ng matagal na pindot ang Mga Setting, at dumadaan nang hindi binabago ang lahat ng iba pang button. Nakikita rin nito kapag lumabas ang sariling home screen ng TV, at tinatakpan ito. Wala itong binabasa sa screen, walang iniimbak, at walang ipinapadala kahit saan.\n\nI-off ito anumang oras sa Mga Setting &gt; Accessibility.</string>
     <string name="home_key_agree">Sumasang-ayon</string>
     <string name="home_key_steps">Susunod: sa listahang magbubukas, piliin ang “%1$s”, i-on ito, saka pindutin ang Home.</string>
+    <string name="store_update">I-update ang Vibe Launcher</string>
 </resources>

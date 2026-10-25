@@ -86,4 +86,5 @@
     <string name="home_key_disclosure">TV ini tidak mengizinkan aplikasi menjadi aplikasi beranda, jadi Vibe Launcher memerlukan layanan aksesibilitas untuk merespons tombol Beranda.\n\nLayanan ini mengambil alih tombol Beranda: menekannya membuka Vibe Launcher, menahannya membuka Setelan, dan semua tombol lain diteruskan apa adanya. Layanan ini juga melihat saat layar beranda bawaan TV muncul, lalu menutupinya. Tidak membaca apa pun di layar, tidak menyimpan apa pun, dan tidak mengirim apa pun ke mana pun.\n\nNonaktifkan kapan saja di Setelan &gt; Aksesibilitas.</string>
     <string name="home_key_agree">Setuju</string>
     <string name="home_key_steps">Berikutnya: di daftar yang terbuka, pilih “%1$s”, aktifkan, lalu tekan Beranda.</string>
+    <string name="store_update">Perbarui Vibe Launcher</string>
 </resources>

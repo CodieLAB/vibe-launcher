@@ -86,4 +86,5 @@
     <string name="home_key_disclosure">Ovaj televizor ne dopušta aplikacijama da postanu aplikacija početnog zaslona, pa Vibe Launcheru treba usluga pristupačnosti da bi odgovorio na tipku Početno.\n\nPreuzima tipku Početno: pritisak otvara Vibe Launcher, dulji pritisak otvara postavke, a sve ostale tipke prolaze nepromijenjene. Vidi i kad se pojavi vlastiti početni zaslon televizora i prekriva ga. Ne čita ništa sa zaslona, ništa ne sprema i nikamo ništa ne šalje.\n\nIsključite je bilo kada u Postavke &gt; Pristupačnost.</string>
     <string name="home_key_agree">Slažem se</string>
     <string name="home_key_steps">Zatim: na popisu koji se otvori odaberite „%1$s”, uključite ga i pritisnite Početno.</string>
+    <string name="store_update">Ažuriraj Vibe Launcher</string>
 </resources>

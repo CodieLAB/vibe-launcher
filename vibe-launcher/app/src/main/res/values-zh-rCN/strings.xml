@@ -86,4 +86,5 @@
     <string name="home_key_disclosure">这台电视不允许应用成为主屏幕应用，因此 Vibe Launcher 需要一项无障碍服务来响应主页键。\n\n它接管主页键：按一下打开 Vibe Launcher，长按打开设置，其他按键都原样放行。它也能知道电视自带的主屏幕何时出现，并把它盖住。它不读取屏幕上的任何内容，不保存任何东西，也不向任何地方发送任何东西。\n\n可随时在“设置”&gt;“无障碍”中关闭。</string>
     <string name="home_key_agree">同意</string>
     <string name="home_key_steps">下一步：在打开的列表中选择“%1$s”并开启，然后按主页键。</string>
+    <string name="store_update">更新 Vibe Launcher</string>
 </resources>
