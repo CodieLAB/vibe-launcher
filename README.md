@@ -20,6 +20,9 @@ and gets out of the way. It works well enough for us that I'd like to share it w
 - **Inputs at a glance.** HDMI ports with what's connected, devices behind a switch listed by name.
 - **A slideshow when idle.** Leave Home alone for a minute and every app's backdrops play full screen.
 - **50 languages.** Follows your TV, or pick one.
+- **Settings like Apple TV's.** Full screen, pages that slide in from the side, changes that apply as
+  you make them.
+- **Home at power-on.** For TVs that wake up on their last input: Home comes up instead (optional).
 - **Updates itself.** Shows what's new, checks the download, installs with one confirmation.
 - **Snappy and light.** Moving around feels instant, even on older TVs with 1 to 2 GB of RAM. No
   background services, and it lets go of its pictures while you're in another app.
@@ -98,9 +101,6 @@ close Settings, as they rebuild Home), and the focused row's explanation shows u
 **General**: language, reloading the backdrops, Home at power-on, Restart… (app store version), and the
 software version with its update check.
 
-| ![Vibe Launcher settings, General tab: tiles per row, hide inactive inputs, auto-hide, language, reload backdrops, and the software version under Save and Cancel](vibe-launcher/docs/settings-general.jpg) | ![The language list, each language in its own name](vibe-launcher/docs/language.jpg) |
-|---|---|
-
 - **Language**: Match system (the default), or any of 50 languages, each listed in its own name. The
   clock and date follow it.
 - **Backdrops → Reload backdrops**: empties the saved pictures and downloads them all again, each
@@ -132,13 +132,11 @@ code**: scan it and paste the keys there. Saved keys stay on the TV and show onl
 characters. Under YouTube, one row installs SmartTube (its latest release, checked against GitHub's
 checksum) or opens it to sign in.
 
-![Vibe Launcher settings, API keys tab: TMDB, YouTube and Plex keys and a QR code for the phone](vibe-launcher/docs/settings-keys.jpg)
-
 ## Updates
 
 Vibe Launcher checks for new versions when the TV is turned on or wakes from sleep, once a day, and
-whenever you open the Settings menu. When one is
-out, a green dot appears in the Settings gear and the menu offers **Update to** it. You see what's
+whenever you open the Settings menu, or ask it in Settings → General → **Check for updates**. When one
+is out, a green dot appears in the Settings gear and the menu offers **Update to** it. You see what's
 new in every version since yours, then **Install**: the download is checked against the release's
 SHA-256 before Android asks you to confirm, and Home comes back by itself afterwards.
 
@@ -158,7 +156,7 @@ There's also an **app store version**,
 [vibe-launcher-store.apk](https://github.com/maydings/vibe-launcher/releases/latest/download/vibe-launcher-store.apk),
 for TVs where the stock launcher can't be turned off: it leaves it on, and its own Home button service
 (turned on in Settings → Accessibility, it walks you through it) sends the Home button to Vibe Launcher,
-and holding Home opens the TV's Settings.
+and holding Home opens the TV's Settings. With it on, Settings → General also offers **Restart…**.
 It doesn't update itself or install SmartTube. The two are signed alike, so either can replace the other;
 [the build notes](vibe-launcher/README.md) compare them.
 
