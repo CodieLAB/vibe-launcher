@@ -95,8 +95,17 @@ def feature():
     save(img, "feature-graphic-1024x500.png", 1024, 500)
 
 
+def settings_logo():
+    """The tile alone on transparent, for the left of the launcher's Settings (res/drawable-nodpi)."""
+    t = tile(600 * SS).resize((600, 600), Image.LANCZOS)
+    path = os.path.join(HERE, "..", "app", "src", "main", "res", "drawable-nodpi", "settings_logo.png")
+    t.save(path, optimize=True)
+    print("wrote settings_logo.png 600 600")
+
+
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     icon()
     banner()
     feature()
+    settings_logo()

@@ -34,7 +34,6 @@
     <string name="on">चालू</string>
     <string name="plex_token">Plex टोकन</string>
     <string name="not_set">सेट नहीं है</string>
-    <string name="save">सहेजें</string>
     <string name="cancel">रद्द करें</string>
     <string name="tab_general">सामान्य</string>
     <string name="tab_appearance">रूप-रंग</string>
@@ -48,7 +47,6 @@
     <string name="update_available">अपडेट उपलब्ध: %1$s</string>
     <string name="update_check_failed">%1$s · अपडेट की जाँच नहीं हो सकी</string>
     <string name="update_downloading">अपडेट डाउनलोड हो रहा है…</string>
-    <string name="update_development_status">%1$s, किसी और साइनिंग कुंजी से बना: इसे कंप्यूटर से build-and-install.sh के ज़रिए अपडेट करें</string>
     <string name="update_development">यह बिल्ड किसी और साइनिंग कुंजी से बना है: इसे कंप्यूटर से build-and-install.sh के ज़रिए अपडेट करें</string>
     <string name="update_allow_installs">Vibe Launcher को ऐप्स इंस्टॉल करने की अनुमति दें, फिर दोबारा अपडेट चुनें</string>
     <string name="update_no_installs">यह टीवी ऐप्स को अपडेट इंस्टॉल करने नहीं देता</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">अपडेट इंस्टॉल नहीं हुआ</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">सहेजा गया</string>
+    <string name="phone_paste">फ़ोन से कुंजियाँ पेस्ट करें</string>
     <string name="scan_to_paste">कुंजियाँ चिपकाने के लिए फ़ोन से स्कैन करें</string>
     <string name="tmdb_notice">बैकड्रॉप TMDB API का उपयोग करते हैं, पर TMDB द्वारा समर्थित या प्रमाणित नहीं हैं।</string>
-    <string name="about_key">इस कुंजी के बारे में</string>
     <string name="tmdb_info">आपके ऐप्स के होम स्क्रीन कार्ड पर दिखने वाली फ़िल्मों और शो के लिए साफ़ बैकड्रॉप और शीर्षक लोगो, ऐप्स की अपनी तस्वीरों और स्टिकर की जगह। यह बिना कुंजी के भी चलता है, Stremio के मुफ़्त डेटा से; TMDB आधिकारिक और ज़्यादा भरोसेमंद स्रोत है।\n\nमुफ़्त कुंजी: themoviedb.org → सेटिंग्स → API → निजी उपयोग।</string>
     <string name="youtube_info">SmartTube में साइन इन होने पर YouTube टाइल आपकी अपनी YouTube फ़ीड के वीडियो दिखाती है। कोई कुंजी नहीं चाहिए।\n\nइसके बिना, एक कुंजी आपके देश के सबसे लोकप्रिय वीडियो दिखाती है। मुफ़्त कुंजी: console.cloud.google.com → नया प्रोजेक्ट → YouTube Data API v3 चालू करें → क्रेडेंशियल → API कुंजी बनाएँ।\n\nदोनों न हों तो लोकप्रिय फ़िल्मों के ट्रेलर दिखते हैं।</string>
     <string name="plex_info">आपके अपने Plex सर्वर से बैकड्रॉप: देखना जारी रखें और हाल में जोड़े गए।\n\nपाने के लिए: app.plex.tv → कोई भी टाइटल खोलें → ⋯ → जानकारी पाएँ → XML देखें, और पते में X-Plex-Token= के बाद का हिस्सा कॉपी करें। इसे पासवर्ड की तरह निजी रखें।</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Vibe Launcher को ऐप इंस्टॉल करने दें, फिर SmartTube इंस्टॉल करें दोबारा चुनें</string>
     <string name="smarttube_failed">SmartTube इंस्टॉल नहीं हुआ</string>
     <string name="play">चलाएं</string>
-    <string name="backdrops">बैकड्रॉप</string>
     <string name="reload_backdrops">बैकड्रॉप फिर से लोड करें</string>
     <string name="backdrops_reloading">नए बैकड्रॉप डाउनलोड हो रहे हैं…</string>
     <string name="auto_hide_bar">अपने-आप छिपाएं</string>
     <string name="slideshow_clock">स्क्रीनसेवर घड़ी</string>
+    <string name="power_on_home">चालू होने पर होम</string>
+    <string name="restart">रीस्टार्ट करें…</string>
     <string name="time_remaining">%1$s बाकी</string>
     <string name="home_key_name">Vibe Launcher होम बटन</string>
     <string name="home_key_description">रिमोट का होम बटन टीवी की अपनी होम स्क्रीन के बजाय Vibe Launcher खोलता है, और उसे दबाए रखने पर टीवी की सेटिंग खुलती है। यह स्क्रीन पर कुछ नहीं पढ़ता और बाकी सभी बटन जैसे के तैसे आगे जाने देता है।</string>

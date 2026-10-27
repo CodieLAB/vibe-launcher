@@ -34,7 +34,6 @@
     <string name="on">ఆన్</string>
     <string name="plex_token">Plex టోకెన్</string>
     <string name="not_set">సెట్ చేయలేదు</string>
-    <string name="save">సేవ్ చేయి</string>
     <string name="cancel">రద్దు చేయి</string>
     <string name="tab_general">సాధారణం</string>
     <string name="tab_appearance">రూపం</string>
@@ -48,7 +47,6 @@
     <string name="update_available">అప్‌డేట్ అందుబాటులో ఉంది: %1$s</string>
     <string name="update_check_failed">%1$s · అప్‌డేట్‌లు చూడలేకపోయింది</string>
     <string name="update_downloading">అప్‌డేట్ డౌన్‌లోడ్ అవుతోంది…</string>
-    <string name="update_development_status">%1$s, వేరే సైనింగ్ కీతో తయారైంది: కంప్యూటర్ నుండి build-and-install.sh తో అప్‌డేట్ చేయండి</string>
     <string name="update_development">ఈ బిల్డ్‌కు వేరే సైనింగ్ కీ ఉంది: కంప్యూటర్ నుండి build-and-install.sh తో అప్‌డేట్ చేయండి</string>
     <string name="update_allow_installs">Vibe Launcher‌కు యాప్‌లు ఇన్‌స్టాల్ చేసే అనుమతి ఇవ్వండి, ఆపై మళ్ళీ అప్‌డేట్ ఎంచుకోండి</string>
     <string name="update_no_installs">ఈ టీవీ యాప్‌లను అప్‌డేట్‌లు ఇన్‌స్టాల్ చేయనివ్వదు</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">అప్‌డేట్ ఇన్‌స్టాల్ కాలేదు</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">సేవ్ చేయబడింది</string>
+    <string name="phone_paste">ఫోన్ నుండి కీలను అతికించండి</string>
     <string name="scan_to_paste">కీలను పేస్ట్ చేయడానికి ఫోన్‌తో స్కాన్ చేయండి</string>
     <string name="tmdb_notice">బ్యాక్‌డ్రాప్‌లు TMDB API ని వాడతాయి, కానీ TMDB వీటిని ఆమోదించలేదు లేదా ధృవీకరించలేదు.</string>
-    <string name="about_key">ఈ కీ గురించి</string>
     <string name="tmdb_info">మీ యాప్‌ల హోమ్ స్క్రీన్ కార్డ్‌లలోని సినిమాలు, షోలకు, యాప్‌ల సొంత చిత్రాలు, స్టిక్కర్ల బదులు శుభ్రమైన బ్యాక్‌డ్రాప్‌లు, టైటిల్ లోగోలు. కీ లేకుండానూ పనిచేస్తుంది, Stremio ఉచిత డేటాతో; TMDB అధికారిక, మరింత నమ్మదగిన మూలం.\n\nఉచిత కీ: themoviedb.org → సెట్టింగ్‌లు → API → వ్యక్తిగత ఉపయోగం.</string>
     <string name="youtube_info">SmartTube లో సైన్ ఇన్ అయి ఉంటే, YouTube టైల్ మీ స్వంత YouTube ఫీడ్ వీడియోలను చూపిస్తుంది. కీ అవసరం లేదు.\n\nఅది లేకపోతే, కీతో మీ దేశంలో అత్యంత ప్రజాదరణ పొందిన వీడియోలు కనిపిస్తాయి. ఉచిత కీ: console.cloud.google.com → కొత్త ప్రాజెక్ట్ → YouTube Data API v3 ఆన్ చేయండి → ఆధారాలు → API కీని సృష్టించండి.\n\nరెండూ లేకపోతే, ప్రముఖ సినిమాల ట్రైలర్లు కనిపిస్తాయి.</string>
     <string name="plex_info">మీ సొంత Plex సర్వర్ నుండి బ్యాక్‌డ్రాప్‌లు: చూడటం కొనసాగించు, ఇటీవల జోడించినవి.\n\nపొందడానికి: app.plex.tv → ఏదైనా టైటిల్ తెరవండి → ⋯ → సమాచారం పొందండి → XML చూడండి, చిరునామాలో X-Plex-Token= తర్వాత ఉన్నదాన్ని కాపీ చేయండి. పాస్‌వర్డ్ లాగా గోప్యంగా ఉంచండి.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Vibe Launcher కు యాప్‌లు ఇన్‌స్టాల్ చేయడానికి అనుమతించి, మళ్లీ SmartTube ఇన్‌స్టాల్ చేయండి ఎంచుకోండి</string>
     <string name="smarttube_failed">SmartTube ఇన్‌స్టాల్ కాలేదు</string>
     <string name="play">ప్లే చేయి</string>
-    <string name="backdrops">బ్యాక్‌డ్రాప్‌లు</string>
     <string name="reload_backdrops">బ్యాక్‌డ్రాప్‌లను మళ్లీ లోడ్ చేయి</string>
     <string name="backdrops_reloading">కొత్త బ్యాక్‌డ్రాప్‌లు డౌన్‌లోడ్ అవుతున్నాయి…</string>
     <string name="auto_hide_bar">ఆటోమేటిక్‌గా దాచు</string>
     <string name="slideshow_clock">స్క్రీన్‌సేవర్ గడియారం</string>
+    <string name="power_on_home">ఆన్ చేసినప్పుడు హోమ్</string>
+    <string name="restart">రీస్టార్ట్ చేయి…</string>
     <string name="time_remaining">%1$s మిగిలి ఉంది</string>
     <string name="home_key_name">Vibe Launcher హోమ్ బటన్</string>
     <string name="home_key_description">రిమోట్ హోమ్ బటన్ టీవీ సొంత హోమ్ స్క్రీన్‌కు బదులుగా Vibe Launcher‌ను తెరుస్తుంది, నొక్కి పట్టుకుంటే టీవీ సెట్టింగ్‌లు తెరుచుకుంటాయి. స్క్రీన్‌పై ఏదీ చదవదు, మిగతా బటన్‌లన్నీ అలాగే పంపుతుంది.</string>

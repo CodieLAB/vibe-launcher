@@ -34,7 +34,6 @@
     <string name="on">Вкл.</string>
     <string name="plex_token">Токен Plex</string>
     <string name="not_set">Не задан</string>
-    <string name="save">Сохранить</string>
     <string name="cancel">Отмена</string>
     <string name="tab_general">Общие</string>
     <string name="tab_appearance">Оформление</string>
@@ -48,7 +47,6 @@
     <string name="update_available">Доступно обновление: %1$s</string>
     <string name="update_check_failed">%1$s · Не удалось проверить обновления</string>
     <string name="update_downloading">Загрузка обновления…</string>
-    <string name="update_development_status">%1$s, собрана с другим ключом подписи: обновляйте с компьютера через build-and-install.sh</string>
     <string name="update_development">У этой сборки другой ключ подписи: обновляйте её с компьютера, через build-and-install.sh</string>
     <string name="update_allow_installs">Разрешите Vibe Launcher устанавливать приложения, затем снова выберите «Обновить»</string>
     <string name="update_no_installs">Этот телевизор не даёт приложениям устанавливать обновления</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">Обновление не установлено</string>
     <string name="cpu">ЦП</string>
     <string name="ram">ОЗУ</string>
-    <string name="saved">Сохранено</string>
+    <string name="phone_paste">Вставить ключи с телефона</string>
     <string name="scan_to_paste">Отсканируйте телефоном, чтобы вставить ключи</string>
     <string name="tmdb_notice">Фоны используют API TMDB, но не одобрены и не сертифицированы TMDB.</string>
-    <string name="about_key">Об этом ключе</string>
     <string name="tmdb_info">Чистые фоны и логотипы названий для фильмов и сериалов с карточек главного экрана ваших приложений вместо их собственных картинок и наклеек. Работает без ключа, на бесплатных данных Stremio; TMDB — официальный и более надёжный источник.\n\nБесплатный ключ: themoviedb.org → Настройки → API → личное использование.</string>
     <string name="youtube_info">Если вы вошли в SmartTube, плитка YouTube показывает видео из вашей собственной ленты YouTube. Ключ не нужен.\n\nБез него ключ показывает самые популярные видео в вашей стране. Бесплатный ключ: console.cloud.google.com → новый проект → включите YouTube Data API v3 → Учётные данные → Создать ключ API.\n\nЕсли нет ни того, ни другого, показываются трейлеры популярных фильмов.</string>
     <string name="plex_info">Фоны с вашего собственного сервера Plex: «Продолжить просмотр» и недавно добавленное.\n\nКак найти: app.plex.tv → откройте любой фильм → ⋯ → Информация → Просмотреть XML и скопируйте то, что идёт после X-Plex-Token= в адресе. Храните его в тайне, как пароль.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Разрешите Vibe Launcher устанавливать приложения и снова выберите «Установить SmartTube»</string>
     <string name="smarttube_failed">SmartTube не установился</string>
     <string name="play">Смотреть</string>
-    <string name="backdrops">Фоны</string>
     <string name="reload_backdrops">Обновить фоны</string>
     <string name="backdrops_reloading">Загрузка новых фонов…</string>
     <string name="auto_hide_bar">Автоскрытие</string>
     <string name="slideshow_clock">Часы на заставке</string>
+    <string name="power_on_home">Главный экран при включении</string>
+    <string name="restart">Перезагрузить…</string>
     <string name="time_remaining">Осталось: %1$s</string>
     <string name="home_key_name">Кнопка «Домой» для Vibe Launcher</string>
     <string name="home_key_description">Кнопка «Домой» на пульте открывает Vibe Launcher вместо собственного главного экрана телевизора, а долгое нажатие – настройки телевизора. Ничего не считывает с экрана и пропускает все остальные кнопки.</string>

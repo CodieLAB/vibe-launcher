@@ -34,7 +34,6 @@
     <string name="on">开</string>
     <string name="plex_token">Plex 令牌</string>
     <string name="not_set">未设置</string>
-    <string name="save">保存</string>
     <string name="cancel">取消</string>
     <string name="tab_general">常规</string>
     <string name="tab_appearance">外观</string>
@@ -48,7 +47,6 @@
     <string name="update_available">有可用更新：%1$s</string>
     <string name="update_check_failed">%1$s · 无法检查更新</string>
     <string name="update_downloading">正在下载更新…</string>
-    <string name="update_development_status">%1$s，使用其他签名密钥构建：请用电脑通过 build-and-install.sh 更新</string>
     <string name="update_development">此版本使用其他签名密钥：请用电脑通过 build-and-install.sh 更新</string>
     <string name="update_allow_installs">请允许 Vibe Launcher 安装应用，然后再次选择更新</string>
     <string name="update_no_installs">这台电视不允许应用安装更新</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">更新未能安装</string>
     <string name="cpu">CPU</string>
     <string name="ram">内存</string>
-    <string name="saved">已保存</string>
+    <string name="phone_paste">从手机粘贴密钥</string>
     <string name="scan_to_paste">用手机扫码粘贴密钥</string>
     <string name="tmdb_notice">背景图使用 TMDB API，但未获得 TMDB 认可或认证。</string>
-    <string name="about_key">关于此密钥</string>
     <string name="tmdb_info">为应用主屏卡片上的电影和剧集提供无文字的背景图和片名标志，取代应用自带的图片和标签。无需密钥也能使用（来自 Stremio 的免费数据）；TMDB 是官方的、更可靠的来源。\n\n免费密钥：themoviedb.org → 设置 → API → 个人用途。</string>
     <string name="youtube_info">登录 SmartTube 后，YouTube 图块显示来自你自己 YouTube 订阅的视频，无需密钥。\n\n没有它时，可用密钥显示你所在国家最热门的视频。 免费密钥：console.cloud.google.com → 新建项目 → 启用 YouTube Data API v3 → 凭据 → 创建 API 密钥。\n\n两者都没有时，显示热门电影的预告片。</string>
     <string name="plex_info">来自你自己 Plex 服务器的背景图：继续观看和最近添加。\n\n获取方法：app.plex.tv → 打开任意影片 → ⋯ → 获取信息 → 查看 XML，复制地址中 X-Plex-Token= 后面的内容。请像密码一样保密。</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">请允许 Vibe Launcher 安装应用，然后再次选择安装 SmartTube</string>
     <string name="smarttube_failed">SmartTube 未能安装</string>
     <string name="play">播放</string>
-    <string name="backdrops">背景图</string>
     <string name="reload_backdrops">重新加载背景图</string>
     <string name="backdrops_reloading">正在下载新的背景图…</string>
     <string name="auto_hide_bar">自动隐藏</string>
     <string name="slideshow_clock">屏保时钟</string>
+    <string name="power_on_home">开机时显示主屏幕</string>
+    <string name="restart">重启…</string>
     <string name="time_remaining">剩余 %1$s</string>
     <string name="home_key_name">Vibe Launcher 主页键</string>
     <string name="home_key_description">让遥控器的主页键打开 Vibe Launcher，而不是电视自带的主屏幕；长按则打开电视的设置。它不读取屏幕上的任何内容，其他按键都照常放行。</string>

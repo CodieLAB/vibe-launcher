@@ -34,7 +34,6 @@
     <string name="on">चालू</string>
     <string name="plex_token">Plex टोकन</string>
     <string name="not_set">सेट केलेले नाही</string>
-    <string name="save">जतन करा</string>
     <string name="cancel">रद्द करा</string>
     <string name="tab_general">सामान्य</string>
     <string name="tab_appearance">स्वरूप</string>
@@ -48,7 +47,6 @@
     <string name="update_available">अपडेट उपलब्ध: %1$s</string>
     <string name="update_check_failed">%1$s · अपडेट तपासता आले नाहीत</string>
     <string name="update_downloading">अपडेट डाउनलोड होत आहे…</string>
-    <string name="update_development_status">%1$s, वेगळ्या साइनिंग कीने बनवलेले: संगणकावरून build-and-install.sh ने अपडेट करा</string>
     <string name="update_development">हे बिल्ड वेगळ्या साइनिंग कीचे आहे: संगणकावरून build-and-install.sh ने अपडेट करा</string>
     <string name="update_allow_installs">Vibe Launcher ला अ‍ॅप्स इन्स्टॉल करू द्या, मग पुन्हा अपडेट निवडा</string>
     <string name="update_no_installs">हा टीव्ही अ‍ॅप्सना अपडेट इन्स्टॉल करू देत नाही</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">अपडेट इन्स्टॉल झाले नाही</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">जतन केले</string>
+    <string name="phone_paste">फोनवरून की पेस्ट करा</string>
     <string name="scan_to_paste">की पेस्ट करण्यासाठी फोनने स्कॅन करा</string>
     <string name="tmdb_notice">पार्श्वभूमी TMDB API वापरतात, पण TMDB त्यांना मान्यता किंवा प्रमाणपत्र देत नाही.</string>
-    <string name="about_key">या कीबद्दल</string>
     <string name="tmdb_info">तुमच्या अ‍ॅप्सच्या होम स्क्रीन कार्डवरील चित्रपट आणि शोसाठी स्वच्छ पार्श्वभूमी आणि शीर्षकाचे लोगो, अ‍ॅप्सच्या स्वतःच्या चित्रांऐवजी. की शिवायही चालते, Stremio च्या मोफत डेटामधून; TMDB अधिकृत आणि अधिक विश्वासार्ह स्रोत आहे.\n\nमोफत की: themoviedb.org → सेटिंग्ज → API → वैयक्तिक वापर.</string>
     <string name="youtube_info">SmartTube मध्ये साइन इन असल्यास YouTube टाइल तुमच्या स्वतःच्या YouTube फीडमधील व्हिडिओ दाखवते. कीची गरज नाही.\n\nत्याशिवाय, की तुमच्या देशातील सर्वात लोकप्रिय व्हिडिओ दाखवते. मोफत की: console.cloud.google.com → नवीन प्रोजेक्ट → YouTube Data API v3 सुरू करा → क्रेडेन्शियल्स → API की तयार करा.\n\nदोन्ही नसल्यास लोकप्रिय चित्रपटांचे ट्रेलर दिसतात.</string>
     <string name="plex_info">तुमच्या स्वतःच्या Plex सर्व्हरवरील पार्श्वभूमी: पाहणे सुरू ठेवा आणि अलीकडे जोडलेले.\n\nमिळवण्यासाठी: app.plex.tv → कोणतेही शीर्षक उघडा → ⋯ → माहिती मिळवा → XML पहा, आणि पत्त्यातील X-Plex-Token= नंतरचा भाग कॉपी करा. पासवर्डसारखा गुप्त ठेवा.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Vibe Launcher ला अ‍ॅप्स इंस्टॉल करू द्या, नंतर पुन्हा SmartTube इंस्टॉल करा निवडा</string>
     <string name="smarttube_failed">SmartTube इंस्टॉल झाले नाही</string>
     <string name="play">प्ले करा</string>
-    <string name="backdrops">पार्श्वभूमी</string>
     <string name="reload_backdrops">पार्श्वभूमी पुन्हा लोड करा</string>
     <string name="backdrops_reloading">नवीन पार्श्वभूमी डाउनलोड होत आहेत…</string>
     <string name="auto_hide_bar">आपोआप लपवा</string>
     <string name="slideshow_clock">स्क्रीनसेव्हर घड्याळ</string>
+    <string name="power_on_home">सुरू होताना होम</string>
+    <string name="restart">रीस्टार्ट करा…</string>
     <string name="time_remaining">%1$s बाकी</string>
     <string name="home_key_name">Vibe Launcher होम बटण</string>
     <string name="home_key_description">रिमोटचे होम बटण टीव्हीच्या स्वतःच्या होम स्क्रीनऐवजी Vibe Launcher उघडते, आणि ते दाबून ठेवल्यास टीव्हीची सेटिंग्ज उघडतात. तो स्क्रीनवरील काहीही वाचत नाही आणि बाकी सर्व बटणे तशीच पुढे जाऊ देतो.</string>

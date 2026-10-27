@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One Settings row (SettingsDialog): its name, its value on the right, and > when it opens a page. Key
+     rows edit in place, in the field. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="42dp"
+    android:layout_marginBottom="8dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingStart="22dp"
+    android:paddingEnd="18dp"
+    android:background="@drawable/setting_row_bg"
+    android:focusable="true"
+    android:clickable="true">
+
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:duplicateParentState="true"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@drawable/setting_row_text"
+        android:textSize="18sp"
+        android:fontFamily="@string/font_regular" />
+
+    <TextView
+        android:id="@+id/value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:maxWidth="230dp"
+        android:duplicateParentState="true"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@drawable/setting_value_text"
+        android:textSize="16sp"
+        android:fontFamily="@string/font_regular" />
+
+    <EditText
+        android:id="@+id/field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.4"
+        android:layout_marginStart="14dp"
+        android:visibility="gone"
+        android:background="@null"
+        android:gravity="end|center_vertical"
+        android:importantForAutofill="no"
+        android:inputType="text|textNoSuggestions"
+        android:imeOptions="actionDone|flagNoExtractUi"
+        android:maxLines="1"
+        android:textColor="#FFFFFFFF"
+        android:textCursorDrawable="@null"
+        android:textSize="16sp"
+        android:fontFamily="@string/font_regular"
+        android:hint="@null" />
+
+    <ImageView
+        android:id="@+id/chevron"
+        android:layout_width="10dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="12dp"
+        android:duplicateParentState="true"
+        android:src="@drawable/ic_chevron"
+        android:tint="@drawable/setting_value_text"
+        android:visibility="gone"
+        android:importantForAccessibility="no" />
+</LinearLayout>

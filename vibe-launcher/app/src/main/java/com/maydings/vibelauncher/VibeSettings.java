@@ -16,6 +16,7 @@ final class VibeSettings {
     private static final String HIDE_INACTIVE_INPUTS = "hideInactiveInputs";
     private static final String AUTO_HIDE_BAR = "autoHideBar";
     private static final String SLIDESHOW_CLOCK = "slideshowClock";
+    private static final String POWER_ON_HOME = "powerOnHome";
 
     private final SharedPreferences prefs;
 
@@ -87,6 +88,15 @@ final class VibeSettings {
 
     void setSlideshowClock(boolean show) {
         prefs.edit().putBoolean(SLIDESHOW_CLOCK, show).apply();
+    }
+
+    /** Home shortly after the screen turns on, over whatever the TV woke up on (off by default; PowerOnHome). */
+    boolean powerOnHome() {
+        return prefs.getBoolean(POWER_ON_HOME, false);
+    }
+
+    void setPowerOnHome(boolean on) {
+        prefs.edit().putBoolean(POWER_ON_HOME, on).apply();
     }
 
     void save(String tmdbKey, String youtubeKey, String plexToken) {

@@ -34,7 +34,6 @@
     <string name="on">פועל</string>
     <string name="plex_token">אסימון Plex</string>
     <string name="not_set">לא הוגדר</string>
-    <string name="save">שמירה</string>
     <string name="cancel">ביטול</string>
     <string name="tab_general">כללי</string>
     <string name="tab_appearance">מראה</string>
@@ -48,7 +47,6 @@
     <string name="update_available">יש עדכון: %1$s</string>
     <string name="update_check_failed">%1$s · לא ניתן היה לבדוק עדכונים</string>
     <string name="update_downloading">מוריד את העדכון…</string>
-    <string name="update_development_status">%1$s, נבנתה עם מפתח חתימה אחר: עדכנו ממחשב עם build-and-install.sh</string>
     <string name="update_development">לגרסה הזו יש מפתח חתימה אחר: עדכנו אותה ממחשב, עם build-and-install.sh</string>
     <string name="update_allow_installs">אפשרו ל-Vibe Launcher להתקין אפליקציות, ואז בחרו שוב עדכון</string>
     <string name="update_no_installs">הטלוויזיה הזו לא מאפשרת לאפליקציות להתקין עדכונים</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">העדכון לא הותקן</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">נשמר</string>
+    <string name="phone_paste">הדבקת מפתחות מהטלפון</string>
     <string name="scan_to_paste">סרקו בטלפון כדי להדביק את המפתחות</string>
     <string name="tmdb_notice">תמונות הרקע משתמשות ב-API של TMDB, אך אינן מאושרות או מוסמכות על ידי TMDB.</string>
-    <string name="about_key">על המפתח הזה</string>
     <string name="tmdb_info">תמונות רקע נקיות ולוגו של הכותר לסרטים ולסדרות שבכרטיסי מסך הבית של האפליקציות שלכם, במקום התמונות והמדבקות שלהן. עובד גם בלי מפתח, עם הנתונים החינמיים של Stremio; TMDB הוא המקור הרשמי והאמין יותר.\n\nמפתח חינמי: themoviedb.org ← הגדרות ← API ← שימוש אישי.</string>
     <string name="youtube_info">כשאתם מחוברים ל-SmartTube, אריח YouTube מציג סרטונים מהפיד שלכם ב-YouTube. אין צורך במפתח.\n\nבלעדיו, מפתח מציג את הסרטונים הפופולריים ביותר במדינה שלכם. מפתח חינמי: console.cloud.google.com ← פרויקט חדש ← הפעלת YouTube Data API v3 ← פרטי כניסה ← יצירת מפתח API.\n\nבלי אף אחד מהם, מוצגים טריילרים של סרטים פופולריים.</string>
     <string name="plex_info">תמונות רקע משרת ה-Plex שלכם: המשך צפייה ונוספו לאחרונה.\n\nאיך למצוא: app.plex.tv ← פתחו כותר כלשהו ← ⋯ ← קבלת מידע ← הצגת XML, והעתיקו את מה שבא אחרי X-Plex-Token= בכתובת. שמרו עליו בסוד, כמו סיסמה.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">אפשרו ל-Vibe Launcher להתקין אפליקציות, ואז בחרו שוב התקנת SmartTube</string>
     <string name="smarttube_failed">SmartTube לא הותקן</string>
     <string name="play">הפעל</string>
-    <string name="backdrops">תמונות רקע</string>
     <string name="reload_backdrops">טעינה מחדש של תמונות הרקע</string>
     <string name="backdrops_reloading">מורידים תמונות רקע חדשות…</string>
     <string name="auto_hide_bar">הסתרה אוטומטית</string>
     <string name="slideshow_clock">שעון בשומר המסך</string>
+    <string name="power_on_home">מסך הבית בהדלקה</string>
+    <string name="restart">הפעלה מחדש…</string>
     <string name="time_remaining">נותרו %1$s</string>
     <string name="home_key_name">כפתור הבית של Vibe Launcher</string>
     <string name="home_key_description">גורם לכפתור הבית בשלט לפתוח את Vibe Launcher במקום מסך הבית של הטלוויזיה, ולחיצה ארוכה עליו פותחת את הגדרות הטלוויזיה. הוא לא קורא דבר מהמסך ומעביר הלאה את כל שאר המקשים.</string>

@@ -34,7 +34,6 @@
     <string name="on">روشن</string>
     <string name="plex_token">توکن Plex</string>
     <string name="not_set">تنظیم نشده</string>
-    <string name="save">ذخیره</string>
     <string name="cancel">لغو</string>
     <string name="tab_general">عمومی</string>
     <string name="tab_appearance">ظاهر</string>
@@ -48,7 +47,6 @@
     <string name="update_available">به‌روزرسانی موجود است: %1$s</string>
     <string name="update_check_failed">%1$s · بررسی به‌روزرسانی ممکن نشد</string>
     <string name="update_downloading">در حال دانلود به‌روزرسانی…</string>
-    <string name="update_development_status">%1$s، ساخته‌شده با کلید امضای دیگری: از رایانه با build-and-install.sh به‌روزرسانی کنید</string>
     <string name="update_development">این نسخه کلید امضای دیگری دارد: از رایانه با build-and-install.sh به‌روزرسانی کنید</string>
     <string name="update_allow_installs">به Vibe Launcher اجازه نصب برنامه بدهید، سپس دوباره به‌روزرسانی را انتخاب کنید</string>
     <string name="update_no_installs">این تلویزیون اجازه نمی‌دهد برنامه‌ها به‌روزرسانی نصب کنند</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">به‌روزرسانی نصب نشد</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">ذخیره شد</string>
+    <string name="phone_paste">چسباندن کلیدها از تلفن</string>
     <string name="scan_to_paste">برای چسباندن کلیدها با گوشی اسکن کنید</string>
     <string name="tmdb_notice">پس‌زمینه‌ها از API ‏TMDB استفاده می‌کنند، اما مورد تأیید یا گواهی TMDB نیستند.</string>
-    <string name="about_key">درباره این کلید</string>
     <string name="tmdb_info">پس‌زمینه‌های تمیز و لوگوی عنوان برای فیلم‌ها و سریال‌های کارت‌های صفحه اصلی برنامه‌هایتان، به‌جای تصاویر و برچسب‌های خودشان. بدون کلید هم با داده‌های رایگان Stremio کار می‌کند؛ TMDB منبع رسمی و مطمئن‌تر است.\n\nکلید رایگان: themoviedb.org ← تنظیمات ← API ← استفاده شخصی.</string>
     <string name="youtube_info">وقتی در SmartTube وارد شده باشید، کاشی YouTube ویدیوهای فید YouTube خودتان را نشان می‌دهد. نیازی به کلید نیست.\n\nبدون آن، یک کلید محبوب‌ترین ویدیوهای کشورتان را نشان می‌دهد. کلید رایگان: console.cloud.google.com ← پروژه جدید ← فعال کردن YouTube Data API v3 ← اعتبارنامه‌ها ← ایجاد کلید API.\n\nبدون هیچ‌کدام، تریلر فیلم‌های محبوب نشان داده می‌شود.</string>
     <string name="plex_info">پس‌زمینه‌ها از سرور Plex خودتان: ادامه تماشا و اخیراً اضافه‌شده‌ها.\n\nبرای یافتن آن: app.plex.tv ← یک عنوان را باز کنید ← ⋯ ← دریافت اطلاعات ← مشاهده XML، و بخش بعد از X-Plex-Token= را در نشانی کپی کنید. آن را مثل رمز عبور محرمانه نگه دارید.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">به Vibe Launcher اجازه نصب برنامه بدهید، سپس دوباره نصب SmartTube را انتخاب کنید</string>
     <string name="smarttube_failed">SmartTube نصب نشد</string>
     <string name="play">پخش</string>
-    <string name="backdrops">پس‌زمینه‌ها</string>
     <string name="reload_backdrops">بارگذاری دوبارهٔ پس‌زمینه‌ها</string>
     <string name="backdrops_reloading">در حال دانلود پس‌زمینه‌های تازه…</string>
     <string name="auto_hide_bar">پنهان‌سازی خودکار</string>
     <string name="slideshow_clock">ساعت محافظ صفحه</string>
+    <string name="power_on_home">خانه هنگام روشن شدن</string>
+    <string name="restart">راه‌اندازی مجدد…</string>
     <string name="time_remaining">%1$s باقی‌مانده</string>
     <string name="home_key_name">دکمه صفحه اصلی Vibe Launcher</string>
     <string name="home_key_description">دکمه صفحه اصلی کنترل را به‌جای صفحه اصلی خود تلویزیون به باز کردن Vibe Launcher وامی‌دارد و نگه داشتن آن تنظیمات تلویزیون را باز می‌کند. چیزی از صفحه نمی‌خواند و بقیه دکمه‌ها را دست‌نخورده رد می‌کند.</string>

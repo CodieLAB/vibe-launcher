@@ -49,7 +49,8 @@ Or by hand: `./gradlew assembleAdbDebug`, then `adb install -r -g app/build/outp
 | First start, and gear menu → *Make Home* | the TV's default-Home dialog, where it has one | the TV's default-Home dialog only where it can work (no stock launcher outranks it); otherwise, or if that doesn't take, a note on what the Home button service sees and the steps, then Accessibility settings. Shown until Home comes here |
 | Remote's app buttons (Google TV) | the ones Google TV's launcher handled (YouTube, Free TV) stop working with it off | keep working |
 | Updates | checks the GitHub releases (daily, on waking, in the gear menu) and installs them | Play installs them; while Play has a newer version, the gear shows the green dot and its row (and Settings) opens Play's update screen |
-| Settings → General | version and *Check for updates* | version only |
+| Settings → General | version and *Check for updates* | version only; *TV → Restart…* while the Home button is on (the service opens the TV's power menu) |
+| Home at power-on (Settings → General, off by default) | Home's own process, a moment after the screen turns on | the Home button service, and only if no key was pressed in that moment (without the service, as in the adb version) |
 | SmartTube | Settings can install it | Settings only opens it, and only shows the button when it's on the TV |
 | Install permissions | `REQUEST_INSTALL_PACKAGES`, `KILL_BACKGROUND_PROCESSES` | none |
 | Code of its own | `app/src/adb` (manifest) | `app/src/store` (manifest, `HomeKeyService`, `ProbeActivity`) |
@@ -139,8 +140,9 @@ Appearance → Screensaver clock). Any key stops it on the still showing, with i
 screen is kept on for it only until the TV's own screen-off time since the last key. Settings → General
 → Reload backdrops empties every pool and the downloads and builds them again from scratch.
 
-Keys are entered in **Settings → Vibe Launcher settings**, on the TV or from a phone: the dialog shows
-a QR code for a small page the launcher serves on your home network while the dialog is open. The
+Keys are entered in **Settings → Vibe Launcher settings → API keys**, on the TV or from a phone: *Paste
+keys from your phone* shows a QR code for a small page the launcher serves on your home network while
+Settings is open. The
 link carries a random code that changes every time, and the page shows saved keys hidden but for the
 last four characters.
 
@@ -162,7 +164,7 @@ The full list, with what each is sent, is in the [privacy policy](docs/PRIVACY.m
 | File | What it does |
 |---|---|
 | `MainActivity` | Home screen, dock and grid focus, top bar menus, the Inputs menu with its HDMI-CEC devices |
-| `SettingsDialog` | Vibe Launcher settings: General (language, reload backdrops, software version), Appearance (tiles per row, inputs, auto-hide, screensaver clock) and API keys (the keys, their ⓘ, the QR code) |
+| `SettingsDialog` | Vibe Launcher settings: General (language, reload backdrops, Home at power-on, Restart…, software version), Appearance (tiles per row, inputs, auto-hide, screensaver clock) and API keys (the keys, their explanations, the QR code); full screen, its lists sliding left as pages open |
 | `Lang` | The 50 languages and applying the one chosen in settings (or the TV's own) |
 | `Updater`, `UpdateReceiver` | Checks the GitHub releases, downloads and verifies the APK, hands it to Android's installer |
 | `AppAdapter`, `TileAnimator`, `DockDecoration` | Tiles, their animations and the dock band |
@@ -176,6 +178,8 @@ The full list, with what each is sent, is in the [privacy policy](docs/PRIVACY.m
 | `Http` | Plain GET requests for all of the above, and the HDHomeRun's plain HTTP on the home network |
 | `VibeSettings`, `PhoneLink` | Stored keys and the phone page with its QR code |
 | `CpuInfo` | CPU use where the device allows it |
+| `PowerOnHome` | Home at power-on: Home shortly after the screen turns on (from the Home button service while it's bound) |
+| `HomeButtonLink` | What the store build's Home button service lends the app while bound: the TV's power menu for Restart… |
 | `CrashGuard` | Falls back to the stock launcher's App info after repeated crashes |
 
 Contributions: see [CONTRIBUTING.md](CONTRIBUTING.md).

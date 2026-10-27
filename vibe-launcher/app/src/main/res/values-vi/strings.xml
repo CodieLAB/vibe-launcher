@@ -34,7 +34,6 @@
     <string name="on">Bật</string>
     <string name="plex_token">Mã Plex</string>
     <string name="not_set">Chưa đặt</string>
-    <string name="save">Lưu</string>
     <string name="cancel">Hủy</string>
     <string name="tab_general">Chung</string>
     <string name="tab_appearance">Giao diện</string>
@@ -48,7 +47,6 @@
     <string name="update_available">Có bản cập nhật: %1$s</string>
     <string name="update_check_failed">%1$s · Không kiểm tra được bản cập nhật</string>
     <string name="update_downloading">Đang tải bản cập nhật…</string>
-    <string name="update_development_status">%1$s, dựng bằng khóa ký khác: cập nhật từ máy tính bằng build-and-install.sh</string>
     <string name="update_development">Bản dựng này có khóa ký khác: cập nhật từ máy tính, bằng build-and-install.sh</string>
     <string name="update_allow_installs">Cho phép Vibe Launcher cài ứng dụng, rồi chọn Cập nhật lần nữa</string>
     <string name="update_no_installs">TV này không cho ứng dụng cài bản cập nhật</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">Bản cập nhật chưa được cài</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">Đã lưu</string>
+    <string name="phone_paste">Dán khóa từ điện thoại</string>
     <string name="scan_to_paste">Quét bằng điện thoại để dán khóa</string>
     <string name="tmdb_notice">Ảnh nền dùng API của TMDB nhưng không được TMDB xác nhận hay chứng nhận.</string>
-    <string name="about_key">Về khóa này</string>
     <string name="tmdb_info">Ảnh nền sạch và logo tựa phim cho các phim và chương trình trên thẻ màn hình chính của ứng dụng, thay cho hình và nhãn dán riêng của chúng. Vẫn chạy khi không có khóa, nhờ dữ liệu miễn phí của Stremio; TMDB là nguồn chính thức, đáng tin cậy hơn.\n\nKhóa miễn phí: themoviedb.org → Cài đặt → API → dùng cá nhân.</string>
     <string name="youtube_info">Khi đã đăng nhập SmartTube, ô YouTube hiển thị video từ nguồn cấp YouTube của chính bạn. Không cần khóa.\n\nKhông có nó, một khóa sẽ hiển thị các video phổ biến nhất ở quốc gia của bạn. Khóa miễn phí: console.cloud.google.com → dự án mới → bật YouTube Data API v3 → Thông tin xác thực → Tạo khóa API.\n\nKhông có cả hai, ô hiển thị trailer của các phim nổi tiếng.</string>
     <string name="plex_info">Ảnh nền từ máy chủ Plex của bạn: Tiếp tục xem và mới thêm gần đây.\n\nCách lấy: app.plex.tv → mở một tựa bất kỳ → ⋯ → Xem thông tin → Xem XML, rồi sao chép phần sau X-Plex-Token= trong địa chỉ. Hãy giữ bí mật như mật khẩu.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Hãy cho phép Vibe Launcher cài đặt ứng dụng, rồi chọn lại Cài đặt SmartTube</string>
     <string name="smarttube_failed">SmartTube chưa được cài đặt</string>
     <string name="play">Phát</string>
-    <string name="backdrops">Ảnh nền</string>
     <string name="reload_backdrops">Tải lại ảnh nền</string>
     <string name="backdrops_reloading">Đang tải ảnh nền mới…</string>
     <string name="auto_hide_bar">Tự động ẩn</string>
     <string name="slideshow_clock">Đồng hồ trên trình bảo vệ màn hình</string>
+    <string name="power_on_home">Màn hình chính khi bật</string>
+    <string name="restart">Khởi động lại…</string>
     <string name="time_remaining">Còn %1$s</string>
     <string name="home_key_name">Nút Màn hình chính của Vibe Launcher</string>
     <string name="home_key_description">Khiến nút Màn hình chính trên điều khiển mở Vibe Launcher thay vì màn hình chính của TV, và nhấn giữ để mở Cài đặt của TV. Không đọc nội dung nào trên màn hình và để mọi nút khác đi qua như bình thường.</string>

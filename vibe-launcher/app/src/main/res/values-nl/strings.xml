@@ -34,7 +34,6 @@
     <string name="on">Aan</string>
     <string name="plex_token">Plex-token</string>
     <string name="not_set">Niet ingesteld</string>
-    <string name="save">Opslaan</string>
     <string name="cancel">Annuleren</string>
     <string name="tab_general">Algemeen</string>
     <string name="tab_appearance">Weergave</string>
@@ -48,7 +47,6 @@
     <string name="update_available">Update beschikbaar: %1$s</string>
     <string name="update_check_failed">%1$s · Kon niet op updates controleren</string>
     <string name="update_downloading">Update downloaden…</string>
-    <string name="update_development_status">%1$s, gebouwd met een andere ondertekeningssleutel: werk bij vanaf een computer met build-and-install.sh</string>
     <string name="update_development">Deze build heeft een andere ondertekeningssleutel: werk hem bij vanaf een computer, met build-and-install.sh</string>
     <string name="update_allow_installs">Sta Vibe Launcher toe apps te installeren en kies dan opnieuw Bijwerken</string>
     <string name="update_no_installs">Deze tv laat apps geen updates installeren</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">De update is niet geïnstalleerd</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">Opgeslagen</string>
+    <string name="phone_paste">Sleutels plakken vanaf je telefoon</string>
     <string name="scan_to_paste">Scan met je telefoon om de sleutels te plakken</string>
     <string name="tmdb_notice">Achtergronden gebruiken de TMDB-API, maar worden niet door TMDB onderschreven of gecertificeerd.</string>
-    <string name="about_key">Over deze sleutel</string>
     <string name="tmdb_info">Schone achtergronden en titellogo’s voor de films en series op de startschermkaarten van je apps, in plaats van hun eigen afbeeldingen en stickers. Werkt ook zonder sleutel, met de gratis gegevens van Stremio; TMDB is de officiële, betrouwbaardere bron.\n\nGratis sleutel: themoviedb.org → Instellingen → API → persoonlijk gebruik.</string>
     <string name="youtube_info">Met SmartTube ingelogd toont de YouTube-tegel video\'s uit je eigen YouTube-feed. Geen sleutel nodig.\n\nZonder SmartTube toont een sleutel de populairste video\'s in je land. Gratis sleutel: console.cloud.google.com → nieuw project → YouTube Data API v3 inschakelen → Inloggegevens → API-sleutel maken.\n\nZonder allebei toont hij trailers van populaire films.</string>
     <string name="plex_info">Achtergronden van je eigen Plex-server: Verder kijken en recent toegevoegd.\n\nZo vind je hem: app.plex.tv → open een titel → ⋯ → Info ophalen → XML bekijken, en kopieer wat na X-Plex-Token= in het adres staat. Houd hem geheim, als een wachtwoord.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Sta Vibe Launcher toe apps te installeren en kies daarna opnieuw SmartTube installeren</string>
     <string name="smarttube_failed">SmartTube is niet geïnstalleerd</string>
     <string name="play">Afspelen</string>
-    <string name="backdrops">Achtergronden</string>
     <string name="reload_backdrops">Achtergronden opnieuw laden</string>
     <string name="backdrops_reloading">Nieuwe achtergronden downloaden…</string>
     <string name="auto_hide_bar">Automatisch verbergen</string>
     <string name="slideshow_clock">Klok op screensaver</string>
+    <string name="power_on_home">Start bij inschakelen</string>
+    <string name="restart">Opnieuw opstarten…</string>
     <string name="time_remaining">Nog %1$s</string>
     <string name="home_key_name">Vibe Launcher-startknop</string>
     <string name="home_key_description">Laat de startknop van de afstandsbediening Vibe Launcher openen in plaats van het eigen startscherm van de tv, en ingedrukt houden de instellingen van de tv. Leest niets op het scherm en laat alle andere knoppen door.</string>

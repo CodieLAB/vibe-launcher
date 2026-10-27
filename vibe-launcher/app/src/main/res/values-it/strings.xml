@@ -34,7 +34,6 @@
     <string name="on">Sì</string>
     <string name="plex_token">Token Plex</string>
     <string name="not_set">Non impostato</string>
-    <string name="save">Salva</string>
     <string name="cancel">Annulla</string>
     <string name="tab_general">Generali</string>
     <string name="tab_appearance">Aspetto</string>
@@ -48,7 +47,6 @@
     <string name="update_available">Aggiornamento disponibile: %1$s</string>
     <string name="update_check_failed">%1$s · Impossibile cercare aggiornamenti</string>
     <string name="update_downloading">Download dell\'aggiornamento…</string>
-    <string name="update_development_status">%1$s, compilata con un\'altra chiave di firma: aggiornala da un computer con build-and-install.sh</string>
     <string name="update_development">Questa build ha un\'altra chiave di firma: aggiornala da un computer, con build-and-install.sh</string>
     <string name="update_allow_installs">Consenti a Vibe Launcher di installare app, poi scegli di nuovo Aggiorna</string>
     <string name="update_no_installs">Questo televisore non lascia installare aggiornamenti alle app</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">L\'aggiornamento non è stato installato</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">Salvato</string>
+    <string name="phone_paste">Incolla le chiavi dal telefono</string>
     <string name="scan_to_paste">Inquadra con il telefono per incollare le chiavi</string>
     <string name="tmdb_notice">Gli sfondi usano l\'API di TMDB, ma non sono approvati né certificati da TMDB.</string>
-    <string name="about_key">Informazioni su questa chiave</string>
     <string name="tmdb_info">Sfondi puliti e loghi dei titoli per i film e le serie delle schede Home delle tue app, al posto delle loro immagini e degli adesivi. Funziona anche senza chiave, con i dati gratuiti di Stremio; TMDB è la fonte ufficiale e più affidabile.\n\nChiave gratuita: themoviedb.org → Impostazioni → API → uso personale.</string>
     <string name="youtube_info">Con SmartTube connesso, il riquadro di YouTube mostra i video del tuo feed YouTube. Nessuna chiave necessaria.\n\nSenza, una chiave mostra i video più popolari nel tuo paese. Chiave gratuita: console.cloud.google.com → nuovo progetto → attiva YouTube Data API v3 → Credenziali → Crea chiave API.\n\nSenza nessuno dei due, mostra i trailer di film popolari.</string>
     <string name="plex_info">Sfondi dal tuo server Plex: Continua a guardare e aggiunti di recente.\n\nPer trovarlo: app.plex.tv → apri un titolo qualsiasi → ⋯ → Ottieni info → Visualizza XML, e copia ciò che segue X-Plex-Token= nell\'indirizzo. Tienilo riservato, come una password.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Consenti a Vibe Launcher di installare app, poi scegli di nuovo Installa SmartTube</string>
     <string name="smarttube_failed">SmartTube non è stato installato</string>
     <string name="play">Riproduci</string>
-    <string name="backdrops">Sfondi</string>
     <string name="reload_backdrops">Ricarica gli sfondi</string>
     <string name="backdrops_reloading">Download di nuovi sfondi…</string>
     <string name="auto_hide_bar">Nascondi automaticamente</string>
     <string name="slideshow_clock">Orologio nel salvaschermo</string>
+    <string name="power_on_home">Home all\'accensione</string>
+    <string name="restart">Riavvia…</string>
     <string name="time_remaining">Ancora %1$s</string>
     <string name="home_key_name">Tasto Home di Vibe Launcher</string>
     <string name="home_key_description">Fa aprire Vibe Launcher al tasto Home del telecomando al posto della schermata Home del televisore, e le impostazioni del televisore tenendolo premuto. Non legge nulla sullo schermo e lascia passare tutti gli altri tasti.</string>

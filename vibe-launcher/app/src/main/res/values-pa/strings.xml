@@ -34,7 +34,6 @@
     <string name="on">ਚਾਲੂ</string>
     <string name="plex_token">Plex ਟੋਕਨ</string>
     <string name="not_set">ਸੈੱਟ ਨਹੀਂ</string>
-    <string name="save">ਸੰਭਾਲੋ</string>
     <string name="cancel">ਰੱਦ ਕਰੋ</string>
     <string name="tab_general">ਆਮ</string>
     <string name="tab_appearance">ਦਿੱਖ</string>
@@ -48,7 +47,6 @@
     <string name="update_available">ਅੱਪਡੇਟ ਉਪਲਬਧ: %1$s</string>
     <string name="update_check_failed">%1$s · ਅੱਪਡੇਟ ਨਹੀਂ ਦੇਖੇ ਜਾ ਸਕੇ</string>
     <string name="update_downloading">ਅੱਪਡੇਟ ਡਾਊਨਲੋਡ ਹੋ ਰਿਹਾ ਹੈ…</string>
-    <string name="update_development_status">%1$s, ਹੋਰ ਸਾਈਨਿੰਗ ਕੁੰਜੀ ਨਾਲ ਬਣਿਆ: ਕੰਪਿਊਟਰ ਤੋਂ build-and-install.sh ਨਾਲ ਅੱਪਡੇਟ ਕਰੋ</string>
     <string name="update_development">ਇਸ ਬਿਲਡ ਦੀ ਸਾਈਨਿੰਗ ਕੁੰਜੀ ਵੱਖਰੀ ਹੈ: ਕੰਪਿਊਟਰ ਤੋਂ build-and-install.sh ਨਾਲ ਅੱਪਡੇਟ ਕਰੋ</string>
     <string name="update_allow_installs">Vibe Launcher ਨੂੰ ਐਪਾਂ ਸਥਾਪਤ ਕਰਨ ਦਿਓ, ਫਿਰ ਦੁਬਾਰਾ ਅੱਪਡੇਟ ਚੁਣੋ</string>
     <string name="update_no_installs">ਇਹ ਟੀਵੀ ਐਪਾਂ ਨੂੰ ਅੱਪਡੇਟ ਸਥਾਪਤ ਕਰਨ ਨਹੀਂ ਦਿੰਦਾ</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">ਅੱਪਡੇਟ ਸਥਾਪਤ ਨਹੀਂ ਹੋਇਆ</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">ਸੰਭਾਲਿਆ ਗਿਆ</string>
+    <string name="phone_paste">ਫ਼ੋਨ ਤੋਂ ਕੁੰਜੀਆਂ ਪੇਸਟ ਕਰੋ</string>
     <string name="scan_to_paste">ਕੁੰਜੀਆਂ ਪੇਸਟ ਕਰਨ ਲਈ ਫ਼ੋਨ ਨਾਲ ਸਕੈਨ ਕਰੋ</string>
     <string name="tmdb_notice">ਪਿਛੋਕੜ TMDB API ਵਰਤਦੇ ਹਨ, ਪਰ TMDB ਵੱਲੋਂ ਸਮਰਥਿਤ ਜਾਂ ਪ੍ਰਮਾਣਿਤ ਨਹੀਂ ਹਨ।</string>
-    <string name="about_key">ਇਸ ਕੁੰਜੀ ਬਾਰੇ</string>
     <string name="tmdb_info">ਤੁਹਾਡੀਆਂ ਐਪਾਂ ਦੇ ਹੋਮ ਸਕ੍ਰੀਨ ਕਾਰਡਾਂ ’ਤੇ ਫ਼ਿਲਮਾਂ ਅਤੇ ਸ਼ੋਆਂ ਲਈ ਸਾਫ਼ ਪਿਛੋਕੜ ਅਤੇ ਸਿਰਲੇਖ ਲੋਗੋ, ਐਪਾਂ ਦੀਆਂ ਆਪਣੀਆਂ ਤਸਵੀਰਾਂ ਅਤੇ ਸਟਿੱਕਰਾਂ ਦੀ ਥਾਂ। ਕੁੰਜੀ ਤੋਂ ਬਿਨਾਂ ਵੀ Stremio ਦੇ ਮੁਫ਼ਤ ਡਾਟੇ ਨਾਲ ਚੱਲਦਾ ਹੈ; TMDB ਅਧਿਕਾਰਤ ਅਤੇ ਵੱਧ ਭਰੋਸੇਯੋਗ ਸਰੋਤ ਹੈ।\n\nਮੁਫ਼ਤ ਕੁੰਜੀ: themoviedb.org → ਸੈਟਿੰਗਾਂ → API → ਨਿੱਜੀ ਵਰਤੋਂ।</string>
     <string name="youtube_info">SmartTube ਵਿੱਚ ਸਾਈਨ ਇਨ ਹੋਣ \'ਤੇ YouTube ਟਾਈਲ ਤੁਹਾਡੀ ਆਪਣੀ YouTube ਫੀਡ ਦੇ ਵੀਡੀਓ ਦਿਖਾਉਂਦੀ ਹੈ। ਕਿਸੇ ਕੁੰਜੀ ਦੀ ਲੋੜ ਨਹੀਂ।\n\nਇਸ ਤੋਂ ਬਿਨਾਂ, ਇੱਕ ਕੁੰਜੀ ਤੁਹਾਡੇ ਦੇਸ਼ ਦੇ ਸਭ ਤੋਂ ਮਸ਼ਹੂਰ ਵੀਡੀਓ ਦਿਖਾਉਂਦੀ ਹੈ। ਮੁਫ਼ਤ ਕੁੰਜੀ: console.cloud.google.com → ਨਵਾਂ ਪ੍ਰੋਜੈਕਟ → YouTube Data API v3 ਚਾਲੂ ਕਰੋ → ਕ੍ਰੈਡੈਂਸ਼ੀਅਲ → API ਕੁੰਜੀ ਬਣਾਓ।\n\nਦੋਵੇਂ ਨਾ ਹੋਣ ਤਾਂ ਮਸ਼ਹੂਰ ਫ਼ਿਲਮਾਂ ਦੇ ਟ੍ਰੇਲਰ ਦਿਖਾਉਂਦੀ ਹੈ।</string>
     <string name="plex_info">ਤੁਹਾਡੇ ਆਪਣੇ Plex ਸਰਵਰ ਤੋਂ ਪਿਛੋਕੜ: ਦੇਖਣਾ ਜਾਰੀ ਰੱਖੋ ਅਤੇ ਹਾਲ ਹੀ ਵਿੱਚ ਸ਼ਾਮਲ।\n\nਲੱਭਣ ਲਈ: app.plex.tv → ਕੋਈ ਵੀ ਸਿਰਲੇਖ ਖੋਲ੍ਹੋ → ⋯ → ਜਾਣਕਾਰੀ ਲਓ → XML ਦੇਖੋ, ਅਤੇ ਪਤੇ ਵਿੱਚ X-Plex-Token= ਤੋਂ ਬਾਅਦ ਵਾਲਾ ਹਿੱਸਾ ਕਾਪੀ ਕਰੋ। ਇਸਨੂੰ ਪਾਸਵਰਡ ਵਾਂਗ ਗੁਪਤ ਰੱਖੋ।</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Vibe Launcher ਨੂੰ ਐਪਾਂ ਇੰਸਟਾਲ ਕਰਨ ਦਿਓ, ਫਿਰ ਦੁਬਾਰਾ SmartTube ਇੰਸਟਾਲ ਕਰੋ ਚੁਣੋ</string>
     <string name="smarttube_failed">SmartTube ਇੰਸਟਾਲ ਨਹੀਂ ਹੋਇਆ</string>
     <string name="play">ਚਲਾਓ</string>
-    <string name="backdrops">ਪਿਛੋਕੜ</string>
     <string name="reload_backdrops">ਪਿਛੋਕੜ ਮੁੜ ਲੋਡ ਕਰੋ</string>
     <string name="backdrops_reloading">ਨਵੇਂ ਪਿਛੋਕੜ ਡਾਊਨਲੋਡ ਹੋ ਰਹੇ ਹਨ…</string>
     <string name="auto_hide_bar">ਆਪਣੇ-ਆਪ ਲੁਕਾਓ</string>
     <string name="slideshow_clock">ਸਕ੍ਰੀਨਸੇਵਰ ਘੜੀ</string>
+    <string name="power_on_home">ਚਾਲੂ ਹੋਣ ਤੇ ਹੋਮ</string>
+    <string name="restart">ਮੁੜ-ਚਾਲੂ ਕਰੋ…</string>
     <string name="time_remaining">%1$s ਬਾਕੀ</string>
     <string name="home_key_name">Vibe Launcher ਹੋਮ ਬਟਨ</string>
     <string name="home_key_description">ਰਿਮੋਟ ਦਾ ਹੋਮ ਬਟਨ ਟੀਵੀ ਦੀ ਆਪਣੀ ਹੋਮ ਸਕ੍ਰੀਨ ਦੀ ਬਜਾਏ Vibe Launcher ਖੋਲ੍ਹਦਾ ਹੈ, ਅਤੇ ਦਬਾਈ ਰੱਖਣ ਉੱਤੇ ਟੀਵੀ ਦੀਆਂ ਸੈਟਿੰਗਾਂ ਖੁੱਲ੍ਹਦੀਆਂ ਹਨ। ਇਹ ਸਕ੍ਰੀਨ ਉੱਤੇ ਕੁਝ ਨਹੀਂ ਪੜ੍ਹਦਾ ਅਤੇ ਬਾਕੀ ਸਾਰੇ ਬਟਨ ਉਵੇਂ ਹੀ ਅੱਗੇ ਜਾਣ ਦਿੰਦਾ ਹੈ।</string>

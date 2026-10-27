@@ -34,7 +34,6 @@
     <string name="on">An</string>
     <string name="plex_token">Plex-Token</string>
     <string name="not_set">Nicht festgelegt</string>
-    <string name="save">Speichern</string>
     <string name="cancel">Abbrechen</string>
     <string name="tab_general">Allgemein</string>
     <string name="tab_appearance">Darstellung</string>
@@ -48,7 +47,6 @@
     <string name="update_available">Update verfügbar: %1$s</string>
     <string name="update_check_failed">%1$s · Suche nach Updates fehlgeschlagen</string>
     <string name="update_downloading">Update wird geladen…</string>
-    <string name="update_development_status">%1$s, mit anderem Signaturschlüssel erstellt: am Computer mit build-and-install.sh aktualisieren</string>
     <string name="update_development">Diese Version hat einen anderen Signaturschlüssel: am Computer mit build-and-install.sh aktualisieren</string>
     <string name="update_allow_installs">Erlaube Vibe Launcher, Apps zu installieren, und wähle dann erneut Aktualisieren</string>
     <string name="update_no_installs">Dieser Fernseher lässt Apps keine Updates installieren</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">Das Update wurde nicht installiert</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">Gespeichert</string>
+    <string name="phone_paste">Schlüssel vom Handy einfügen</string>
     <string name="scan_to_paste">Mit dem Handy scannen, um die Schlüssel einzufügen</string>
     <string name="tmdb_notice">Hintergründe nutzen die TMDB-API, sind aber nicht von TMDB unterstützt oder zertifiziert.</string>
-    <string name="about_key">Über diesen Schlüssel</string>
     <string name="tmdb_info">Saubere Hintergründe und Titel-Logos für die Filme und Serien auf den Startbildschirm-Karten deiner Apps, statt deren eigener Bilder und Sticker. Funktioniert auch ohne Schlüssel, mit den kostenlosen Daten von Stremio; TMDB ist die offizielle, zuverlässigere Quelle.\n\nKostenloser Schlüssel: themoviedb.org → Einstellungen → API → private Nutzung.</string>
     <string name="youtube_info">Mit angemeldetem SmartTube zeigt die YouTube-Kachel Videos aus deinem eigenen YouTube-Feed. Kein Schlüssel nötig.\n\nOhne SmartTube zeigt ein Schlüssel die beliebtesten Videos in deinem Land. Kostenloser Schlüssel: console.cloud.google.com → neues Projekt → YouTube Data API v3 aktivieren → Anmeldedaten → API-Schlüssel erstellen.\n\nOhne beides zeigt sie Trailer beliebter Filme.</string>
     <string name="plex_info">Hintergründe von deinem eigenen Plex-Server: Weiterschauen und kürzlich hinzugefügt.\n\nSo findest du ihn: app.plex.tv → beliebigen Titel öffnen → ⋯ → Info abrufen → XML anzeigen, dann den Teil nach X-Plex-Token= in der Adresse kopieren. Halte ihn geheim wie ein Passwort.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Erlaube Vibe Launcher, Apps zu installieren, und wähle dann erneut SmartTube installieren</string>
     <string name="smarttube_failed">SmartTube wurde nicht installiert</string>
     <string name="play">Abspielen</string>
-    <string name="backdrops">Hintergründe</string>
     <string name="reload_backdrops">Hintergründe neu laden</string>
     <string name="backdrops_reloading">Neue Hintergründe werden geladen…</string>
     <string name="auto_hide_bar">Automatisch ausblenden</string>
     <string name="slideshow_clock">Uhr im Bildschirmschoner</string>
+    <string name="power_on_home">Startseite beim Einschalten</string>
+    <string name="restart">Neu starten…</string>
     <string name="time_remaining">Noch %1$s</string>
     <string name="home_key_name">Vibe Launcher Home-Taste</string>
     <string name="home_key_description">Lässt die Home-Taste der Fernbedienung Vibe Launcher statt des eigenen Startbildschirms des Fernsehers öffnen, und langes Drücken die Einstellungen des Fernsehers. Liest nichts vom Bildschirm und gibt jede andere Taste unverändert weiter.</string>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Settings' screen: one opaque near black. A gradient this dark has too few shades between its ends, and
+     showed as bands. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#FF121317" />
+</shape>

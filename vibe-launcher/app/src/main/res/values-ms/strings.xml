@@ -34,7 +34,6 @@
     <string name="on">Hidup</string>
     <string name="plex_token">Token Plex</string>
     <string name="not_set">Belum ditetapkan</string>
-    <string name="save">Simpan</string>
     <string name="cancel">Batal</string>
     <string name="tab_general">Umum</string>
     <string name="tab_appearance">Penampilan</string>
@@ -48,7 +47,6 @@
     <string name="update_available">Kemas kini tersedia: %1$s</string>
     <string name="update_check_failed">%1$s · Tidak dapat menyemak kemas kini</string>
     <string name="update_downloading">Memuat turun kemas kini…</string>
-    <string name="update_development_status">%1$s, dibina dengan kunci tandatangan lain: kemas kini dari komputer dengan build-and-install.sh</string>
     <string name="update_development">Binaan ini ada kunci tandatangan lain: kemas kini dari komputer, dengan build-and-install.sh</string>
     <string name="update_allow_installs">Benarkan Vibe Launcher memasang apl, kemudian pilih Kemas kini sekali lagi</string>
     <string name="update_no_installs">TV ini tidak membenarkan apl memasang kemas kini</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">Kemas kini tidak dipasang</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">Disimpan</string>
+    <string name="phone_paste">Tampal kunci dari telefon</string>
     <string name="scan_to_paste">Imbas dengan telefon untuk menampal kunci</string>
     <string name="tmdb_notice">Latar menggunakan API TMDB tetapi tidak disokong atau diperakui oleh TMDB.</string>
-    <string name="about_key">Tentang kunci ini</string>
     <string name="tmdb_info">Latar bersih dan logo tajuk untuk filem dan rancangan pada kad skrin utama apl anda, menggantikan gambar dan pelekat apl itu sendiri. Berfungsi tanpa kunci, daripada data percuma Stremio; TMDB ialah sumber rasmi yang lebih boleh dipercayai.\n\nKunci percuma: themoviedb.org → Tetapan → API → kegunaan peribadi.</string>
     <string name="youtube_info">Dengan SmartTube dilog masuk, jubin YouTube menunjukkan video daripada suapan YouTube anda sendiri. Tiada kunci diperlukan.\n\nTanpanya, kunci menunjukkan video paling popular di negara anda. Kunci percuma: console.cloud.google.com → projek baharu → dayakan YouTube Data API v3 → Bukti kelayakan → Cipta kunci API.\n\nTanpa kedua-duanya, ia menunjukkan treler filem popular.</string>
     <string name="plex_info">Latar daripada pelayan Plex anda sendiri: Teruskan menonton dan baru ditambah.\n\nCara mendapatkannya: app.plex.tv → buka mana-mana tajuk → ⋯ → Dapatkan Maklumat → Lihat XML, dan salin bahagian selepas X-Plex-Token= dalam alamat. Rahsiakan seperti kata laluan.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Benarkan Vibe Launcher memasang apl, kemudian pilih Pasang SmartTube sekali lagi</string>
     <string name="smarttube_failed">SmartTube tidak dipasang</string>
     <string name="play">Main</string>
-    <string name="backdrops">Latar</string>
     <string name="reload_backdrops">Muat semula latar</string>
     <string name="backdrops_reloading">Memuat turun latar baharu…</string>
     <string name="auto_hide_bar">Sembunyi automatik</string>
     <string name="slideshow_clock">Jam penyelamat skrin</string>
+    <string name="power_on_home">Laman utama semasa dihidupkan</string>
+    <string name="restart">Mula semula…</string>
     <string name="time_remaining">%1$s lagi</string>
     <string name="home_key_name">Butang Laman Utama Vibe Launcher</string>
     <string name="home_key_description">Menjadikan butang Laman Utama alat kawalan jauh membuka Vibe Launcher dan bukannya skrin utama TV itu sendiri, dan menekannya lama membuka Tetapan TV. Ia tidak membaca apa-apa pada skrin dan melepaskan semua butang lain.</string>

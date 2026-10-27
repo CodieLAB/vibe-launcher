@@ -34,7 +34,6 @@
     <string name="on">Washa</string>
     <string name="plex_token">Tokeni ya Plex</string>
     <string name="not_set">Haijawekwa</string>
-    <string name="save">Hifadhi</string>
     <string name="cancel">Ghairi</string>
     <string name="tab_general">Jumla</string>
     <string name="tab_appearance">Mwonekano</string>
@@ -48,7 +47,6 @@
     <string name="update_available">Sasisho lipo: %1$s</string>
     <string name="update_check_failed">%1$s · Imeshindwa kuangalia masasisho</string>
     <string name="update_downloading">Inapakua sasisho…</string>
-    <string name="update_development_status">%1$s, imejengwa kwa ufunguo mwingine wa sahihi: isasishe kutoka kwenye kompyuta kwa build-and-install.sh</string>
     <string name="update_development">Toleo hili lina ufunguo mwingine wa sahihi: lisasishe kutoka kwenye kompyuta, kwa build-and-install.sh</string>
     <string name="update_allow_installs">Ruhusu Vibe Launcher isakinishe programu, kisha uchague Sasisha tena</string>
     <string name="update_no_installs">TV hii hairuhusu programu kusakinisha masasisho</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">Sasisho halikusakinishwa</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">Imehifadhiwa</string>
+    <string name="phone_paste">Bandika funguo kutoka kwa simu</string>
     <string name="scan_to_paste">Changanua kwa simu ili kubandika funguo</string>
     <string name="tmdb_notice">Mandhari hutumia API ya TMDB lakini hayajaidhinishwa wala kuthibitishwa na TMDB.</string>
-    <string name="about_key">Kuhusu ufunguo huu</string>
     <string name="tmdb_info">Mandhari safi na nembo za mada kwa filamu na vipindi vilivyo kwenye kadi za skrini kuu za programu zako, badala ya picha na vibandiko vyao. Hufanya kazi bila ufunguo, kwa data ya bure ya Stremio; TMDB ndicho chanzo rasmi na cha kuaminika zaidi.\n\nUfunguo wa bure: themoviedb.org → Mipangilio → API → matumizi binafsi.</string>
     <string name="youtube_info">Ukiwa umeingia kwenye SmartTube, kigae cha YouTube huonyesha video kutoka kwenye mlisho wako wa YouTube. Hakuna ufunguo unaohitajika.\n\nBila hiyo, ufunguo huonyesha video maarufu zaidi nchini mwako. Ufunguo wa bure: console.cloud.google.com → mradi mpya → washa YouTube Data API v3 → Vitambulisho → Unda ufunguo wa API.\n\nBila vyote viwili, huonyesha trela za filamu maarufu.</string>
     <string name="plex_info">Mandhari kutoka kwenye seva yako ya Plex: Endelea kutazama na vilivyoongezwa hivi karibuni.\n\nKuupata: app.plex.tv → fungua mada yoyote → ⋯ → Pata Maelezo → Tazama XML, kisha nakili kinachofuata X-Plex-Token= kwenye anwani. Iweke siri kama nenosiri.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Ruhusu Vibe Launcher isakinishe programu, kisha uchague Sakinisha SmartTube tena</string>
     <string name="smarttube_failed">SmartTube haikusakinishwa</string>
     <string name="play">Cheza</string>
-    <string name="backdrops">Mandhari</string>
     <string name="reload_backdrops">Pakia upya mandhari</string>
     <string name="backdrops_reloading">Inapakua mandhari mapya…</string>
     <string name="auto_hide_bar">Ficha kiotomatiki</string>
     <string name="slideshow_clock">Saa kwenye skrini ya kupumzisha</string>
+    <string name="power_on_home">Nyumbani inapowashwa</string>
+    <string name="restart">Washa upya…</string>
     <string name="time_remaining">Zimebaki %1$s</string>
     <string name="home_key_name">Kitufe cha Mwanzo cha Vibe Launcher</string>
     <string name="home_key_description">Hufanya kitufe cha Mwanzo cha rimoti kifungue Vibe Launcher badala ya skrini ya mwanzo ya TV yenyewe, na ukikibonyeza kwa muda mipangilio ya TV ifunguke. Haisomi chochote kwenye skrini na huacha vitufe vingine vyote vipite.</string>

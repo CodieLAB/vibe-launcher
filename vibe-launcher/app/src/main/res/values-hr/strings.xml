@@ -34,7 +34,6 @@
     <string name="on">Uklj.</string>
     <string name="plex_token">Plex token</string>
     <string name="not_set">Nije postavljeno</string>
-    <string name="save">Spremi</string>
     <string name="cancel">Odustani</string>
     <string name="tab_general">Općenito</string>
     <string name="tab_appearance">Izgled</string>
@@ -48,7 +47,6 @@
     <string name="update_available">Dostupno ažuriranje: %1$s</string>
     <string name="update_check_failed">%1$s · Provjera ažuriranja nije uspjela</string>
     <string name="update_downloading">Preuzimanje ažuriranja…</string>
-    <string name="update_development_status">%1$s, izrađena drugim ključem za potpisivanje: ažurirajte s računala pomoću build-and-install.sh</string>
     <string name="update_development">Ova verzija ima drugi ključ za potpisivanje: ažurirajte je s računala, pomoću build-and-install.sh</string>
     <string name="update_allow_installs">Dopustite Vibe Launcheru da instalira aplikacije pa ponovno odaberite Ažuriraj</string>
     <string name="update_no_installs">Ovaj televizor ne dopušta aplikacijama da instaliraju ažuriranja</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">Ažuriranje se nije instaliralo</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">Spremljeno</string>
+    <string name="phone_paste">Zalijepi ključeve s telefona</string>
     <string name="scan_to_paste">Skenirajte telefonom da biste zalijepili ključeve</string>
     <string name="tmdb_notice">Pozadine koriste TMDB API, ali ih TMDB ne podržava niti certificira.</string>
-    <string name="about_key">O ovom ključu</string>
     <string name="tmdb_info">Čiste pozadine i logotipi naslova za filmove i serije s kartica početnog zaslona vaših aplikacija, umjesto njihovih vlastitih slika i naljepnica. Radi i bez ključa, s besplatnim podacima Stremija; TMDB je službeni, pouzdaniji izvor.\n\nBesplatni ključ: themoviedb.org → Postavke → API → osobna upotreba.</string>
     <string name="youtube_info">Kad ste prijavljeni u SmartTube, pločica YouTubea prikazuje videozapise iz vašeg vlastitog YouTube feeda. Ključ nije potreban.\n\nBez njega ključ prikazuje najpopularnije videozapise u vašoj zemlji. Besplatni ključ: console.cloud.google.com → novi projekt → omogućite YouTube Data API v3 → Vjerodajnice → Izradi API ključ.\n\nBez oboje prikazuje najave popularnih filmova.</string>
     <string name="plex_info">Pozadine s vašeg vlastitog Plex poslužitelja: Nastavi gledati i nedavno dodano.\n\nKako ga pronaći: app.plex.tv → otvorite bilo koji naslov → ⋯ → Dohvati informacije → Prikaži XML i kopirajte ono što slijedi nakon X-Plex-Token= u adresi. Čuvajte ga u tajnosti, kao lozinku.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Dopustite Vibe Launcheru da instalira aplikacije, a zatim ponovno odaberite Instaliraj SmartTube</string>
     <string name="smarttube_failed">SmartTube se nije instalirao</string>
     <string name="play">Reproduciraj</string>
-    <string name="backdrops">Pozadine</string>
     <string name="reload_backdrops">Ponovno učitaj pozadine</string>
     <string name="backdrops_reloading">Preuzimanje novih pozadina…</string>
     <string name="auto_hide_bar">Automatsko skrivanje</string>
     <string name="slideshow_clock">Sat na čuvaru zaslona</string>
+    <string name="power_on_home">Početni zaslon pri uključivanju</string>
+    <string name="restart">Ponovno pokreni…</string>
     <string name="time_remaining">Još %1$s</string>
     <string name="home_key_name">Tipka Početno za Vibe Launcher</string>
     <string name="home_key_description">Tipka Početno na daljinskom otvara Vibe Launcher umjesto vlastitog početnog zaslona televizora, a dulji pritisak otvara postavke televizora. Ne čita ništa sa zaslona i propušta sve ostale tipke.</string>

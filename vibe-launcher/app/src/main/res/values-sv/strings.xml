@@ -34,7 +34,6 @@
     <string name="on">På</string>
     <string name="plex_token">Plex-token</string>
     <string name="not_set">Inte angiven</string>
-    <string name="save">Spara</string>
     <string name="cancel">Avbryt</string>
     <string name="tab_general">Allmänt</string>
     <string name="tab_appearance">Utseende</string>
@@ -48,7 +47,6 @@
     <string name="update_available">Uppdatering finns: %1$s</string>
     <string name="update_check_failed">%1$s · Kunde inte söka efter uppdateringar</string>
     <string name="update_downloading">Hämtar uppdateringen…</string>
-    <string name="update_development_status">%1$s, byggd med en annan signeringsnyckel: uppdatera från en dator med build-and-install.sh</string>
     <string name="update_development">Den här versionen har en annan signeringsnyckel: uppdatera den från en dator, med build-and-install.sh</string>
     <string name="update_allow_installs">Tillåt Vibe Launcher att installera appar och välj sedan Uppdatera igen</string>
     <string name="update_no_installs">Den här tv:n låter inte appar installera uppdateringar</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">Uppdateringen installerades inte</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">Sparat</string>
+    <string name="phone_paste">Klistra in nycklar från telefonen</string>
     <string name="scan_to_paste">Skanna med mobilen för att klistra in nycklarna</string>
     <string name="tmdb_notice">Bakgrunderna använder TMDB:s API men är inte godkända eller certifierade av TMDB.</string>
-    <string name="about_key">Om den här nyckeln</string>
     <string name="tmdb_info">Rena bakgrunder och titellogotyper för filmerna och serierna på dina appars startskärmskort, i stället för deras egna bilder och etiketter. Fungerar utan nyckel, med Stremios gratisdata; TMDB är den officiella, mer pålitliga källan.\n\nGratis nyckel: themoviedb.org → Inställningar → API → privat bruk.</string>
     <string name="youtube_info">Med SmartTube inloggat visar YouTube-rutan videor från ditt eget YouTube-flöde. Ingen nyckel behövs.\n\nUtan det visar en nyckel de populäraste videorna i ditt land. Gratis nyckel: console.cloud.google.com → nytt projekt → aktivera YouTube Data API v3 → Inloggningsuppgifter → Skapa API-nyckel.\n\nUtan båda visar den trailers för populära filmer.</string>
     <string name="plex_info">Bakgrunder från din egen Plex-server: Fortsätt titta och nyligen tillagt.\n\nSå hittar du den: app.plex.tv → öppna valfri titel → ⋯ → Hämta info → Visa XML, och kopiera det som följer efter X-Plex-Token= i adressen. Håll den hemlig, som ett lösenord.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Tillåt Vibe Launcher att installera appar och välj sedan Installera SmartTube igen</string>
     <string name="smarttube_failed">SmartTube installerades inte</string>
     <string name="play">Spela upp</string>
-    <string name="backdrops">Bakgrunder</string>
     <string name="reload_backdrops">Läs in bakgrunder igen</string>
     <string name="backdrops_reloading">Hämtar nya bakgrunder…</string>
     <string name="auto_hide_bar">Dölj automatiskt</string>
     <string name="slideshow_clock">Klocka på skärmsläckare</string>
+    <string name="power_on_home">Hem vid påslagning</string>
+    <string name="restart">Starta om…</string>
     <string name="time_remaining">%1$s kvar</string>
     <string name="home_key_name">Vibe Launcher-hemknapp</string>
     <string name="home_key_description">Får fjärrkontrollens hemknapp att öppna Vibe Launcher i stället för tv:ns egen startskärm, och ett långt tryck att öppna tv:ns inställningar. Den läser inget på skärmen och släpper igenom alla andra knappar.</string>

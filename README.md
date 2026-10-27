@@ -90,9 +90,13 @@ slides in when you press Up from the picture alone, or move down into the app gr
 
 ## Settings
 
-Three tabs: **General**, **Appearance** and **API keys**.
+Full screen, laid out like Apple TV's: the logo on the left and **General**, **Appearance** and
+**API keys** on the right. Picking one slides its list over the logo and its page in on the right;
+Back or Left slides back. Changes apply as you make them (tiles per row and the language once you
+close Settings, as they rebuild Home), and the focused row's explanation shows under the list.
 
-**General**: language, reloading the backdrops, and the software version with its update check.
+**General**: language, reloading the backdrops, Home at power-on, Restart… (app store version), and the
+software version with its update check.
 
 | ![Vibe Launcher settings, General tab: tiles per row, hide inactive inputs, auto-hide, language, reload backdrops, and the software version under Save and Cancel](vibe-launcher/docs/settings-general.jpg) | ![The language list, each language in its own name](vibe-launcher/docs/language.jpg) |
 |---|---|
@@ -101,6 +105,12 @@ Three tabs: **General**, **Appearance** and **API keys**.
   clock and date follow it.
 - **Backdrops → Reload backdrops**: empties the saved pictures and downloads them all again, each
   app's first one first.
+- **Home at power-on**: Off (the default) or On. For TVs that wake up on the input or app they were
+  left on (Sony goes back to the last HDMI input): On brings Home up just after the screen turns on. In
+  the app store version, a button pressed in that first moment keeps you where the TV woke up.
+- **Restart…** (app store version, with the Home button on): opens the TV's own power menu, which
+  asks before it restarts. An app can't restart the TV itself, and the adb version has no Home button
+  service to ask the TV with, so it doesn't show this.
 
 **Appearance**: tiles per row, hiding inactive inputs, auto-hide and the screensaver clock.
 
@@ -116,10 +126,11 @@ Three tabs: **General**, **Appearance** and **API keys**.
   top bar but without the bar; Off leaves the pictures alone.
 
 **API keys**: optional keys that unlock more backdrops: **TMDB**, **YouTube** and **Plex**. Each has
-an ⓘ that explains what it adds and where to get it, free. Typing a 32-character key with a remote
-is no fun, so the tab shows a **QR code**: scan it with your phone and paste the keys there. Saved
-keys stay on the TV and show only their last four characters. Under YouTube, one button installs
-SmartTube (its latest release, checked against GitHub's checksum) or opens it to sign in.
+an explanation under the list of what it adds and where to get it, free; OK edits it in place.
+Typing a 32-character key with a remote is no fun, so **Paste keys from your phone** shows a **QR
+code**: scan it and paste the keys there. Saved keys stay on the TV and show only their last four
+characters. Under YouTube, one row installs SmartTube (its latest release, checked against GitHub's
+checksum) or opens it to sign in.
 
 ![Vibe Launcher settings, API keys tab: TMDB, YouTube and Plex keys and a QR code for the phone](vibe-launcher/docs/settings-keys.jpg)
 

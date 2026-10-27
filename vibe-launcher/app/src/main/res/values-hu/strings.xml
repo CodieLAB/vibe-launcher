@@ -34,7 +34,6 @@
     <string name="on">Be</string>
     <string name="plex_token">Plex token</string>
     <string name="not_set">Nincs beállítva</string>
-    <string name="save">Mentés</string>
     <string name="cancel">Mégse</string>
     <string name="tab_general">Általános</string>
     <string name="tab_appearance">Megjelenés</string>
@@ -48,7 +47,6 @@
     <string name="update_available">Frissítés érhető el: %1$s</string>
     <string name="update_check_failed">%1$s · Nem sikerült frissítést keresni</string>
     <string name="update_downloading">A frissítés letöltése…</string>
-    <string name="update_development_status">%1$s, más aláírókulccsal készült: frissítsd számítógépről a build-and-install.sh segítségével</string>
     <string name="update_development">Ennek a buildnek más az aláírókulcsa: frissítsd számítógépről, a build-and-install.sh segítségével</string>
     <string name="update_allow_installs">Engedd, hogy a Vibe Launcher alkalmazásokat telepítsen, majd válaszd újra a Frissítést</string>
     <string name="update_no_installs">Ez a tévé nem engedi, hogy az alkalmazások frissítéseket telepítsenek</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">A frissítés nem települt</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">Mentve</string>
+    <string name="phone_paste">Kulcsok beillesztése telefonról</string>
     <string name="scan_to_paste">Olvasd be telefonnal a kulcsok beillesztéséhez</string>
     <string name="tmdb_notice">A háttérképek a TMDB API-t használják, de a TMDB nem támogatja és nem tanúsítja őket.</string>
-    <string name="about_key">Erről a kulcsról</string>
     <string name="tmdb_info">Tiszta háttérképek és címlogók az alkalmazásaid kezdőképernyő-kártyáin lévő filmekhez és sorozatokhoz, a saját képeik és matricáik helyett. Kulcs nélkül is működik, a Stremio ingyenes adataival; a TMDB a hivatalos, megbízhatóbb forrás.\n\nIngyenes kulcs: themoviedb.org → Beállítások → API → személyes használat.</string>
     <string name="youtube_info">Ha be vagy jelentkezve a SmartTube-ba, a YouTube csempe a saját YouTube-hírfolyamod videóit mutatja. Nem kell kulcs.\n\nNélküle egy kulcs az országod legnépszerűbb videóit mutatja. Ingyenes kulcs: console.cloud.google.com → új projekt → YouTube Data API v3 engedélyezése → Hitelesítő adatok → API-kulcs létrehozása.\n\nHa egyik sincs, népszerű filmek előzeteseit mutatja.</string>
     <string name="plex_info">Háttérképek a saját Plex-szerveredről: Folytatás és nemrég hozzáadottak.\n\nÍgy találod meg: app.plex.tv → nyiss meg bármilyen címet → ⋯ → Információ → XML megtekintése, és másold ki, ami a címben az X-Plex-Token= után áll. Tartsd titokban, mint egy jelszót.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Engedélyezd a Vibe Launchernek az alkalmazások telepítését, majd válaszd újra a SmartTube telepítése lehetőséget</string>
     <string name="smarttube_failed">A SmartTube nem települt</string>
     <string name="play">Lejátszás</string>
-    <string name="backdrops">Háttérképek</string>
     <string name="reload_backdrops">Háttérképek újratöltése</string>
     <string name="backdrops_reloading">Új háttérképek letöltése…</string>
     <string name="auto_hide_bar">Automatikus elrejtés</string>
     <string name="slideshow_clock">Óra a képernyővédőn</string>
+    <string name="power_on_home">Kezdőképernyő bekapcsoláskor</string>
+    <string name="restart">Újraindítás…</string>
     <string name="time_remaining">Még %1$s</string>
     <string name="home_key_name">Vibe Launcher Kezdőképernyő gomb</string>
     <string name="home_key_description">A távirányító Kezdőképernyő gombja a tévé saját kezdőképernyője helyett a Vibe Launchert nyitja meg, nyomva tartva pedig a tévé beállításait. Semmit nem olvas a képernyőről, és minden más gombot továbbenged.</string>

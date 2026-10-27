@@ -34,7 +34,6 @@
     <string name="on">オン</string>
     <string name="plex_token">Plex トークン</string>
     <string name="not_set">未設定</string>
-    <string name="save">保存</string>
     <string name="cancel">キャンセル</string>
     <string name="tab_general">一般</string>
     <string name="tab_appearance">外観</string>
@@ -48,7 +47,6 @@
     <string name="update_available">アップデートがあります：%1$s</string>
     <string name="update_check_failed">%1$s · アップデートを確認できませんでした</string>
     <string name="update_downloading">アップデートをダウンロード中…</string>
-    <string name="update_development_status">%1$s、別の署名キーでビルド：パソコンから build-and-install.sh でアップデートしてください</string>
     <string name="update_development">このビルドは署名キーが異なります：パソコンから build-and-install.sh でアップデートしてください</string>
     <string name="update_allow_installs">Vibe Launcher にアプリのインストールを許可してから、もう一度アップデートを選んでください</string>
     <string name="update_no_installs">このテレビではアプリがアップデートをインストールできません</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">アップデートをインストールできませんでした</string>
     <string name="cpu">CPU</string>
     <string name="ram">メモリ</string>
-    <string name="saved">保存しました</string>
+    <string name="phone_paste">スマホからキーを貼り付け</string>
     <string name="scan_to_paste">スマホでスキャンしてキーを貼り付け</string>
     <string name="tmdb_notice">背景画像は TMDB API を使用していますが、TMDB の承認や認定を受けたものではありません。</string>
-    <string name="about_key">このキーについて</string>
     <string name="tmdb_info">アプリのホーム画面カードにある映画や番組に、アプリ独自の画像やステッカーの代わりに、文字のない背景とタイトルロゴを表示します。キーなしでも Stremio の無料データで動きます。TMDB は公式で、より信頼できるソースです。\n\n無料キー：themoviedb.org → 設定 → API → 個人利用。</string>
     <string name="youtube_info">SmartTube にログインしていると、YouTube タイルにはあなた自身の YouTube フィードの動画が表示されます。キーは不要です。\n\nSmartTube がない場合は、キーを使うとお住まいの国で人気の動画が表示されます。 無料キー：console.cloud.google.com → 新しいプロジェクト → YouTube Data API v3 を有効化 → 認証情報 → API キーを作成。\n\nどちらもない場合は、人気映画の予告編が表示されます。</string>
     <string name="plex_info">ご自分の Plex サーバーからの背景：視聴を続ける、最近追加。\n\n取得方法：app.plex.tv → 任意のタイトルを開く → ⋯ → 情報を取得 → XML を表示 → アドレスの X-Plex-Token= の後ろをコピー。パスワードのように秘密にしてください。</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Vibe Launcher にアプリのインストールを許可してから、もう一度「SmartTube をインストール」を選んでください</string>
     <string name="smarttube_failed">SmartTube をインストールできませんでした</string>
     <string name="play">再生</string>
-    <string name="backdrops">背景画像</string>
     <string name="reload_backdrops">背景画像を再読み込み</string>
     <string name="backdrops_reloading">新しい背景画像をダウンロードしています…</string>
     <string name="auto_hide_bar">自動的に隠す</string>
     <string name="slideshow_clock">スクリーンセーバーの時計</string>
+    <string name="power_on_home">電源オン時にホーム</string>
+    <string name="restart">再起動…</string>
     <string name="time_remaining">残り %1$s</string>
     <string name="home_key_name">Vibe Launcher ホームボタン</string>
     <string name="home_key_description">リモコンのホームボタンで、テレビ独自のホーム画面ではなく Vibe Launcher を開き、長押しでテレビの設定を開きます。画面の内容は読み取らず、ほかのボタンはそのまま通します。</string>

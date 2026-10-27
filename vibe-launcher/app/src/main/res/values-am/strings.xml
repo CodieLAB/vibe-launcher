@@ -34,7 +34,6 @@
     <string name="on">አብራ</string>
     <string name="plex_token">የPlex ቶከን</string>
     <string name="not_set">አልተቀናበረም</string>
-    <string name="save">አስቀምጥ</string>
     <string name="cancel">ይቅር</string>
     <string name="tab_general">አጠቃላይ</string>
     <string name="tab_appearance">መልክ</string>
@@ -48,7 +47,6 @@
     <string name="update_available">ዝማኔ አለ፦ %1$s</string>
     <string name="update_check_failed">%1$s · ዝማኔዎችን መፈለግ አልተቻለም</string>
     <string name="update_downloading">ዝማኔውን በማውረድ ላይ…</string>
-    <string name="update_development_status">%1$s፣ በሌላ የፊርማ ቁልፍ የተሠራ፦ ከኮምፒውተር በbuild-and-install.sh ያዘምኑት</string>
     <string name="update_development">ይህ ግንባታ ሌላ የፊርማ ቁልፍ አለው፦ ከኮምፒውተር በbuild-and-install.sh ያዘምኑት</string>
     <string name="update_allow_installs">Vibe Launcher መተግበሪያዎችን እንዲጭን ይፍቀዱ፣ ከዚያ እንደገና አዘምንን ይምረጡ</string>
     <string name="update_no_installs">ይህ ቲቪ መተግበሪያዎች ዝማኔ እንዲጭኑ አይፈቅድም</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">ዝማኔው አልተጫነም</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">ተቀምጧል</string>
+    <string name="phone_paste">ቁልፎችን ከስልክዎ ይለጥፉ</string>
     <string name="scan_to_paste">ቁልፎቹን ለመለጠፍ በስልክዎ ይቃኙ</string>
     <string name="tmdb_notice">ዳራዎቹ የTMDB APIን ይጠቀማሉ፣ ግን በTMDB የተደገፉ ወይም የተረጋገጡ አይደሉም።</string>
-    <string name="about_key">ስለዚህ ቁልፍ</string>
     <string name="tmdb_info">በመተግበሪያዎችዎ የመነሻ ማያ ካርዶች ላይ ላሉ ፊልሞችና ትዕይንቶች፣ በራሳቸው ምስሎችና ተለጣፊዎች ፈንታ ንጹህ ዳራዎችና የርዕስ አርማዎች። ያለ ቁልፍም ይሠራል፣ ከStremio ነፃ ውሂብ፤ TMDB ኦፊሴላዊና ይበልጥ አስተማማኝ ምንጭ ነው።\n\nነፃ ቁልፍ፦ themoviedb.org → ቅንብሮች → API → የግል አጠቃቀም።</string>
     <string name="youtube_info">ወደ SmartTube ሲገቡ የYouTube ሰሌዳው ከራስዎ የYouTube ምግብ ቪዲዮዎችን ያሳያል። ቁልፍ አያስፈልግም።\n\nያለ እሱ፣ ቁልፍ በአገርዎ በጣም ታዋቂ የሆኑ ቪዲዮዎችን ያሳያል። ነፃ ቁልፍ፦ console.cloud.google.com → አዲስ ፕሮጀክት → YouTube Data API v3ን ያብሩ → ምስክርነቶች → የAPI ቁልፍ ፍጠር።\n\nሁለቱም ከሌሉ፣ የታዋቂ ፊልሞችን ማስታወቂያዎች ያሳያል።</string>
     <string name="plex_info">ከራስዎ የPlex አገልጋይ የመጡ ዳራዎች፦ መመልከት ይቀጥሉ እና በቅርቡ የታከሉ።\n\nለማግኘት፦ app.plex.tv → ማንኛውንም ርዕስ ይክፈቱ → ⋯ → መረጃ አግኝ → XML አሳይ፣ በአድራሻው ውስጥ ከX-Plex-Token= በኋላ ያለውን ይቅዱ። እንደ የይለፍ ቃል በሚስጥር ይያዙት።</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Vibe Launcher መተግበሪያዎችን እንዲጭን ይፍቀዱ፣ ከዚያ SmartTube ጫን የሚለውን እንደገና ይምረጡ</string>
     <string name="smarttube_failed">SmartTube አልተጫነም</string>
     <string name="play">አጫውት</string>
-    <string name="backdrops">ዳራዎች</string>
     <string name="reload_backdrops">ዳራዎችን እንደገና ጫን</string>
     <string name="backdrops_reloading">አዲስ ዳራዎችን በማውረድ ላይ…</string>
     <string name="auto_hide_bar">በራስ-ሰር ደብቅ</string>
     <string name="slideshow_clock">የስክሪን ቆጣቢ ሰዓት</string>
+    <string name="power_on_home">ሲበራ መነሻ</string>
+    <string name="restart">እንደገና አስጀምር…</string>
     <string name="time_remaining">%1$s ቀርቷል</string>
     <string name="home_key_name">Vibe Launcher የመነሻ አዝራር</string>
     <string name="home_key_description">የሩቅ መቆጣጠሪያው የመነሻ አዝራር ከቴሌቪዥኑ የራሱ መነሻ ማያ ገጽ ይልቅ Vibe Launcherን እንዲከፍት፣ ተጭኖ ሲያዝ ደግሞ የቴሌቪዥኑን ቅንብሮች እንዲከፍት ያደርጋል። በማያ ገጹ ላይ ምንም አያነብም፣ ሌሎቹን ቁልፎች ሁሉ ያሳልፋል።</string>

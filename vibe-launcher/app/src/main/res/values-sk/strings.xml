@@ -34,7 +34,6 @@
     <string name="on">Zap.</string>
     <string name="plex_token">Token Plex</string>
     <string name="not_set">Nenastavené</string>
-    <string name="save">Uložiť</string>
     <string name="cancel">Zrušiť</string>
     <string name="tab_general">Všeobecné</string>
     <string name="tab_appearance">Vzhľad</string>
@@ -48,7 +47,6 @@
     <string name="update_available">K dispozícii je aktualizácia: %1$s</string>
     <string name="update_check_failed">%1$s · Aktualizácie sa nepodarilo skontrolovať</string>
     <string name="update_downloading">Sťahuje sa aktualizácia…</string>
-    <string name="update_development_status">%1$s, zostavená iným podpisovým kľúčom: aktualizujte z počítača pomocou build-and-install.sh</string>
     <string name="update_development">Táto zostava má iný podpisový kľúč: aktualizujte ju z počítača, pomocou build-and-install.sh</string>
     <string name="update_allow_installs">Povoľte Vibe Launcher inštalovať aplikácie a potom znova zvoľte Aktualizovať</string>
     <string name="update_no_installs">Tento televízor nedovolí aplikáciám inštalovať aktualizácie</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">Aktualizácia sa nenainštalovala</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">Uložené</string>
+    <string name="phone_paste">Vložiť kľúče z telefónu</string>
     <string name="scan_to_paste">Naskenujte telefónom a vložte kľúče</string>
     <string name="tmdb_notice">Pozadia používajú API TMDB, no TMDB ich neschvaľuje ani necertifikuje.</string>
-    <string name="about_key">O tomto kľúči</string>
     <string name="tmdb_info">Čisté pozadia a logá titulov pre filmy a seriály z kariet domovskej obrazovky vašich aplikácií namiesto ich vlastných obrázkov a nálepiek. Funguje aj bez kľúča, z bezplatných dát Stremio; TMDB je oficiálny, spoľahlivejší zdroj.\n\nBezplatný kľúč: themoviedb.org → Nastavenia → API → osobné použitie.</string>
     <string name="youtube_info">Keď ste prihlásení v SmartTube, dlaždica YouTube ukazuje videá z vášho vlastného kanála YouTube. Kľúč nie je potrebný.\n\nBez neho kľúč ukazuje najpopulárnejšie videá vo vašej krajine. Bezplatný kľúč: console.cloud.google.com → nový projekt → zapnite YouTube Data API v3 → Poverenia → Vytvoriť kľúč API.\n\nBez oboch ukazuje upútavky na populárne filmy.</string>
     <string name="plex_info">Pozadia z vášho vlastného servera Plex: Pokračovať v sledovaní a nedávno pridané.\n\nKde ho nájsť: app.plex.tv → otvorte ľubovoľný titul → ⋯ → Získať informácie → Zobraziť XML a skopírujte, čo je v adrese za X-Plex-Token=. Uchovajte ho v tajnosti ako heslo.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Povoľte aplikácii Vibe Launcher inštalovať aplikácie a potom znova zvoľte Nainštalovať SmartTube</string>
     <string name="smarttube_failed">SmartTube sa nenainštaloval</string>
     <string name="play">Prehrať</string>
-    <string name="backdrops">Pozadia</string>
     <string name="reload_backdrops">Znova načítať pozadia</string>
     <string name="backdrops_reloading">Sťahujú sa nové pozadia…</string>
     <string name="auto_hide_bar">Automaticky skryť</string>
     <string name="slideshow_clock">Hodiny na šetriči</string>
+    <string name="power_on_home">Domov po zapnutí</string>
+    <string name="restart">Reštartovať…</string>
     <string name="time_remaining">Zostáva %1$s</string>
     <string name="home_key_name">Tlačidlo Domov pre Vibe Launcher</string>
     <string name="home_key_description">Tlačidlo Domov na ovládači otvorí Vibe Launcher namiesto vlastnej domovskej obrazovky televízora a jeho podržanie otvorí nastavenia televízora. Nič z obrazovky nečíta a všetky ostatné tlačidlá púšťa ďalej.</string>

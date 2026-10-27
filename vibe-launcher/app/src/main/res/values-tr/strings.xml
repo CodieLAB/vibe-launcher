@@ -34,7 +34,6 @@
     <string name="on">Açık</string>
     <string name="plex_token">Plex jetonu</string>
     <string name="not_set">Ayarlanmadı</string>
-    <string name="save">Kaydet</string>
     <string name="cancel">İptal</string>
     <string name="tab_general">Genel</string>
     <string name="tab_appearance">Görünüm</string>
@@ -48,7 +47,6 @@
     <string name="update_available">Güncelleme var: %1$s</string>
     <string name="update_check_failed">%1$s · Güncellemeler denetlenemedi</string>
     <string name="update_downloading">Güncelleme indiriliyor…</string>
-    <string name="update_development_status">%1$s, farklı bir imza anahtarıyla derlendi: bilgisayardan build-and-install.sh ile güncelleyin</string>
     <string name="update_development">Bu derlemenin imza anahtarı farklı: bilgisayardan build-and-install.sh ile güncelleyin</string>
     <string name="update_allow_installs">Vibe Launcher\'ın uygulama yüklemesine izin verin, sonra yeniden Güncelle\'yi seçin</string>
     <string name="update_no_installs">Bu TV, uygulamaların güncelleme yüklemesine izin vermiyor</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">Güncelleme yüklenemedi</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">Kaydedildi</string>
+    <string name="phone_paste">Anahtarları telefondan yapıştır</string>
     <string name="scan_to_paste">Anahtarları yapıştırmak için telefonla tarayın</string>
     <string name="tmdb_notice">Arka planlar TMDB API\'sini kullanır ancak TMDB tarafından onaylanmış veya sertifikalandırılmış değildir.</string>
-    <string name="about_key">Bu anahtar hakkında</string>
     <string name="tmdb_info">Uygulamalarınızın ana ekran kartlarındaki film ve diziler için, uygulamaların kendi görselleri ve etiketleri yerine temiz arka planlar ve başlık logoları. Anahtarsız da çalışır, Stremio\'nun ücretsiz verileriyle; TMDB resmi ve daha güvenilir kaynaktır.\n\nÜcretsiz anahtar: themoviedb.org → Ayarlar → API → kişisel kullanım.</string>
     <string name="youtube_info">SmartTube\'da oturum açıksa YouTube kutusu kendi YouTube akışınızdaki videoları gösterir. Anahtar gerekmez.\n\nO yoksa, bir anahtar ülkenizdeki en popüler videoları gösterir. Ücretsiz anahtar: console.cloud.google.com → yeni proje → YouTube Data API v3\'ü etkinleştirin → Kimlik bilgileri → API anahtarı oluştur.\n\nİkisi de yoksa popüler filmlerin fragmanlarını gösterir.</string>
     <string name="plex_info">Kendi Plex sunucunuzdan arka planlar: İzlemeye devam et ve son eklenenler.\n\nBulmak için: app.plex.tv → herhangi bir içeriği açın → ⋯ → Bilgi al → XML\'i görüntüle, ve adresteki X-Plex-Token= sonrasını kopyalayın. Şifre gibi gizli tutun.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Vibe Launcher\'ın uygulama yüklemesine izin verin, sonra yeniden SmartTube\'u yükle\'yi seçin</string>
     <string name="smarttube_failed">SmartTube yüklenmedi</string>
     <string name="play">Oynat</string>
-    <string name="backdrops">Arka planlar</string>
     <string name="reload_backdrops">Arka planları yeniden yükle</string>
     <string name="backdrops_reloading">Yeni arka planlar indiriliyor…</string>
     <string name="auto_hide_bar">Otomatik gizle</string>
     <string name="slideshow_clock">Ekran koruyucuda saat</string>
+    <string name="power_on_home">Açılışta ana ekran</string>
+    <string name="restart">Yeniden başlat…</string>
     <string name="time_remaining">%1$s kaldı</string>
     <string name="home_key_name">Vibe Launcher Ana ekran düğmesi</string>
     <string name="home_key_description">Kumandanın Ana ekran düğmesinin TV\'nin kendi ana ekranı yerine Vibe Launcher\'ı açmasını, basılı tutulduğunda da TV\'nin ayarlarını açmasını sağlar. Ekrandaki hiçbir şeyi okumaz ve diğer tüm tuşları olduğu gibi iletir.</string>

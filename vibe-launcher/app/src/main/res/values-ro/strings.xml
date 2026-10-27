@@ -34,7 +34,6 @@
     <string name="on">Da</string>
     <string name="plex_token">Token Plex</string>
     <string name="not_set">Nesetat</string>
-    <string name="save">Salvează</string>
     <string name="cancel">Anulează</string>
     <string name="tab_general">General</string>
     <string name="tab_appearance">Aspect</string>
@@ -48,7 +47,6 @@
     <string name="update_available">Actualizare disponibilă: %1$s</string>
     <string name="update_check_failed">%1$s · Nu s-au putut căuta actualizări</string>
     <string name="update_downloading">Se descarcă actualizarea…</string>
-    <string name="update_development_status">%1$s, compilată cu altă cheie de semnare: actualizeaz-o de pe un computer cu build-and-install.sh</string>
     <string name="update_development">Această versiune are altă cheie de semnare: actualizeaz-o de pe un computer, cu build-and-install.sh</string>
     <string name="update_allow_installs">Permite-i lui Vibe Launcher să instaleze aplicații, apoi alege din nou Actualizează</string>
     <string name="update_no_installs">Acest televizor nu lasă aplicațiile să instaleze actualizări</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">Actualizarea nu s-a instalat</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">Salvat</string>
+    <string name="phone_paste">Lipește cheile de pe telefon</string>
     <string name="scan_to_paste">Scanează cu telefonul ca să lipești cheile</string>
     <string name="tmdb_notice">Fundalurile folosesc API-ul TMDB, dar nu sunt aprobate sau certificate de TMDB.</string>
-    <string name="about_key">Despre această cheie</string>
     <string name="tmdb_info">Fundaluri curate și sigle de titlu pentru filmele și serialele de pe cardurile ecranului de pornire ale aplicațiilor, în locul imaginilor și autocolantelor lor. Funcționează și fără cheie, cu datele gratuite Stremio; TMDB este sursa oficială, mai de încredere.\n\nCheie gratuită: themoviedb.org → Setări → API → uz personal.</string>
     <string name="youtube_info">Cu SmartTube conectat, plăcuța YouTube arată videoclipuri din propriul tău feed YouTube. Nu e nevoie de cheie.\n\nFără el, o cheie arată cele mai populare videoclipuri din țara ta. Cheie gratuită: console.cloud.google.com → proiect nou → activează YouTube Data API v3 → Date de conectare → Creează cheie API.\n\nFără niciunul, arată trailere ale unor filme populare.</string>
     <string name="plex_info">Fundaluri de pe propriul tău server Plex: Continuă vizionarea și adăugate recent.\n\nCum îl găsești: app.plex.tv → deschide orice titlu → ⋯ → Obține informații → Vezi XML, apoi copiază ce urmează după X-Plex-Token= în adresă. Păstrează-l secret, ca pe o parolă.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Permite-i lui Vibe Launcher să instaleze aplicații, apoi alege din nou Instalează SmartTube</string>
     <string name="smarttube_failed">SmartTube nu s-a instalat</string>
     <string name="play">Redă</string>
-    <string name="backdrops">Fundaluri</string>
     <string name="reload_backdrops">Reîncarcă fundalurile</string>
     <string name="backdrops_reloading">Se descarcă fundaluri noi…</string>
     <string name="auto_hide_bar">Ascundere automată</string>
     <string name="slideshow_clock">Ceas pe screensaver</string>
+    <string name="power_on_home">Acasă la pornire</string>
+    <string name="restart">Repornește…</string>
     <string name="time_remaining">Mai sunt %1$s</string>
     <string name="home_key_name">Butonul Acasă pentru Vibe Launcher</string>
     <string name="home_key_description">Face ca butonul Acasă al telecomenzii să deschidă Vibe Launcher în locul ecranului de pornire al televizorului, iar ținut apăsat să deschidă setările televizorului. Nu citește nimic de pe ecran și lasă să treacă toate celelalte butoane.</string>

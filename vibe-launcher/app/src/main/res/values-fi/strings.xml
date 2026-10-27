@@ -34,7 +34,6 @@
     <string name="on">Päällä</string>
     <string name="plex_token">Plex-tunnus</string>
     <string name="not_set">Ei asetettu</string>
-    <string name="save">Tallenna</string>
     <string name="cancel">Peruuta</string>
     <string name="tab_general">Yleiset</string>
     <string name="tab_appearance">Ulkoasu</string>
@@ -48,7 +47,6 @@
     <string name="update_available">Päivitys saatavilla: %1$s</string>
     <string name="update_check_failed">%1$s · Päivitysten tarkistus epäonnistui</string>
     <string name="update_downloading">Ladataan päivitystä…</string>
-    <string name="update_development_status">%1$s, käännetty eri allekirjoitusavaimella: päivitä tietokoneelta build-and-install.sh-skriptillä</string>
     <string name="update_development">Tällä versiolla on eri allekirjoitusavain: päivitä se tietokoneelta, build-and-install.sh-skriptillä</string>
     <string name="update_allow_installs">Salli Vibe Launcherin asentaa sovelluksia ja valitse sitten Päivitä uudelleen</string>
     <string name="update_no_installs">Tämä televisio ei anna sovellusten asentaa päivityksiä</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">Päivitystä ei asennettu</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">Tallennettu</string>
+    <string name="phone_paste">Liitä avaimet puhelimesta</string>
     <string name="scan_to_paste">Skannaa puhelimella liittääksesi avaimet</string>
     <string name="tmdb_notice">Taustakuvat käyttävät TMDB:n API:a, mutta TMDB ei ole hyväksynyt tai sertifioinut niitä.</string>
-    <string name="about_key">Tietoa tästä avaimesta</string>
     <string name="tmdb_info">Siistit taustakuvat ja nimikelogot sovellustesi aloitusnäytön korttien elokuville ja sarjoille niiden omien kuvien ja tarrojen sijaan. Toimii ilman avaintakin, Stremion ilmaisilla tiedoilla; TMDB on virallinen, luotettavampi lähde.\n\nIlmainen avain: themoviedb.org → Asetukset → API → henkilökohtainen käyttö.</string>
     <string name="youtube_info">Kun SmartTubeen on kirjauduttu, YouTube-ruutu näyttää videoita omasta YouTube-syötteestäsi. Avainta ei tarvita.\n\nIlman sitä avain näyttää maasi suosituimmat videot. Ilmainen avain: console.cloud.google.com → uusi projekti → ota YouTube Data API v3 käyttöön → Kirjautumistiedot → Luo API-avain.\n\nIlman kumpaakaan se näyttää suosittujen elokuvien trailereita.</string>
     <string name="plex_info">Taustakuvat omalta Plex-palvelimeltasi: Jatka katselua ja äskettäin lisätyt.\n\nNäin löydät sen: app.plex.tv → avaa mikä tahansa nimike → ⋯ → Hae tiedot → Näytä XML, ja kopioi osoitteesta X-Plex-Token=-kohdan jälkeinen osa. Pidä se salassa kuin salasana.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Salli Vibe Launcherin asentaa sovelluksia ja valitse sitten uudelleen Asenna SmartTube</string>
     <string name="smarttube_failed">SmartTube ei asentunut</string>
     <string name="play">Toista</string>
-    <string name="backdrops">Taustakuvat</string>
     <string name="reload_backdrops">Lataa taustakuvat uudelleen</string>
     <string name="backdrops_reloading">Ladataan uusia taustakuvia…</string>
     <string name="auto_hide_bar">Piilota automaattisesti</string>
     <string name="slideshow_clock">Kello näytönsäästäjässä</string>
+    <string name="power_on_home">Koti käynnistettäessä</string>
+    <string name="restart">Käynnistä uudelleen…</string>
     <string name="time_remaining">%1$s jäljellä</string>
     <string name="home_key_name">Vibe Launcherin aloitusnäyttöpainike</string>
     <string name="home_key_description">Saa kaukosäätimen aloitusnäyttöpainikkeen avaamaan Vibe Launcherin television oman aloitusnäytön sijaan ja pitkän painalluksen television asetukset. Se ei lue mitään näytöltä ja päästää kaikki muut painikkeet läpi.</string>

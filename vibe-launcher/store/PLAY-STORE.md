@@ -139,6 +139,8 @@ Vibe Launcher is a home screen (launcher) for Android TV and Google TV. These TV
 The optional "Vibe Launcher Home button" service makes Home open Vibe Launcher instead:
 - It filters key events and keeps only KEYCODE_HOME: a short press opens Vibe Launcher, a long press opens the TV's Settings. Every other key is passed on unchanged. While a game controller is connected, key filtering is switched off.
 - It receives TYPE_WINDOW_STATE_CHANGED events, limited at runtime to the packages of the TV's own launchers (packageNames), so that when the built-in home screen comes up anyway (for example after Back from an app), Vibe Launcher opens over it.
+- Only if the user turns on "Home at power-on" in Vibe Launcher's settings: when the screen turns on, it opens Vibe Launcher, unless a key was pressed first (it notes only that a key was pressed, not which).
+- Settings > Restart… calls performGlobalAction(GLOBAL_ACTION_POWER_DIALOG) when the user picks it, to open the TV's own power menu; an app can't restart the TV itself, and the TV asks before restarting.
 - It does not retrieve window content (canRetrieveWindowContent is false), stores nothing and sends nothing off the device.
 
 Before the user is sent to Accessibility settings, the app shows a disclosure explaining what the service sees and does, with Agree and Cancel. Nothing is enabled without the user turning it on in Settings > Accessibility.

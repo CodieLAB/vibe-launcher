@@ -34,7 +34,6 @@
     <string name="on">Wł.</string>
     <string name="plex_token">Token Plex</string>
     <string name="not_set">Nie ustawiono</string>
-    <string name="save">Zapisz</string>
     <string name="cancel">Anuluj</string>
     <string name="tab_general">Ogólne</string>
     <string name="tab_appearance">Wygląd</string>
@@ -48,7 +47,6 @@
     <string name="update_available">Dostępna aktualizacja: %1$s</string>
     <string name="update_check_failed">%1$s · Nie udało się sprawdzić aktualizacji</string>
     <string name="update_downloading">Pobieranie aktualizacji…</string>
-    <string name="update_development_status">%1$s, zbudowana innym kluczem podpisu: aktualizuj z komputera przez build-and-install.sh</string>
     <string name="update_development">Ta wersja ma inny klucz podpisu: aktualizuj ją z komputera, przez build-and-install.sh</string>
     <string name="update_allow_installs">Pozwól Vibe Launcher instalować aplikacje, a potem ponownie wybierz Zaktualizuj</string>
     <string name="update_no_installs">Ten telewizor nie pozwala aplikacjom instalować aktualizacji</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">Aktualizacja się nie zainstalowała</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">Zapisano</string>
+    <string name="phone_paste">Wklej klucze z telefonu</string>
     <string name="scan_to_paste">Zeskanuj telefonem, aby wkleić klucze</string>
     <string name="tmdb_notice">Tła korzystają z API TMDB, ale nie są zatwierdzone ani certyfikowane przez TMDB.</string>
-    <string name="about_key">O tym kluczu</string>
     <string name="tmdb_info">Czyste tła i logo tytułów dla filmów i seriali z kart ekranu głównego Twoich aplikacji, zamiast ich własnych grafik i naklejek. Działa bez klucza, na darmowych danych Stremio; TMDB to oficjalne, pewniejsze źródło.\n\nDarmowy klucz: themoviedb.org → Ustawienia → API → użytek osobisty.</string>
     <string name="youtube_info">Gdy jesteś zalogowany w SmartTube, kafelek YouTube pokazuje filmy z Twojego własnego kanału YouTube. Klucz nie jest potrzebny.\n\nBez niego klucz pokazuje najpopularniejsze filmy w Twoim kraju. Darmowy klucz: console.cloud.google.com → nowy projekt → włącz YouTube Data API v3 → Dane logowania → Utwórz klucz API.\n\nBez obu pokazuje zwiastuny popularnych filmów.</string>
     <string name="plex_info">Tła z Twojego własnego serwera Plex: Kontynuuj oglądanie i ostatnio dodane.\n\nJak go znaleźć: app.plex.tv → otwórz dowolny tytuł → ⋯ → Pobierz informacje → Pokaż XML i skopiuj to, co następuje po X-Plex-Token= w adresie. Chroń go jak hasło.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Zezwól Vibe Launcher na instalowanie aplikacji, a potem ponownie wybierz Zainstaluj SmartTube</string>
     <string name="smarttube_failed">Nie udało się zainstalować SmartTube</string>
     <string name="play">Odtwórz</string>
-    <string name="backdrops">Tła</string>
     <string name="reload_backdrops">Wczytaj tła ponownie</string>
     <string name="backdrops_reloading">Pobieranie nowych teł…</string>
     <string name="auto_hide_bar">Automatyczne ukrywanie</string>
     <string name="slideshow_clock">Zegar na wygaszaczu</string>
+    <string name="power_on_home">Ekran główny po włączeniu</string>
+    <string name="restart">Uruchom ponownie…</string>
     <string name="time_remaining">Pozostało: %1$s</string>
     <string name="home_key_name">Przycisk ekranu głównego Vibe Launcher</string>
     <string name="home_key_description">Sprawia, że przycisk ekranu głównego na pilocie otwiera Vibe Launcher zamiast własnego ekranu głównego telewizora, a przytrzymany – ustawienia telewizora. Niczego nie odczytuje z ekranu i przepuszcza wszystkie inne przyciski.</string>

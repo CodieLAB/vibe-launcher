@@ -34,7 +34,6 @@
     <string name="on">آن</string>
     <string name="plex_token">Plex ٹوکن</string>
     <string name="not_set">سیٹ نہیں</string>
-    <string name="save">محفوظ کریں</string>
     <string name="cancel">منسوخ کریں</string>
     <string name="tab_general">عمومی</string>
     <string name="tab_appearance">ظاہری شکل</string>
@@ -48,7 +47,6 @@
     <string name="update_available">اپ ڈیٹ دستیاب: %1$s</string>
     <string name="update_check_failed">%1$s · اپ ڈیٹس نہیں دیکھی جا سکیں</string>
     <string name="update_downloading">اپ ڈیٹ ڈاؤن لوڈ ہو رہی ہے…</string>
-    <string name="update_development_status">%1$s، کسی اور سائننگ کلید سے بنا: اسے کمپیوٹر سے build-and-install.sh کے ذریعے اپ ڈیٹ کریں</string>
     <string name="update_development">یہ بلڈ کسی اور سائننگ کلید سے بنا ہے: اسے کمپیوٹر سے build-and-install.sh کے ذریعے اپ ڈیٹ کریں</string>
     <string name="update_allow_installs">Vibe Launcher کو ایپس انسٹال کرنے کی اجازت دیں، پھر دوبارہ اپ ڈیٹ چنیں</string>
     <string name="update_no_installs">یہ ٹی وی ایپس کو اپ ڈیٹس انسٹال کرنے نہیں دیتا</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">اپ ڈیٹ انسٹال نہیں ہوئی</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">محفوظ ہو گیا</string>
+    <string name="phone_paste">فون سے کیز پیسٹ کریں</string>
     <string name="scan_to_paste">کلیدیں پیسٹ کرنے کے لیے فون سے اسکین کریں</string>
     <string name="tmdb_notice">پس منظر TMDB API استعمال کرتے ہیں مگر TMDB ان کی توثیق یا تصدیق نہیں کرتا۔</string>
-    <string name="about_key">اس کلید کے بارے میں</string>
     <string name="tmdb_info">آپ کی ایپس کے ہوم اسکرین کارڈز پر موجود فلموں اور شوز کے لیے صاف پس منظر اور عنوان کے لوگو، ایپس کی اپنی تصویروں اور اسٹیکرز کی جگہ۔ یہ کلید کے بغیر بھی چلتا ہے، Stremio کے مفت ڈیٹا سے؛ TMDB سرکاری اور زیادہ قابلِ اعتماد ذریعہ ہے۔\n\nمفت کلید: themoviedb.org ← ترتیبات ← API ← ذاتی استعمال۔</string>
     <string name="youtube_info">SmartTube میں سائن ان ہونے پر YouTube ٹائل آپ کی اپنی YouTube فیڈ کی ویڈیوز دکھاتی ہے۔ کسی کلید کی ضرورت نہیں۔\n\nاس کے بغیر، ایک کلید آپ کے ملک کی سب سے مقبول ویڈیوز دکھاتی ہے۔ مفت کلید: console.cloud.google.com ← نیا پروجیکٹ ← YouTube Data API v3 فعال کریں ← اسناد ← API کلید بنائیں۔\n\nدونوں نہ ہوں تو مقبول فلموں کے ٹریلر دکھائے جاتے ہیں۔</string>
     <string name="plex_info">آپ کے اپنے Plex سرور سے پس منظر: دیکھنا جاری رکھیں اور حال ہی میں شامل۔\n\nحاصل کرنے کے لیے: app.plex.tv ← کوئی بھی عنوان کھولیں ← ⋯ ← معلومات حاصل کریں ← XML دیکھیں، اور پتے میں X-Plex-Token= کے بعد کا حصہ کاپی کریں۔ اسے پاس ورڈ کی طرح خفیہ رکھیں۔</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Vibe Launcher کو ایپس انسٹال کرنے دیں، پھر دوبارہ SmartTube انسٹال کریں منتخب کریں</string>
     <string name="smarttube_failed">SmartTube انسٹال نہیں ہوا</string>
     <string name="play">چلائیں</string>
-    <string name="backdrops">پس منظر</string>
     <string name="reload_backdrops">پس منظر دوبارہ لوڈ کریں</string>
     <string name="backdrops_reloading">نئے پس منظر ڈاؤن لوڈ ہو رہے ہیں…</string>
     <string name="auto_hide_bar">خود بخود چھپائیں</string>
     <string name="slideshow_clock">اسکرین سیور گھڑی</string>
+    <string name="power_on_home">آن ہونے پر ہوم</string>
+    <string name="restart">دوبارہ شروع کریں…</string>
     <string name="time_remaining">%1$s باقی</string>
     <string name="home_key_name">Vibe Launcher ہوم بٹن</string>
     <string name="home_key_description">ریموٹ کا ہوم بٹن ٹی وی کی اپنی ہوم اسکرین کے بجائے Vibe Launcher کھولتا ہے، اور اسے دبائے رکھنے پر ٹی وی کی ترتیبات کھلتی ہیں۔ یہ اسکرین پر کچھ نہیں پڑھتا اور باقی سب بٹن ویسے ہی آگے جانے دیتا ہے۔</string>

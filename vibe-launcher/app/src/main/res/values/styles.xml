@@ -25,47 +25,4 @@
         <item name="android:clickable">true</item>
     </style>
 
-    <style name="SettingsLabel">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">20dp</item>
-        <item name="android:textColor">#E6FFFFFF</item>
-        <item name="android:textSize">15sp</item>
-        <item name="android:fontFamily">@string/font_medium</item>
-    </style>
-
-    <!-- A key's label with its (i) button. -->
-    <style name="SettingsLabelRow">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">20dp</item>
-        <item name="android:orientation">horizontal</item>
-        <item name="android:gravity">center_vertical</item>
-    </style>
-
-    <style name="InfoButton">
-        <item name="android:layout_width">30dp</item>
-        <item name="android:layout_height">30dp</item>
-        <item name="android:layout_marginStart">8dp</item>
-        <item name="android:padding">5dp</item>
-        <item name="android:src">@drawable/ic_info</item>
-        <item name="android:tint">@drawable/pill_text</item>
-        <item name="android:background">@drawable/info_button_bg</item>
-        <item name="android:focusable">true</item>
-        <item name="android:clickable">true</item>
-    </style>
-
-    <style name="SettingsField">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">6dp</item>
-        <item name="android:inputType">text|textNoSuggestions</item>
-        <item name="android:imeOptions">actionNext|flagNoExtractUi</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:textColor">#FFFFFFFF</item>
-        <item name="android:textColorHint">#66FFFFFF</item>
-        <item name="android:hint">@string/not_set</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:fontFamily">@string/font_regular</item>
-    </style>
 </resources>

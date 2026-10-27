@@ -34,7 +34,6 @@
     <string name="on">Ναι</string>
     <string name="plex_token">Διακριτικό Plex</string>
     <string name="not_set">Δεν έχει οριστεί</string>
-    <string name="save">Αποθήκευση</string>
     <string name="cancel">Ακύρωση</string>
     <string name="tab_general">Γενικά</string>
     <string name="tab_appearance">Εμφάνιση</string>
@@ -48,7 +47,6 @@
     <string name="update_available">Υπάρχει ενημέρωση: %1$s</string>
     <string name="update_check_failed">%1$s · Δεν ήταν δυνατός ο έλεγχος για ενημερώσεις</string>
     <string name="update_downloading">Λήψη της ενημέρωσης…</string>
-    <string name="update_development_status">%1$s, φτιαγμένη με άλλο κλειδί υπογραφής: ενημερώστε από υπολογιστή με το build-and-install.sh</string>
     <string name="update_development">Αυτή η έκδοση έχει άλλο κλειδί υπογραφής: ενημερώστε την από υπολογιστή, με το build-and-install.sh</string>
     <string name="update_allow_installs">Επιτρέψτε στο Vibe Launcher να εγκαθιστά εφαρμογές και επιλέξτε ξανά Ενημέρωση</string>
     <string name="update_no_installs">Αυτή η τηλεόραση δεν αφήνει τις εφαρμογές να εγκαθιστούν ενημερώσεις</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">Η ενημέρωση δεν εγκαταστάθηκε</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">Αποθηκεύτηκε</string>
+    <string name="phone_paste">Επικόλληση κλειδιών από το κινητό</string>
     <string name="scan_to_paste">Σαρώστε με το κινητό για να επικολλήσετε τα κλειδιά</string>
     <string name="tmdb_notice">Τα φόντα χρησιμοποιούν το API του TMDB, αλλά δεν εγκρίνονται ούτε πιστοποιούνται από το TMDB.</string>
-    <string name="about_key">Σχετικά με αυτό το κλειδί</string>
     <string name="tmdb_info">Καθαρά φόντα και λογότυπα τίτλων για τις ταινίες και τις σειρές στις κάρτες αρχικής οθόνης των εφαρμογών σας, αντί για τις δικές τους εικόνες και ετικέτες. Λειτουργεί και χωρίς κλειδί, με τα δωρεάν δεδομένα του Stremio· το TMDB είναι η επίσημη, πιο αξιόπιστη πηγή.\n\nΔωρεάν κλειδί: themoviedb.org → Ρυθμίσεις → API → προσωπική χρήση.</string>
     <string name="youtube_info">Με συνδεδεμένο το SmartTube, το πλακίδιο του YouTube δείχνει βίντεο από τη δική σας ροή YouTube. Δεν χρειάζεται κλειδί.\n\nΧωρίς αυτό, ένα κλειδί δείχνει τα πιο δημοφιλή βίντεο στη χώρα σας. Δωρεάν κλειδί: console.cloud.google.com → νέο έργο → ενεργοποιήστε το YouTube Data API v3 → Διαπιστευτήρια → Δημιουργία κλειδιού API.\n\nΧωρίς κανένα από τα δύο, δείχνει τρέιλερ δημοφιλών ταινιών.</string>
     <string name="plex_info">Φόντα από τον δικό σας διακομιστή Plex: Συνέχεια παρακολούθησης και προστέθηκαν πρόσφατα.\n\nΓια να το βρείτε: app.plex.tv → ανοίξτε έναν τίτλο → ⋯ → Λήψη πληροφοριών → Προβολή XML, και αντιγράψτε ό,τι ακολουθεί το X-Plex-Token= στη διεύθυνση. Κρατήστε το μυστικό, σαν κωδικό.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Επιτρέψτε στο Vibe Launcher να εγκαθιστά εφαρμογές και επιλέξτε ξανά Εγκατάσταση SmartTube</string>
     <string name="smarttube_failed">Το SmartTube δεν εγκαταστάθηκε</string>
     <string name="play">Αναπαραγωγή</string>
-    <string name="backdrops">Φόντα</string>
     <string name="reload_backdrops">Επαναφόρτωση φόντων</string>
     <string name="backdrops_reloading">Λήψη νέων φόντων…</string>
     <string name="auto_hide_bar">Αυτόματη απόκρυψη</string>
     <string name="slideshow_clock">Ρολόι προφύλαξης οθόνης</string>
+    <string name="power_on_home">Αρχική κατά την ενεργοποίηση</string>
+    <string name="restart">Επανεκκίνηση…</string>
     <string name="time_remaining">Απομένουν %1$s</string>
     <string name="home_key_name">Κουμπί αρχικής οθόνης Vibe Launcher</string>
     <string name="home_key_description">Κάνει το κουμπί αρχικής οθόνης του τηλεχειριστηρίου να ανοίγει το Vibe Launcher αντί για την αρχική οθόνη της τηλεόρασης, και το παρατεταμένο πάτημα να ανοίγει τις ρυθμίσεις της. Δεν διαβάζει τίποτα στην οθόνη και αφήνει όλα τα άλλα κουμπιά να περάσουν.</string>

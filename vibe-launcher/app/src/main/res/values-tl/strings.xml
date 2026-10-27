@@ -34,7 +34,6 @@
     <string name="on">On</string>
     <string name="plex_token">Plex token</string>
     <string name="not_set">Hindi nakatakda</string>
-    <string name="save">I-save</string>
     <string name="cancel">Kanselahin</string>
     <string name="tab_general">Pangkalahatan</string>
     <string name="tab_appearance">Hitsura</string>
@@ -48,7 +47,6 @@
     <string name="update_available">May update: %1$s</string>
     <string name="update_check_failed">%1$s · Hindi matingnan kung may update</string>
     <string name="update_downloading">Dina-download ang update…</string>
-    <string name="update_development_status">%1$s, ginawa gamit ang ibang signing key: i-update mula sa computer gamit ang build-and-install.sh</string>
     <string name="update_development">Iba ang signing key ng build na ito: i-update ito mula sa computer, gamit ang build-and-install.sh</string>
     <string name="update_allow_installs">Payagan ang Vibe Launcher na mag-install ng app, saka piliin ulit ang I-update</string>
     <string name="update_no_installs">Hindi pinapayagan ng TV na ito ang mga app na mag-install ng update</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">Hindi na-install ang update</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">Na-save</string>
+    <string name="phone_paste">I-paste ang mga key mula sa phone</string>
     <string name="scan_to_paste">I-scan gamit ang phone para i-paste ang mga key</string>
     <string name="tmdb_notice">Gumagamit ang mga backdrop ng TMDB API pero hindi ito ini-endorse o sinertipika ng TMDB.</string>
-    <string name="about_key">Tungkol sa key na ito</string>
     <string name="tmdb_info">Malinis na backdrop at logo ng pamagat para sa mga pelikula at palabas sa mga home screen card ng iyong mga app, kapalit ng sarili nilang larawan at sticker. Gumagana kahit walang key, mula sa libreng data ng Stremio; ang TMDB ang opisyal at mas maaasahang pinagmulan.\n\nLibreng key: themoviedb.org → Mga Setting → API → personal na gamit.</string>
     <string name="youtube_info">Kapag naka-sign in ang SmartTube, ipinapakita ng YouTube tile ang mga video mula sa sarili mong YouTube feed. Walang key na kailangan.\n\nKung wala ito, ipinapakita ng isang key ang pinakasikat na video sa iyong bansa. Libreng key: console.cloud.google.com → bagong project → i-enable ang YouTube Data API v3 → Mga Kredensyal → Gumawa ng API key.\n\nKung wala ang dalawa, ipinapakita nito ang mga trailer ng mga sikat na pelikula.</string>
     <string name="plex_info">Mga backdrop mula sa sarili mong Plex server: Ituloy ang panonood at mga bagong dagdag.\n\nPara makuha: app.plex.tv → buksan ang kahit anong pamagat → ⋯ → Kunin ang Impormasyon → Tingnan ang XML, at kopyahin ang kasunod ng X-Plex-Token= sa address. Ilihim ito, gaya ng password.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Payagan ang Vibe Launcher na mag-install ng mga app, pagkatapos ay piliin muli ang I-install ang SmartTube</string>
     <string name="smarttube_failed">Hindi na-install ang SmartTube</string>
     <string name="play">I-play</string>
-    <string name="backdrops">Mga backdrop</string>
     <string name="reload_backdrops">I-reload ang mga backdrop</string>
     <string name="backdrops_reloading">Nagda-download ng mga bagong backdrop…</string>
     <string name="auto_hide_bar">Awtomatikong itago</string>
     <string name="slideshow_clock">Orasan sa screensaver</string>
+    <string name="power_on_home">Home sa pag-on</string>
+    <string name="restart">I-restart…</string>
     <string name="time_remaining">%1$s pa ang natitira</string>
     <string name="home_key_name">Home button ng Vibe Launcher</string>
     <string name="home_key_description">Ginagawa nitong buksan ng Home button ng remote ang Vibe Launcher sa halip na ang sariling home screen ng TV, at ang Mga Setting ng TV kapag pinindot nang matagal. Wala itong binabasa sa screen at pinapadaan ang lahat ng iba pang button.</string>

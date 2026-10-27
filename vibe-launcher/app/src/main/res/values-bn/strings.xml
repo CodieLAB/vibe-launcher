@@ -34,7 +34,6 @@
     <string name="on">চালু</string>
     <string name="plex_token">Plex টোকেন</string>
     <string name="not_set">সেট করা নেই</string>
-    <string name="save">সংরক্ষণ</string>
     <string name="cancel">বাতিল</string>
     <string name="tab_general">সাধারণ</string>
     <string name="tab_appearance">চেহারা</string>
@@ -48,7 +47,6 @@
     <string name="update_available">আপডেট আছে: %1$s</string>
     <string name="update_check_failed">%1$s · আপডেট খোঁজা যায়নি</string>
     <string name="update_downloading">আপডেট ডাউনলোড হচ্ছে…</string>
-    <string name="update_development_status">%1$s, অন্য সাইনিং কী দিয়ে তৈরি: কম্পিউটার থেকে build-and-install.sh দিয়ে আপডেট করুন</string>
     <string name="update_development">এই বিল্ড অন্য সাইনিং কী দিয়ে তৈরি: কম্পিউটার থেকে build-and-install.sh দিয়ে আপডেট করুন</string>
     <string name="update_allow_installs">Vibe Launcher-কে অ্যাপ ইনস্টল করার অনুমতি দিন, তারপর আবার আপডেট বেছে নিন</string>
     <string name="update_no_installs">এই টিভি অ্যাপকে আপডেট ইনস্টল করতে দেয় না</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">আপডেট ইনস্টল হয়নি</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">সংরক্ষিত</string>
+    <string name="phone_paste">ফোন থেকে কী পেস্ট করুন</string>
     <string name="scan_to_paste">কী পেস্ট করতে ফোন দিয়ে স্ক্যান করুন</string>
     <string name="tmdb_notice">ব্যাকড্রপে TMDB API ব্যবহার হয়, তবে TMDB এগুলি অনুমোদন বা প্রত্যয়ন করে না।</string>
-    <string name="about_key">এই কী সম্পর্কে</string>
     <string name="tmdb_info">আপনার অ্যাপের হোম স্ক্রিন কার্ডের সিনেমা ও শোর জন্য পরিষ্কার ব্যাকড্রপ ও শিরোনামের লোগো, অ্যাপের নিজস্ব ছবি ও স্টিকারের বদলে। কী ছাড়াও চলে, Stremio-র বিনামূল্যের তথ্য থেকে; TMDB সরকারি ও বেশি নির্ভরযোগ্য উৎস।\n\nবিনামূল্যের কী: themoviedb.org → সেটিংস → API → ব্যক্তিগত ব্যবহার।</string>
     <string name="youtube_info">SmartTube-এ সাইন ইন থাকলে YouTube টাইলে আপনার নিজের YouTube ফিডের ভিডিও দেখায়। কোনো কী লাগে না।\n\nএটি না থাকলে, একটি কী আপনার দেশের সবচেয়ে জনপ্রিয় ভিডিও দেখায়। বিনামূল্যের কী: console.cloud.google.com → নতুন প্রজেক্ট → YouTube Data API v3 চালু করুন → ক্রেডেনশিয়াল → API কী তৈরি করুন।\n\nদুটির কোনোটি না থাকলে জনপ্রিয় সিনেমার ট্রেলার দেখায়।</string>
     <string name="plex_info">আপনার নিজের Plex সার্ভার থেকে ব্যাকড্রপ: দেখা চালিয়ে যান ও সম্প্রতি যোগ করা।\n\nপেতে: app.plex.tv → যেকোনো টাইটেল খুলুন → ⋯ → তথ্য দেখুন → XML দেখুন, এবং ঠিকানায় X-Plex-Token=-এর পরের অংশ কপি করুন। পাসওয়ার্ডের মতো গোপন রাখুন।</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Vibe Launcher-কে অ্যাপ ইনস্টল করতে দিন, তারপর আবার SmartTube ইনস্টল করুন বেছে নিন</string>
     <string name="smarttube_failed">SmartTube ইনস্টল হয়নি</string>
     <string name="play">চালান</string>
-    <string name="backdrops">ব্যাকড্রপ</string>
     <string name="reload_backdrops">ব্যাকড্রপ আবার লোড করুন</string>
     <string name="backdrops_reloading">নতুন ব্যাকড্রপ ডাউনলোড হচ্ছে…</string>
     <string name="auto_hide_bar">স্বয়ংক্রিয়ভাবে লুকান</string>
     <string name="slideshow_clock">স্ক্রিনসেভার ঘড়ি</string>
+    <string name="power_on_home">চালু হলে হোম</string>
+    <string name="restart">রিস্টার্ট…</string>
     <string name="time_remaining">%1$s বাকি</string>
     <string name="home_key_name">Vibe Launcher হোম বোতাম</string>
     <string name="home_key_description">রিমোটের হোম বোতাম টিভির নিজের হোম স্ক্রিনের বদলে Vibe Launcher খোলে, আর চেপে ধরলে টিভির সেটিংস খোলে। এটি স্ক্রিনের কিছুই পড়ে না এবং বাকি সব বোতাম যেমন আছে তেমন পাঠিয়ে দেয়।</string>

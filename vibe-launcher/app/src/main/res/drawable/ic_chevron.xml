@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The > at the end of a Settings row that opens a page; tinted with the row's text. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="12dp" android:height="20dp"
+    android:viewportWidth="12" android:viewportHeight="20">
+    <path android:strokeColor="#FFFFFFFF" android:strokeWidth="2.2"
+        android:strokeLineCap="round" android:strokeLineJoin="round"
+        android:pathData="M2,2 L10,10 L2,18" />
+</vector>

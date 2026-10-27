@@ -315,6 +315,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         CrashGuard.install(this);
+        PowerOnHome.register(this);
         setContentView(R.layout.activity_main);
         density = getResources().getDisplayMetrics().density;
         // Tiles per row: chosen in Vibe Launcher settings (4, 5 or 6), else by the screen's size.
@@ -539,8 +540,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if (intent != null && intent.hasCategory(Intent.CATEGORY_HOME) && !rebuildOnResume && !backFromApp) {
-            homeToTop = true;   // pressed with Home already in front
+        // Pressed with Home already in front; not the power-on one, which leaves Home as it was.
+        if (intent != null && intent.hasCategory(Intent.CATEGORY_HOME) && !rebuildOnResume && !backFromApp
+                && !intent.getBooleanExtra(PowerOnHome.EXTRA, false)) {
+            homeToTop = true;
         }
     }
 

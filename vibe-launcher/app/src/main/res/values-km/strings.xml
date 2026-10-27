@@ -34,7 +34,6 @@
     <string name="on">បើក</string>
     <string name="plex_token">ថូខឹន Plex</string>
     <string name="not_set">មិនទាន់កំណត់</string>
-    <string name="save">រក្សាទុក</string>
     <string name="cancel">បោះបង់</string>
     <string name="tab_general">ទូទៅ</string>
     <string name="tab_appearance">រូបរាង</string>
@@ -48,7 +47,6 @@
     <string name="update_available">មានបច្ចុប្បន្នភាព៖ %1$s</string>
     <string name="update_check_failed">%1$s · មិនអាចពិនិត្យរកបច្ចុប្បន្នភាពបានទេ</string>
     <string name="update_downloading">កំពុងទាញយកបច្ចុប្បន្នភាព…</string>
-    <string name="update_development_status">%1$s បង្កើតដោយសោចុះហត្ថលេខាផ្សេង៖ ធ្វើបច្ចុប្បន្នភាពពីកុំព្យូទ័រដោយ build-and-install.sh</string>
     <string name="update_development">កំណែនេះមានសោចុះហត្ថលេខាផ្សេង៖ ធ្វើបច្ចុប្បន្នភាពពីកុំព្យូទ័រ ដោយ build-and-install.sh</string>
     <string name="update_allow_installs">អនុញ្ញាតឲ្យ Vibe Launcher ដំឡើងកម្មវិធី រួចជ្រើសធ្វើបច្ចុប្បន្នភាពម្ដងទៀត</string>
     <string name="update_no_installs">ទូរទស្សន៍នេះមិនអនុញ្ញាតឲ្យកម្មវិធីដំឡើងបច្ចុប្បន្នភាពទេ</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">បច្ចុប្បន្នភាពមិនបានដំឡើងទេ</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">បានរក្សាទុក</string>
+    <string name="phone_paste">បិទភ្ជាប់សោពីទូរសព្ទ</string>
     <string name="scan_to_paste">ស្កេនដោយទូរសព្ទដើម្បីបិទភ្ជាប់សោ</string>
     <string name="tmdb_notice">ផ្ទៃខាងក្រោយប្រើ API របស់ TMDB ប៉ុន្តែមិនត្រូវបាន TMDB គាំទ្រ ឬបញ្ជាក់ទេ។</string>
-    <string name="about_key">អំពីសោនេះ</string>
     <string name="tmdb_info">ផ្ទៃខាងក្រោយស្អាត និងស្លាកចំណងជើង សម្រាប់ភាពយន្ត និងកម្មវិធីនៅលើកាតអេក្រង់ដើមនៃកម្មវិធីរបស់អ្នក ជំនួសរូបភាព និងស្ទីកឃ័ររបស់វា។ ដំណើរការបានដោយគ្មានសោ ពីទិន្នន័យឥតគិតថ្លៃរបស់ Stremio; TMDB ជាប្រភពផ្លូវការ និងគួរទុកចិត្តជាង។\n\nសោឥតគិតថ្លៃ៖ themoviedb.org → ការកំណត់ → API → ការប្រើប្រាស់ផ្ទាល់ខ្លួន។</string>
     <string name="youtube_info">ពេលចូល SmartTube រួច ក្រឡា YouTube បង្ហាញវីដេអូពីព័ត៌មាន YouTube ផ្ទាល់ខ្លួនរបស់អ្នក។ មិនត្រូវការសោទេ។\n\nបើគ្មានវា សោមួយនឹងបង្ហាញវីដេអូពេញនិយមបំផុតក្នុងប្រទេសរបស់អ្នក។ សោឥតគិតថ្លៃ៖ console.cloud.google.com → គម្រោងថ្មី → បើក YouTube Data API v3 → អត្តសញ្ញាណ → បង្កើតកូនសោ API។\n\nបើគ្មានទាំងពីរ វាបង្ហាញឈុតខ្លីៗនៃភាពយន្តពេញនិយម។</string>
     <string name="plex_info">ផ្ទៃខាងក្រោយពីម៉ាស៊ីនមេ Plex របស់អ្នកផ្ទាល់៖ បន្តមើល និងបានបន្ថែមថ្មីៗ។\n\nរបៀបយក៖ app.plex.tv → បើកចំណងជើងណាមួយ → ⋯ → ទទួលព័ត៌មាន → មើល XML រួចចម្លងផ្នែកបន្ទាប់ពី X-Plex-Token= ក្នុងអាសយដ្ឋាន។ រក្សាវាជាការសម្ងាត់ ដូចពាក្យសម្ងាត់។</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">អនុញ្ញាតឱ្យ Vibe Launcher ដំឡើងកម្មវិធី រួចជ្រើសរើស ដំឡើង SmartTube ម្ដងទៀត</string>
     <string name="smarttube_failed">SmartTube មិនបានដំឡើងទេ</string>
     <string name="play">ចាក់</string>
-    <string name="backdrops">ផ្ទៃខាងក្រោយ</string>
     <string name="reload_backdrops">ផ្ទុកផ្ទៃខាងក្រោយឡើងវិញ</string>
     <string name="backdrops_reloading">កំពុងទាញយកផ្ទៃខាងក្រោយថ្មី…</string>
     <string name="auto_hide_bar">លាក់ដោយស្វ័យប្រវត្តិ</string>
     <string name="slideshow_clock">នាឡិកាលើធាតុរក្សាអេក្រង់</string>
+    <string name="power_on_home">ទំព័រដើមពេលបើក</string>
+    <string name="restart">ចាប់ផ្ដើមឡើងវិញ…</string>
     <string name="time_remaining">នៅសល់ %1$s</string>
     <string name="home_key_name">ប៊ូតុងដើម Vibe Launcher</string>
     <string name="home_key_description">ធ្វើឱ្យប៊ូតុងដើមលើតេឡេបញ្ជាបើក Vibe Launcher ជំនួសអេក្រង់ដើមរបស់ទូរទស្សន៍ ហើយការចុចជាប់បើកការកំណត់ទូរទស្សន៍។ វាមិនអានអ្វីនៅលើអេក្រង់ទេ ហើយបញ្ជូនប៊ូតុងផ្សេងៗទាំងអស់បន្ត។</string>

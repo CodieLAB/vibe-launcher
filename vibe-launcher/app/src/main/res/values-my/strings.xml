@@ -34,7 +34,6 @@
     <string name="on">ဖွင့်</string>
     <string name="plex_token">Plex တိုကင်</string>
     <string name="not_set">မသတ်မှတ်ရသေး</string>
-    <string name="save">သိမ်းရန်</string>
     <string name="cancel">မလုပ်တော့ပါ</string>
     <string name="tab_general">အထွေထွေ</string>
     <string name="tab_appearance">အသွင်အပြင်</string>
@@ -48,7 +47,6 @@
     <string name="update_available">အပ်ဒိတ် ရနိုင်သည်- %1$s</string>
     <string name="update_check_failed">%1$s · အပ်ဒိတ် မစစ်နိုင်ပါ</string>
     <string name="update_downloading">အပ်ဒိတ် ဒေါင်းလုဒ်လုပ်နေသည်…</string>
-    <string name="update_development_status">%1$s၊ အခြား လက်မှတ်ကီးဖြင့် တည်ဆောက်ထားသည်- ကွန်ပျူတာမှ build-and-install.sh ဖြင့် အပ်ဒိတ်လုပ်ပါ</string>
     <string name="update_development">ဤဗားရှင်းတွင် လက်မှတ်ကီး ကွဲပြားသည်- ကွန်ပျူတာမှ build-and-install.sh ဖြင့် အပ်ဒိတ်လုပ်ပါ</string>
     <string name="update_allow_installs">Vibe Launcher ကို အက်ပ်ထည့်သွင်းခွင့် ပေးပြီး အပ်ဒိတ်ကို ထပ်ရွေးပါ</string>
     <string name="update_no_installs">ဤ TV သည် အက်ပ်များကို အပ်ဒိတ် ထည့်သွင်းခွင့်မပေးပါ</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">အပ်ဒိတ် မထည့်သွင်းနိုင်ခဲ့ပါ</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">သိမ်းပြီး</string>
+    <string name="phone_paste">ဖုန်းမှ ကီးများ ကူးထည့်ရန်</string>
     <string name="scan_to_paste">ကီးများ ကူးထည့်ရန် ဖုန်းဖြင့် စကင်ဖတ်ပါ</string>
     <string name="tmdb_notice">နောက်ခံပုံများသည် TMDB API ကို သုံးသော်လည်း TMDB ၏ ထောက်ခံမှု သို့မဟုတ် အသိအမှတ်ပြုမှု မရှိပါ။</string>
-    <string name="about_key">ဤကီး အကြောင်း</string>
     <string name="tmdb_info">သင့်အက်ပ်များ၏ ပင်မမျက်နှာပြင် ကတ်များပေါ်ရှိ ရုပ်ရှင်နှင့် ရုပ်သံအစီအစဉ်များအတွက် အက်ပ်၏ ကိုယ်ပိုင်ပုံနှင့် စတစ်ကာများအစား သန့်ရှင်းသော နောက်ခံပုံနှင့် ခေါင်းစဉ်လိုဂို။ ကီးမပါဘဲလည်း Stremio ၏ အခမဲ့ဒေတာဖြင့် အလုပ်လုပ်သည်။ TMDB သည် တရားဝင်ပြီး ပိုယုံကြည်ရသော ရင်းမြစ်ဖြစ်သည်။\n\nအခမဲ့ကီး- themoviedb.org → ဆက်တင်များ → API → ကိုယ်ပိုင်သုံး။</string>
     <string name="youtube_info">SmartTube သို့ ဝင်ထားလျှင် YouTube အကွက်သည် သင့်ကိုယ်ပိုင် YouTube ဖိဒ်မှ ဗီဒီယိုများကို ပြသည်။ ကီး မလိုပါ။\n\n၎င်းမရှိလျှင် ကီးတစ်ခုက သင့်နိုင်ငံရှိ လူကြိုက်အများဆုံး ဗီဒီယိုများကို ပြသည်။ အခမဲ့ကီး- console.cloud.google.com → ပရောဂျက်အသစ် → YouTube Data API v3 ဖွင့်ပါ → အထောက်အထားများ → API ကီး ဖန်တီးရန်။\n\nနှစ်ခုစလုံး မရှိလျှင် လူကြိုက်များသော ရုပ်ရှင်များ၏ ကြော်ငြာများကို ပြသည်။</string>
     <string name="plex_info">သင့်ကိုယ်ပိုင် Plex ဆာဗာမှ နောက်ခံပုံများ- ဆက်ကြည့်ရန်နှင့် မကြာသေးမီက ထည့်ထားသည်များ။\n\nရယူရန်- app.plex.tv → မည်သည့်ခေါင်းစဉ်မဆို ဖွင့်ပါ → ⋯ → အချက်အလက် ရယူရန် → XML ကြည့်ရန်၊ လိပ်စာထဲရှိ X-Plex-Token= နောက်ကအပိုင်းကို ကူးပါ။ စကားဝှက်ကဲ့သို့ လျှို့ဝှက်ထားပါ။</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Vibe Launcher ကို အက်ပ်များ ထည့်သွင်းခွင့်ပြုပြီး SmartTube ထည့်သွင်းရန် ကို ထပ်ရွေးပါ</string>
     <string name="smarttube_failed">SmartTube မထည့်သွင်းနိုင်ပါ</string>
     <string name="play">ဖွင့်ရန်</string>
-    <string name="backdrops">နောက်ခံပုံများ</string>
     <string name="reload_backdrops">နောက်ခံပုံများကို ပြန်ဖွင့်ရန်</string>
     <string name="backdrops_reloading">နောက်ခံပုံအသစ်များ ဒေါင်းလုဒ်လုပ်နေသည်…</string>
     <string name="auto_hide_bar">အလိုအလျောက် ဝှက်ရန်</string>
     <string name="slideshow_clock">မျက်နှာပြင်ထိန်း နာရီ</string>
+    <string name="power_on_home">ဖွင့်သည့်အခါ ပင်မ</string>
+    <string name="restart">ပြန်စရန်…</string>
     <string name="time_remaining">%1$s ကျန်သည်</string>
     <string name="home_key_name">Vibe Launcher ပင်မခလုတ်</string>
     <string name="home_key_description">အဝေးထိန်း၏ ပင်မခလုတ်က TV ၏ ကိုယ်ပိုင်ပင်မစခရင်အစား Vibe Launcher ကို ဖွင့်ပြီး ဖိထားလျှင် TV ၏ ဆက်တင်များကို ဖွင့်သည်။ စခရင်ပေါ်ရှိ မည်သည့်အရာကိုမျှ မဖတ်ဘဲ အခြားခလုတ်အားလုံးကို ဆက်လက်ပေးပို့သည်။</string>

@@ -11,7 +11,10 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.hardware.input.InputManager;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.PowerManager;
+import android.os.SystemClock;
 import android.os.UserManager;
 import android.provider.Settings;
 import android.view.InputDevice;
@@ -28,7 +31,9 @@ import java.util.Set;
  * user turns this on under Settings > Accessibility, and then:
  * - Home is kept from the stock launcher: a press opens Vibe Launcher, a hold the TV's Settings (Google TV's
  *   own long-press panel needs a system permission);
- * - a stock home screen that comes up anyway (Back out of an app) is covered with Vibe Launcher.
+ * - a stock home screen that comes up anyway (Back out of an app) is covered with Vibe Launcher;
+ * - with Home at power-on (Settings), Home comes up after the screen turns on, unless a key was pressed first;
+ * - Settings > General > Restart… opens the TV's power menu (HomeButtonLink).
  *
  * It hears only from the stock launchers, and only that one of their screens came up; it reads nothing on
  * screen. It sees every key and passes on all but Home. While a game controller is connected it stops
@@ -44,6 +49,10 @@ public final class HomeKeyService extends AccessibilityService implements InputM
     private InputManager input;
     /** Waits for the user to unlock when Android binds this service at boot; null otherwise. */
     private BroadcastReceiver unlockReceiver;
+    private BroadcastReceiver screenOnReceiver;
+    private final Handler handler = new Handler(Looper.getMainLooper());
+    /** When the last key came by (uptime), for Home at power-on. */
+    private long lastKeyAt;
 
     @Override
     protected void onServiceConnected() {
@@ -64,6 +73,20 @@ public final class HomeKeyService extends AccessibilityService implements InputM
             input.registerInputDeviceListener(this, null);
             updateKeyFilter();
         }
+        HomeButtonLink.powerMenu = () -> performGlobalAction(GLOBAL_ACTION_POWER_DIALOG);
+        // Home at power-on: from here while it's bound (PowerOnHome stands down), so a key pressed in the
+        // app the TV woke up on keeps it there.
+        screenOnReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (!new VibeSettings(context).powerOnHome()) return;
+                long on = SystemClock.uptimeMillis();
+                handler.postDelayed(() -> {
+                    if (lastKeyAt < on) open(PowerOnHome.intent(HomeKeyService.this));
+                }, PowerOnHome.DELAY_MS);
+            }
+        };
+        registerReceiver(screenOnReceiver, new IntentFilter(Intent.ACTION_SCREEN_ON));
         // Direct-boot aware: Android 11 skips a service that isn't while the user is still locked at boot, and
         // some firmware (TCL, upstream) then turns it off for good. Home itself can only open after the unlock.
         UserManager users = getSystemService(UserManager.class);
@@ -112,6 +135,7 @@ public final class HomeKeyService extends AccessibilityService implements InputM
 
     @Override
     protected boolean onKeyEvent(KeyEvent event) {
+        if (!isPowerKey(event.getKeyCode())) lastKeyAt = SystemClock.uptimeMillis();   // the one that woke it doesn't count
         if (event.getKeyCode() != KeyEvent.KEYCODE_HOME) return false;   // every other key goes on as usual
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             // Only where Home doesn't come here anyway, and with the TV awake (asleep, Home wakes it).
@@ -127,6 +151,11 @@ public final class HomeKeyService extends AccessibilityService implements InputM
             open(held ? new Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) : homeIntent());
         }
         return true;
+    }
+
+    private static boolean isPowerKey(int keyCode) {
+        return keyCode == KeyEvent.KEYCODE_POWER || keyCode == KeyEvent.KEYCODE_TV_POWER
+                || keyCode == KeyEvent.KEYCODE_WAKEUP || keyCode == KeyEvent.KEYCODE_SLEEP;
     }
 
     /**
@@ -200,6 +229,9 @@ public final class HomeKeyService extends AccessibilityService implements InputM
 
     @Override
     public void onDestroy() {
+        HomeButtonLink.powerMenu = null;
+        handler.removeCallbacksAndMessages(null);
+        if (screenOnReceiver != null) unregisterReceiver(screenOnReceiver);
         stopWaitingForUnlock();
         if (input != null) input.unregisterInputDeviceListener(this);
         super.onDestroy();

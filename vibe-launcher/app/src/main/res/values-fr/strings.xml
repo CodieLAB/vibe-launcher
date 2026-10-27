@@ -34,7 +34,6 @@
     <string name="on">Oui</string>
     <string name="plex_token">Jeton Plex</string>
     <string name="not_set">Non défini</string>
-    <string name="save">Enregistrer</string>
     <string name="cancel">Annuler</string>
     <string name="tab_general">Général</string>
     <string name="tab_appearance">Apparence</string>
@@ -48,7 +47,6 @@
     <string name="update_available">Mise à jour disponible : %1$s</string>
     <string name="update_check_failed">%1$s · Impossible de rechercher les mises à jour</string>
     <string name="update_downloading">Téléchargement de la mise à jour…</string>
-    <string name="update_development_status">%1$s, compilée avec une autre clé de signature : mettez-la à jour depuis un ordinateur avec build-and-install.sh</string>
     <string name="update_development">Cette version a une autre clé de signature : mettez-la à jour depuis un ordinateur, avec build-and-install.sh</string>
     <string name="update_allow_installs">Autorisez Vibe Launcher à installer des applis, puis choisissez à nouveau Mettre à jour</string>
     <string name="update_no_installs">Ce téléviseur ne laisse pas les applis installer des mises à jour</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">La mise à jour ne s\'est pas installée</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">Enregistré</string>
+    <string name="phone_paste">Coller les clés depuis le téléphone</string>
     <string name="scan_to_paste">Scannez avec votre téléphone pour coller les clés</string>
     <string name="tmdb_notice">Les arrière-plans utilisent l\'API TMDB, sans être approuvés ni certifiés par TMDB.</string>
-    <string name="about_key">À propos de cette clé</string>
     <string name="tmdb_info">Des arrière-plans propres et le logo du titre pour les films et séries des cartes d\'accueil de vos applis, à la place de leurs propres images et autocollants. Fonctionne sans clé, avec les données gratuites de Stremio ; TMDB est la source officielle, plus fiable.\n\nClé gratuite : themoviedb.org → Paramètres → API → usage personnel.</string>
     <string name="youtube_info">Avec SmartTube connecté, la vignette YouTube montre des vidéos de votre propre fil YouTube. Aucune clé nécessaire.\n\nSans lui, une clé affiche les vidéos les plus populaires de votre pays. Clé gratuite : console.cloud.google.com → nouveau projet → activez YouTube Data API v3 → Identifiants → Créer une clé API.\n\nSans l\'un ni l\'autre, elle montre des bandes-annonces de films populaires.</string>
     <string name="plex_info">Des arrière-plans de votre propre serveur Plex : Reprendre la lecture et les ajouts récents.\n\nPour le trouver : app.plex.tv → ouvrez un titre → ⋯ → Obtenir les infos → Voir le XML, puis copiez ce qui suit X-Plex-Token= dans l\'adresse. Gardez-le secret, comme un mot de passe.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Autorisez Vibe Launcher à installer des applications, puis choisissez à nouveau Installer SmartTube</string>
     <string name="smarttube_failed">SmartTube ne s\'est pas installé</string>
     <string name="play">Lire</string>
-    <string name="backdrops">Arrière-plans</string>
     <string name="reload_backdrops">Recharger les arrière-plans</string>
     <string name="backdrops_reloading">Téléchargement de nouveaux arrière-plans…</string>
     <string name="auto_hide_bar">Masquage automatique</string>
     <string name="slideshow_clock">Horloge de l\'écran de veille</string>
+    <string name="power_on_home">Accueil à l\'allumage</string>
+    <string name="restart">Redémarrer…</string>
     <string name="time_remaining">Encore %1$s</string>
     <string name="home_key_name">Bouton Accueil de Vibe Launcher</string>
     <string name="home_key_description">Fait ouvrir Vibe Launcher au bouton Accueil de la télécommande au lieu de l\'écran d\'accueil du téléviseur, et ses paramètres quand on le maintient enfoncé. Il ne lit rien à l\'écran et laisse passer toutes les autres touches.</string>

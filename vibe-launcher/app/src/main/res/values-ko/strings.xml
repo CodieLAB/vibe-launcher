@@ -34,7 +34,6 @@
     <string name="on">켬</string>
     <string name="plex_token">Plex 토큰</string>
     <string name="not_set">설정 안 됨</string>
-    <string name="save">저장</string>
     <string name="cancel">취소</string>
     <string name="tab_general">일반</string>
     <string name="tab_appearance">모양</string>
@@ -48,7 +47,6 @@
     <string name="update_available">업데이트 있음: %1$s</string>
     <string name="update_check_failed">%1$s · 업데이트를 확인하지 못했습니다</string>
     <string name="update_downloading">업데이트 다운로드 중…</string>
-    <string name="update_development_status">%1$s, 다른 서명 키로 빌드됨: 컴퓨터에서 build-and-install.sh로 업데이트하세요</string>
     <string name="update_development">이 빌드는 서명 키가 다릅니다: 컴퓨터에서 build-and-install.sh로 업데이트하세요</string>
     <string name="update_allow_installs">Vibe Launcher가 앱을 설치하도록 허용한 다음 다시 업데이트를 선택하세요</string>
     <string name="update_no_installs">이 TV는 앱이 업데이트를 설치하도록 허용하지 않습니다</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">업데이트를 설치하지 못했습니다</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">저장됨</string>
+    <string name="phone_paste">휴대폰에서 키 붙여넣기</string>
     <string name="scan_to_paste">휴대폰으로 스캔해 키를 붙여넣으세요</string>
     <string name="tmdb_notice">배경은 TMDB API를 사용하지만 TMDB의 보증이나 인증을 받지 않았습니다.</string>
-    <string name="about_key">이 키에 대해</string>
     <string name="tmdb_info">앱 홈 화면 카드에 있는 영화와 프로그램에 앱 자체 이미지와 스티커 대신 깔끔한 배경과 제목 로고를 보여 줍니다. 키 없이도 Stremio의 무료 데이터로 작동하며, TMDB는 공식이자 더 믿을 수 있는 소스입니다.\n\n무료 키: themoviedb.org → 설정 → API → 개인 용도.</string>
     <string name="youtube_info">SmartTube에 로그인되어 있으면 YouTube 타일에 내 YouTube 피드의 동영상이 표시됩니다. 키가 필요 없습니다.\n\nSmartTube가 없으면 키로 내 국가의 인기 동영상을 표시합니다. 무료 키: console.cloud.google.com → 새 프로젝트 → YouTube Data API v3 사용 → 사용자 인증 정보 → API 키 만들기.\n\n둘 다 없으면 인기 영화의 예고편을 표시합니다.</string>
     <string name="plex_info">내 Plex 서버의 배경: 이어서 보기와 최근 추가 항목.\n\n찾는 방법: app.plex.tv → 아무 작품이나 열기 → ⋯ → 정보 가져오기 → XML 보기, 주소에서 X-Plex-Token= 뒤 부분을 복사하세요. 비밀번호처럼 비공개로 보관하세요.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Vibe Launcher가 앱을 설치하도록 허용한 다음 SmartTube 설치를 다시 선택하세요</string>
     <string name="smarttube_failed">SmartTube가 설치되지 않았습니다</string>
     <string name="play">재생</string>
-    <string name="backdrops">배경</string>
     <string name="reload_backdrops">배경 다시 불러오기</string>
     <string name="backdrops_reloading">새 배경을 다운로드하는 중…</string>
     <string name="auto_hide_bar">자동 숨기기</string>
     <string name="slideshow_clock">화면 보호기 시계</string>
+    <string name="power_on_home">전원 켤 때 홈</string>
+    <string name="restart">다시 시작…</string>
     <string name="time_remaining">%1$s 남음</string>
     <string name="home_key_name">Vibe Launcher 홈 버튼</string>
     <string name="home_key_description">리모컨의 홈 버튼을 누르면 TV 자체 홈 화면 대신 Vibe Launcher가 열리고, 길게 누르면 TV 설정이 열립니다. 화면의 내용은 읽지 않으며 다른 버튼은 모두 그대로 전달합니다.</string>

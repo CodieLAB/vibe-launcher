@@ -34,7 +34,6 @@
     <string name="on">เปิด</string>
     <string name="plex_token">โทเค็น Plex</string>
     <string name="not_set">ยังไม่ได้ตั้ง</string>
-    <string name="save">บันทึก</string>
     <string name="cancel">ยกเลิก</string>
     <string name="tab_general">ทั่วไป</string>
     <string name="tab_appearance">ลักษณะที่ปรากฏ</string>
@@ -48,7 +47,6 @@
     <string name="update_available">มีอัปเดต: %1$s</string>
     <string name="update_check_failed">%1$s · ตรวจหาอัปเดตไม่ได้</string>
     <string name="update_downloading">กำลังดาวน์โหลดอัปเดต…</string>
-    <string name="update_development_status">%1$s สร้างด้วยคีย์ลงนามอื่น: อัปเดตจากคอมพิวเตอร์ด้วย build-and-install.sh</string>
     <string name="update_development">บิลด์นี้ใช้คีย์ลงนามอื่น: อัปเดตจากคอมพิวเตอร์ ด้วย build-and-install.sh</string>
     <string name="update_allow_installs">อนุญาตให้ Vibe Launcher ติดตั้งแอป แล้วเลือกอัปเดตอีกครั้ง</string>
     <string name="update_no_installs">ทีวีเครื่องนี้ไม่ให้แอปติดตั้งอัปเดต</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">ติดตั้งอัปเดตไม่สำเร็จ</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">บันทึกแล้ว</string>
+    <string name="phone_paste">วางคีย์จากโทรศัพท์</string>
     <string name="scan_to_paste">สแกนด้วยโทรศัพท์เพื่อวางคีย์</string>
     <string name="tmdb_notice">ภาพพื้นหลังใช้ API ของ TMDB แต่ไม่ได้รับการรับรองหรือการรับรองมาตรฐานจาก TMDB</string>
-    <string name="about_key">เกี่ยวกับคีย์นี้</string>
     <string name="tmdb_info">ภาพพื้นหลังสะอาดและโลโก้ชื่อเรื่องสำหรับภาพยนตร์และรายการในการ์ดหน้าหลักของแอป แทนภาพและสติกเกอร์ของแอปเอง ใช้ได้แม้ไม่มีคีย์ จากข้อมูลฟรีของ Stremio ส่วน TMDB เป็นแหล่งทางการที่เชื่อถือได้มากกว่า\n\nคีย์ฟรี: themoviedb.org → การตั้งค่า → API → ใช้ส่วนตัว</string>
     <string name="youtube_info">เมื่อลงชื่อเข้าใช้ SmartTube แล้ว ไทล์ YouTube จะแสดงวิดีโอจากฟีด YouTube ของคุณเอง ไม่ต้องใช้คีย์\n\nหากไม่มี คีย์จะแสดงวิดีโอยอดนิยมในประเทศของคุณ คีย์ฟรี: console.cloud.google.com → โปรเจ็กต์ใหม่ → เปิด YouTube Data API v3 → ข้อมูลเข้าสู่ระบบ → สร้างคีย์ API\n\nหากไม่มีทั้งสองอย่าง จะแสดงตัวอย่างภาพยนตร์ยอดนิยม</string>
     <string name="plex_info">ภาพพื้นหลังจากเซิร์ฟเวอร์ Plex ของคุณเอง: ดูต่อ และเพิ่มล่าสุด\n\nวิธีหา: app.plex.tv → เปิดเรื่องใดก็ได้ → ⋯ → ดูข้อมูล → ดู XML แล้วคัดลอกส่วนหลัง X-Plex-Token= ในที่อยู่ เก็บเป็นความลับเหมือนรหัสผ่าน</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">อนุญาตให้ Vibe Launcher ติดตั้งแอป แล้วเลือกติดตั้ง SmartTube อีกครั้ง</string>
     <string name="smarttube_failed">ติดตั้ง SmartTube ไม่สำเร็จ</string>
     <string name="play">เล่น</string>
-    <string name="backdrops">ภาพพื้นหลัง</string>
     <string name="reload_backdrops">โหลดภาพพื้นหลังใหม่</string>
     <string name="backdrops_reloading">กำลังดาวน์โหลดภาพพื้นหลังใหม่…</string>
     <string name="auto_hide_bar">ซ่อนอัตโนมัติ</string>
     <string name="slideshow_clock">นาฬิกาบนภาพพักหน้าจอ</string>
+    <string name="power_on_home">หน้าหลักเมื่อเปิดเครื่อง</string>
+    <string name="restart">รีสตาร์ท…</string>
     <string name="time_remaining">เหลือ %1$s</string>
     <string name="home_key_name">ปุ่มหน้าแรกของ Vibe Launcher</string>
     <string name="home_key_description">ทำให้ปุ่มหน้าแรกบนรีโมตเปิด Vibe Launcher แทนหน้าจอหลักของทีวี และกดค้างไว้เพื่อเปิดการตั้งค่าทีวี โดยไม่อ่านสิ่งใดบนหน้าจอ และส่งปุ่มอื่นทั้งหมดต่อไปตามปกติ</string>

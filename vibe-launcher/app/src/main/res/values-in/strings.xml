@@ -34,7 +34,6 @@
     <string name="on">Aktif</string>
     <string name="plex_token">Token Plex</string>
     <string name="not_set">Belum diatur</string>
-    <string name="save">Simpan</string>
     <string name="cancel">Batal</string>
     <string name="tab_general">Umum</string>
     <string name="tab_appearance">Tampilan</string>
@@ -48,7 +47,6 @@
     <string name="update_available">Pembaruan tersedia: %1$s</string>
     <string name="update_check_failed">%1$s · Tidak bisa memeriksa pembaruan</string>
     <string name="update_downloading">Mengunduh pembaruan…</string>
-    <string name="update_development_status">%1$s, dibuat dengan kunci tanda tangan lain: perbarui dari komputer dengan build-and-install.sh</string>
     <string name="update_development">Build ini memakai kunci tanda tangan lain: perbarui dari komputer, dengan build-and-install.sh</string>
     <string name="update_allow_installs">Izinkan Vibe Launcher memasang aplikasi, lalu pilih Perbarui lagi</string>
     <string name="update_no_installs">TV ini tidak mengizinkan aplikasi memasang pembaruan</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">Pembaruan tidak terpasang</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">Tersimpan</string>
+    <string name="phone_paste">Tempel kunci dari ponsel</string>
     <string name="scan_to_paste">Pindai dengan ponsel untuk menempelkan kunci</string>
     <string name="tmdb_notice">Latar memakai API TMDB tetapi tidak didukung atau disertifikasi oleh TMDB.</string>
-    <string name="about_key">Tentang kunci ini</string>
     <string name="tmdb_info">Latar bersih dan logo judul untuk film dan acara di kartu layar utama aplikasi Anda, menggantikan gambar dan stiker bawaan aplikasi. Berfungsi tanpa kunci, dari data gratis Stremio; TMDB adalah sumber resmi yang lebih andal.\n\nKunci gratis: themoviedb.org → Pengaturan → API → penggunaan pribadi.</string>
     <string name="youtube_info">Dengan SmartTube yang sudah masuk, ubin YouTube menampilkan video dari feed YouTube Anda sendiri. Tanpa kunci.\n\nTanpa itu, kunci menampilkan video terpopuler di negara Anda. Kunci gratis: console.cloud.google.com → proyek baru → aktifkan YouTube Data API v3 → Kredensial → Buat kunci API.\n\nTanpa keduanya, ditampilkan trailer film populer.</string>
     <string name="plex_info">Latar dari server Plex Anda sendiri: Lanjutkan menonton dan yang baru ditambahkan.\n\nCara mendapatkannya: app.plex.tv → buka judul apa saja → ⋯ → Dapatkan Info → Lihat XML, lalu salin bagian setelah X-Plex-Token= di alamatnya. Rahasiakan seperti kata sandi.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Izinkan Vibe Launcher menginstal aplikasi, lalu pilih Instal SmartTube lagi</string>
     <string name="smarttube_failed">SmartTube tidak terinstal</string>
     <string name="play">Putar</string>
-    <string name="backdrops">Latar</string>
     <string name="reload_backdrops">Muat ulang latar</string>
     <string name="backdrops_reloading">Mengunduh latar baru…</string>
     <string name="auto_hide_bar">Sembunyikan otomatis</string>
     <string name="slideshow_clock">Jam di screensaver</string>
+    <string name="power_on_home">Beranda saat dinyalakan</string>
+    <string name="restart">Mulai ulang…</string>
     <string name="time_remaining">Sisa %1$s</string>
     <string name="home_key_name">Tombol Beranda Vibe Launcher</string>
     <string name="home_key_description">Membuat tombol Beranda remote membuka Vibe Launcher, bukan layar beranda bawaan TV, dan menahannya membuka Setelan TV. Tidak membaca apa pun di layar dan meneruskan semua tombol lainnya.</string>

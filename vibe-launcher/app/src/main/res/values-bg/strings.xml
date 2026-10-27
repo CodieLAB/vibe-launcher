@@ -34,7 +34,6 @@
     <string name="on">Вкл.</string>
     <string name="plex_token">Токен за Plex</string>
     <string name="not_set">Не е зададен</string>
-    <string name="save">Запазване</string>
     <string name="cancel">Отказ</string>
     <string name="tab_general">Общи</string>
     <string name="tab_appearance">Облик</string>
@@ -48,7 +47,6 @@
     <string name="update_available">Има актуализация: %1$s</string>
     <string name="update_check_failed">%1$s · Не можа да се провери за актуализации</string>
     <string name="update_downloading">Изтегля се актуализацията…</string>
-    <string name="update_development_status">%1$s, създадена с друг ключ за подписване: актуализирайте от компютър с build-and-install.sh</string>
     <string name="update_development">Тази версия има друг ключ за подписване: актуализирайте я от компютър, с build-and-install.sh</string>
     <string name="update_allow_installs">Разрешете на Vibe Launcher да инсталира приложения и отново изберете Актуализиране</string>
     <string name="update_no_installs">Този телевизор не позволява на приложенията да инсталират актуализации</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">Актуализацията не се инсталира</string>
     <string name="cpu">CPU</string>
     <string name="ram">RAM</string>
-    <string name="saved">Запазено</string>
+    <string name="phone_paste">Поставяне на ключовете от телефона</string>
     <string name="scan_to_paste">Сканирайте с телефона, за да поставите ключовете</string>
     <string name="tmdb_notice">Фоновете използват API на TMDB, но не са одобрени или сертифицирани от TMDB.</string>
-    <string name="about_key">За този ключ</string>
     <string name="tmdb_info">Чисти фонове и логота на заглавията за филмите и сериалите от картите на началния екран на приложенията ви, вместо техните собствени изображения и стикери. Работи и без ключ, с безплатните данни на Stremio; TMDB е официалният, по-надежден източник.\n\nБезплатен ключ: themoviedb.org → Настройки → API → лична употреба.</string>
     <string name="youtube_info">Когато сте влезли в SmartTube, плочката на YouTube показва видеоклипове от собствения ви канал в YouTube. Не е нужен ключ.\n\nБез него ключ показва най-популярните видеоклипове във вашата държава. Безплатен ключ: console.cloud.google.com → нов проект → активирайте YouTube Data API v3 → Идентификационни данни → Създаване на API ключ.\n\nБез нито едно от двете показва трейлъри на популярни филми.</string>
     <string name="plex_info">Фонове от собствения ви Plex сървър: Продължаване на гледането и наскоро добавени.\n\nКак да го намерите: app.plex.tv → отворете кое да е заглавие → ⋯ → Информация → Преглед на XML и копирайте това след X-Plex-Token= в адреса. Пазете го в тайна като парола.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">Разрешете на Vibe Launcher да инсталира приложения, след което отново изберете Инсталиране на SmartTube</string>
     <string name="smarttube_failed">SmartTube не се инсталира</string>
     <string name="play">Пусни</string>
-    <string name="backdrops">Фонове</string>
     <string name="reload_backdrops">Презареди фоновете</string>
     <string name="backdrops_reloading">Изтегляне на нови фонове…</string>
     <string name="auto_hide_bar">Автоскриване</string>
     <string name="slideshow_clock">Часовник на скрийнсейвъра</string>
+    <string name="power_on_home">Начало при включване</string>
+    <string name="restart">Рестартиране…</string>
     <string name="time_remaining">Остават %1$s</string>
     <string name="home_key_name">Бутон „Начало“ за Vibe Launcher</string>
     <string name="home_key_description">Бутонът „Начало“ на дистанционното отваря Vibe Launcher вместо собствения начален екран на телевизора, а задържането му – настройките на телевизора. Не чете нищо от екрана и пропуска всички останали бутони.</string>

@@ -34,7 +34,6 @@
     <string name="on">تشغيل</string>
     <string name="plex_token">رمز Plex</string>
     <string name="not_set">غير مضبوط</string>
-    <string name="save">حفظ</string>
     <string name="cancel">إلغاء</string>
     <string name="tab_general">عام</string>
     <string name="tab_appearance">المظهر</string>
@@ -48,7 +47,6 @@
     <string name="update_available">يتوفر تحديث: %1$s</string>
     <string name="update_check_failed">%1$s · تعذّر البحث عن تحديثات</string>
     <string name="update_downloading">جارٍ تنزيل التحديث…</string>
-    <string name="update_development_status">%1$s، مبني بمفتاح توقيع مختلف: حدّثه من حاسوب باستخدام build-and-install.sh</string>
     <string name="update_development">هذا الإصدار بمفتاح توقيع مختلف: حدّثه من حاسوب باستخدام build-and-install.sh</string>
     <string name="update_allow_installs">اسمح لـ Vibe Launcher بتثبيت التطبيقات، ثم اختر التحديث مرة أخرى</string>
     <string name="update_no_installs">لا يسمح هذا التلفزيون للتطبيقات بتثبيت التحديثات</string>
@@ -56,10 +54,9 @@
     <string name="update_failed">لم يُثبَّت التحديث</string>
     <string name="cpu">المعالج</string>
     <string name="ram">الذاكرة</string>
-    <string name="saved">تم الحفظ</string>
+    <string name="phone_paste">لصق المفاتيح من هاتفك</string>
     <string name="scan_to_paste">امسح بهاتفك للصق المفاتيح</string>
     <string name="tmdb_notice">تستخدم الخلفيات واجهة TMDB API لكنها غير معتمدة أو مصدَّقة من TMDB.</string>
-    <string name="about_key">حول هذا المفتاح</string>
     <string name="tmdb_info">خلفيات نظيفة وشعارات العناوين للأفلام والمسلسلات في بطاقات الشاشة الرئيسية لتطبيقاتك، بدل صورها وملصقاتها. يعمل دون مفتاح، من بيانات Stremio المجانية؛ وTMDB هو المصدر الرسمي والأكثر موثوقية.\n\nمفتاح مجاني: themoviedb.org ← الإعدادات ← API ← الاستخدام الشخصي.</string>
     <string name="youtube_info">عند تسجيل الدخول إلى SmartTube، تعرض لوحة YouTube فيديوهات من خلاصتك الخاصة على YouTube. لا حاجة إلى مفتاح.\n\nبدونه، يعرض المفتاح أكثر الفيديوهات شعبية في بلدك. مفتاح مجاني: console.cloud.google.com ← مشروع جديد ← فعّل YouTube Data API v3 ← بيانات الاعتماد ← إنشاء مفتاح API.\n\nبدون أي منهما، تُعرض إعلانات أفلام شائعة.</string>
     <string name="plex_info">خلفيات من خادم Plex الخاص بك: متابعة المشاهدة والمضاف حديثًا.\n\nللعثور عليه: app.plex.tv ← افتح أي عنوان ← ⋯ ← الحصول على المعلومات ← عرض XML، وانسخ ما يلي X-Plex-Token= في العنوان. احفظه سرًّا مثل كلمة المرور.</string>
@@ -72,11 +69,12 @@
     <string name="smarttube_allow_installs">اسمح لـ Vibe Launcher بتثبيت التطبيقات، ثم اختر تثبيت SmartTube مرة أخرى</string>
     <string name="smarttube_failed">لم يتم تثبيت SmartTube</string>
     <string name="play">تشغيل</string>
-    <string name="backdrops">الخلفيات</string>
     <string name="reload_backdrops">إعادة تحميل الخلفيات</string>
     <string name="backdrops_reloading">جارٍ تنزيل خلفيات جديدة…</string>
     <string name="auto_hide_bar">إخفاء تلقائي</string>
     <string name="slideshow_clock">ساعة شاشة التوقف</string>
+    <string name="power_on_home">الرئيسية عند التشغيل</string>
+    <string name="restart">إعادة التشغيل…</string>
     <string name="time_remaining">متبقٍ: %1$s</string>
     <string name="home_key_name">زر الشاشة الرئيسية لـ Vibe Launcher</string>
     <string name="home_key_description">يجعل زر الشاشة الرئيسية في جهاز التحكم يفتح Vibe Launcher بدل الشاشة الرئيسية للتلفزيون، ويفتح الضغط المطوّل عليه إعدادات التلفزيون. لا يقرأ شيئًا على الشاشة ويمرّر كل زر آخر كما هو.</string>
